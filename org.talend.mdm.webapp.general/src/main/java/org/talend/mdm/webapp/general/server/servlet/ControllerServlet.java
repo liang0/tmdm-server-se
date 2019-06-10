@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -33,7 +33,7 @@ public class ControllerServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private static final Logger LOG = Logger.getLogger(ControllerServlet.class);
-    
+
     private static final Messages MESSAGES = MessagesFactory.getMessages("org.talend.mdm.webapp.general.server.servlet.messages", //$NON-NLS-1$
             ControllerServlet.class.getClassLoader());
 
@@ -108,7 +108,7 @@ public class ControllerServlet extends HttpServlet {
         for (String js : imports) {
             html.append(js);
         }
-        
+
         html.append("<link rel='stylesheet' type='text/css' href='secure/css/mdm.css'/>\n");
         // Custom HTML
         String customHtml = MDMConfiguration.getConfiguration().getProperty("mdm.custom.html");
@@ -144,9 +144,9 @@ public class ControllerServlet extends HttpServlet {
         html.append("<tr><td height='128' width='50%' class='logo'><img src='" + contextPath + "/auth/logo.png'></td></tr>");
         html.append("<tr><td class='suiteName' id='suiteName' colspan='2' height='56'>Talend MDM</td></tr>");
         html.append("</table>");
-        
+
         String errorTitle = MESSAGES.getMessage(locale, "login.error"); //$NON-NLS-1$
-        String backLogin = MESSAGES.getMessage(locale, "back.login"); //$NON-NLS-1$     
+        String backLogin = MESSAGES.getMessage(locale, "back.login"); //$NON-NLS-1$
 
         html.append("<h3>").append(errorTitle).append("</h3>"); //$NON-NLS-1$ //$NON-NLS-2$
         html.append("<p><font size='4' color='red'>").append(message).append("</font></p>"); //$NON-NLS-1$ //$NON-NLS-2$

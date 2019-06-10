@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (C) 2006-2013 Talend Inc. - www.talend.com
+  ~ Copyright (C) 2006-2019 Talend Inc. - www.talend.com
   ~
   ~ This source code is available under agreement available at
   ~ %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -104,8 +104,8 @@
                 </xsd:element>
                 <xsd:element ref="orderperson">
                     <xsd:annotation>
-			            <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>  
-                    </xsd:annotation> 
+			            <xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
+                    </xsd:annotation>
                 </xsd:element>
                 <xsd:element ref="shipto"/>
                 <xsd:element maxOccurs="unbounded" ref="item"/>

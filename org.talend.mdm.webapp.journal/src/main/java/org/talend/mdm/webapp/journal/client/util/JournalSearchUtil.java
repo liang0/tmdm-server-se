@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -21,7 +21,7 @@ import org.talend.mdm.webapp.journal.shared.JournalParameters;
  *
  */
 public class JournalSearchUtil {
-    
+
     public static JournalParameters buildParameter(JournalGridModel gridModel, String action, boolean isAuth){
         JournalParameters parameter = new JournalParameters();
         parameter.setDataClusterName(gridModel.getDataContainer());
@@ -36,10 +36,10 @@ public class JournalSearchUtil {
         parameter.setOperationType(gridModel.getOperationType());
         return parameter;
     }
-    
+
     private static String[] parseKey(String keyStr) {
         String [] ids = keyStr.split("\\."); //$NON-NLS-1$
-        
+
         if (keyStr.endsWith(".")) { //$NON-NLS-1$
             String [] idsPlus = new String[ids.length+1];
             for (int i=0; i < ids.length; i++) {

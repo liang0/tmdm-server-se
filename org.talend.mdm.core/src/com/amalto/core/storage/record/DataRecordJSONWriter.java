@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -50,7 +50,7 @@ public class DataRecordJSONWriter implements DataRecordWriter {
             if(record != null){
                 for (FieldMetadata field : record.getType().getFields()) {
                     field.accept(new DefaultMetadataVisitor<Void>() {
-    
+
                         private Void handleSimpleField(FieldMetadata field) {
                             if (delegator.hide(field)) {
                                 return null;
@@ -74,17 +74,17 @@ public class DataRecordJSONWriter implements DataRecordWriter {
                             }
                             return null;
                         }
-    
+
                         @Override
                         public Void visit(SimpleTypeFieldMetadata simpleField) {
                             return handleSimpleField(simpleField);
                         }
-    
+
                         @Override
                         public Void visit(EnumerationFieldMetadata enumField) {
                             return handleSimpleField(enumField);
                         }
-    
+
                         @Override
                         public Void visit(ContainedTypeFieldMetadata containedField) {
                             if (delegator.hide(containedField)) {
@@ -99,7 +99,7 @@ public class DataRecordJSONWriter implements DataRecordWriter {
                                     {
                                         writer.array();
                                         if (values != null) {
-                                            
+
                                             for (DataRecord value : values) {
                                                 writeRecord(value, writer);
                                             }
@@ -112,7 +112,7 @@ public class DataRecordJSONWriter implements DataRecordWriter {
                             }
                             return null;
                         }
-    
+
                         @Override
                         public Void visit(ReferenceFieldMetadata referenceField) {
                             return handleSimpleField(referenceField);

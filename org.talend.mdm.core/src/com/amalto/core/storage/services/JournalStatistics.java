@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -90,9 +90,9 @@ public class JournalStatistics {
     @Path("{container}")
     @ApiOperation(value="Returns journal entries for container")
     public Response getJournalStatistics(
-            @ApiParam(value="Container name") @PathParam("container") String containerName, 
-            @ApiParam(value="Optional language to get translated types names") @QueryParam("lang") String language, 
-            @ApiParam(value="Only return entries not older than x seconds") @QueryParam("timeframe") Long timeFrame, 
+            @ApiParam(value="Container name") @PathParam("container") String containerName,
+            @ApiParam(value="Optional language to get translated types names") @QueryParam("lang") String language,
+            @ApiParam(value="Only return entries not older than x seconds") @QueryParam("timeframe") Long timeFrame,
             @ApiParam(value="Limit result to the first x entries") @QueryParam("top") Integer top) {
         StorageAdmin storageAdmin = ServerContext.INSTANCE.get().getStorageAdmin();
         Storage dataStorage = storageAdmin.get(containerName, StorageType.MASTER);

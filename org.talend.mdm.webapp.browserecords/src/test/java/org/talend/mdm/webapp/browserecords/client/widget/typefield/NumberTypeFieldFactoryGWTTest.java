@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -39,14 +39,14 @@ public class NumberTypeFieldFactoryGWTTest extends GWTTestCase {
         session.put(UserSession.APP_HEADER, new AppHeader());
         Registry.register(BrowseRecords.USER_SESSION, session);
     }
-    
+
     public void testCreateField(){
         // beacuse GWT getValue method can't use the BigDecimal, all the BigDecimal use the Double to deal with.
         TypeModel typeModel = new SimpleTypeModel("price", DataTypeConstants.DECIMAL);
         TypeFieldCreateContext context = new TypeFieldCreateContext(typeModel);
         context.setWithValue(true);
         context.setNode(getItemNodeModel("price", "12.90", "decimalValue"));
-        
+
         NumberTypeFieldFactory dateTimeTypeFieldFactory = new NumberTypeFieldFactory(new TypeFieldSource(
                 TypeFieldSource.FORM_INPUT), context);
         Field<?> field = dateTimeTypeFieldFactory.createField();
@@ -57,8 +57,8 @@ public class NumberTypeFieldFactoryGWTTest extends GWTTestCase {
         assertEquals("12.90", dateField.getPropertyEditor().getStringValue(dateField.getValue()));
         assertTrue(field.getValue() instanceof BigDecimal);
         assertEquals(true, dateField.isValid());
-        
-        
+
+
         List<FacetModel> facets = new ArrayList<FacetModel>();
         facets.add(new FacetModel(FacetEnum.TOTAL_DIGITS.getFacetName(), "15"));
         facets.add(new FacetModel(FacetEnum.FRACTION_DIGITS.getFacetName(), "3"));
@@ -102,14 +102,14 @@ public class NumberTypeFieldFactoryGWTTest extends GWTTestCase {
         assertEquals(true, dateField.isValid());
         assertTrue(field.getValue() instanceof Double);
     }
-    
+
     private ItemNodeModel getItemNodeModel(String name, String value, String label){
         ItemNodeModel node = new ItemNodeModel(name);
         node.setObjectValue(value);
         node.setLabel(label);
         return node;
     }
-    
+
     @Override
     public String getModuleName() {
         return "org.talend.mdm.webapp.browserecords.TestBrowseRecords";

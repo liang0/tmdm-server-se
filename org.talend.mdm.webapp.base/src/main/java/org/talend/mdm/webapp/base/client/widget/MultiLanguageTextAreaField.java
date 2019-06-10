@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -19,23 +19,23 @@ import com.google.gwt.user.client.Element;
 
 
 public class MultiLanguageTextAreaField extends MultiLanguageField {
-    
+
     private Element textFieldDisable;
-    
+
     public MultiLanguageTextAreaField() {
         super();
         setSize(100, 60);
     }
-    
+
     public MultiLanguageTextAreaField(boolean isFormInput) {
         super(isFormInput);
     }
-    
+
     public MultiLanguageTextAreaField(boolean isFormInput, HashMap<String,String> userProperties) {
         super(isFormInput);
         setUserProperties(userProperties);
     }
-    
+
     @Override
     protected void onRender(Element target, int index) {
         if (isEditable()) {
@@ -99,11 +99,11 @@ public class MultiLanguageTextAreaField extends MultiLanguageField {
                 input = el().firstChild();
             }
         }
-        
+
         getInputEl().setStyleAttribute("height", "56px"); //$NON-NLS-1$ //$NON-NLS-2$
-        
+
         super.onRender(target, index);
-        
+
         addInputStyleName("x-form-textarea"); //$NON-NLS-1$
     }
 }

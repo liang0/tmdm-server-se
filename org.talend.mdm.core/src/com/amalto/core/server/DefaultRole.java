@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -27,7 +27,7 @@ import com.amalto.core.util.XtentisException;
 public class DefaultRole implements Role {
 
     private static final Logger LOGGER = Logger.getLogger(DefaultRole.class);
-    
+
     public RolePOJOPK putRole(RolePOJO role) throws XtentisException {
         LOGGER.trace("putRole() ");
         try {
@@ -96,14 +96,14 @@ public class DefaultRole implements Role {
     public Collection<RolePOJOPK> getRolePKs(String regex) throws XtentisException {
         Collection<ObjectPOJOPK> c = ObjectPOJO.findAllPKs(RolePOJO.class, regex);
         ArrayList<RolePOJOPK> l = new ArrayList<RolePOJOPK>();
-        for (ObjectPOJOPK currentObject : c) {  
+        for (ObjectPOJOPK currentObject : c) {
             if (currentObject.getIds().length > 0){
                 String roleName = currentObject.getIds()[0];
                 if (roleName.startsWith(ICoreConstants.SYSTEM_ROLE_PREFIX) || ICoreConstants.ADMIN_PERMISSION.equals(roleName)) {
                     continue;
                 }
                 l.add(new RolePOJOPK(currentObject));
-            }            
+            }
         }
 
         Collections.sort(l, new Comparator<RolePOJOPK>() {

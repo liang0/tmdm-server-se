@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -69,7 +69,7 @@ import static com.amalto.core.query.user.UserQueryBuilder.*;
 public class StorageWrapper implements IXmlServerSLWrapper {
 
     private static final Logger LOGGER = Logger.getLogger(StorageWrapper.class);
-    
+
     protected static final String PROVISIONING_PREFIX_INFO = "PROVISIONING.User."; //$NON-NLS-1$
 
     private final DataRecordReader<String> xmlStringReader = new XmlStringDataRecordReader();
@@ -90,7 +90,7 @@ public class StorageWrapper implements IXmlServerSLWrapper {
         Collection<FieldMetadata> keyFields = type.getKeyFields();
         if (splitUniqueID.length < (2 + keyFields.size())) {
             throw new IllegalArgumentException("ID '" + uniqueID + "' does not contain all required values for key of type '" + type.getName()); //$NON-NLS-1$ //$NON-NLS-2$
-        } 
+        }
         if (keyFields.size() == 1) {
             String uniqueIDPrefix = splitUniqueID[0] + '.' + splitUniqueID[1] + '.';
             String key = StringUtils.removeStart(uniqueID, uniqueIDPrefix);
@@ -164,13 +164,13 @@ public class StorageWrapper implements IXmlServerSLWrapper {
 
     @Override
     public long putDocumentFromFile(String fileName, String uniqueID, String clusterName) throws XmlServerException {
-    
+
         return putDocumentFromFile(fileName, uniqueID, clusterName, IXmlServerSLWrapper.TYPE_DOCUMENT);
     }
 
     @Override
     public long putDocumentFromFile(String fileName, String uniqueID, String clusterName, String documentType) throws XmlServerException {
-    
+
         long startTime = System.currentTimeMillis();
         File file = new File(fileName);
         if (!file.canRead()) {
@@ -192,13 +192,13 @@ public class StorageWrapper implements IXmlServerSLWrapper {
 
     @Override
     public long putDocumentFromString(String xmlString, String uniqueID, String clusterName) throws XmlServerException {
-    
+
         return putDocumentFromString(xmlString, uniqueID, clusterName, null);
     }
 
     @Override
     public long putDocumentFromString(String xmlString, String uniqueID, String clusterName, String documentType) throws XmlServerException {
-    
+
         String typeName = getTypeName(uniqueID);
         long start = System.currentTimeMillis();
         {
@@ -216,7 +216,7 @@ public class StorageWrapper implements IXmlServerSLWrapper {
 
     @Override
     public long putDocumentFromDOM(Element root, String uniqueID, String clusterName) throws XmlServerException {
-    
+
         String typeName = getTypeName(uniqueID);
         long start = System.currentTimeMillis();
         {
@@ -231,7 +231,7 @@ public class StorageWrapper implements IXmlServerSLWrapper {
 
     @Override
     public long putDocumentFromSAX(String dataClusterName, XMLReader docReader, InputSource input) throws XmlServerException {
-    
+
         String typeName = getTypeName(input.getPublicId());
         long start = System.currentTimeMillis();
         {
@@ -315,7 +315,7 @@ public class StorageWrapper implements IXmlServerSLWrapper {
         }
         try {
             List<String> uniqueIDs = new LinkedList<String>();
-            storage.begin();            
+            storage.begin();
             for (ComplexTypeMetadata currentType : typeToQuery) {
                 UserQueryBuilder qb = from(currentType).selectId(currentType);
                 StorageResults results = storage.fetch(qb.getSelect());
@@ -337,7 +337,7 @@ public class StorageWrapper implements IXmlServerSLWrapper {
 
     @Override
     public long deleteDocument(String clusterName, final String uniqueID, String documentType) throws XmlServerException {
-    
+
         long start = System.currentTimeMillis();
         {
             String typeName = getTypeName(uniqueID);
@@ -462,7 +462,7 @@ public class StorageWrapper implements IXmlServerSLWrapper {
                 String param = parameters[i];
                 query = query.replaceAll("([^\\\\])%" + i + "([^\\d]*)", "$1" + param + "$2"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
             }
-        }   
+        }
         StorageResults results = null;
         try {
             storage.begin();
@@ -567,7 +567,7 @@ public class StorageWrapper implements IXmlServerSLWrapper {
         List<String> list = new LinkedList<String>();
         StorageResults results = storage.fetch(buildQueryBuilder(qb, criteria, type).getSelect());
         DataRecordWriter writer = new ItemPKCriteriaResultsWriter(resultElementName, type);
-        ResettableStringWriter stringWriter = new ResettableStringWriter();       
+        ResettableStringWriter stringWriter = new ResettableStringWriter();
         try {
             for (DataRecord result : results) {
                 writer.write(result, stringWriter);
@@ -696,11 +696,11 @@ public class StorageWrapper implements IXmlServerSLWrapper {
 
         return qb;
     }
-    
+
     @Override
     public void clearCache() {
     }
-    
+
     @Override
     public boolean supportTransaction() {
         return true;
@@ -749,7 +749,7 @@ public class StorageWrapper implements IXmlServerSLWrapper {
     public void close() throws XmlServerException {
         getStorageAdmin().close();
     }
-    
+
     @Override
     public List<String> globalSearch(String dataCluster, String keyword, int start, int end) throws XmlServerException {
         Storage storage = getStorage(dataCluster);
@@ -854,7 +854,7 @@ public class StorageWrapper implements IXmlServerSLWrapper {
             return new String[0];
         }
         List<String> xmlStrings = new ArrayList<String>(uniqueIDs.length);
-        for (String uniqueID : uniqueIDs) { 
+        for (String uniqueID : uniqueIDs) {
             xmlStrings.add(getDocumentAsString(clusterName, uniqueID, encoding));
         }
         return xmlStrings.toArray(new String[xmlStrings.size()]);
@@ -874,7 +874,7 @@ public class StorageWrapper implements IXmlServerSLWrapper {
             ByteArrayOutputStream output = new ByteArrayOutputStream(1024);
             // Enforce root element name in case query returned instance of a subtype.
             DataRecordWriter dataRecordXmlWriter = isUserFormat ? new DataRecordXmlWriter(type) : new SystemDataRecordXmlWriter(
-                    (ClassRepository) getStorage(clusterName).getMetadataRepository(), type);           
+                    (ClassRepository) getStorage(clusterName).getMetadataRepository(), type);
             if (isUserFormat) {
                 dataRecordXmlWriter.setSecurityDelegator(SecuredStorage.getDelegator());
                 String key = uniqueID.startsWith(PROVISIONING_PREFIX_INFO) ? StringUtils.substringAfter(uniqueID,
@@ -920,7 +920,7 @@ public class StorageWrapper implements IXmlServerSLWrapper {
         while (iterator.hasNext()) { // TMDM-6712: Consumes all results in iterator
             iterator.next();
             if (recordsLeft % 10 == 0) {
-                logger.warn("Processing query with id '"+ uniqueID +"' lead to unexpected number of results (" + recordsLeft + " so far)."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
+                logger.warn("Processing query with id '"+ uniqueID +"' lead to unexpected number of results (" + recordsLeft + " so far)."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             }
             recordsLeft++;
         }

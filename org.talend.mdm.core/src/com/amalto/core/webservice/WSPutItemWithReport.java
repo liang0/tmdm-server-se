@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -19,36 +19,36 @@ public class WSPutItemWithReport {
     protected java.lang.Boolean warningApprovedBeforeSave = false;
     protected java.lang.String messageType;
     protected java.lang.String message;
-    
+
     public WSPutItemWithReport() {
     }
-    
+
     public WSPutItemWithReport(com.amalto.core.webservice.WSPutItem wsPutItem, java.lang.String source, java.lang.Boolean invokeBeforeSaving) {
         this.wsPutItem = wsPutItem;
         this.source = source;
         this.invokeBeforeSaving = invokeBeforeSaving;
     }
-    
+
     public com.amalto.core.webservice.WSPutItem getWsPutItem() {
         return wsPutItem;
     }
-    
+
     public void setWsPutItem(com.amalto.core.webservice.WSPutItem wsPutItem) {
         this.wsPutItem = wsPutItem;
     }
-    
+
     public java.lang.String getSource() {
         return source;
     }
-    
+
     public void setSource(java.lang.String source) {
         this.source = source;
     }
-    
+
     public java.lang.Boolean getInvokeBeforeSaving() {
         return invokeBeforeSaving;
     }
-    
+
     public void setInvokeBeforeSaving(java.lang.Boolean invokeBeforeSaving) {
         this.invokeBeforeSaving = invokeBeforeSaving;
     }

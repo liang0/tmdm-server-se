@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -83,7 +83,7 @@ public abstract class ILocalUser implements IBeanDelegator {
         }
         return (String) principal;
     }
-    
+
     public String getUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
@@ -133,7 +133,7 @@ public abstract class ILocalUser implements IBeanDelegator {
 
     public void setUsername(String username) {
     }
-    
+
     public boolean userCanRead(Class<?> objectTypeClass, String instanceId) throws XtentisException {
         return true;
     }

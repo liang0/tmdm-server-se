@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -27,7 +27,7 @@ public interface ForeignKeyRender {
             ItemDetailToolBar toolBar, ViewBean pkViewBean, ContentPanel cp, ItemsDetailPanel detailPanel);
 
     public void removeRelationFkPanel(ItemNodeModel parentModel);
-    
+
     public void setRelationFk(ItemNodeModel parentModel, ItemDetailTabPanelContentHandle handle);
 
     public void recrusiveSetItems(VisibleRuleResult visibleResult) ;

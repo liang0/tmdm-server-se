@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -54,7 +54,7 @@ import junit.framework.TestCase;
  */
 @SuppressWarnings("nls")
 public class DefaultItemTest extends TestCase {
-    
+
     @Override
     public void tearDown() throws Exception {
         ServerContext.INSTANCE.close();
@@ -64,7 +64,7 @@ public class DefaultItemTest extends TestCase {
     public void setUp() throws Exception {
         ServerContext.INSTANCE.get(new MockServerLifecycle());
     }
-    
+
     public void testCount() throws Exception {
         Server server = ServerContext.INSTANCE.get();
         assertNotNull(server);
@@ -72,7 +72,7 @@ public class DefaultItemTest extends TestCase {
         MetadataRepository repository = new MetadataRepository();
         repository.load(DefaultItemTest.class.getResourceAsStream("../query/metadata.xsd"));
         MockMetadataRepositoryAdmin.INSTANCE.register("DStar", repository);
-                
+
         StorageAdmin storageAdmin = server.getStorageAdmin();
         assertNotNull(storageAdmin);
         Storage storage = storageAdmin.create("DStar", "DStar", StorageType.MASTER, "H2-DS1");
@@ -80,10 +80,10 @@ public class DefaultItemTest extends TestCase {
 
         ComplexTypeMetadata person = repository.getComplexType("Person");
         assertNotNull(person);
-        
+
         DataRecordReader<String> factory = new XmlStringDataRecordReader();
         List<DataRecord> allRecords = new LinkedList<DataRecord>();
-        
+
         allRecords.add(factory.read(repository, person,
                         "<Person><id>3</id><score>200000.00</score><lastname>Leblanc</lastname><middlename>John</middlename><firstname>Juste</firstname><age>30</age><Status>Friend</Status></Person>"));
         allRecords.add(factory.read(repository, person,
@@ -95,7 +95,7 @@ public class DefaultItemTest extends TestCase {
         Item item = new DefaultItem();
         long count = item.count(new DataClusterPOJOPK("DStar"), "Person", null, 0);
         assertTrue(count == 2);
-        
+
         ArrayList<IWhereItem> conditions = new ArrayList<IWhereItem>();
         conditions.add(new WhereCondition("Person/firstname",
                 WhereCondition.EQUALS, "Juste", "NONE"));
@@ -214,7 +214,7 @@ public class DefaultItemTest extends TestCase {
         assertNotNull(t);
         assertTrue(t instanceof com.amalto.core.util.XtentisException);
         assertTrue(t.getMessage().startsWith("Unable to single search:"));
-        
+
         // 6 sort
         allRecords = new LinkedList<DataRecord>();
         allRecords.add(factory.read(repository, person,
@@ -252,7 +252,7 @@ public class DefaultItemTest extends TestCase {
         } catch (Exception e) {
             fail("Query failed");
         }
-        
+
         // 6.2 none sort
         try {
             parseResult = parseResult(item.viewSearch(new DataClusterPOJOPK("DStar"), new ViewPOJOPK("Browse_items_Person_None"), null, null, null, 0, 20));
@@ -349,7 +349,7 @@ public class DefaultItemTest extends TestCase {
         }
     }
 
-    
+
     /*
      * object[0] = id object[1] = firstname object[2] = middlename obejct[3] = lastname object[4] = resume
      */
@@ -406,7 +406,7 @@ public class DefaultItemTest extends TestCase {
                 viewPOJO.setSortField("Person/firstname");
                 viewPOJO.setIsAsc(true);
             }
-             
+
             ArrayListHolder<String> searchableBusinessElements = new ArrayListHolder<String>();
             searchableBusinessElements.setList(list);
             viewPOJO.setSearchableBusinessElements(searchableBusinessElements);

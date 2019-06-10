@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -14,7 +14,7 @@ import org.dom4j.Document;
 
 
 public class XmlUtil {
-    
+
     public static Document parseDocument(org.w3c.dom.Document doc) {
         if (doc == null) {
             return (null);
@@ -22,7 +22,7 @@ public class XmlUtil {
         org.dom4j.io.DOMReader xmlReader = new org.dom4j.io.DOMReader();
         return (xmlReader.read(doc));
     }
-    
+
     public static String escapeXml(String value) {
         if (value == null)
             return null;

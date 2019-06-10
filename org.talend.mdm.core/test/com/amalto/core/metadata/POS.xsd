@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (C) 2006-2016 Talend Inc. - www.talend.com
+  ~ Copyright (C) 2006-2019 Talend Inc. - www.talend.com
   ~
   ~ This source code is available under agreement available at
   ~ %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -14,7 +14,7 @@
         <xsd:annotation>
 			<xsd:appinfo source="X_Label_EN">Point of sale</xsd:appinfo>
 			<xsd:appinfo source="X_Label_FR">Point de vente</xsd:appinfo>
-			<xsd:appinfo source="X_Label_RU">Торговая точка</xsd:appinfo>		
+			<xsd:appinfo source="X_Label_RU">Торговая точка</xsd:appinfo>
 			<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
 			<xsd:appinfo source="X_Description_EN">Point of Sale Desc</xsd:appinfo>
 			<xsd:appinfo source="X_Description_FR">Point de vente Desc</xsd:appinfo>
@@ -27,9 +27,9 @@
 					</xsd:annotation>
 				</xsd:element>
 				<xsd:element maxOccurs="1" minOccurs="0" name="Name" type="MULTI_LINGUAL">
-					<xsd:annotation>				
+					<xsd:annotation>
 						<xsd:appinfo source="X_Label_EN">POS Name</xsd:appinfo>
-						<xsd:appinfo source="X_Label_FR">Nom PV</xsd:appinfo>				
+						<xsd:appinfo source="X_Label_FR">Nom PV</xsd:appinfo>
 						<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
 						<xsd:appinfo source="X_Description_EN">Name Desc</xsd:appinfo>
 						<xsd:appinfo source="X_Description_FR">Nom Desc</xsd:appinfo>
@@ -40,9 +40,9 @@
 						<xsd:appinfo source="X_ForeignKey">Brand/BrandId</xsd:appinfo>
 						<xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
 						<xsd:appinfo source="X_ForeignKeyInfo">Brand/Name</xsd:appinfo>
-						<xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>						
+						<xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
 						<xsd:appinfo source="X_Label_EN">Brand</xsd:appinfo>
-						<xsd:appinfo source="X_Label_FR">Marque</xsd:appinfo>					
+						<xsd:appinfo source="X_Label_FR">Marque</xsd:appinfo>
 						<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
 						<xsd:appinfo source="X_Description_EN">Brand Desc</xsd:appinfo>
 						<xsd:appinfo source="X_Description_FR">Marque Desc</xsd:appinfo>
@@ -50,10 +50,10 @@
 				</xsd:element>
 				<xsd:element maxOccurs="1" minOccurs="0" name="SAP1" type="String50Type">
 					<xsd:annotation>
-					
+
 						<xsd:appinfo source="X_Label_EN">SAP Code 1</xsd:appinfo>
 						<xsd:appinfo source="X_Label_FR">SAP Code 1</xsd:appinfo>
-						
+
 						<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
 					</xsd:annotation>
 				</xsd:element>
@@ -68,41 +68,41 @@
 						<xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
 						<xsd:appinfo source="X_ForeignKeyInfo">Status/Name</xsd:appinfo>
 						<xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
-						
+
 						<xsd:appinfo source="X_Label_EN">Status</xsd:appinfo>
 						<xsd:appinfo source="X_Label_FR">Status</xsd:appinfo>
-						
+
 						<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
 					</xsd:annotation>
 				</xsd:element>
 				<xsd:element maxOccurs="1" minOccurs="0" name="Address" type="AddressType">
 					<xsd:annotation>
-						<xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>						
+						<xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
 						<xsd:appinfo source="X_Label_EN">Address</xsd:appinfo>
 						<xsd:appinfo source="X_Label_FR">Adresse</xsd:appinfo>
-						<xsd:appinfo source="X_Label_RU">адрес</xsd:appinfo>						
+						<xsd:appinfo source="X_Label_RU">адрес</xsd:appinfo>
 						<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
-						<xsd:appinfo source="X_Description_EN">Address Desc</xsd:appinfo>  
-            			<xsd:appinfo source="X_Description_FR">Adresse Desc</xsd:appinfo> 
+						<xsd:appinfo source="X_Description_EN">Address Desc</xsd:appinfo>
+            			<xsd:appinfo source="X_Description_FR">Adresse Desc</xsd:appinfo>
 					</xsd:annotation>
 				</xsd:element>
 				<xsd:element maxOccurs="1" minOccurs="0" name="POSContactDetails" type="ContactDetailsType">
 					<xsd:annotation>
 						<xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
-						
+
 						<xsd:appinfo source="X_Label_EN">Contact Details</xsd:appinfo>
 						<xsd:appinfo source="X_Label_FR">Détails du contact</xsd:appinfo>
-						
+
 						<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
 					</xsd:annotation>
 				</xsd:element>
 				<xsd:element maxOccurs="1" minOccurs="0" name="ManagerContactDetails" type="ManagerContactDetailsType2">
 					<xsd:annotation>
-					
+
 						<xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
 						<xsd:appinfo source="X_Label_EN">Manager Details</xsd:appinfo>
 						<xsd:appinfo source="X_Label_FR">Informations sur le gérant</xsd:appinfo>
-						
+
 						<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
 					</xsd:annotation>
 				</xsd:element>
@@ -136,7 +136,7 @@
 
 <xsd:annotation>
 	<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
-	<xsd:appinfo source="X_Label_EN">BrandId</xsd:appinfo>  
+	<xsd:appinfo source="X_Label_EN">BrandId</xsd:appinfo>
     <xsd:appinfo source="X_Label_FR">MarqueId</xsd:appinfo>
 </xsd:annotation>
 </xsd:element>
@@ -426,11 +426,11 @@
 	<xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
 	<xsd:appinfo source="X_ForeignKeyInfo">PointOfSale/Name</xsd:appinfo>
 	<xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
-	
+
 	<xsd:appinfo source="X_Label_EN">Point of Sale</xsd:appinfo>
 	<xsd:appinfo source="X_Label_FR">Point de vente</xsd:appinfo>
-	
-	<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>		
+
+	<xsd:appinfo source="X_Write">Demo_Manager</xsd:appinfo>
 </xsd:annotation>
 </xsd:element>
 <xsd:element maxOccurs="1" minOccurs="1" name="ProductFk" type="String10Type">

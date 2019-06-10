@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -186,7 +186,7 @@ public class MDMTransactionManager implements TransactionManager {
             if(!transactionStack.contains(transaction)){
                 getTransactionStack().push(transaction);
             }
-             
+
         }
         return transaction;
     }
@@ -208,11 +208,11 @@ public class MDMTransactionManager implements TransactionManager {
     public boolean hasTransaction() {
         return !getTransactionStack().isEmpty();
     }
-    
+
     private Stack<Transaction> getTransactionStack(){
         return getTransactionStack(Thread.currentThread());
     }
-    
+
     private Stack<Transaction> getTransactionStack(Thread t){
         Stack<Transaction> currentStack = currentTransactions.get(t);
         if(currentStack == null){
@@ -221,7 +221,7 @@ public class MDMTransactionManager implements TransactionManager {
         }
         return currentStack;
     }
-    
+
     private boolean currentTransactionsContains(Transaction t){
         return getTransactionStack().contains(t);
     }

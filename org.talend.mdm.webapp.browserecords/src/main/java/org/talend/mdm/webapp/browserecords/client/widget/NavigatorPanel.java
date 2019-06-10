@@ -1,15 +1,15 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -66,15 +66,15 @@ import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.ui.SimplePanel;
 
 public class NavigatorPanel extends ContentPanel {
-    
+
     private String NAVIGATOR_PAGESIZE = "navigator_pagesize"; //$NON-NLS-1$
-    
+
     private BrowseRecordsServiceAsync service = (BrowseRecordsServiceAsync) Registry.get(BrowseRecords.BROWSERECORDS_SERVICE);
-    
+
     private int NAVIGATOR_NODE_INIT_TYPE = 0;
-    
+
     private int NAVIGATOR_NODE_IN_ENTITY_TYPE = 1;
-    
+
     private int NAVIGATOR_NODE_OUT_ENTITY_TYPE = 2;
 
     private ContentPanel navigatorPanel;
@@ -88,11 +88,11 @@ public class NavigatorPanel extends ContentPanel {
     private boolean isHierarchyCall = false;
 
     private String operation = ItemDetailToolBar.VIEW_OPERATION;
-    
+
     private int pageSize = 5;
-    
+
     private Window settingWindow;
-    
+
     public NavigatorPanel() {
         setId(MessagesFactory.getMessages().navigator_panel_label());
         initPanel();
@@ -102,7 +102,7 @@ public class NavigatorPanel extends ContentPanel {
     private void initPanel() {
         setHeaderVisible(false);
         setLayout(new BorderLayout());
-        setStyleAttribute("height", "100%"); //$NON-NLS-1$ //$NON-NLS-2$  
+        setStyleAttribute("height", "100%"); //$NON-NLS-1$ //$NON-NLS-2$
         BorderLayoutData westData = new BorderLayoutData(LayoutRegion.WEST,800);
         westData.setMargins(new Margins(0, 5, 0, 0));
         westData.setSplit(true);
@@ -111,15 +111,15 @@ public class NavigatorPanel extends ContentPanel {
         westData.setMaxSize(7000);
         initNavigatorPanel();
         add(navigatorPanel, westData);
-        
+
         BorderLayoutData centerData = new BorderLayoutData(LayoutRegion.CENTER);
         initDetailPanel();
         add(detailPanel, centerData);
-        
+
         if (Cookies.getCookie(NAVIGATOR_PAGESIZE) != null) {
             pageSize = Integer.parseInt(Cookies.getCookie(NAVIGATOR_PAGESIZE));
         }
-        
+
         settingWindow = new Window();
         settingWindow.setHeading(MessagesFactory.getMessages().setting_window_title());
         settingWindow.setWidth(300);
@@ -129,7 +129,7 @@ public class NavigatorPanel extends ContentPanel {
         settingWindow.setLayout(new FitLayout());
         settingWindow.setModal(true);
         settingWindow.setBlinkModal(true);
-        
+
         HorizontalPanel horizontalPanel = new HorizontalPanel();
         TableData layoutData = new TableData();
         layoutData.setPadding(10);
@@ -251,15 +251,15 @@ public class NavigatorPanel extends ContentPanel {
             }
         });
     }
-    
+
     public int getPageSize() {
         return this.pageSize;
     }
-    
+
     public void showSettingWindow() {
         settingWindow.show();
     }
-    
+
     public void sessionExpired() {
         MessageBox.alert(BaseMessagesFactory.getMessages().warning_title(), BaseMessagesFactory.getMessages()
                 .session_timeout_error(), new Listener<MessageBoxEvent>() {
@@ -270,7 +270,7 @@ public class NavigatorPanel extends ContentPanel {
             }
         });
     }
-    
+
     private Validator validator = new Validator() {
         @Override
         public String validate(Field<?> field, String value) {
@@ -295,7 +295,7 @@ public class NavigatorPanel extends ContentPanel {
             return true;
         }
     }
-    
+
     public void handleNodeLabel(String jsonString,String type) {
         final int nodeType = Integer.parseInt(type);
         service.handleNavigatorNodeLabel(jsonString,Locale.getLanguage(), new SessionAwareAsyncCallback<String>() {
@@ -309,7 +309,7 @@ public class NavigatorPanel extends ContentPanel {
                 } else if (nodeType == NAVIGATOR_NODE_OUT_ENTITY_TYPE) {
                     paintOutDataNode(data);;
                 }
-                
+
             }
         });
     }
@@ -343,40 +343,40 @@ public class NavigatorPanel extends ContentPanel {
         $wnd.amalto.navigator.Navigator.openRecord = function(ids, concept) {
             instance.@org.talend.mdm.webapp.browserecords.client.widget.NavigatorPanel::updateDetailPanel(Ljava/lang/String;Ljava/lang/String;)(ids, concept);
         }
-                
+
         $wnd.amalto.navigator.Navigator.handleNodeLabel = function(value,type) {
             return instance.@org.talend.mdm.webapp.browserecords.client.widget.NavigatorPanel::handleNodeLabel(Ljava/lang/String;Ljava/lang/String;)(value,type);
         }
-        
+
         $wnd.amalto.navigator.Navigator.sessionExpired = function() {
             instance.@org.talend.mdm.webapp.browserecords.client.widget.NavigatorPanel::sessionExpired()();
         }
         $wnd.amalto.navigator.Navigator.getPageSize = function() {
             return instance.@org.talend.mdm.webapp.browserecords.client.widget.NavigatorPanel::getPageSize()();
         }
-        
+
         $wnd.amalto.navigator.Navigator.showSettingWindow = function() {
             instance.@org.talend.mdm.webapp.browserecords.client.widget.NavigatorPanel::showSettingWindow()();
-        }        
+        }
     }-*/;
 
     public native static void paintNavigator(String restServiceUrl, String ids, String concept, String cluster,boolean hasPrimaryKeyInfo, String language)/*-{
         $wnd.amalto.itemsbrowser.NavigatorPanel.initUI(restServiceUrl, ids, concept,
                 cluster,hasPrimaryKeyInfo, language);
     }-*/;
-    
+
     public native static void initDataNode(String data)/*-{
         $wnd.amalto.itemsbrowser.NavigatorPanel.initDataNode(data);
     }-*/;
-    
+
     public native static void paintInDataNode(String data)/*-{
         $wnd.amalto.itemsbrowser.NavigatorPanel.paintInDataNode(data);
     }-*/;
-    
+
     public native static void paintOutDataNode(String data)/*-{
         $wnd.amalto.itemsbrowser.NavigatorPanel.paintOutDataNode(data);
     }-*/;
-    
+
     public native static void resizeNavigator()/*-{
         $wnd.amalto.itemsbrowser.NavigatorPanel.resize();
     }-*/;

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -12,7 +12,7 @@ package org.talend.mdm.webapp.browserecords.server.bizhelpers;
 import java.io.BufferedReader;
 //============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -70,7 +70,7 @@ public class CustomLayoutTest extends TestCase {
         assertEquals("/Customer/picture", result.getColumnTreeModels().get(1).getColumnElements().get(0).getxPath());
         assertEquals("/2", result.getColumnTreeModels().get(1).getColumnElements().get(1).getParent());
         assertEquals("/Customer/country", result.getColumnTreeModels().get(1).getColumnElements().get(1).getxPath());
-        
+
         xml = inputStream2String(this.getClass().getResourceAsStream("productform.xml"));
         doc = Util.parse(xml);
         root = doc.getDocumentElement();
@@ -88,7 +88,7 @@ public class CustomLayoutTest extends TestCase {
         assertEquals("_4EnJUmKFEeG_l-qIWXZr4g", result.getColumnTreeModels().get(1).getColumnElements().get(1).getParent());
         assertNotNull(result.getColumnTreeModels().get(1).getColumnElements().get(2).getHtmlSnippet());
         assertNotSame(0, result.getColumnTreeModels().get(1).getColumnElements().get(2).getHtmlSnippet().trim().length());
-        
+
         xml = inputStream2String(this.getClass().getResourceAsStream("Store.xml"));
         doc = Util.parse(xml);
         root = doc.getDocumentElement();
@@ -97,7 +97,7 @@ public class CustomLayoutTest extends TestCase {
         assertEquals(2, result.getColumnTreeModels().size());
         assertEquals(5, result.getColumnTreeModels().get(0).getColumnElements().size());
         assertNull(result.getColumnTreeModels().get(1).getColumnElements());
-        
+
         xml = inputStream2String(this.getClass().getResourceAsStream("MyTest.xml"));
         doc = Util.parse(xml);
         root = doc.getDocumentElement();

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -61,7 +61,7 @@ public class DateUtilTest extends TestCase {
      * <li>because no GWT Unit Test environment, so using JUnit To mock test
      * org.talend.mdm.webapp.browserecords.client.util.DateUtil.convertStringToDateByFormat(String, String)
      * </ul>
-     * 
+     *
      * @param value
      * @param _format
      * @return

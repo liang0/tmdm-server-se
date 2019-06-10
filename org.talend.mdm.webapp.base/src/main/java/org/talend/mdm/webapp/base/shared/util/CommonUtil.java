@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * created by yjli on 2013-8-1 Detailled comment
- * 
+ *
  */
 public class CommonUtil {
 
@@ -107,7 +107,7 @@ public class CommonUtil {
         }
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < itemList.size(); i++) {
-            result.append((i > 0) ? separator : ""); //$NON-NLS-1$ 
+            result.append((i > 0) ? separator : ""); //$NON-NLS-1$
             result.append(escape(itemList.get(i)));
         }
         return result.toString();
@@ -131,7 +131,7 @@ public class CommonUtil {
         }
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < itemList.size(); i++) {
-            result.append((i > 0) ? ";" : ""); //$NON-NLS-1$ //$NON-NLS-2$ 
+            result.append((i > 0) ? ";" : ""); //$NON-NLS-1$ //$NON-NLS-2$
             result.append(escapeSemicolon(itemList.get(i)));
         }
         return result.toString();

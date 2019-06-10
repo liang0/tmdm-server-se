@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -19,13 +19,13 @@ public class BeforeSavingTest extends TestCase {
 
         String message = "<report type=\"info\">[EN:1111][FR:222]</report1>";
         assertFalse(bs.validateFormat(message));
-        
+
         message = "<report type=\"warning\">[EN:1111][FR:222]</report1>";
         assertFalse(bs.validateFormat(message));
 
         message = "<report type=\"info\">[EN:1111][FR:222]</report>";
         assertFalse(bs.validateFormat(message));
-        
+
         message = "<report type=\"warning\">[EN:1111][FR:222]</report>";
         assertFalse(bs.validateFormat(message));
 
@@ -34,7 +34,7 @@ public class BeforeSavingTest extends TestCase {
 
         message = "<report><message type=\"info\">[EN:1111][FR:222]</message></report>";
         assertTrue(bs.validateFormat(message));
-        
+
         message = "<report><message type=\"warning\">[EN:1111][FR:222]</message></report>";
         assertTrue(bs.validateFormat(message));
 

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -81,7 +81,7 @@ public class StorageAdminImpl implements StorageAdmin {
 
     /**
      * Delete storages of the given container (storage name)
-     * 
+     *
      * @param storageName the storage name
      * @param dropExistingData true to drop existing data
      */
@@ -96,18 +96,18 @@ public class StorageAdminImpl implements StorageAdmin {
                 DataClusterPOJO dataClusterPOJO = new DataClusterPOJO(storageName);
                 ObjectPOJO.remove(DataClusterPOJO.class, dataClusterPOJO.getPK());
             }
-            
+
         } catch (Exception e) {
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("Unable to delete container.", e); //$NON-NLS-1$
             }
             throw new RuntimeException("Unable to delete container.", e); //$NON-NLS-1$
-        }    
+        }
     }
 
     /**
      * Delete storage of one type
-     * 
+     *
      * @param storageName The name of the storage
      * @param type The storage {@link com.amalto.core.storage.StorageType type} (Staging, Master...).
      * @param dropExistingData true to drop existing data

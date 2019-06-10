@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -38,7 +38,7 @@ public class DefaultMenuUtilDelegator extends BaseMenu {
             this.position = position;
             this.parentID = parentID;
         }
-        
+
         public int getPosition() {
             return position;
         }
@@ -51,9 +51,9 @@ public class DefaultMenuUtilDelegator extends BaseMenu {
     private static Map<String, MenuParameters> menuParametersMap;
 
     private static enum MenuItem {
-        BROWSERECORDS("BrowseRecords"), 
-        UPDATEREPORT("UpdateReport"), 
-        WELCOMEPORTAL("WelcomePortal"), 
+        BROWSERECORDS("BrowseRecords"),
+        UPDATEREPORT("UpdateReport"),
+        WELCOMEPORTAL("WelcomePortal"),
         RECYCLEBIN("RecycleBin");
 
         private String label;

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -62,10 +62,10 @@ import net.sf.saxon.FeatureKeys;
  * <br/>
  * The XSLT plugin supports XSLT 2.0 and provides and extension to perform cross-referencing on the fly when the output
  * method of the xslt is set to 'xml' or to 'xhtml'.<br/>
- * 
+ *
  * <br/>
  * Cross-referencing is carried out AFTER the xslt is processed on ALL elements with the following attributes:
- * 
+ *
  * <pre>
  * &lt;MyElement
  *     xrefCluster='CLUSTER'
@@ -75,7 +75,7 @@ import net.sf.saxon.FeatureKeys;
  *     xrefDefault='DEFAULT_VALUE'
  * &gt;OLD_VALUE&lt;/MyElement&gt;
  * </pre>
- * 
+ *
  * Where
  * <ul>
  * <li><b>xrefCluster</b>: the cluster where the Items used for cross-referencing are stored</li>
@@ -91,7 +91,7 @@ import net.sf.saxon.FeatureKeys;
  * <ul>
  * <li><b>xml</b>: the xml on which to apply the XSLT</li>
  * <li><b>parameters</b>: optional input parameters to the XSLT in the form of
- * 
+ *
  * <pre>
  * &lt;Parameters&gt;
  *     &lt;Parameter&gt;
@@ -100,7 +100,7 @@ import net.sf.saxon.FeatureKeys;
  *     &lt;/Parameter&gt;
  * &lt;/Parameters&gt;
  * </pre>
- * 
+ *
  * </li>
  * </ul>
  * <h3>Outputs</h3>
@@ -109,7 +109,7 @@ import net.sf.saxon.FeatureKeys;
  * </ul>
  * <h3>Parameters</h3> The XSLT - see the description. <h3>Example</h3> The following example parameters will loop over
  * all the <code>LineItem</code>s of the input XML and send them to the rest of the transformer as XML fragments
- * 
+ *
  * <pre>
  * &lt;Country
  *     xrefCluster='MYCLUSTER'
@@ -117,7 +117,7 @@ import net.sf.saxon.FeatureKeys;
  *     xrefOut='Country/Name/FR'
  * &gt;&lt;xsl:value-of select='State/CountryCode'/&gt;&lt;/Country&gt;
  * </pre>
- * 
+ *
  * The example above does the following:
  * <ul>
  * <li>1-the xslt generates a &lt;Country&gt; element in the target document</li>
@@ -131,20 +131,20 @@ import net.sf.saxon.FeatureKeys;
  * <li>5-the matching Country document is returned and the value in Name/FR is extracted</li>
  * <li>6-the value in Country of the target document is replaced with the extracted value</li>
  * </ul>
- * 
+ *
  * @author Bruno Grieder
- * 
+ *
  * @ejb.bean name="XSLTTransformerPlugin" display-name="Name for XSLTPlugin" description="Description for XSLTPlugin"
  * local-jndi-name = "amalto/local/transformer/plugin/xslt" type="Stateless" view-type="local"
  * local-business-interface="com.amalto.core.objects.transformers.v2.util.TransformerPluginV2LocalInterface"
- * 
+ *
  * @ejb.remote-facade
- * 
+ *
  * @ejb.permission view-type = "remote" role-name = "administration"
  * @ejb.permission view-type = "local" unchecked = "true"
- * 
- * 
- * 
+ *
+ *
+ *
  */
 @Service(XSLTTransformerPluginBean.JNDI_NAME)
 public class XSLTTransformerPluginBean extends Plugin {
@@ -191,7 +191,7 @@ public class XSLTTransformerPluginBean extends Plugin {
 
     /**
      * @throws XtentisException
-     * 
+     *
      * @ejb.interface-method view-type = "local"
      * @ejb.facade-method
      */
@@ -201,7 +201,7 @@ public class XSLTTransformerPluginBean extends Plugin {
 
     /**
      * @throws XtentisException
-     * 
+     *
      * @ejb.interface-method view-type = "local"
      * @ejb.facade-method
      */
@@ -213,7 +213,7 @@ public class XSLTTransformerPluginBean extends Plugin {
 
     /**
      * @throws XtentisException
-     * 
+     *
      * @ejb.interface-method view-type = "local"
      * @ejb.facade-method
      */
@@ -249,7 +249,7 @@ public class XSLTTransformerPluginBean extends Plugin {
 
     /**
      * @throws XtentisException
-     * 
+     *
      * @ejb.interface-method view-type = "local"
      * @ejb.facade-method
      */
@@ -273,7 +273,7 @@ public class XSLTTransformerPluginBean extends Plugin {
 
     /**
      * @throws XtentisException
-     * 
+     *
      * @ejb.interface-method view-type = "local"
      * @ejb.facade-method
      */
@@ -292,7 +292,7 @@ public class XSLTTransformerPluginBean extends Plugin {
              **/
             // As a replacement in the meantime
             setCompilationErrors(""); //$NON-NLS-1$
-            
+
             // USE SAXON for XSLT 2.0 Support
             TransformerFactory transFactory = new net.sf.saxon.TransformerFactoryImpl();
             transFactory.setErrorListener(new ErrorListener() {
@@ -363,7 +363,7 @@ public class XSLTTransformerPluginBean extends Plugin {
 
     /**
      * @throws XtentisException
-     * 
+     *
      * @ejb.interface-method view-type = "local"
      * @ejb.facade-method
      */
@@ -486,7 +486,7 @@ public class XSLTTransformerPluginBean extends Plugin {
 
     /**
      * Process the mappings after xsl transformation
-     * 
+     *
      * @param xrefElement
      * @return the processed Element
      */
@@ -610,7 +610,7 @@ public class XSLTTransformerPluginBean extends Plugin {
 
     /**
      * @throws XtentisException
-     * 
+     *
      * @ejb.interface-method view-type = "local"
      * @ejb.facade-method
      */
@@ -621,7 +621,7 @@ public class XSLTTransformerPluginBean extends Plugin {
 
     /**
      * @throws XtentisException
-     * 
+     *
      * @ejb.interface-method view-type = "local"
      * @ejb.facade-method
      */
@@ -690,7 +690,7 @@ public class XSLTTransformerPluginBean extends Plugin {
 
     /**
      * @throws XtentisException
-     * 
+     *
      * @ejb.interface-method view-type = "local"
      * @ejb.facade-method
      */
@@ -711,7 +711,7 @@ public class XSLTTransformerPluginBean extends Plugin {
 
     /**
      * @throws XtentisException
-     * 
+     *
      * @ejb.interface-method view-type = "local"
      * @ejb.facade-method
      */
@@ -721,7 +721,7 @@ public class XSLTTransformerPluginBean extends Plugin {
 
     /**
      * @throws XtentisException
-     * 
+     *
      * @ejb.interface-method view-type = "local"
      * @ejb.facade-method
      */

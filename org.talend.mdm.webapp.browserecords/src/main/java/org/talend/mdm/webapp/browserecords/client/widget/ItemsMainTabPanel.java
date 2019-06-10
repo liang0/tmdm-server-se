@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -98,17 +98,17 @@ public class ItemsMainTabPanel extends TabPanel {
 
     /**
      * Get current ItemsDetailPanel.
-     * 
+     *
      * @return current ItemsDetailPanel.
      * @deprecated This method is deprecated because the singleton pattern should not be used in detailed panel component.
-     */    
+     */
     @Deprecated
     public ItemsDetailPanel getCurrentViewTabItem(){
         if (this.getSelectedItem().getWidget(0) instanceof ItemsDetailPanel)
             return (ItemsDetailPanel) this.getSelectedItem().getWidget(0);
         return null;
     }
-    
+
     public boolean insert(TabItem item, int index) {
         addItemListener(item);
         return super.insert(item, index);

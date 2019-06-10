@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -34,7 +34,7 @@ public class CompiledParameters implements Serializable {
 
 	String url;
 	List<ContextParam> tisContext;
-	
+
 	public List<ContextParam> getTisContext() {
 		return tisContext;
 	}
@@ -59,7 +59,7 @@ public class CompiledParameters implements Serializable {
 	public void setUrl(String url) {
     	this.url = url;
     }
-	
+
 
 	public String getUsername() {
     	return username;
@@ -76,7 +76,7 @@ public class CompiledParameters implements Serializable {
 	public void setPassword(String password) {
     	this.password = password;
     }
-	
+
 	public String getContentType() {
     	return contentType;
     }
@@ -84,8 +84,8 @@ public class CompiledParameters implements Serializable {
 	public void setContentType(String contentType) {
     	this.contentType = contentType;
     }
-	
-	
+
+
 	public ConceptMappingParam getConceptMappingParam() {
 		return conceptMappingParam;
 	}
@@ -99,11 +99,11 @@ public class CompiledParameters implements Serializable {
 		xml+="<url>"+StringEscapeUtils.escapeXml(url)+"</url>";
 		xml+="<username>"+username+"</username>";
 		xml+="<password>"+password+"</password>";
-	
+
 		for(ContextParam kv: tisContext){
 			xml+="<contextParam>";
 			xml+="<name>"+kv.getName()+"</name>";
-			xml+="<value>"+kv.getValue()+"</value>";			
+			xml+="<value>"+kv.getValue()+"</value>";
 			xml+="</contextParam>";
 		};
 		if(this.conceptMappingParam!=null){
@@ -115,25 +115,25 @@ public class CompiledParameters implements Serializable {
 		xml+="</configuration>";
 		return xml;
 	}
-	
-	public static CompiledParameters deserialize(String xml) 
-		throws IOException,						
+
+	public static CompiledParameters deserialize(String xml)
+		throws IOException,
 						XtentisException,
 						ParserConfigurationException,
 						SAXException, TransformerException
 	{
 		CompiledParameters compiled = new CompiledParameters();
 		Element params = Util.parse(xml).getDocumentElement();
-		
+
 		//TISCall - mandatory
 		String url = Util.getFirstTextNode(params, "url");
 		if (url==null) {
-			String err = "The url parameter of the TIS Call Transformer Plugin cannot be empty";			
+			String err = "The url parameter of the TIS Call Transformer Plugin cannot be empty";
 			throw new XtentisException(err);
 		}
 		compiled.setUrl(url);
 
-		
+
 		Document parametersDoc = params.getOwnerDocument();
 		List<ContextParam> paramsList=new ArrayList<ContextParam>();
 		NodeList paramList = Util.getNodeList(parametersDoc.getDocumentElement(), "//contextParam");
@@ -142,7 +142,7 @@ public class CompiledParameters implements Serializable {
 			String paramValue = Util.getFirstTextNode(paramList.item(i), "value");
 			if (paramValue == null)
 				paramValue = "";
-			
+
 			if (paramName!=null) {
 				boolean ispiple=false;
 
@@ -168,7 +168,7 @@ public class CompiledParameters implements Serializable {
 		//password - defaults to null
 		String password = Util.getFirstTextNode(params, "password");
 		compiled.setPassword(password);
-		
+
 		//conceptMapping
 		NodeList conceptMappingList = Util.getNodeList(parametersDoc.getDocumentElement(), "//conceptMapping");
 		if(conceptMappingList!=null&&conceptMappingList.getLength()>0){
@@ -179,10 +179,10 @@ public class CompiledParameters implements Serializable {
 		}else{
 			compiled.setConceptMappingParam(null);
 		}
-	
+
 		return compiled;
 	}
-	
+
 }
 
 

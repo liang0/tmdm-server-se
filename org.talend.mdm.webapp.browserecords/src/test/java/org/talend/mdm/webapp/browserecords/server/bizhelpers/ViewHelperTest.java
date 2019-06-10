@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -25,39 +25,39 @@ import com.amalto.core.webservice.WSView;
 
 @SuppressWarnings("nls")
 public class ViewHelperTest extends TestCase {
-    
+
     private WSView wsView;
     private String dataModel;
     private String language;
     private EntityModel entityModel;
     private String[] searchableBusinessElements = {"ProductFamily","ProductFamily/Id","ProductFamily/Name", "ProductFamily/ChangeStatus"};
     private String[] viewableBusinessElements = {"ProductFamily/Id","ProductFamily/Name", "ProductFamily/ChangeStatus"};
-    
+
     public ViewHelperTest(){
         initData();
     }
-    
+
     public void testGetConceptFromDefaultViewName(){
-        String viewName = "Browse_items_ProductFamily";        
+        String viewName = "Browse_items_ProductFamily";
         assertEquals("ProductFamily", ViewHelper.getConceptFromDefaultViewName(viewName));
         viewName = "#Browse_items_ProductFamily";
         assertEquals("", ViewHelper.getConceptFromDefaultViewName(viewName));
         viewName = "Browse_items_ProductFamily#Family2";
         assertEquals("ProductFamily", ViewHelper.getConceptFromDefaultViewName(viewName));
     }
-    
+
     public void testGetViewLabel(){
         String language = "en";
         assertEquals("Product Family", ViewHelper.getViewLabel(language, wsView));
         language = "fr";
         assertEquals("Famille Produit", ViewHelper.getViewLabel(language, wsView));
     }
-    
-    public void testGetViewables(){       
-        assertEquals(viewableBusinessElements, ViewHelper.getViewables(wsView));      
+
+    public void testGetViewables(){
+        assertEquals(viewableBusinessElements, ViewHelper.getViewables(wsView));
     }
-    
-    public void testGetSearchables(){        
+
+    public void testGetSearchables(){
         Map<String, String> result = new HashMap<String, String>();
         result.put("ProductFamily", "Whole content");
         result.put("ProductFamily/Id", "id");
@@ -66,7 +66,7 @@ public class ViewHelperTest extends TestCase {
         language = "en";
         assertEquals(result, ViewHelper.getSearchables(wsView, dataModel, language, entityModel));
         result.clear();
-        
+
         result.put("ProductFamily", "Contenu complet");
         result.put("ProductFamily/Id", "rf-id");
         result.put("ProductFamily/Name", "rf-name");
@@ -74,7 +74,7 @@ public class ViewHelperTest extends TestCase {
         language = "fr";
         assertEquals(result, ViewHelper.getSearchables(wsView, dataModel, language, entityModel));
     }
-    
+
     /**
      * DOC Administrator Comment method "initData".
      */
@@ -84,7 +84,7 @@ public class ViewHelperTest extends TestCase {
         wsView.setDescription("[FR:Famille Produit][EN:Product Family]");
         wsView.setSearchableBusinessElements(searchableBusinessElements);
         wsView.setViewableBusinessElements(viewableBusinessElements);
-        
+
         dataModel = "Product";
         language = "en";
         entityModel = new EntityModel();
@@ -93,7 +93,7 @@ public class ViewHelperTest extends TestCase {
         entityModel.setKeys(keys);
         LinkedHashMap<String, TypeModel> metaDataTypes = new LinkedHashMap<String, TypeModel>();
         ComplexTypeModel family = new ComplexTypeModel();
-        
+
         SimpleTypeModel id = new SimpleTypeModel("id",new DataTypeCustomized("",""));
         id.addLabel("en", "id");
         id.addLabel("fr", "rf-id");
@@ -103,11 +103,11 @@ public class ViewHelperTest extends TestCase {
         SimpleTypeModel changeSatus = new SimpleTypeModel("changeSatus",new DataTypeCustomized("",""));
         changeSatus.addLabel("en", "changeSatus");
         changeSatus.addLabel("fr", "rf-changeSatus");
-        
+
         metaDataTypes.put("ProductFamily", family);
         metaDataTypes.put("ProductFamily/Id", id);
         metaDataTypes.put("ProductFamily/Name", name);
-        metaDataTypes.put("ProductFamily/ChangeStatus", changeSatus);        
-        entityModel.setMetaDataTypes(metaDataTypes);    
+        metaDataTypes.put("ProductFamily/ChangeStatus", changeSatus);
+        entityModel.setMetaDataTypes(metaDataTypes);
     }
 }

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -37,7 +37,7 @@ public class LabelUtil {
             return label;
         }
     }
-    
+
     public static String convertSpecialHTMLCharacter(String label) {
         label = label.replaceAll("'", "&#39;"); //$NON-NLS-1$ //$NON-NLS-2$
         label = label.replaceAll("\"", "&quot;"); //$NON-NLS-1$//$NON-NLS-2$
@@ -50,7 +50,7 @@ public class LabelUtil {
             return fkTabLabel.substring(0, fkTabLabel.lastIndexOf(":")); //$NON-NLS-1$
         return fkTabLabel;
     }
-    
+
     public static String convertList2String(List<String> list, String separator){
         StringBuilder sb = new StringBuilder();
         int i = 0;
@@ -63,7 +63,7 @@ public class LabelUtil {
         }
         return sb.toString();
     }
-    
+
     public static String removeBrackets(String str) {
         if (str.indexOf("[") == 0 && str.lastIndexOf("]") == str.length() - 1) { //$NON-NLS-1$ //$NON-NLS-2$
             return str.subSequence(1, str.length() - 1).toString();

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -34,13 +34,13 @@ import com.amalto.core.storage.record.XmlStringDataRecordReader;
 
 
 public class InMemoryStorageTestCase {
-    
+
     private InMemoryStorage storage;
-    
+
     private MetadataRepository repository;
-    
+
     private ComplexTypeMetadata product;
-    
+
     @Before
     public void setup() throws Exception {
         storage = new InMemoryStorage();
@@ -49,12 +49,12 @@ public class InMemoryStorageTestCase {
         repository.load(this.getClass().getResource("inmemory.xsd").openStream());
         product = repository.getComplexType("Product");
         storage.adapt(repository, true);
-        
+
         DataRecordReader<String> factory = new XmlStringDataRecordReader();
         List<DataRecord> records = new ArrayList<DataRecord>();
         records.add(factory.read(repository, product, "<Product><Id>1</Id><Name>Name</Name><Description>Description</Description><Availability>true</Availability></Product>"));
         records.add(factory.read(repository, product, "<Product><Id>2</Id><Name>Name</Name><Description>Description</Description><Availability>false</Availability></Product>"));
-        
+
         try {
             storage.begin();
             storage.update(records);
@@ -62,16 +62,16 @@ public class InMemoryStorageTestCase {
         } finally {
             storage.end();
         }
-        
+
     }
-    
+
     @After
     public void teardown() throws Exception {
         if(storage != null){
             storage.close();
         }
     }
-    
+
     @Test
     public void testQuery() throws Exception {
         UserQueryBuilder builder = from(product).select(alias(distinct(product.getField("Availability")), "availability"));

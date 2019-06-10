@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -69,7 +69,7 @@ public class BusinessConcept {
     private Map<String, ReusableType> subReuseTypeMap;
 
     private Map<String, String> xpathTypeMap;
-    
+
     private Map<String, String> xpathDerivedSimpleTypeMap;
 
     private List<String> keyFieldPaths;
@@ -113,7 +113,7 @@ public class BusinessConcept {
         Map<String, ReusableType> map = reuseType.getxPathReusableTypeMap();
         if(map.size() == 0)
             return;
-        
+
         Set<String> keySet = map.keySet();
         for(String key : keySet){
             ReusableType type = map.get(key);
@@ -125,18 +125,18 @@ public class BusinessConcept {
                 Set<String> fkKeySet = fkMap.keySet();
                 for (String str : fkKeySet) {
                     String fk = fkMap.get(str);
-                    String fkWithoutName = str.replaceFirst("/" + type.getName(), ""); //$NON-NLS-1$//$NON-NLS-2$                        
+                    String fkWithoutName = str.replaceFirst("/" + type.getName(), ""); //$NON-NLS-1$//$NON-NLS-2$
                     inheritanceForeignKeyMap.put(xPath + pathWithoutName + fkWithoutName, fk);
                 }
             }
-            
+
             if(!nameSet.contains(type.getName())){
                 nameSet.add(type.getName());
                 this.findFkByReuseType(xPath + pathWithoutName, type, nameSet);
-            }            
+            }
         }
     }
-    
+
     public void load() {
         beforeLoad();
         travelXSElement(getE(), "/" + getName(), null); //$NON-NLS-1$
@@ -151,14 +151,14 @@ public class BusinessConcept {
                     Set<String> fkKeySet = fkMap.keySet();
                     for (String str : fkKeySet) {
                         String fk = fkMap.get(str);
-                        String fkWithoutName = str.replaceFirst("/" + reuseType.getName(), ""); //$NON-NLS-1$//$NON-NLS-2$                        
+                        String fkWithoutName = str.replaceFirst("/" + reuseType.getName(), ""); //$NON-NLS-1$//$NON-NLS-2$
                         inheritanceForeignKeyMap.put(pathWithoutName + fkWithoutName, fk);
                     }
                 }
-                
+
                 nameSet.add(reuseType.getName());
                 this.findFkByReuseType(pathWithoutName, reuseType, nameSet);
-                
+
             }
         }
     }
@@ -217,7 +217,7 @@ public class BusinessConcept {
 
     /**
      * DOC Starkey Comment method "getSubReuseTypeMap".
-     * 
+     *
      * @return
      */
     public Map<String, ReusableType> getSubReuseTypeMap() {
@@ -226,7 +226,7 @@ public class BusinessConcept {
 
     /**
      * DOC HSHU Comment method "travelXSElement". go through XSElement
-     * 
+     *
      * @param e
      * @param currentXPath
      */
@@ -298,7 +298,7 @@ public class BusinessConcept {
 
     /**
      * Set TypeMap
-     * 
+     *
      * @param e
      * @param currentXPath
      */

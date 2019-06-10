@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -15,7 +15,7 @@ import com.amalto.core.metadata.LongString;
 
 /**
  * @author Bruno Grieder
- * 
+ *
  */
 public class DataClusterPOJO extends ObjectPOJO{
 
@@ -24,7 +24,7 @@ public class DataClusterPOJO extends ObjectPOJO{
     private String vocabulary;
 
     /**
-     * 
+     *
      */
     public DataClusterPOJO() {
     }
@@ -68,16 +68,16 @@ public class DataClusterPOJO extends ObjectPOJO{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return the xsd Vocabulary
 	 */
     @LongString(preferLongVarchar = true)
 	public String getVocabulary() {
 		return vocabulary;
 	}
-	
+
 	public void setVocabulary(String vocabulary) {
 		this.vocabulary = vocabulary;
 	}

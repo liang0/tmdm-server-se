@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -372,7 +372,7 @@ public class CompareTest extends TestCase {
         assertEquals(0, sort.get(ImpactAnalyzer.Impact.MEDIUM).size());
         assertEquals(3, sort.get(ImpactAnalyzer.Impact.LOW).size());
     }
-    
+
     public void test17() throws Exception {
         MetadataRepository original = new MetadataRepository();
         original.load(CompareTest.class.getResourceAsStream("schema17_1.xsd")); //$NON-NLS-1$
@@ -425,7 +425,7 @@ public class CompareTest extends TestCase {
         assertEquals(0, sort.get(ImpactAnalyzer.Impact.MEDIUM).size());
         assertEquals(1, sort.get(ImpactAnalyzer.Impact.LOW).size());
     }
-    
+
     // TMDM-9515 Impact Analyzer issue with Change a existing FK field should be considered as high change
     public void test19() throws Exception {
         MetadataRepository original = new MetadataRepository();
@@ -438,7 +438,7 @@ public class CompareTest extends TestCase {
         assertEquals(1, diffResults.getModifyChanges().size());
         assertEquals(0, diffResults.getRemoveChanges().size());
         assertEquals(0, diffResults.getAddChanges().size());
-        
+
         MetadataRepository updated2 = new MetadataRepository();
         updated2.load(CompareTest.class.getResourceAsStream("schema19_3.xsd")); //$NON-NLS-1$
         diffResults = Compare.compare(updated1, updated2);
@@ -446,7 +446,7 @@ public class CompareTest extends TestCase {
         assertEquals(1, diffResults.getModifyChanges().size());
         assertEquals(0, diffResults.getRemoveChanges().size());
         assertEquals(0, diffResults.getAddChanges().size());
-        
+
         ImpactAnalyzer analyzer = new HibernateStorageImpactAnalyzer();
         Map<ImpactAnalyzer.Impact, List<Change>> sort = analyzer.analyzeImpacts(diffResults);
         assertEquals(1, sort.get(ImpactAnalyzer.Impact.HIGH).size());

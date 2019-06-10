@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -21,12 +21,12 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * DOC Administrator  class global comment. Detailed comment
  */
 public class TypePath implements Serializable, IsSerializable {
-    
+
 
     private static final String XPATH_SEPARATOR = "/"; //$NON-NLS-1$
 
     private List<TypePathParty> pathParties = null;
-    
+
     private boolean hasVariantion = false;
 
     private List<String> allAliasXpaths = null;
@@ -73,7 +73,7 @@ public class TypePath implements Serializable, IsSerializable {
                         }
                     }
                 }
-                    
+
                 if (validatePath) {
 
                     List<String> aliasPaths = aliasXpathMap.get(keyPath);
@@ -116,7 +116,7 @@ public class TypePath implements Serializable, IsSerializable {
 
         if (path == null || path.trim().length() == 0)
             return aliasName;
-        
+
         int pos = path.lastIndexOf(XPATH_SEPARATOR);
 
         if (pos != -1) {
@@ -155,7 +155,7 @@ public class TypePath implements Serializable, IsSerializable {
     }
 
     private List<String> findAliasXpaths(TypePathParty pathParty, List<String> lastPaths) {
-        
+
         List<String> possibilities = new ArrayList<String>();
         if (pathParty.getPartyName() != null)
             possibilities.add(pathParty.getPartyName());

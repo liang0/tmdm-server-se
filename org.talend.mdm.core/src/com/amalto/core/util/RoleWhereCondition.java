@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -37,11 +37,11 @@ public class RoleWhereCondition {
 		} catch (Exception e) {
 			String err = "toString() ERROR MARSHALLING WhereCondition: "+e.getClass().getName()+": "+e.getLocalizedMessage();
 			org.apache.log4j.Category.getInstance(this.getClass()).error(err);
-			throw new RuntimeException(err); 
+			throw new RuntimeException(err);
 		}
 		return sw.toString();
 	}
-	
+
 	public static RoleWhereCondition parse(String marshalledWC) throws XtentisException{
 		RoleWhereCondition rwc = null;
 		try {
@@ -52,11 +52,11 @@ public class RoleWhereCondition {
 		} catch (Exception e) {
 			String err = "parse() ERROR UNMARSHALLING WhereCondition \""+marshalledWC+"\": "+e.getClass().getName()+": "+e.getLocalizedMessage();
 			org.apache.log4j.Category.getInstance(RoleWhereCondition.class).error(err);
-			throw new XtentisException(err); 
+			throw new XtentisException(err);
 		}
 		return rwc;
 	}
-	
+
 	public WhereCondition toWhereCondition() {
 		String operator = WhereCondition.CONTAINS;
 		if (this.getOperator().equals("Contains")) {
@@ -80,7 +80,7 @@ public class RoleWhereCondition {
         } else if (this.getOperator().equals("Is Empty Or Null")) {
             operator = WhereCondition.EMPTY_NULL;
         }
-		
+
         String predicate = WhereCondition.PRE_AND;
         if (this.getPredicate() == null || this.getPredicate().trim().equals("")) {
             predicate = WhereCondition.PRE_NONE;
@@ -103,6 +103,6 @@ public class RoleWhereCondition {
 				predicate,
 				false
 		);
-		
+
 	}
 }

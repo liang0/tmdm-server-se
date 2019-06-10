@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -17,7 +17,7 @@ public class MenuBean implements Serializable, IsSerializable {
 
 
 	/**
-     * 
+     *
      */
     private static final long serialVersionUID = -7349094793298324333L;
     int id;
@@ -28,7 +28,7 @@ public class MenuBean implements Serializable, IsSerializable {
 	String desc;
 	String url;
 	String application;
-	
+
     boolean disabled;
 
     String disabledDesc;
@@ -82,11 +82,11 @@ public class MenuBean implements Serializable, IsSerializable {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-	
+
     public String getUrl() {
         return url;
     }
-    
+
     public void setUrl(String url) {
         this.url = url;
     }

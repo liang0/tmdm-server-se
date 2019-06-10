@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -50,7 +50,7 @@ public class DynamicLabelUtil {
     private static final Logger LOG = Logger.getLogger(DynamicLabelUtil.class);
 
     /**
-     * 
+     *
      * @return
      */
     public static void getDynamicLabel(Document parsedDocument, String baseXpath, ItemNodeModel itemModel,
@@ -173,7 +173,7 @@ public class DynamicLabelUtil {
                         String fk = null;
                         List<String> fkInfo = new ArrayList<String>();
                         for (int k = 0; k < annotList.getLength(); k++) {
-                            if ("appinfo".equals(annotList.item(k).getLocalName())) { //$NON-NLS-1$ 
+                            if ("appinfo".equals(annotList.item(k).getLocalName())) { //$NON-NLS-1$
                                 Node source = annotList.item(k).getAttributes().getNamedItem("source"); //$NON-NLS-1$
                                 if (source == null)
                                     continue;

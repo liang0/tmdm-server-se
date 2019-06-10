@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -240,15 +240,15 @@ public class SaverContextFactory {
                 false, XSystemObjects.DC_PROVISIONING.getName().equals(dataCluster)); // Before saving is not supported
         return PartialUpdateSaverContext.decorate(context, pivot, key, index, overwrite, delete);
     }
-    
-    public DocumentSaverContext createPartialUpdate(String dataCluster, 
-                                                    String dataModelName, 
+
+    public DocumentSaverContext createPartialUpdate(String dataCluster,
+                                                    String dataModelName,
                                                     String changeSource,
-                                                    InputStream documentStream, 
-                                                    boolean validate, 
-                                                    boolean updateReport, 
-                                                    String pivot, 
-                                                    String key, 
+                                                    InputStream documentStream,
+                                                    boolean validate,
+                                                    boolean updateReport,
+                                                    String pivot,
+                                                    String key,
                                                     int index,
                                                     boolean overwrite) {
         return createPartialUpdate(dataCluster, dataModelName, changeSource, documentStream, validate, updateReport, pivot, key,
@@ -311,7 +311,7 @@ public class SaverContextFactory {
         }
         return context;
     }
-    
+
     /**
      * Creates a {@link DocumentSaverContext} to validate a unique record in MDM.
      *
@@ -345,7 +345,7 @@ public class SaverContextFactory {
         } catch (Exception e) {
             throw new RuntimeException("Unable to parse document to save.", e); //$NON-NLS-1$
         }
-        
+
         StorageAdmin storageAdmin = server.getStorageAdmin();
         Storage storage = storageAdmin.get(dataCluster, storageAdmin.getType(dataCluster));
         DocumentSaverContext context = new RecordValidationContext(storage, dataModelName, UserAction.REPLACE, invokeBeforeSaving, userDocument);

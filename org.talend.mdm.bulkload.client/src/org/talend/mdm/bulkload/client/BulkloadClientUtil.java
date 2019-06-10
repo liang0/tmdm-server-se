@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -28,14 +28,14 @@ import org.apache.commons.httpclient.params.HttpConnectionParams;
 
 /**
  * Bulkload amount items client
- * 
+ *
  */
 public class BulkloadClientUtil {
-    
+
     public static final Integer MAX_HTTP_REQUESTS;
     public static final String CLIENT_CONNECTION_TIMEOUT = "ws_client_connection_timeout"; //$NON-NLS-1$
     public static final String CLIENT_SOCKET_TIMEOUT = "ws_client_receive_timeout"; //$NON-NLS-1$
-    
+
     static {
         String httpRequests = System.getProperty("bulkload.concurrent.http.requests");//$NON-NLS-1$
         MAX_HTTP_REQUESTS = httpRequests == null? Integer.MAX_VALUE : Integer.parseInt(httpRequests);
@@ -124,7 +124,7 @@ public class BulkloadClientUtil {
         }
         return defaultTimeout;
     }
-    
+
     public static InputStreamMerger bulkload(String url, String cluster, String concept, String dataModel, boolean validate,
             boolean smartPK, boolean insertOnly, boolean updateReport, String source, String username, String password,
             String transactionId, List<String> cookies, String tokenKey, String tokenValue,
@@ -158,7 +158,7 @@ public class BulkloadClientUtil {
         private final boolean validate;
 
         private final boolean smartPK;
-        
+
         private final boolean insertOnly;
 
         private final boolean updateReport;

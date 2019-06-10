@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -31,7 +31,7 @@ public class NumberFieldValidatorGWTTest extends GWTTestCase{
 
     public void testValidateDecimalValue() {
         FormatNumberField dateField = new FormatNumberField();
-        
+
         assertNull(NumberFieldValidator.getInstance().validate(dateField, "12.999"));
         assertNull(NumberFieldValidator.getInstance().validate(dateField, "99.999"));
         assertNull(NumberFieldValidator.getInstance().validate(dateField, "12.6987"));
@@ -51,7 +51,7 @@ public class NumberFieldValidatorGWTTest extends GWTTestCase{
         assertNull(NumberFieldValidator.getInstance().validate(dateField, "-,999"));
         assertNull(NumberFieldValidator.getInstance().validate(dateField, "00,123"));
         assertNull(NumberFieldValidator.getInstance().validate(dateField, "-00,123"));
-        
+
         dateField.setData(FacetEnum.TOTAL_DIGITS.getFacetName(), "5");
         dateField.setData(FacetEnum.FRACTION_DIGITS.getFacetName(), "3");
 
@@ -116,8 +116,8 @@ public class NumberFieldValidatorGWTTest extends GWTTestCase{
         dateField.setData(FacetEnum.MAX_INCLUSIVE.getFacetName(), "9.99999999999E11");
         assertNotNull(NumberFieldValidator.getInstance().validate(dateField, "345,0"));
     }
-    
-    
+
+
     @Override
     public String getModuleName() {
         return "org.talend.mdm.webapp.browserecords.TestBrowseRecords"; //$NON-NLS-1$

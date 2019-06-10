@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -34,7 +34,7 @@ import org.talend.mdm.webapp.journal.shared.JournalSearchCriteria;
 public class JournalExportServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    
+
     private static final Logger LOG = Logger.getLogger(JournalExportServlet.class);
 
     @Override
@@ -45,8 +45,8 @@ public class JournalExportServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LOG.info("Exporting excel file"); //$NON-NLS-1$
-        JournalExcel journalExcel = new JournalExcel(request.getParameter("language")); //$NON-NLS-1$     
-     
+        JournalExcel journalExcel = new JournalExcel(request.getParameter("language")); //$NON-NLS-1$
+
         response.reset();
         response.setContentType("application/vnd.ms-excel"); //$NON-NLS-1$
 
@@ -59,7 +59,7 @@ public class JournalExportServlet extends HttpServlet {
 
             List<JournalGridModel> resultList = (List<JournalGridModel>) resultArr[1];
             int i = 1;
-            SimpleDateFormat simpleDateFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //$NON-NLS-1$            
+            SimpleDateFormat simpleDateFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //$NON-NLS-1$
             for (JournalGridModel model : resultList) {
                 HSSFRow row = journalExcel.createRow((short)i++);
                 row.createCell((short) 0).setCellValue(model.getDataContainer());
@@ -69,7 +69,7 @@ public class JournalExportServlet extends HttpServlet {
                 row.createCell((short) 4).setCellValue(model.getOperationType());
                 String operationTimeValue = (model.getOperationTime() == null ? "" : model.getOperationTime()); //$NON-NLS-1$
                 if (!"".equals(operationTimeValue)) { //$NON-NLS-1$
-                    operationTimeValue = simpleDateFormat.format(new Date(Long.parseLong(model.getOperationTime())));                    
+                    operationTimeValue = simpleDateFormat.format(new Date(Long.parseLong(model.getOperationTime())));
                 }
                 row.createCell((short) 5).setCellValue(operationTimeValue);
                 row.createCell((short) 6).setCellValue(model.getSource());

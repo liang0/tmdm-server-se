@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -54,7 +54,7 @@ public class LoadParserTest extends TestCase {
             // already configured;
         }
     }
-    
+
     public void testArgs() {
         ParserTestCallback callback = new ParserTestCallback();
 
@@ -608,11 +608,11 @@ public class LoadParserTest extends TestCase {
         assertTrue(hasParsedCharacters(callback, "text"));
         assertEquals("1", callback.getId());
     }
-    
+
     public void testIdContainsInvalidCharacter() {
         InputStream testResource = new ByteArrayInputStream("<root><Id>p[roduct4','p[roduct]','p]roduct'</Id><element2>text</element2></root>".getBytes());
         assertNotNull(testResource);
-        
+
         try {
             ParserTestCallback callback = new ParserTestCallback();
             LoadParser.Configuration config = new LoadParser.Configuration("root", new String[]{"Id"}, false, "clusterName", "modelName", idGenerator);

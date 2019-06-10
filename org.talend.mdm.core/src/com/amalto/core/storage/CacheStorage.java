@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -102,7 +102,7 @@ public class CacheStorage implements Storage {
     /**
      * Indicates the maximum allowed size for a cached result. A size of 0 (or lower) disables the cache as storage is
      * not allowed to store a result where size > <code>cachedResultMaxSize</code>.
-     * 
+     *
      * @param cachedResultMaxSize The new maximum size for a cached result. Any number <= 0 disables cache.
      */
     public void setCachedResultMaxSize(int cachedResultMaxSize) {

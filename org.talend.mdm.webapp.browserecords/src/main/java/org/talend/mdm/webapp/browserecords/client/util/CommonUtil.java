@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -58,9 +58,9 @@ public class CommonUtil {
     private static final String BEFORE_DOMAIN = "\\b((https?|ftp)://)"; //$NON-NLS-1$
 
     private static final String PATH = "(/[-a-z0-9A-Z_:@&?=+,.!/~*'%#$]*)*"; //$NON-NLS-1$
-    
+
     private static final int FAIL = 2;
-    
+
     private static final int ERROR = 3;
 
     public static String getHost(String url) {
@@ -193,7 +193,7 @@ public class CommonUtil {
 
     /**
      * getDefaultTreeModel
-     * 
+     *
      * @param model
      * @param language
      * @param defaultValue it is used when client side call the method
@@ -376,7 +376,7 @@ public class CommonUtil {
     /**
      * Parsed a file name to a String array, the first object is the short file name, the second one is extension name
      * Return null if argument illegal
-     * 
+     *
      * @param longFilePath
      * @return
      */
@@ -596,7 +596,7 @@ public class CommonUtil {
         Element rootElement = doc.createElement(rootName);
         doc.appendChild(rootElement);
         for (int i = 0; i < list.size(); i++) {
-            Element item = doc.createElement("item"); //$NON-NLS-1$  
+            Element item = doc.createElement("item"); //$NON-NLS-1$
             item.appendChild(doc.createTextNode(list.get(i)));
             rootElement.appendChild(item);
         }
@@ -671,7 +671,7 @@ public class CommonUtil {
             }
         }
     }
-    
+
     public static void setDeleteItemInfo(Map<ItemBean, FKIntegrityResult> items, List<ItemResult> fkIntegrityMsgs, List<ItemBean> itemBeans) {
         Set<Map.Entry<ItemBean, FKIntegrityResult>> itemsToDelete = items.entrySet();
         for (Map.Entry<ItemBean, FKIntegrityResult> currentItem : itemsToDelete) {
@@ -690,7 +690,7 @@ public class CommonUtil {
             }
         }
     }
-    
+
     public static void displayMsgBoxWindow(OperationMessageWindow messageWindow, List<ItemResult> msgs) {
         if (msgs != null && msgs.size() > 0) {
             String windowTitle = MessagesFactory.getMessages().info_title();

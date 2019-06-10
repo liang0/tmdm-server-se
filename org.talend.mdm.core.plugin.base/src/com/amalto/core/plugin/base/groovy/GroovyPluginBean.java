@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -49,12 +49,12 @@ import java.util.regex.Pattern;
  *
  *
  */
-     
+
 @Service("amalto/local/transformer/plugin/groovy")
 public class GroovyPluginBean extends Plugin {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -2468112296592499877L;
 	//parameter
@@ -62,13 +62,13 @@ public class GroovyPluginBean extends Plugin {
 	//various
 	private static final String VARIABLE_INPUT ="variable_input";
 	private static final String SCRIPT_OUTPUT ="script_output";
-	
+
 	private static final String booleanRegex ="(true|false)";
-	
+
 	public GroovyPluginBean() {
 		super();
 	}
-	
+
 	/**
      * @throws XtentisException
      *
@@ -78,7 +78,7 @@ public class GroovyPluginBean extends Plugin {
 	public String getJNDIName() throws XtentisException {
 		return "amalto/local/transformer/plugin/groovy";
 	}
-	
+
 	/**
      * @throws XtentisException
      *
@@ -143,7 +143,7 @@ public class GroovyPluginBean extends Plugin {
 		"Notes for Plugin Developers: " +"\n"+
 		"		empty"	;
 	}
-	
+
 	/**
      * @throws XtentisException
      *
@@ -153,7 +153,7 @@ public class GroovyPluginBean extends Plugin {
 	public ArrayList<TransformerPluginVariableDescriptor> getInputVariableDescriptors(
 			String twoLettersLanguageCode) throws XtentisException {
 		 ArrayList<TransformerPluginVariableDescriptor> inputDescriptors = new ArrayList<TransformerPluginVariableDescriptor>();
-		
+
 		 TransformerPluginVariableDescriptor descriptor = new TransformerPluginVariableDescriptor();
 		 descriptor.setVariableName(VARIABLE_INPUT);
 		 descriptor.setContentTypesRegex(
@@ -170,7 +170,7 @@ public class GroovyPluginBean extends Plugin {
 		 descriptor.setPossibleValuesRegex(null);
 		 inputDescriptors.add(descriptor);
 		 return inputDescriptors;
-		
+
 	}
 
 
@@ -203,7 +203,7 @@ public class GroovyPluginBean extends Plugin {
 
 		 return outputDescriptors;
 	}
-	
+
 	/**
      * @throws XtentisException
      *
@@ -237,12 +237,12 @@ public class GroovyPluginBean extends Plugin {
      */
 	public String compileParameters(String parameters) throws XtentisException {
         try {
-			
+
 			if(parameters==null||parameters.length()==0)return "";
 			CompiledParameters compiled = new CompiledParameters();
-			
+
 			Document params=Util.parse(parameters);
-			
+
     		//script - mandatory case
 			String script = Util.getFirstTextNode(params, "//script");
 			if (script==null) {
@@ -251,7 +251,7 @@ public class GroovyPluginBean extends Plugin {
 				throw new XtentisException(err);
 			}
     		compiled.setScript(script);
-    		
+
     		//optional case
     		boolean isAutoParseXml=false;
     		String autoParseXml = Util.getFirstTextNode(params, "//autoParseXml");
@@ -266,7 +266,7 @@ public class GroovyPluginBean extends Plugin {
     		compiled.setAutoParseXml(isAutoParseXml);
 
     		return compiled.serialize();
-    		
+
     	} catch (XtentisException e) {
     		throw(e);
 	    } catch (Exception e) {
@@ -277,7 +277,7 @@ public class GroovyPluginBean extends Plugin {
 	    }
 	}
 
-	
+
 
 	/**
      * @throws XtentisException
@@ -293,14 +293,14 @@ public class GroovyPluginBean extends Plugin {
 			//parse parameters
 			CompiledParameters parameters=CompiledParameters.deserialize(compiledParameters);
 			context.put(PARAMETERS, parameters);
-			
+
 		}  catch (Exception e) {
 			String err = "Could not init the groovy plugin:"+
 				e.getClass().getName()+": "+e.getLocalizedMessage();
 			org.apache.log4j.Logger.getLogger(this.getClass()).error(err,e);
 			throw new XtentisException(e);
 		}
-		
+
 	}
 
     @Override
@@ -317,7 +317,7 @@ public class GroovyPluginBean extends Plugin {
 	public void execute(TransformerPluginContext context)
 			throws XtentisException {
 		org.apache.log4j.Logger.getLogger(this.getClass()).trace("execute() groovy");
-		
+
 		CompiledParameters parameters= (CompiledParameters)context.get(PARAMETERS);
 		TypedContent textTC = (TypedContent)context.get(VARIABLE_INPUT);
 		try {
@@ -325,7 +325,7 @@ public class GroovyPluginBean extends Plugin {
 			//attempt to read charset
 			String charset = Util.extractCharset(textTC.getContentType());
 			String inText = new String(textTC.getContentBytes(),charset);
-			
+
 			String script=parameters.getScript();
 			EmbedGroovy embedGroovy = new EmbedGroovy(inText);
 			script="import com.amalto.core.plugin.base.groovy.MdmGroovyExtension\n"+script;//add default import
@@ -333,7 +333,7 @@ public class GroovyPluginBean extends Plugin {
 				script="variableInput = new XmlParser().parseText(variableInput);\n"+script;
 			}
 			Object result = embedGroovy.runScript(script);
-			
+
 			String outText=null;
 			if(result!=null) {
 				outText=result.toString();
@@ -341,7 +341,7 @@ public class GroovyPluginBean extends Plugin {
 			}else {
 				context.put(SCRIPT_OUTPUT, null);
 			}
-				
+
 			//call the callback content is ready
 			context.getPluginCallBack().contentIsReady(context);
 
@@ -353,9 +353,9 @@ public class GroovyPluginBean extends Plugin {
 			org.apache.log4j.Logger.getLogger(this.getClass()).error(err,e);
 			throw new XtentisException(e);
 		}
-		
+
 		org.apache.log4j.Logger.getLogger(this.getClass()).trace("execute() groovy done");
-		
+
 	}
 
 

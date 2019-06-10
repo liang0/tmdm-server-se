@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -44,51 +44,51 @@ public class OperationMessageWindow extends Window {
     private static int WINDOW_WIDTH = 450;
 
     private static int WINDOW_HEIGH = 300;
-    
+
     private List<ItemResult> messages;
-    
+
     private Grid<ItemResult> messageGrid;
-    
+
     private PagingLoader<PagingLoadResult<ModelData>> loader;
-    
+
     private int PAGE_SIZE = 10;
-    
+
     private PagingToolBarEx pagingBar;
-    
+
     PagingModelMemoryProxy proxy;
-    
+
     ListStore<ItemResult> store;
-    
+
     public OperationMessageWindow() {
         initWindow();
     }
-    
+
     public OperationMessageWindow(List<ItemResult> msgs) {
         messages = msgs;
         initWindow();
     }
-    
+
     public void initWindow() {
         setWidth(WINDOW_WIDTH);
-        setHeight(WINDOW_HEIGH);        
+        setHeight(WINDOW_HEIGH);
     }
-    
+
     @Override
     protected void onRender(Element parent, int pos) {
         super.onRender(parent, pos);
-                
+
         FormPanel panel = new FormPanel();
         panel.setFrame(false);
         panel.setLayout(new FitLayout());
         panel.setHeaderVisible(false);
         panel.setSize(WINDOW_WIDTH - 14, WINDOW_HEIGH - 36);
         panel.setHeaderVisible(false);
-        
+
         proxy = new PagingModelMemoryProxy(messages);
         loader = new BasePagingLoader<PagingLoadResult<ModelData>>(proxy);
         store = new ListStore<ItemResult>(loader);
-        
-        List<ColumnConfig> columnConfigs = new ArrayList<ColumnConfig>();              
+
+        List<ColumnConfig> columnConfigs = new ArrayList<ColumnConfig>();
         ColumnConfig colStatus = new ColumnConfig();
         colStatus.setId("status"); //$NON-NLS-1$
         colStatus.setWidth(65);
@@ -97,8 +97,8 @@ public class OperationMessageWindow extends Window {
 
             @Override
             public Object render(ItemResult model, String property, ColumnData config, int rowIndex, int colIndex,
-                    ListStore<ItemResult> store, Grid<ItemResult> grid) {                
-                Image image = new Image();                
+                    ListStore<ItemResult> store, Grid<ItemResult> grid) {
+                Image image = new Image();
                 if(model.getStatus() < 2){
                     image.setResource(Icons.INSTANCE.statusValid());
                 } else {
@@ -111,10 +111,10 @@ public class OperationMessageWindow extends Window {
                 return g;
             }
         });
-        columnConfigs.add(colStatus);        
-        columnConfigs.add(new ColumnConfig("key", "key", 100)); //$NON-NLS-1$ //$NON-NLS-2$ 
-        columnConfigs.add(new ColumnConfig("message", "message", 380)); //$NON-NLS-1$ //$NON-NLS-2$        
-        
+        columnConfigs.add(colStatus);
+        columnConfigs.add(new ColumnConfig("key", "key", 100)); //$NON-NLS-1$ //$NON-NLS-2$
+        columnConfigs.add(new ColumnConfig("message", "message", 380)); //$NON-NLS-1$ //$NON-NLS-2$
+
         ColumnModel cm = new ColumnModel(columnConfigs);
         messageGrid = new Grid<ItemResult>(store, cm);
         messageGrid.getView().setForceFit(true);
@@ -122,11 +122,11 @@ public class OperationMessageWindow extends Window {
         messageGrid.setBorders(false);
         messageGrid.setStateful(true);
         messageGrid.setStateId("relatedRecordGrid"); //$NON-NLS-1$
-        
+
         if (cm.getColumnCount() > 0) {
             messageGrid.setAutoExpandColumn(cm.getColumn(0).getHeader());
         }
-        
+
         messageGrid.addListener(Events.Attach, new Listener<GridEvent<ItemResult>>() {
 
             @Override
@@ -137,17 +137,17 @@ public class OperationMessageWindow extends Window {
                 config.setLimit(pageSize);
                 loader.load(config);
             }
-        });        
+        });
         panel.add(messageGrid);
-        
+
         pagingBar = new PagingToolBarEx(PAGE_SIZE);
         pagingBar.setHideMode(HideMode.VISIBILITY);
-        
+
         pagingBar.bind(loader);
         loader.setRemoteSort(true);
-        
+
         panel.setBottomComponent(pagingBar);
-        this.setLayout(new FitLayout());        
+        this.setLayout(new FitLayout());
         this.add(panel);
     }
 
@@ -158,5 +158,5 @@ public class OperationMessageWindow extends Window {
     public void setMessages(List<ItemResult> messages) {
         this.messages = messages;
     }
-    
+
 }

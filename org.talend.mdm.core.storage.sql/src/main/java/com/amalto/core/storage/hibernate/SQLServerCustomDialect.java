@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -29,7 +29,7 @@ public class SQLServerCustomDialect extends SQLServer2008Dialect {
         registerColumnType(Types.CHAR, "nchar(1)"); //$NON-NLS-1$
         registerColumnType(Types.NVARCHAR, 4000, "nvarchar($l)"); //$NON-NLS-1$
         registerColumnType(Types.NVARCHAR, "nvarchar(max)"); //$NON-NLS-1$
-        
+
         registerHibernateType(Types.NVARCHAR, StandardBasicTypes.STRING.getName());
         registerHibernateType(Types.LONGNVARCHAR, StandardBasicTypes.TEXT.getName());
     }

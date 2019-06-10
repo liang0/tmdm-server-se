@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -14,7 +14,7 @@ import java.util.Date;
 public enum DataTypeConstants implements DataType {
 
     STRING("string", ""), //$NON-NLS-1$ //$NON-NLS-2$
-    NORMALIZEDSTRING("normalizedString", null), //$NON-NLS-1$ 
+    NORMALIZEDSTRING("normalizedString", null), //$NON-NLS-1$
     LANGUAGE("language", null), //$NON-NLS-1$
     TOKEN("token", null), //$NON-NLS-1$
     NMTOKEN("NMTOKEN", null), //$NON-NLS-1$
@@ -93,7 +93,7 @@ public enum DataTypeConstants implements DataType {
 
     /*
      * (non-Jsdoc)
-     * 
+     *
      * @see org.talend.mdm.webapp.itemsbrowser2.client.model.DataType#getBaseTypeName()
      */
     public String getBaseTypeName() {

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -29,58 +29,58 @@ public class FieldPlugin implements ComponentPlugin {
         void onAdd(Field field);
         void onRemove(Field field);
     }
-    
+
     Add_Remove_Listener listener;
-    
+
     Field field;
     WidgetComponent add = new WidgetComponent(new Image(Icons.INSTANCE.drop_add()));
     WidgetComponent remove = new WidgetComponent(new Image(Icons.INSTANCE.drop_no()));
-    
+
     boolean rendered;
     boolean validated = true;
-    
+
     public void init(Component component) {
         field = (Field) component;
         initEvent();
-        
+
         field.addListener(Events.Render, new Listener<BaseEvent>() {
             public void handleEvent(BaseEvent be) {
                 add.render(field.el().getParent().dom);
                 remove.render(field.el().getParent().dom);
-                
+
                 add.setHideMode(HideMode.VISIBILITY);
                 add.setStyleAttribute("display", "block");//$NON-NLS-1$ //$NON-NLS-2$
                 add.el().makePositionable(true);
-                
+
                 remove.setHideMode(HideMode.VISIBILITY);
                 remove.setStyleAttribute("display", "block");//$NON-NLS-1$ //$NON-NLS-2$
                 remove.el().makePositionable(true);
-                
-                
+
+
                 adjust();
                 ComponentHelper.doAttach(add);
                 ComponentHelper.doAttach(remove);
             }
         });
     }
-    
+
 
     private void adjust(){
         int space = 2;
         if (!validated){
             space = 18;
         }
-        add.el().alignTo(field.getElement(), "tl-tr", new int[] {space + 2, 3});//$NON-NLS-1$ 
+        add.el().alignTo(field.getElement(), "tl-tr", new int[] {space + 2, 3});//$NON-NLS-1$
         remove.el().alignTo(field.getElement(), "tl-tr", new int[] {space + 18, 3});//$NON-NLS-1$
     }
-    
+
     private void initEvent(){
         add.addListener(Events.OnClick, new Listener<BaseEvent>() {
             public void handleEvent(BaseEvent be) {
                 if (listener != null){
                     listener.onAdd(field);
                 }
-                
+
             }
         });
         remove.addListener(Events.OnClick, new Listener<BaseEvent>() {
@@ -91,11 +91,11 @@ public class FieldPlugin implements ComponentPlugin {
             }
         });
     }
-    
+
     public Add_Remove_Listener getListener() {
         return listener;
     }
-    
+
     public void setListener(Add_Remove_Listener listener) {
         this.listener = listener;
     }

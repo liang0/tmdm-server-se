@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -216,7 +216,7 @@ public class Menu {
             menu.setParentID(""); //$NON-NLS-1$
             menu.setPosition(0);
             menuIndex.put(menu.getId(), menu);
-            
+
             // REST API documentation
             menu = new Menu();
             menu.setApplication("RestApiDoc"); //$NON-NLS-1$
@@ -244,7 +244,7 @@ public class Menu {
     private static BaseMenu getMenuUtilDelegator() {
         return BeanDelegatorContainer.getInstance().getMenuUtilDelegator();
     }
-    
+
     public static String getMenuLabel(String language, String menuIndex) throws Exception {
         Map<String, Menu> menus = getMenuIndex();
         Menu menu = menus.get(menuIndex);

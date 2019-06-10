@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -78,7 +78,7 @@ public class UploadService {
     private String fileType = null;
 
     private boolean isPartialUpdate = false;
-    
+
     private boolean headersOnFirstLine = false;
 
     private Map<String, Boolean> headerVisibleMap = null;
@@ -338,7 +338,7 @@ public class UploadService {
 
     protected WSPutItemWithReport buildWSPutItemWithReport(Document document) throws Exception {
         return new WSPutItemWithReport(new WSPutItem(new WSDataClusterPK(getCurrentDataCluster()), document.asXML(),
-                new WSDataModelPK(getCurrentDataModel()), false), UpdateReportPOJO.GENERIC_UI_SOURCE, true); 
+                new WSDataModelPK(getCurrentDataModel()), false), UpdateReportPOJO.GENERIC_UI_SOURCE, true);
     }
 
     /*
@@ -424,7 +424,7 @@ public class UploadService {
         }
         return headers.toArray(new String[headers.size()]);
     }
-    
+
     protected void validateKeyFieldExist(String[] importHeaders) throws UploadException {
         String[] keys = entityModel.getKeys();
         for(String key : keys){
@@ -440,7 +440,7 @@ public class UploadService {
             }
         }
     }
-    
+
     protected Boolean isEmptyRecordInExcel(Row row, String[] importHeader) throws Exception  {
         if (row != null && importHeader != null && importHeader.length > 0) {
             for (int i = 0; i < importHeader.length; i++) {
@@ -454,7 +454,7 @@ public class UploadService {
         }
         return true;
     }
-    
+
     protected Boolean isEmptyRecordInCSV(String[] record, String[] importHeader) throws Exception  {
         if (record != null && importHeader != null && importHeader.length > 0) {
             for (int i = 0; i < importHeader.length; i++) {
@@ -495,7 +495,7 @@ public class UploadService {
             }
         }
     }
-    
+
     protected void fillFieldValue(Element currentElement, String fieldPath, String fieldValue, Row row, String[] record)
             throws Exception {
         String parentPath = null;
@@ -656,7 +656,7 @@ public class UploadService {
             }
         }
     }
-    
+
     protected Document getItemForPartialUpdate(EntityModel model, String[] keys, int rowNumber) throws RemoteException, XtentisWebappException, Exception {
         try {
             WSItem wsItem = CommonUtil.getPort().getItem(new WSGetItem(new WSItemPK(new WSDataClusterPK(org.talend.mdm.webapp.browserecords.server.util.CommonUtil.getCurrentDataModel()), model.getConceptName(), keys)));
@@ -665,7 +665,7 @@ public class UploadService {
             throw new UploadException(MESSAGES.getMessage("save_error") + " " + MESSAGES.getMessage("save_row_count", rowNumber) + e.getCause().getMessage()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         }
     }
-    
+
     protected String getExcelFieldValue(Cell cell) throws Exception {
         String fieldValue = null;
         int cellType = cell.getCellType();

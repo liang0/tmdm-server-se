@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -71,9 +71,9 @@ public class MultiLanguageField extends TextField<String> {
     public Image displayMultiLanguageBtn = new Image(Icons.INSTANCE.world_edit());
 
     public static final String KEY_MDM_READ_ONLY_FIELD_STYLE = "MDM_READ_ONLY_FIELD_STYLE"; //$NON-NLS-1$
-    
+
     private HashMap<String,String> userProperties;
-    
+
     private MultiLanguageModel multiLanguageModel;
 
     private String currentLanguage = UrlUtil.getUpperLanguage();
@@ -81,15 +81,15 @@ public class MultiLanguageField extends TextField<String> {
     private LinkedHashMap<String, ItemBaseModel> languageColumnMap = new LinkedHashMap<String, ItemBaseModel>();
 
     public boolean isFormInput;
-    
+
     private boolean isAdding;
 
     private BaseRemoteServiceAsync service = GWT.create(BaseRemoteService.class);
-    
+
     private Boolean editable = true;
-    
+
     private Element textFieldDisable;
-    
+
     private Boolean selfRender = true;
 
     public MultiLanguageField() {
@@ -100,7 +100,7 @@ public class MultiLanguageField extends TextField<String> {
         this.isFormInput = isFormInput;
         addListener();
     }
-    
+
     public MultiLanguageField(boolean isFormInput, HashMap<String,String> userProperties) {
         this.isFormInput = isFormInput;
         setUserProperties(userProperties);
@@ -119,7 +119,7 @@ public class MultiLanguageField extends TextField<String> {
     public void setAdding(boolean isAdding) {
         this.isAdding = isAdding;
     }
-    
+
     @Override
     public void setRawValue(String value) {
         if (rendered) {
@@ -249,7 +249,7 @@ public class MultiLanguageField extends TextField<String> {
                 multiLanguageModel.setValueByLanguage(currentLanguage, value);
             }
         });
-        
+
         displayMultiLanguageBtn.setTitle(BaseMessagesFactory.getMessages().open_mls_title());
         displayMultiLanguageBtn.addClickHandler(new ClickHandler() {
 
@@ -282,10 +282,10 @@ public class MultiLanguageField extends TextField<String> {
                 }
 
             }
-            
+
         });
     }
-    
+
     @Override
     public boolean validateValue(String value) {
         if (value != null && !"".equals(value.trim())) { //$NON-NLS-1$
@@ -344,13 +344,13 @@ public class MultiLanguageField extends TextField<String> {
         String v = FormatUtil.languageValueEncode(value);
         if("*".equals(v)){ //$NON-NLS-1$
             return v;
-        }        
+        }
         if (OperatorValueConstants.STARTSWITH.equals(operator)) {
             return "%:" + v; //$NON-NLS-1$
         }
         return v;
     }
-    
+
     public String getInputValue(String operator, String value) {
         if (OperatorValueConstants.STARTSWITH.equals(operator)) {
             return value.substring(2, value.length());
@@ -413,7 +413,7 @@ public class MultiLanguageField extends TextField<String> {
 
         });
         languageColumn.setEditor(editor);
-        TextField<String> text = new TextField<String>();  
+        TextField<String> text = new TextField<String>();
         ColumnConfig valueColumn = new ColumnConfig("value", BaseMessagesFactory.getMessages().value_title(), 200); //$NON-NLS-1$
         valueColumn.setRenderer(new GridCellRenderer<ItemBaseModel>() {
 
@@ -424,7 +424,7 @@ public class MultiLanguageField extends TextField<String> {
             }
 
         });
-        valueColumn.setEditor(new CellEditor(text));  
+        valueColumn.setEditor(new CellEditor(text));
 
         final CheckBoxSelectionModel<ItemBaseModel> selectionModel = new CheckBoxSelectionModel<ItemBaseModel>();
         columns.add(selectionModel.getColumn());
@@ -462,14 +462,14 @@ public class MultiLanguageField extends TextField<String> {
                 model.set("language", "EN"); //$NON-NLS-1$//$NON-NLS-2$
                 model.set("value", ""); //$NON-NLS-1$//$NON-NLS-2$
                 model.set("isNewNode", true); //$NON-NLS-1$
-                
+
                 if (re.isEditing()) {
                     re.stopEditing(false);
                 }
-                
+
                 store.add(model);
                 re.startEditing(store.indexOf(model), true);
-            } 
+            }
         });
         Button removeButton = new Button(BaseMessagesFactory.getMessages().remove_btn(),
                 AbstractImagePrototype.create(Icons.INSTANCE.Delete()));
@@ -529,7 +529,7 @@ public class MultiLanguageField extends TextField<String> {
         grid.setContextMenu(contextMenu);
 
     }
-    
+
     @Override
     public void disable() {
         super.disable();
@@ -571,7 +571,7 @@ public class MultiLanguageField extends TextField<String> {
     public void setEditable(Boolean editable) {
         this.editable = editable;
     }
-    
+
     public Boolean getSelfRender() {
         return this.selfRender;
     }
@@ -579,7 +579,7 @@ public class MultiLanguageField extends TextField<String> {
     public void setSelfRender(Boolean selfRender) {
         this.selfRender = selfRender;
     }
-    
+
     public HashMap<String, String> getUserProperties() {
         return this.userProperties;
     }

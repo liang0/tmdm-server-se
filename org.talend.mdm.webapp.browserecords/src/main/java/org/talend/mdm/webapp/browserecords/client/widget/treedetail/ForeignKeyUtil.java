@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -158,7 +158,7 @@ public class ForeignKeyUtil {
         event.setData(BrowseRecordsView.ITEMS_DETAIL_PANEL, itemsDetailPanel);
         if (!isCreateForeignKey) {
             event = new AppEvent(BrowseRecordsEvents.ViewForeignKey);
-            event.setData("ids", ids); //$NON-NLS-1$ 
+            event.setData("ids", ids); //$NON-NLS-1$
             event.setData("concept", foreignKeyName); //$NON-NLS-1$
             event.setData(BrowseRecordsView.IS_STAGING, itemsDetailPanel.isStaging());
             event.setData(BrowseRecordsView.ITEMS_DETAIL_PANEL, itemsDetailPanel);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -29,7 +29,7 @@ public class BulkloadException extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return super.getMessage() + ((serverException != null && serverException.trim().length() > 0) ? "\n" + serverException : ""); //$NON-NLS-1$ //$NON-NLS-2$ 
+        return super.getMessage() + ((serverException != null && serverException.trim().length() > 0) ? "\n" + serverException : ""); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     public String getServerException() {

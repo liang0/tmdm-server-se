@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -28,7 +28,7 @@ public class ReplaceEmptyInfoInTransformersTask extends AbstractMigrationTask{
 		//Update Transformer POJOS
 		org.apache.log4j.Logger.getLogger(ReplaceEmptyInfoInTransformersTask.class).info("Updating Transformers");
 		try {
-			
+
 			String[] ids = ConfigurationHelper.getServer().getAllDocumentsUniqueID(ObjectPOJO.getCluster(TransformerV2POJO.class));
 			if (ids != null) {
 				Transformer tCtrl = Util.getTransformerV2CtrlLocal();

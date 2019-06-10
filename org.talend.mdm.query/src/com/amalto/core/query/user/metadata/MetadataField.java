@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -16,7 +16,7 @@ import com.amalto.core.storage.record.DataRecord;
 /**
  * Represents a "metadata" field: mostly a technical field, a metadata field is not user defined but associated with the
  * MDM record.
- * 
+ *
  * @see MetadataField.Factory#getMetadataField(String)
  * @see MetadataField#SUPPORTED_METADATA
  */
@@ -71,7 +71,7 @@ public interface MetadataField extends TypedExpression {
         /**
          * Returns the first {@link com.amalto.core.query.user.metadata.MetadataField field} represented by
          * <code>path</code>.
-         * 
+         *
          * @param path A path (usually a metadata field name).
          * @return The first {@link com.amalto.core.query.user.metadata.MetadataField field} to match the
          * <code>path</code> or <code>null</code> if no candidate was found.
@@ -94,7 +94,7 @@ public interface MetadataField extends TypedExpression {
 
         /**
          * Returns the metadata field value defined in <code>record</code>.
-         * 
+         *
          * @param record A {@link DataRecord record}.
          * @return The metadata value in <code>record</code>, <code>null</code> if not defined or not set.
          */

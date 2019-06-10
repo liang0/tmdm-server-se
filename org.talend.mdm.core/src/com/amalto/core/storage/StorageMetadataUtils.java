@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -70,7 +70,7 @@ public class StorageMetadataUtils extends MetaDataUtils {
      * This method follows references to other type <b>only</b> when type is not instantiable (see
      * {@link org.talend.mdm.commmon.metadata.TypeMetadata#isInstantiable()}).
      * </p>
-     * 
+     *
      * @param type Point of entry in the metadata graph.
      * @param target Field to look for as end of path.
      * @return A path from type <code>origin</code> to field <code>target</code>. Returns empty list if no path could be
@@ -107,7 +107,7 @@ public class StorageMetadataUtils extends MetaDataUtils {
              __paths(type, target, currentPath, foundPaths, processedTypes);
         }
      }
-            
+
      private static void __paths(ComplexTypeMetadata type, FieldMetadata target, Stack<FieldMetadata> currentPath,
              Set<List<FieldMetadata>> foundPaths, Set<TypeMetadata> processedTypes) {
         if (StorageConstants.PROJECTION_TYPE.equals(type.getName()) && type.hasField(target.getName())) {
@@ -155,7 +155,7 @@ public class StorageMetadataUtils extends MetaDataUtils {
             currentPath.pop();
         }
     }
-    
+
     @SuppressWarnings("rawtypes")
     public static boolean isValueAssignable(List value, String typeName) {
         try {
@@ -168,7 +168,7 @@ public class StorageMetadataUtils extends MetaDataUtils {
 
     /**
      * Checks whether <code>value</code> is valid for full text search.
-     * 
+     *
      * @param value The value to check.
      * @param field The field to receive the value.
      * @return <code>true</code> if the field can be searched by lucene, <code>false</code> otherwise.
@@ -197,7 +197,7 @@ public class StorageMetadataUtils extends MetaDataUtils {
     public static Object convert(String dataAsString, FieldMetadata field) {
         return convert(dataAsString, field.getType());
     }
-    
+
     public static Object convert(List<String> dataAsList, FieldMetadata field) {
         return convert(dataAsList, field.getType());
     }
@@ -342,7 +342,7 @@ public class StorageMetadataUtils extends MetaDataUtils {
             return String.valueOf(o);
         }
     }
-    
+
 
     public static List<String> getIds(String dataAsString) {
         List<String> ids = new LinkedList<String>();

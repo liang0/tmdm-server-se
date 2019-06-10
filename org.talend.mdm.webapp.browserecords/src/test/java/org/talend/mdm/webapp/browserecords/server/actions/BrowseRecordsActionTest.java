@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -244,7 +244,7 @@ public class BrowseRecordsActionTest extends TestCase {
      * DataModel File : Product.xsd<br>
      * View File : Browse_items_Product.item<br>
      * Data Result File : ProductQueryResult.properties
-     * 
+     *
      * @throws Exception
      */
     public void test_queryItemBeans() throws Exception {
@@ -561,7 +561,7 @@ public class BrowseRecordsActionTest extends TestCase {
     /**
      * Using the ContractInheritance.xsd to test getItemNodeModel<br>
      * Data File: ContractSampleTwo.xml
-     * 
+     *
      * @throws Exception
      */
     public void test_getItemNodeModel() throws Exception {
@@ -606,7 +606,7 @@ public class BrowseRecordsActionTest extends TestCase {
         assertEquals("pending", fourthNode.getObjectValue().toString());
         assertEquals("Contract/enumEle", fourthNode.getTypePath());
     }
-    
+
     // TMDM-3612 You can define a type T with a field T, save, deploy, and this causes the server to enter an infinite
     // loop, eventually ending in StackOverflowError
     public void test_getItemNodeModel_3612() throws Exception {
@@ -652,14 +652,14 @@ public class BrowseRecordsActionTest extends TestCase {
         if(item.getFormateMap() == null){
             item.setFormateMap(new HashMap<String, String>()) ;
         }
-            
+
         com.amalto.core.delegator.BeanDelegatorContainer beanDelegatorContainer = PowerMockito.spy(com.amalto.core.delegator.BeanDelegatorContainer.createInstance());
         Whitebox.<BeanDelegatorContainer> invokeMethod(beanDelegatorContainer, "getInstance");
         BeanDelegatorContainer.getInstance().setDelegatorInstancePool(Collections.<String, Object> singletonMap("LocalUser", new MockILocalUser()));
         //LocalUser localUser = PowerMockito.spy(new LocalUser());
         Whitebox.<BeanDelegatorContainer> invokeMethod(beanDelegatorContainer, "setDelegatorInstancePool", Collections.<String, Object> singletonMap("LocalUser", new MockILocalUser()));
         Whitebox.<LocalUser> invokeMethod(beanDelegatorContainer, "getLocalUserDelegator");
-       
+
         PowerMockito.when(LocalUser.getLocalUser()).thenReturn(new MockILocalUser()) ;
         String[] roles = { "Demo_Manager", "System_Admin", "authenticated", "administration" };
         HashSet<String> rolesSet = new HashSet<String>() ;
@@ -671,18 +671,18 @@ public class BrowseRecordsActionTest extends TestCase {
 
         PowerMockito.mockStatic(Configuration.class);
         Mockito.when(Configuration.getConfiguration()).thenReturn(config);
-        
+
         XtentisPort port = PowerMockito.mock(XtentisPort.class);
         PowerMockito.spy(org.talend.mdm.webapp.base.server.util.CommonUtil.class);
         PowerMockito.doReturn(port).when(org.talend.mdm.webapp.base.server.util.CommonUtil.class, "getPort");
         WSItem wsItem = getWsItem(concept, concept, ids, getXml("GoodsWithNumberFieldSample.xml"));
         Mockito.when(port.getItem(Mockito.any(WSGetItem.class))).thenReturn(wsItem);
-        
+
         ItemBean itemBean = action.getItem(item, null, viewBean.getBindingEntityModel(), false, language);
-       
+
         Map<String, Object> originalMap = itemBean.getOriginalMap();
         Map<String, String> formateMap = itemBean.getFormateMap();
-        
+
         assertEquals(4, originalMap.size());
         assertEquals(4, formateMap.size());
 
@@ -735,7 +735,7 @@ public class BrowseRecordsActionTest extends TestCase {
         itemBean1.setConcept("Test1");
         itemBean1.setIds("3");
         items.add(itemBean9);
-        
+
         String cluster = "Test";
         PowerMockito.mockStatic(org.talend.mdm.webapp.browserecords.server.util.CommonUtil.class);
         Mockito.when(org.talend.mdm.webapp.browserecords.server.util.CommonUtil.getCurrentDataCluster()).thenReturn(cluster);
@@ -825,7 +825,7 @@ public class BrowseRecordsActionTest extends TestCase {
 
     /**
      * Test polymorphism type change, It will get the correct typeModel
-     * 
+     *
      * @throws Exception
      */
     public void test_createSubItemNodeModel() throws Exception {
@@ -988,17 +988,17 @@ public class BrowseRecordsActionTest extends TestCase {
                 Object result1 = method.invoke(action, para1);
                 String expectedMsg = "An error occurred.TestModel.1,RuntimeException";
                 assertEquals(expectedMsg, result1);
-                
+
                 Object para2[] = { coreException, "", "1", new Locale("en") };
                 Object result2 = method.invoke(action, para2);
                 expectedMsg = "An error occurred.RuntimeException";
                 assertEquals(expectedMsg, result2);
-                
+
                 Object para3[] = { coreException, "TestModel", "", new Locale("en") };
                 Object result3 = method.invoke(action, para3);
                 expectedMsg = "An error occurred.TestModel,RuntimeException";
                 assertEquals(expectedMsg, result3);
-                
+
                 Object para4[] = { coreException, "", "", new Locale("en") };
                 Object result4 = method.invoke(action, para4);
                 expectedMsg = "An error occurred.RuntimeException";
@@ -1195,7 +1195,7 @@ public class BrowseRecordsActionTest extends TestCase {
             }
         }
     }
-    
+
     private String parsingNodeValue(Document docXml, String xpath, String conceptName) throws Exception {
         NodeList nodes = Util.getNodeList(docXml, xpath.replaceFirst(conceptName + "/", "./"));
         if (nodes.getLength() > 0) {
@@ -1471,7 +1471,7 @@ public class BrowseRecordsActionTest extends TestCase {
         }
         return buffer.toString();
     }
-    
+
     private WSItem getWsItem(String cluster, String concept, String pk, String content) {
         WSItem item = new WSItem();
         item.setConceptName(concept);
@@ -1483,7 +1483,7 @@ public class BrowseRecordsActionTest extends TestCase {
         item.setWsDataClusterPK(new WSDataClusterPK(cluster));
         return item;
     }
-    
+
     private static class MockILocalUser extends ILocalUser {
 
         @Override

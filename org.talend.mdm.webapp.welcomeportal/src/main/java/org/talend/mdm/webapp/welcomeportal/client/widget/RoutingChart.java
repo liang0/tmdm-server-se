@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -138,13 +138,13 @@ public class RoutingChart extends ChartPortlet {
     protected int getSeriesSize() {
         return 2;
     }
-    
+
     @Override
     protected String[] getSeriesLabels(){
         String[] labels = { MessagesFactory.getMessages().chart_routing_event_completed(), MessagesFactory.getMessages().chart_routing_event_failed() };
         return labels;
     }
-    
+
     @Override
     protected String[] getSeriesDataKeys(){
         String[] keys = { ROUTING_STATUS_COMPLETED, ROUTING_STATUS_FAILED };

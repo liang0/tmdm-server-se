@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -160,7 +160,7 @@ public class TreeDetailGridFieldCreator {
                     if (se.getSelectedItem() == null) {
                         reusableType = comboxField.getStore().getAt(0).get("reusableType"); //$NON-NLS-1$
                     } else {
-                        reusableType = se.getSelectedItem().get("reusableType"); //$NON-NLS-1$    
+                        reusableType = se.getSelectedItem().get("reusableType"); //$NON-NLS-1$
                     }
                     AppEvent app = new AppEvent(BrowseRecordsEvents.UpdatePolymorphism);
                     app.setData(reusableType);
@@ -210,7 +210,7 @@ public class TreeDetailGridFieldCreator {
             buildFacets(dataType, field);
 
             String errorMsg = dataType.getFacetErrorMsgs().get(language);
-            field.setData("facetErrorMsgs", errorMsg);//$NON-NLS-1$        
+            field.setData("facetErrorMsgs", errorMsg);//$NON-NLS-1$
             FacetEnum.setFacetValue("maxOccurence", field, String.valueOf(dataType.getMaxOccurs())); //$NON-NLS-1$
 
             if (((TextField<?>) field).getValidator() == null) {

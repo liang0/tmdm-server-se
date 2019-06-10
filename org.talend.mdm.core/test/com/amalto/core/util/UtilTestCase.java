@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -49,7 +49,7 @@ import com.amalto.xmlserver.interfaces.WhereLogicOperator;
 public class UtilTestCase extends TestCase {
 
     IValidation validation = new IValidation();
-    
+
     public void testDefaultValidate() throws IOException, ParserConfigurationException, SAXException {
         // missing mandontory field cvc-complex-type.2.4.b
         InputStream in = UtilTestCase.class.getResourceAsStream("Agency_ME02.xml");
@@ -148,7 +148,7 @@ public class UtilTestCase extends TestCase {
 
     /**
      * Simulate test beforeDeleting DOC Administrator Comment method "testBeforeDeleting".
-     * 
+     *
      * @throws Exception
      */
     public void testBeforeDeleting() throws Exception {
@@ -171,7 +171,7 @@ public class UtilTestCase extends TestCase {
 
     /**
      * the simulate droppedItem DOC Administrator Comment method "getDroppedItem".
-     * 
+     *
      * @return
      */
     private DroppedItemPOJO getDroppedItem() {
@@ -185,7 +185,7 @@ public class UtilTestCase extends TestCase {
     /**
      * the simulate beforeDeleting() according to the Util.beforeDeleting() DOC Administrator Comment method
      * "beforeDeleting".
-     * 
+     *
      * @param pj
      * @return
      * @throws Exception
@@ -361,43 +361,43 @@ public class UtilTestCase extends TestCase {
             assertTrue("Is Empty Or Null".equals(condition8.getOperator()));
         }
     }
-    
+
     public void testSetUserPropertyDoesNotExist() throws Exception {
         String xml = "<User><username>A</username><id>B</id><properties><property><name>x</name><value>y</value></property></properties></User>";
         Document user = Util.parse(xml);
         Util.setUserProperty(user, "newprop", "newvalue");
-        
+
         String result = XMLUtils.nodeToString(user, true, false).replaceAll("\r\n", "\n");
         assertEquals("<User><username>A</username><id>B</id><properties><property><name>x</name><value>y</value></property><property><name>newprop</name><value>newvalue</value></property></properties></User>", result);
     }
-    
+
     public void testSetUserPropertyNoProperties() throws Exception {
         String xml = "<User><username>A</username><id>B</id></User>";
         Document user = Util.parse(xml);
         Util.setUserProperty(user, "newprop", "newvalue");
-        
+
         String result = XMLUtils.nodeToString(user, true, false).replaceAll("\r\n", "\n");
         assertEquals("<User><username>A</username><id>B</id><properties><property><name>newprop</name><value>newvalue</value></property></properties></User>", result);
     }
-    
+
     public void testSetUserPropertyOverride() throws Exception {
         String xml = "<User><username>A</username><id>B</id><properties><property><name>x</name><value>y</value></property></properties></User>";
         Document user = Util.parse(xml);
         Util.setUserProperty(user, "x", "z");
-        
+
         String result = XMLUtils.nodeToString(user, true, false).replaceAll("\r\n", "\n");
         assertEquals("<User><username>A</username><id>B</id><properties><property><name>x</name><value>z</value></property></properties></User>", result);
     }
-    
+
     public void testSetUserPropertyNullName() throws Exception {
         String xml = "<User><username>A</username><id>B</id><properties><property><name>x</name><value>y</value></property></properties></User>";
         Document user = Util.parse(xml);
         Util.setUserProperty(user, null, "z");
-        
+
         String result = XMLUtils.nodeToString(user, true, false).replaceAll("\r\n", "\n");
         assertEquals("<User><username>A</username><id>B</id><properties><property><name>x</name><value>y</value></property></properties></User>", result);
     }
-    
+
     public void testMessagesModifyPatternAccordingToArgs() throws Exception {
         Messages messages = new Messages("org.talend.mdm.webapp.browserecords.client.i18n.BrowseRecordsMessages", new TestClassLoader());
         StringBuffer pattern = new StringBuffer("An error occurred.");

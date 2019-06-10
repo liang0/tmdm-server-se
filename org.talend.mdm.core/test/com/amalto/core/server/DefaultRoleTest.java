@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -29,11 +29,11 @@ import junit.framework.TestCase;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ com.amalto.core.objects.ObjectPOJO.class })
 public class DefaultRoleTest extends TestCase {
-    
+
     @Override
     public void setUp() throws Exception {
     }
-    
+
     public void testLoadAllRolePKS() throws Exception {
         ArrayList<ObjectPOJOPK> list = new ArrayList<ObjectPOJOPK>();
         list.add(new ObjectPOJOPK("SystemAdmin")); //$NON-NLS-1$
@@ -46,13 +46,13 @@ public class DefaultRoleTest extends TestCase {
         list.add(new ObjectPOJOPK("BUT")); //$NON-NLS-1$
         list.add(new ObjectPOJOPK("Group")); //$NON-NLS-1$
         list.add(new ObjectPOJOPK("global")); //$NON-NLS-1$
-        
+
         PowerMockito.mockStatic(ObjectPOJO.class);
         PowerMockito.when(ObjectPOJO.findAllPKs(RolePOJO.class, "*")).thenReturn(list); //$NON-NLS-1$
-        
+
         Role ctrl = Util.getRoleCtrlLocal();
         Collection<RolePOJOPK> c = ctrl.getRolePKs("*"); //$NON-NLS-1$
-        
+
         assertEquals(10, c.size());
         assertEquals("administrator", ((ArrayList<RolePOJOPK>)c).get(0).getUniqueId()); //$NON-NLS-1$
         assertEquals("Apart", ((ArrayList<RolePOJOPK>)c).get(1).getUniqueId()); //$NON-NLS-1$

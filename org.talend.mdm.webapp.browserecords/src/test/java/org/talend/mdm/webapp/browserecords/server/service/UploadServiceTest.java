@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -52,7 +52,7 @@ import junit.framework.TestSuite;
 
 /**
  * created by talend2 on 2013-12-18 Detailled comment
- * 
+ *
  */
 @PrepareForTest({ Util.class })
 public class UploadServiceTest extends TestCase {
@@ -74,7 +74,7 @@ public class UploadServiceTest extends TestCase {
     protected String fileType = null;
 
     protected boolean isPartialUpdate = false;
-    
+
     protected boolean headersOnFirstLine = false;
 
     protected Map<String, Boolean> headerVisibleMap = null;
@@ -274,7 +274,7 @@ public class UploadServiceTest extends TestCase {
         } catch(Exception e) {
             fail("Key Field is not Exist"); //$NON-NLS-1$
         }
-        
+
         file = new File(this.getClass().getResource("UploadTestModel_PartialUpdate.xls").getFile()); //$NON-NLS-1$
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
@@ -304,7 +304,7 @@ public class UploadServiceTest extends TestCase {
             }
         } catch (Exception exception) {
             fail("get excel file field value failed."); //$NON-NLS-1$
-        } 
+        }
     }
 
     public void testImportWithDefaultImportCount() throws Exception {
@@ -364,29 +364,29 @@ public class UploadServiceTest extends TestCase {
         assertEquals(exceptResult, removeFormatPattern.matcher(wsPutItemWithReportList.get(9).getWsPutItem().getXmlString())
                 .replaceAll(""));
     }
-    
+
     public void testUploadCSVFileWithoutHeader() throws Exception {
         headerVisibleMap = new HashMap<String, Boolean>();
         headerVisibleMap.put("Contact/ContactId", true); //$NON-NLS-1$
         headerVisibleMap.put("Contact/name", true); //$NON-NLS-1$
         headerVisibleMap.put("Contact/firstname", true); //$NON-NLS-1$
         inheritanceNodePathList = new LinkedList<String>();
-        
+
         String[] keys = { "Contact/ContactId" }; //$NON-NLS-1$
         entityModel = getEntityModel("UploadContactTestModel.xsd", "Contact", "Contact", keys); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        
+
         // test upload csv file
         fileType = "csv"; //$NON-NLS-1$
         multipleValueSeparator = "|"; //$NON-NLS-1$
         UploadService service = new TestUploadService(entityModel, fileType, isPartialUpdate, false, headerVisibleMap, inheritanceNodePathList,
                 multipleValueSeparator, seperator, encoding, textDelimiter, language);
-        
+
         file = new File(this.getClass().getResource("UploadContactWithoutHeader.csv").getFile()); //$NON-NLS-1$
         List<WSPutItemWithReport> wsPutItemWithReportList = service.readUploadFile(file);
-        
+
         wsPutItemWithReportList = service.readUploadFile(file);
         assertEquals(2, wsPutItemWithReportList.size());
-        
+
         String exceptResult1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Contact xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><ContactId/><name>id1</name><firstname>name1</firstname><emailsList><email><adress/><adresscategory/></email></emailsList></Contact>"; //$NON-NLS-1$
         String exceptResult2 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Contact xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><ContactId/><name>id2</name><firstname>name2</firstname><emailsList><email><adress/><adresscategory/></email></emailsList></Contact>"; //$NON-NLS-1$
         assertEquals(exceptResult1, removeFormatPattern.matcher(wsPutItemWithReportList.get(0).getWsPutItem().getXmlString()).replaceAll("")); //$NON-NLS-1$

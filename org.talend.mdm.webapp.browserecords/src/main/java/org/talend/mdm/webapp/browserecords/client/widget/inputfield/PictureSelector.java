@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -137,7 +137,7 @@ public class PictureSelector extends ContentPanel {
             protected ItemBaseModel prepareData(ItemBaseModel model) {
                 org.talend.mdm.webapp.base.client.model.Image image = (org.talend.mdm.webapp.base.client.model.Image) model;
                 model.set("shortName", Format.ellipse(image.getName(), 15)); //$NON-NLS-1$
-                model.set("url", image.getUri() + "?width=80&height=60&randomNum=" + Math.random()); //$NON-NLS-1$ //$NON-NLS-2$ 
+                model.set("url", image.getUri() + "?width=80&height=60&randomNum=" + Math.random()); //$NON-NLS-1$ //$NON-NLS-2$
                 return model;
             }
         };
@@ -146,7 +146,7 @@ public class PictureSelector extends ContentPanel {
         view.setTemplate(getTemplate());
         view.setBorders(false);
         view.setStore(store);
-        view.setItemSelector("div.thumb-wrap"); //$NON-NLS-1$ 
+        view.setItemSelector("div.thumb-wrap"); //$NON-NLS-1$
         view.setStateful(true);
 
         view.addListener(Events.OnDoubleClick, new Listener<ListViewEvent<ModelData>>() {

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -291,7 +291,7 @@ public class MetadataValidationTest extends TestCase {
         assertTrue(handler.getLineNumbers().contains(213));
         assertFalse(handler.getLineNumbers().contains(null));
     }
-    
+
     public void testFKInfo7() throws Exception {
         MetadataRepository repository = new MetadataRepository();
         InputStream resourceAsStream = this.getClass().getResourceAsStream("FKINFO7.xsd");
@@ -495,7 +495,7 @@ public class MetadataValidationTest extends TestCase {
         assertTrue(handler.getLineNumbers().contains(15));
         assertFalse(handler.getLineNumbers().contains(null));
     }
-    
+
     // See TMDM-6554
     public void testSecondLevelPkInfo() throws Exception {
         MetadataRepository repository = new MetadataRepository();
@@ -589,7 +589,7 @@ public class MetadataValidationTest extends TestCase {
         repository.load(resourceAsStream, handler);
         assertEquals(0, handler.getErrorCount());
     }
-    
+
     public void testReferenceTypeWarning2() throws Exception {
         MetadataRepository repository = new MetadataRepository();
         InputStream resourceAsStream = this.getClass().getResourceAsStream("ReferenceTypeElement2.xsd"); //$NON-NLS-1$
@@ -612,7 +612,7 @@ public class MetadataValidationTest extends TestCase {
         assertTrue(handler.getLineNumbers().contains(50));
         assertFalse(handler.getLineNumbers().contains(null));
     }
-    
+
     public void testUnusedType2() throws Exception {
         MetadataRepository repository = new MetadataRepository();
         InputStream resourceAsStream = this.getClass().getResourceAsStream("UnusedType2_0.1.xsd");
@@ -630,7 +630,7 @@ public class MetadataValidationTest extends TestCase {
         assertEquals(0, handler.getWarningCount());
         assertFalse(handler.getLineNumbers().contains(null));
     }
-    
+
     public void testTypeUsageCount() throws Exception {
         MetadataRepository repository = new MetadataRepository();
         InputStream stream1 = getClass().getResourceAsStream("ReusableType.xsd"); //$NON-NLS-1$
@@ -658,7 +658,7 @@ public class MetadataValidationTest extends TestCase {
         assertTrue(handler.getLineNumbers().contains(22));
         assertFalse(handler.getLineNumbers().contains(null));
     }
-    
+
     public void testInheritanceOverride() throws Exception {
         MetadataRepository repository = new MetadataRepository();
         InputStream resourceAsStream = this.getClass().getResourceAsStream("InheritanceOverride.xsd");
@@ -674,7 +674,7 @@ public class MetadataValidationTest extends TestCase {
         assertTrue(handler.getLineNumbers().contains(359));
         assertFalse(handler.getLineNumbers().contains(null));
     }
-    
+
     public void testTypeNameConstraint() throws Exception {
         MetadataRepository repository = new MetadataRepository();
         InputStream resourceAsStream = this.getClass().getResourceAsStream("TypeNaming.xsd");
@@ -688,7 +688,7 @@ public class MetadataValidationTest extends TestCase {
         assertTrue(handler.getMessages().contains(ValidationError.TYPE_INVALID_NAME));
         assertTrue(handler.getLineNumbers().contains(3));
         assertTrue(handler.getLineNumbers().contains(27));
-        
+
     }
 
     private static class TestValidationHandler implements ValidationHandler {

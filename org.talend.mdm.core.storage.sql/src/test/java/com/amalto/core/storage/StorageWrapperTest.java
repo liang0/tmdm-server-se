@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -58,7 +58,7 @@ import com.amalto.xmlserver.interfaces.XmlServerException;
 import junit.framework.TestCase;
 
 public class StorageWrapperTest extends TestCase {
-    
+
     public static String[] XMLS_PRODUCT = {
         "<ii><c>Product</c><n>Product</n><dmn>Product</dmn><i>333</i><t>1372654669313</t><taskId></taskId><p><Product><Id>333</Id><Name>333</Name><Description>333</Description><Price>333</Price></Product></p></ii>", //$NON-NLS-1$
         "<ii><c>Product</c><n>Product</n><dmn>Product</dmn><i>33&amp;44</i><t>1372654669313</t><taskId></taskId><p><Product><Id>33&amp;44</Id><Name>333</Name><Description>333</Description><Price>333</Price></Product></p></ii>", //$NON-NLS-1$
@@ -69,13 +69,13 @@ public class StorageWrapperTest extends TestCase {
     public static String[] IDS_PRODUCT = {"Product.Product.333", "Product.Product.33&44", "Product.Product.\"555<666>444\"", "Product.ProductFamily.1", "Product.Store.1"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
     public static String[] XMLS_INHERIT = { "<ii><c>InheritTest</c><n>InheritEntity</n><dmn>InheritTest</dmn><i>123</i><t>1372654669313</t><taskId></taskId><p><InheritEntity><id>123</id><field1>a</field1><field2>b</field2></InheritEntity></p></ii>" }; //$NON-NLS-1$
-    
+
     public static String[] IDS_INHERIT = { "InheritTest.InheritEntity.1" }; //$NON-NLS-1$
-    
+
     public StorageWrapperTest() {
         ServerContext.INSTANCE.get(new MockServerLifecycle());
     }
-    
+
     public void testGetAllDocumentsUniqueID() throws Exception {
         StorageWrapper wrapper = prepareWrapper("Product", "Product.xsd", XMLS_PRODUCT, IDS_PRODUCT); //$NON-NLS-1$ //$NON-NLS-2$
         List<String> uniqueIDs = Arrays.asList(new String[]{"Product.Product.333", "Product.Product.33&44", "Product.Product.\"555<666>444\"", "Product.ProductFamily.1", "Product.Store.1"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
@@ -96,14 +96,14 @@ public class StorageWrapperTest extends TestCase {
         assertTrue(item.contains("<i>33&amp;44</i>")); //$NON-NLS-1$
         item = wrapper.getDocumentAsString("Product", "Product.Product.\"555<666>444\"", "UTF-8"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         assertNotNull(item);
-        assertTrue(item.contains("<i>&quot;555&lt;666&gt;444&quot;</i>")); //$NON-NLS-1$      
+        assertTrue(item.contains("<i>&quot;555&lt;666&gt;444&quot;</i>")); //$NON-NLS-1$
         // bellow test inherit entity
         wrapper = prepareWrapper("InheritTest", "InheritEntityTest.xsd", XMLS_INHERIT, IDS_INHERIT); //$NON-NLS-1$ //$NON-NLS-2$
         item = wrapper.getDocumentAsString("InheritTest", "InheritTest.InheritEntity.123", "UTF-8"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         assertNotNull(item);
         assertTrue(item.contains("<i>123</i>")); //$NON-NLS-1$
         assertTrue(item.contains("<InheritEntity><id>123</id><field1>a</field1><field2>b</field2></InheritEntity>")); //$NON-NLS-1$
-        
+
         //get documents as string
         wrapper = prepareWrapper("Product", "Product.xsd", XMLS_PRODUCT, IDS_PRODUCT); //$NON-NLS-1$ //$NON-NLS-2$
         String[] uniqueIDs = {"Product.Product.333", "Product.ProductFamily.1", "Product.Store.1"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -115,7 +115,7 @@ public class StorageWrapperTest extends TestCase {
         assertTrue(xmls[1].contains("<p><ProductFamily><Id>1</Id><Name>1</Name></ProductFamily></p>")); //$NON-NLS-1$
         assertNotNull(xmls[2]);
         assertTrue(xmls[2].contains("<Store><Id>1</Id>")); //$NON-NLS-1$
-           
+
     }
 
     public void testMultipleOccurrenceComplex() throws IOException {
@@ -248,7 +248,7 @@ public class StorageWrapperTest extends TestCase {
         storage2.commit();
 
     }
-    
+
     // TMDM-10201 Exported file of related entity is empty when entity is inheritance type
     public void testGetItemPKsByCriteria() throws XmlServerException {
         final MetadataRepository repository = prepareMetadata("InheritFKTest.xsd"); //$NON-NLS-1$
@@ -263,8 +263,8 @@ public class StorageWrapperTest extends TestCase {
         storage.begin();
         storage.update(records);
         storage.commit();
-        
-        
+
+
         ItemPKCriteria criteria = new ItemPKCriteria();
         criteria.setClusterName("InheritFKTest"); //$NON-NLS-1$
         criteria.setConceptName("Feature"); //$NON-NLS-1$
@@ -277,7 +277,7 @@ public class StorageWrapperTest extends TestCase {
         criteria.setMaxItems(Integer.MAX_VALUE);
         criteria.setSkip(0);
         criteria.setUseFTSearch(false);
-        
+
         StorageWrapper wrapper = new StorageWrapper() {
 
             @Override
@@ -303,7 +303,7 @@ public class StorageWrapperTest extends TestCase {
         storage.prepare(repository, true);
         return storage;
     }
-    
+
     private StorageWrapper prepareWrapper(String name, String xsd, String[] xmls, String[] ids) throws XmlServerException{
         final MetadataRepository repository = prepareMetadata(xsd);
         final Storage storage = prepareStorage(name, repository);
@@ -315,17 +315,17 @@ public class StorageWrapperTest extends TestCase {
                 return storage;
             }
         };
-        
+
         wrapper.start(name);
         {
             for (int i = 0; i < xmls.length; i++) {
-                wrapper.putDocumentFromString(xmls[i], ids[i], name, null); 
+                wrapper.putDocumentFromString(xmls[i], ids[i], name, null);
             }
         }
         wrapper.commit(name);
         return wrapper;
     }
-    
+
     protected static class MockUser extends ILocalUser {
 
         @Override

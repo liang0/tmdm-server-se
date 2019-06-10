@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -17,7 +17,7 @@ import com.google.gwt.i18n.client.Messages;
 public interface JournalMessages extends Messages {
 
     public String journal_title();
-    
+
     public String info_title();
 
     public String search_panel_title();
@@ -71,15 +71,15 @@ public interface JournalMessages extends Messages {
     public String select_contain_model_msg();
 
     public String view_updatereport_button();
-    
+
     public String prev_updatereport_button();
-    
+
     public String next_updatereport_button();
-    
+
     public String no_prev_report_msg();
-    
+
     public String no_next_report_msg();
-    
+
     public String updatereport_label();
 
     public String change_properties();
@@ -91,22 +91,22 @@ public interface JournalMessages extends Messages {
     public String warning_title();
 
     public String search_date_error_message();
-    
+
     public String restore_success();
-    
+
     public String restore_fail();
-    
+
     public String restore_confirm();
-    
+
     public String menu_item_viewchages();
-    
+
     public String strict_search_checkbox();
-    
+
     public String restore_logic_delete_fail();
-        
+
     public String restore_not_support(String operationType);
-        
+
     public String restore_update_fail();
-    
+
     public String action_not_supported(String action);
 }

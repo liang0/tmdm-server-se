@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -284,7 +284,7 @@ public class UserQueryHelper {
 
     public static List<TypedExpression> getFields(ComplexTypeMetadata type, String fieldName) {
         if (type == null) {
-            throw new IllegalArgumentException("Type cannot be null."); //$NON-NLS-1$ 
+            throw new IllegalArgumentException("Type cannot be null."); //$NON-NLS-1$
         }
         // Considers attributes as elements
         // TODO This is assuming attributes are elements... which is true when these line were written.

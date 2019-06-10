@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -26,31 +26,31 @@ import org.apache.log4j.Logger;
 public class DigestHelper {
 
     private static final String TYPE_DATA_CLUSTER = "MDM.DataCluster"; //$NON-NLS-1$
-    
+
     private static final String TYPE_DATA_MODEL = "MDM.DataModel"; //$NON-NLS-1$
-    
+
     private static final String TYPE_VIEW = "MDM.View"; //$NON-NLS-1$
-    
+
     private static final String TYPE_ROLE = "MDM.Role"; //$NON-NLS-1$
-    
+
     private static final String TYPE_MENU = "MDM.Menu"; //$NON-NLS-1$
-    
+
     private static final String TYPE_STORED_PROCEDURE = "MDM.StoredProcedure"; //$NON-NLS-1$
-    
+
     private static final String TYPE_UNIVERSE = "MDM.Universe"; //$NON-NLS-1$
-    
+
     private static final String TYPE_SYNCHRONIZATION_PLAN = "MDM.SynchronizationPlan"; //$NON-NLS-1$
-    
+
     private static final String TYPE_WORKFLOW = "MDM.Workflow"; //$NON-NLS-1$
 
     private static final String TYPE_TRANSFORMER = "MDM.TransformerV2"; //$NON-NLS-1$
-    
+
     private static final String TYPE_ROUTING_RULE = "MDM.RoutingRule"; //$NON-NLS-1$
 
     private static final String TYPE_JOB_MODEL = "MDM.JobModel"; //$NON-NLS-1$
 
     private static final String TYPE_SERVICE_CONFIGURATION = "MDM.ServiceConfiguration"; //$NON-NLS-1$
-    
+
     private static final String TYPE_RESOURCE = "MDM.Resource"; //$NON-NLS-1$
 
     private static final String TYPE_CUSTOM_FORM = "MDM.CustomForm"; //$NON-NLS-1$
@@ -60,7 +60,7 @@ public class DigestHelper {
     private static final Logger LOGGER = Logger.getLogger(DigestHelper.class);
 
     private static DigestHelper instance;
-    
+
     public static synchronized DigestHelper getInstance() {
         if (instance == null) {
             instance = new DigestHelper();

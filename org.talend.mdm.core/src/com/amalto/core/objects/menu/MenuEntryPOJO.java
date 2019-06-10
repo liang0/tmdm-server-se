@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -16,22 +16,22 @@ import java.util.HashMap;
 
 /**
  * @author bgrieder
- * 
+ *
  */
 public class MenuEntryPOJO {
-   
-	
-	
+
+
+
     private String id;
     private HashMap<String,String> descriptions = new HashMap<String, String>();
     private String context;
     private String application;
     private String icon;
     private ArrayList<MenuEntryPOJO> subMenus = new ArrayList<MenuEntryPOJO>();
-    
+
 
     public MenuEntryPOJO() {}
-    
+
 	public MenuEntryPOJO(String id) {
 		super();
 		this.id = id;
@@ -46,7 +46,7 @@ public class MenuEntryPOJO {
 		this.application = application;
 		this.subMenus = subMenus;
 	}
-	
+
 	public MenuEntryPOJO(String id, HashMap<String, String> descriptions, String context, String application, ArrayList<MenuEntryPOJO> subMenus,String icon) {
 		super();
 		this.id = id;
@@ -55,7 +55,7 @@ public class MenuEntryPOJO {
 		this.application = application;
 		this.subMenus = subMenus;
 		this.icon=icon;
-	}	
+	}
 
 
 	public String getApplication() {
@@ -106,6 +106,6 @@ public class MenuEntryPOJO {
 		this.icon = icon;
 	}
 
-	
+
 
 }

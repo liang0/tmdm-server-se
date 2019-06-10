@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -140,7 +140,7 @@ public class MultipleCriteriaPanel extends SimplePanel {
         operatorComboBox.setDisplayField("name"); //$NON-NLS-1$
         operatorComboBox.setValueField("value"); //$NON-NLS-1$
         operatorComboBox.setStore(list);
-        operatorComboBox.setWidth("75px"); //$NON-NLS-1$        
+        operatorComboBox.setWidth("75px"); //$NON-NLS-1$
         operatorComboBox.setTriggerAction(TriggerAction.ALL);
         toReturn.add(operatorComboBox);
         toReturn.setWidth("80px"); //$NON-NLS-1$
@@ -219,7 +219,7 @@ public class MultipleCriteriaPanel extends SimplePanel {
             separationLeftPanel.setHeight(offsetHeight + "px"); //$NON-NLS-1$
         }
         if (separationRightPanel != null) {
-            separationRightPanel.setHeight(offsetHeight + "px"); //$NON-NLS-1$   
+            separationRightPanel.setHeight(offsetHeight + "px"); //$NON-NLS-1$
         }
 
         if (this.parentWin != null) {

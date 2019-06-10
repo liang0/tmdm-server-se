@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -16,11 +16,11 @@ import java.util.ArrayList;
 
 
 /**
- * 
+ *
  * @author bgrieder
  */
 public class TransformerProcessStep implements Serializable{
-		
+
 	private String pluginJNDI = null;
 	private String description = null;
 	private String parameters = null;
@@ -32,17 +32,17 @@ public class TransformerProcessStep implements Serializable{
 	private ArrayList<TransformerVariablesMapping> inputMappings = new ArrayList<TransformerVariablesMapping>();
 	private ArrayList<TransformerVariablesMapping> outputMappings= new ArrayList<TransformerVariablesMapping>();;
 	private boolean disabled = false;
-	
+
 	public TransformerProcessStep() {
 		super();
 	}
-	
-	
-	public TransformerProcessStep( 
-			String description, 
+
+
+	public TransformerProcessStep(
+			String description,
 			String pluginJNDI,
 			ArrayList<TransformerVariablesMapping> inputMappings ,
-			ArrayList<TransformerVariablesMapping> outputMappings , 
+			ArrayList<TransformerVariablesMapping> outputMappings ,
 			String parameters) {
 		super();
 		this.pluginJNDI = pluginJNDI;
@@ -66,7 +66,7 @@ public class TransformerProcessStep implements Serializable{
 	public void setParameters(String parameters) {
 		this.parameters = parameters;
 	}
-	
+
 	public String getPluginJNDI() {
 		return pluginJNDI;
 	}
@@ -94,7 +94,7 @@ public class TransformerProcessStep implements Serializable{
 	public void setDisabled(boolean disabled) {
 		this.disabled = disabled;
 	}
-	
+
     @LongString
 	public String getCompiledParameters() {
 		return compiledParameters;
@@ -106,5 +106,5 @@ public class TransformerProcessStep implements Serializable{
 	public void setCompiledParameters(String compiledParameters) {
 		this.compiledParameters = compiledParameters;
 	}
-	
+
 }

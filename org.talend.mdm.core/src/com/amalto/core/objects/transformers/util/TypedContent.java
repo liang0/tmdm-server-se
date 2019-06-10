@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -21,30 +21,30 @@ import com.amalto.core.util.Util;
 
 
 public class TypedContent implements Serializable{
-		
+
 	public static final int SOURCE_BYTES= 1;
 	public static final int SOURCE_STREAM= 2;
 	public static final int SOURCE_URL= 3;
-	
+
 	private String url = null;
 	private byte[] bytes = null;;
 	private String contentType="";
 	private InputStream stream = null;
-	
+
 	private InputStream tempStream = null;
 	private byte[] tempBytes = null;
-	
+
 	public TypedContent() {
 		super();
 	}
-	
+
 	public TypedContent(String url, String contentType) {
 		super();
 		this.url = url;;
 		this.contentType = contentType;
 	}
 
-	
+
 	public TypedContent(InputStream is, String contentType) {
 		super();
 		this.stream = is;
@@ -56,7 +56,7 @@ public class TypedContent implements Serializable{
 		this.bytes = bytes;
 		this.contentType = contentType;
 	}
-	
+
 	public String getContentType() {
 		return contentType;
 	}
@@ -80,9 +80,9 @@ public class TypedContent implements Serializable{
 				tempStream = new URL(url).openStream();
 			else throw new IOException("No available content");
 		}
-		return tempStream; 
+		return tempStream;
 	}
-	
+
 	/**
 	 * This method will return the bytes of the content whatever its source<br>
 	 * Use with caution, you may trigger reading a very large stream<br>
@@ -94,7 +94,7 @@ public class TypedContent implements Serializable{
 		if (tempBytes == null) {
 			if (bytes!=null) {
 				tempBytes = bytes;
-			} 
+			}
 			else if (stream!=null) {
 				tempBytes = Util.getBytesFromStream(stream);
 				stream.close();
@@ -105,21 +105,21 @@ public class TypedContent implements Serializable{
 				is.close();
 			}
 		}
-		return tempBytes; 
+		return tempBytes;
 	}
 
 	/**
 	 * Returns the type of the underlying source of the content<br>
-	 * 
-	 * @return One of {@link #SOURCE_BYTES}, {@link #SOURCE_STREAM}, {@link #SOURCE_URL} 
+	 *
+	 * @return One of {@link #SOURCE_BYTES}, {@link #SOURCE_STREAM}, {@link #SOURCE_URL}
 	 */
 	public int getContentSourceType() {
 		if (stream!=null)  return SOURCE_STREAM;
 		if (url!=null) return SOURCE_URL;
 		return SOURCE_BYTES;
 	}
-	
-	
+
+
 	public void closeContentStream() {
 		try {tempStream.close();}catch(Exception e) {}
 		tempStream = null;
@@ -138,7 +138,7 @@ public class TypedContent implements Serializable{
 				}catch (UnsupportedEncodingException e) {
 					s+=" @Bytes: [Unsupported Encoding: "+charset+"]";
 				}
-			} 
+			}
 			else if (stream!=null) {
 				s+=" @Stream";
 			}
@@ -150,20 +150,20 @@ public class TypedContent implements Serializable{
 		}
 		return s;
 	}
-	
+
 	/******************************************************************
-	 * 
+	 *
 	 * Serializable Implementation
-	 * 
+	 *
 	 ******************************************************************/
-	
+
 	private void writeObject(java.io.ObjectOutputStream out)  throws IOException {
 		HashMap<String, Serializable> serializable = new HashMap<String, Serializable>();
 		serializable.put("bytes", this.getContentBytes());
 		serializable.put("content_type", this.getContentType());
 		out.writeObject(serializable);
 	}
-	
+
     private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
     	HashMap<String, Serializable> serializable = (HashMap<String, Serializable>) in.readObject();
     	this.tempBytes = (byte[])serializable.get("bytes");
@@ -172,7 +172,7 @@ public class TypedContent implements Serializable{
     	this.stream = null;
     	this.contentType = (String) serializable.get("content_type");
     }
-	
-	
-	
+
+
+
 }

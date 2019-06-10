@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -34,7 +34,7 @@ public interface DeleteAction {
     /**
      * Delete a single item. Implementations of this interface should call <code>postDeleteAction</code> actions after a
      * successful delete.
-     * 
+     *
      * @param items These items to be deleted.
      * @param service The service to be used for communication with MDM server.
      * @param override <code>true</code> if user chose to override FK integrity (when applicable only! see

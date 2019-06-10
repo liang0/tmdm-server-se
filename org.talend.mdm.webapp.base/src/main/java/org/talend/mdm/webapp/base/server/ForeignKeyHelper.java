@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -475,7 +475,7 @@ public class ForeignKeyHelper {
                         fkInfo = getForeignKeyInfos.get(++keyInfoIndex);
                     }
                     if (!fkInfo.endsWith(nodeName)) {
-                        fkInfo = fk + "/" + curEle.getNodeName(); //$NON-NLS-1$ 
+                        fkInfo = fk + "/" + curEle.getNodeName(); //$NON-NLS-1$
                     }
                 } else {
                     fkInfo = fk + "/" + curEle.getNodeName(); //$NON-NLS-1$

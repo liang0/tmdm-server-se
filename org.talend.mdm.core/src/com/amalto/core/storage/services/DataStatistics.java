@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -59,9 +59,9 @@ public class DataStatistics {
     @Path("{container}")
     @ApiOperation(value="Provides statistics about data contained in the provided container.")
     public Response getDataStatistics(
-            @ApiParam(value="Container name") @PathParam("container") String containerName, 
+            @ApiParam(value="Container name") @PathParam("container") String containerName,
             @ApiParam(value="Optional language to get translated types names") @QueryParam("lang") String language,
-            @ApiParam(value="Limit result to the first x data types") @QueryParam("top") Integer top) { 
+            @ApiParam(value="Limit result to the first x data types") @QueryParam("top") Integer top) {
         StorageAdmin storageAdmin = ServerContext.INSTANCE.get().getStorageAdmin();
         Storage dataStorage = storageAdmin.get(containerName, StorageType.MASTER);
         if (dataStorage == null) {

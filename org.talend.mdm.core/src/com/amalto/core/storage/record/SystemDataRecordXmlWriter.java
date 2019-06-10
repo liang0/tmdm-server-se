@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -67,7 +67,7 @@ public class SystemDataRecordXmlWriter implements DataRecordWriter {
                 : new HashSet<FieldMetadata>(type.getFields());
         // Print isMany=false as attributes
         fieldPrinter.printAttributes(true);
-        writer.write("<" + getRootElementName(record)); //$NON-NLS-1$ 
+        writer.write("<" + getRootElementName(record)); //$NON-NLS-1$
         Iterator<FieldMetadata> iterator = fields.iterator();
         while (iterator.hasNext()) {
             FieldMetadata field = iterator.next();
@@ -167,7 +167,7 @@ public class SystemDataRecordXmlWriter implements DataRecordWriter {
                 } else {
                     out.write("<" + containedField.getName() + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"" //$NON-NLS-1$
                             + " xsi:type=\"java:" //$NON-NLS-1$
-                            + javaClass.getName() + "\">"); //$NON-NLS-1$ 
+                            + javaClass.getName() + "\">"); //$NON-NLS-1$
                 }
                 for (FieldMetadata field : fields) {
                     field.accept(fieldPrinter);

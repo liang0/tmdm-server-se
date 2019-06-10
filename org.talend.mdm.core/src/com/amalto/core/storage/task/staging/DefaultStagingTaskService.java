@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -50,13 +50,13 @@ import com.amalto.core.util.Util;
 import com.amalto.core.util.XtentisException;
 
 public class DefaultStagingTaskService implements StagingTaskServiceDelegate {
-    
+
     private StagingTaskManager stagingTaskManager;
-    
+
     public DefaultStagingTaskService(){
         this.stagingTaskManager = MDMContextAccessor.getApplicationContext().getBean(StagingTaskManager.class);
     }
-    
+
     public StagingContainerSummary getContainerSummary() {
         String dataContainer;
         String dataModel;
@@ -71,7 +71,7 @@ public class DefaultStagingTaskService implements StagingTaskServiceDelegate {
         }
         return getContainerSummary(dataContainer, dataModel);
     }
-    
+
     public StagingContainerSummary getContainerSummary(String dataContainer, String dataModel) {
         final Storage storage = StagingTasksUtil.getStagingStorage(dataContainer);
         MetadataRepository repository = storage.getMetadataRepository();
@@ -90,7 +90,7 @@ public class DefaultStagingTaskService implements StagingTaskServiceDelegate {
 
         return containerStagingSummary;
     }
-    
+
     public String startValidation() {
         String dataContainer;
         String dataModel;
@@ -145,11 +145,11 @@ public class DefaultStagingTaskService implements StagingTaskServiceDelegate {
         }
         this.stagingTaskManager.cancelTask(dataContainer, taskId);
     }
-    
+
     public ExecutionStatistics getExecutionStats(String dataContainer, String dataModel, String executionId) {
         return this.stagingTaskManager.getExecutionStats(dataContainer, executionId);
     }
-    
+
     private static int countAllInstancesByStatus(Storage storage, MetadataRepository repository) {
         int totalCount = 0;
         try {
@@ -187,7 +187,7 @@ public class DefaultStagingTaskService implements StagingTaskServiceDelegate {
         }
         return totalCount;
     }
-    
+
     private static int countInstancesByStatus(Storage storage, MetadataRepository repository, String status) {
         int totalCount = 0;
         try {
@@ -250,7 +250,7 @@ public class DefaultStagingTaskService implements StagingTaskServiceDelegate {
         }
         return totalCount;
     }
-    
+
     // TODO Move to a better place (this method is more a helper/util method)
     public static boolean hasMatchMergeConfiguration(String typeName) {
         // Read configuration from database
@@ -276,12 +276,12 @@ public class DefaultStagingTaskService implements StagingTaskServiceDelegate {
             systemStorage.commit();
         }
     }
-    
+
     public StagingTaskManager getStagingTaskManager() {
         return stagingTaskManager;
     }
 
-    
+
     public void setStagingTaskManager(StagingTaskManager stagingTaskManager) {
         this.stagingTaskManager = stagingTaskManager;
     }

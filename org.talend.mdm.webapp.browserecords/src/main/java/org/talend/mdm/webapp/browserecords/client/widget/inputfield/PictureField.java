@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -99,9 +99,9 @@ public class PictureField extends TextField<String> {
                 /*
                  * RequestBuilder reqBuilder = new RequestBuilder(RequestBuilder.GET,
                  * "/imageserver/secure/ImageDeleteServlet?uri=" + value);//$NON-NLS-1$
-                 * 
+                 *
                  * reqBuilder.setCallback(new RequestCallback() {
-                 * 
+                 *
                  * public void onResponseReceived(Request request, Response response) { String json =
                  * response.getText(); JSONObject jsObject = JSONParser.parse(json).isObject(); JSONBoolean success =
                  * jsObject.get("success").isBoolean(); //$NON-NLS-1$ JSONString message =
@@ -109,7 +109,7 @@ public class PictureField extends TextField<String> {
                  * MessageBox.alert(succeed ? MessagesFactory.getMessages().message_success() : MessagesFactory
                  * .getMessages().message_fail(), message.stringValue(), null); if (succeed) { setValue(null); }
                  * dialog.hide(); }
-                 * 
+                 *
                  * public void onError(Request request, Throwable exception) {
                  * MessageBox.alert(MessagesFactory.getMessages().error_title(), exception.getMessage(), null); } });
                  * try { reqBuilder.send(); } catch (RequestException e) { MessageBox.alert("RequestException",

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -80,11 +80,11 @@ public class LocaleUtil {
     }
 
     /**
-     * According to language to get corresponding value, 
+     * According to language to get corresponding value,
      * @param value, like "[fr:Produit avec Magasins][en:Product with Stores]"
      * @param language, like "en", if language is empty, return raw value
      * @return
-     * Please note that function getValueByLanguage(in class org.talend.mdm.webapp.base.client.util.MultilanguageMessageParser) 
+     * Please note that function getValueByLanguage(in class org.talend.mdm.webapp.base.client.util.MultilanguageMessageParser)
      * has same functionality as below function getLocaleValue, They should be consistent during change.
      */
     public static String getLocaleValue(String value, String language) {

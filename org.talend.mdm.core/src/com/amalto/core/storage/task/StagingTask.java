@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -52,10 +52,10 @@ public class StagingTask implements Task {
     private long startTime;
 
     private boolean isFinished;
-    
+
     private StagingTaskExecutionListener executionListener;
-    
-    public StagingTask(TaskSubmitter taskSubmitter, Storage stagingStorage, List<Task> tasks, 
+
+    public StagingTask(TaskSubmitter taskSubmitter, Storage stagingStorage, List<Task> tasks,
             ClosureExecutionStats stats, StagingTaskExecutionListener executionListener) {
         this.taskSubmitter = taskSubmitter;
         this.stagingStorage = stagingStorage;
@@ -96,7 +96,7 @@ public class StagingTask implements Task {
     public void cancel() {
         synchronized (currentTaskMonitor) {
             isCancelled = true;
-            // we are still in the main execution loop, it will record stats by itself 
+            // we are still in the main execution loop, it will record stats by itself
             if (currentTask != null) {
                 currentTask.cancel();
             }
@@ -204,7 +204,7 @@ public class StagingTask implements Task {
             }
         }
     }
-    
+
     public String getDataContainer(){
         return this.stagingStorage.getName();
     }

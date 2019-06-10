@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -30,7 +30,7 @@ import com.google.common.base.Joiner;
 
 /**
  * Class that handles common tasks for job execution:
- * 
+ *
  * <ul>
  * <li>Class loader isolation: Makes sure current thread uses an isolated class loader.</li>
  * <li>System properties isolation: Makes sure current thread uses standard system properties (Removes all JBoss and MDM

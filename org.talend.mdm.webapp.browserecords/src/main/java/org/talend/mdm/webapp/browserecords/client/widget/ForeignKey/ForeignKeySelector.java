@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -317,7 +317,7 @@ public class ForeignKeySelector extends ForeignKeyField implements ReturnCriteri
                         if (nodePath.contains(":")) { //$NON-NLS-1$
                             String[] nodePathArray = nodePath.split(":");
                             if (targetPath.contains("xsi:type")) {
-                                pathArray[j] = nodePathArray[0] + "[@xsi:type=\"" + nodePathArray[1] + "\"]"; //$NON-NLS-1$  //$NON-NLS-2$ 
+                                pathArray[j] = nodePathArray[0] + "[@xsi:type=\"" + nodePathArray[1] + "\"]"; //$NON-NLS-1$  //$NON-NLS-2$
                             } else {
                                 pathArray[j] = nodePathArray[0];
                             }

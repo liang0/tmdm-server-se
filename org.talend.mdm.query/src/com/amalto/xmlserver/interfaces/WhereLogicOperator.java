@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -26,7 +26,7 @@ public class WhereLogicOperator implements IWhereItem {
 	public WhereLogicOperator(int type) {
 		this.type = type;
 	}
-	
+
 	public WhereLogicOperator(int type, List<IWhereItem> whereElements) {
 		this.type = type;
 		whereItems.addAll(whereElements);
@@ -35,35 +35,35 @@ public class WhereLogicOperator implements IWhereItem {
 	public void add(IWhereItem whereItem) {
 		whereItems.add(whereItem);
 	}
-	
+
 	public void addAll(ArrayList<IWhereItem> whereElements) {
 		whereItems.addAll(whereElements);
 	}
-	
+
 	public void remove(IWhereItem whereItem) {
 		whereItems.remove(whereItem);
 	}
-	
+
 	public int getSize() {
 		return whereItems.size();
 	}
-	
+
 	public List<IWhereItem> getItems() {
 		return whereItems;
 	}
-	
+
 	public IWhereItem getItem(int index) {
 		return whereItems.get(index);
 	}
-	
+
 	public int getType() {
 		return type;
 	}
-	
+
 	public void setType(int type) {
 		this.type = type;
 	}
-	
+
 	public String toString() {
         StringBuilder s = new StringBuilder();
         if (AND == getType()) {

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -16,7 +16,7 @@ public class Image extends ItemBaseModel implements IsSerializable{
     private static final long serialVersionUID = 5685241609933670328L;
 
     private String name;
-    
+
     private String fileName;
 
     private String catalog;
@@ -26,11 +26,11 @@ public class Image extends ItemBaseModel implements IsSerializable{
     public String getName() {
         return name;
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public String getFileName() {
         return fileName;
     }
@@ -50,7 +50,7 @@ public class Image extends ItemBaseModel implements IsSerializable{
     public String getUri() {
         return uri;
     }
-    
+
     public void setUri(String uri) {
         this.uri = uri;
     }

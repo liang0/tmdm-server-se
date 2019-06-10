@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -82,7 +82,7 @@ public class FormatNumberPropertyEditor extends NumberPropertyEditor {
             return returnTypedValue(d);
         }
     }
-    
+
     @Override
     protected Number returnTypedValue(Number number) {
         if (type == Short.class) {
@@ -100,7 +100,7 @@ public class FormatNumberPropertyEditor extends NumberPropertyEditor {
         }
         return number;
     }
-    
+
     public String getStringValue(Number value) {
         if (format != null) {
             return format.format(value.doubleValue());

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -141,7 +141,7 @@ class ManyFieldAccessor implements DOMAccessor {
                     while (currentCollectionSize <= index) {
                         node = domDocument.createElementNS(domDocument.getNamespaceURI(), fieldName);
                         if (lastAccessedNode == parentNode) {
-                            if(lastAccessedNode == document.asDOM().getDocumentElement() 
+                            if(lastAccessedNode == document.asDOM().getDocumentElement()
                                     && lastAccessedNode.getChildNodes().getLength() > 0)
                                 parentNode.insertBefore(node, parentNode.getFirstChild());
                             else
@@ -232,7 +232,7 @@ class ManyFieldAccessor implements DOMAccessor {
                     break;
                 default:
                     throw new IllegalArgumentException("No support for marker " + marker); //$NON-NLS-1$
-            }            
+            }
             collectionItemNode.getAttributes().setNamedItem(newAttribute);
         }
     }

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -117,7 +117,7 @@ public class BulkloadClientTest extends TestCase {
             }
         }
     }
-    
+
     // TMDM-9452
     public void testBulkLoadWithMultiClients() throws Exception {
         String serverURL = "http://localhost:8180/talendmdm/services/bulkload";
@@ -128,18 +128,18 @@ public class BulkloadClientTest extends TestCase {
             InputStreamMerger merger1 = client1.load();
             InputStream data1 = new ByteArrayInputStream(("<Product><Id>P1</Id><Name>P1</Name><Description>P1</Description><Features><Sizes/><Colors/></Features><Price>2.00</Price><Stores/></Product>").getBytes("UTF-8"));
             merger1.push(data1);
-            
+
             BulkloadClient client2 = new BulkloadClient(serverURL, "administrator", "administrator", "Product", "Product", "Product");
             client2.setOptions(new BulkloadOptions());
             InputStreamMerger merger2 = client2.load();
             InputStream data2 = new ByteArrayInputStream(("<Product><Id>P2</Id><Name>P2</Name><Description>P2</Description><Features><Sizes/><Colors/></Features><Price>2.00</Price><Stores/></Product>").getBytes("UTF-8"));
             merger2.push(data2);
-            
+
             merger1.close();
             client1.waitForEndOfQueue();
             merger2.close();
             client2.waitForEndOfQueue();
-            
+
             assertEquals(true, merger1.isAlreadyProcessed());
             assertEquals(true, merger2.isAlreadyProcessed());
             assertEquals(true, merger1.isConsumed());
@@ -201,7 +201,7 @@ public class BulkloadClientTest extends TestCase {
             return successCount.get();
         }
     }
-    
+
     @SuppressWarnings("nls")
     public void testInsertOnly() throws Exception {
         String serverURL = "http://localhost:8180/talendmdm/services/bulkload"; //$NON-NLS-1$
@@ -210,17 +210,17 @@ public class BulkloadClientTest extends TestCase {
             BulkloadClient client = new BulkloadClient(serverURL, "administrator", "administrator", "Product", "Product", "Product");
             BulkloadOptions options = new BulkloadOptions();
             client.setOptions(options);
-            
+
             String xml1 = "<Product><Id>1</Id><Name>a</Name><Description>a</Description><Features><Sizes/><Colors/></Features><Price>2.00</Price><Stores/></Product>\n" +
             		      "<Product><Id>1</Id><Name>a</Name><Description>b</Description><Features><Sizes/><Colors/></Features><Price>3.00</Price><Stores/></Product>";
 
-            options.setInsertOnly(false);            
+            options.setInsertOnly(false);
             try {
                 client.load(new ByteArrayInputStream(xml1.getBytes("utf-8")));
             } catch (Exception e) {
                 fail("Insert should not fail with same ID when insertOnly=false");
             }
-            
+
             String xml2 = "<Product><Id>2</Id><Name>a</Name><Description>a</Description><Features><Sizes/><Colors/></Features><Price>2.00</Price><Stores/></Product>\n" +
                           "<Product><Id>2</Id><Name>a</Name><Description>b</Description><Features><Sizes/><Colors/></Features><Price>3.00</Price><Stores/></Product>";
             options.setInsertOnly(true);
@@ -230,7 +230,7 @@ public class BulkloadClientTest extends TestCase {
             } catch (Exception e) {
                 System.out.println("Excepted exception:" + e.getMessage());
             }
-            
+
         }
     }
 }

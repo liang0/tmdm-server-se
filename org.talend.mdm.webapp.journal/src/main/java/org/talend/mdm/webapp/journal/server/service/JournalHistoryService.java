@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -127,7 +127,7 @@ public class JournalHistoryService {
                     parameter.getConceptName(), parameter.getId());
             DroppedItemPOJOPK droppedItemPOJOPK = new DroppedItemPOJOPK(refItemPOJOPK, "/"); //$NON-NLS-1$
             if (DroppedItemPOJO.load(droppedItemPOJOPK) == null) {
-                throw new ServiceException(MESSAGES.getMessage(new Locale(language), "restore_logic_delete_fail")); //$NON-NLS-1$              
+                throw new ServiceException(MESSAGES.getMessage(new Locale(language), "restore_logic_delete_fail")); //$NON-NLS-1$
             }
         } else if (UpdateReportPOJO.OPERATION_TYPE_UPDATE.equals(parameter.getOperationType())) {
             ItemPOJOPK itemPOJOPK = new ItemPOJOPK(new DataClusterPOJOPK(parameter.getDataClusterName()),

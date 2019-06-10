@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -117,7 +117,7 @@ public class ForeignKeyFieldList extends ContentPanel {
 
     /**
      * Adds a field (pre-render).
-     * 
+     *
      * @param field the field to add
      */
     public void add(Field<?> field) {
@@ -126,7 +126,7 @@ public class ForeignKeyFieldList extends ContentPanel {
 
     /**
      * Returns the field at the index.
-     * 
+     *
      * @param index the index
      * @return the field
      */
@@ -136,7 +136,7 @@ public class ForeignKeyFieldList extends ContentPanel {
 
     /**
      * Returns all the child field's.
-     * 
+     *
      * @return the fields
      */
     public List<Field<?>> getFieldList() {

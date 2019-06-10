@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -48,23 +48,23 @@ public class CloseTabPostDeleteAction implements PostDeleteAction {
         }
         next.doAction();
     }
-    
+
     private native void selectBrowseRecord()/*-{
         var tabPanel = $wnd.amalto.core.getTabPanel();
-        var panel = tabPanel.getItem("Browse Records");         
+        var panel = tabPanel.getItem("Browse Records");
         if (panel != undefined){
             tabPanel.setSelection(panel.getItemId());
         }
     }-*/;
-    
+
     private native void selectStagingRecord()/*-{
         var tabPanel = $wnd.amalto.core.getTabPanel();
-        var panel = tabPanel.getItem("BrowseRecordsInStaging");         
+        var panel = tabPanel.getItem("BrowseRecordsInStaging");
         if (panel != undefined){
             tabPanel.setSelection(panel.getItemId());
         }
     }-*/;
-    
+
     private native void doSearch4SearchEntityPanel()/*-{
         var tabPanel = $wnd.amalto.core.getTabPanel();
         var searchEntityPanel = tabPanel.getItem("searchEntityPanel");

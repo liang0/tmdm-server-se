@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -54,42 +54,42 @@ public class ResultItem extends BaseModel implements IsSerializable, Serializabl
         set("dateTime", dateTime); //$NON-NLS-1$
     }
 
-    
+
     public String getSource() {
         return get("source"); //$NON-NLS-1$
     }
 
-    
+
     public void setSource(String source) {
         set("source", source); //$NON-NLS-1$
     }
 
-    
+
     public String getGroup() {
         return get("group"); //$NON-NLS-1$
     }
 
-    
+
     public void setGroup(String group) {
         set("group", group); //$NON-NLS-1$
     }
 
-    
+
     public Integer getStatus() {
         return get("status"); //$NON-NLS-1$
     }
 
-    
+
     public void setStatus(Integer status) {
         set("status", status); //$NON-NLS-1$
     }
 
-    
+
     public String getError() {
         return get("error"); //$NON-NLS-1$
     }
 
-    
+
     public void setError(String error) {
         set("error", error); //$NON-NLS-1$
     }

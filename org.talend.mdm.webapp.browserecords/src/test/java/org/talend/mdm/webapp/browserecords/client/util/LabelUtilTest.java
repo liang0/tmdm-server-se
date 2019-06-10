@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -30,7 +30,7 @@ public class LabelUtilTest extends TestCase {
         list.add("C"); //$NON-NLS-1$
         String result = LabelUtil.convertList2String(list, "@"); //$NON-NLS-1$
         assertEquals(result, "A@B@C"); //$NON-NLS-1$
-        
+
         list.clear();
         list.add("1"); //$NON-NLS-1$
         list.add("2"); //$NON-NLS-1$
@@ -38,11 +38,11 @@ public class LabelUtilTest extends TestCase {
         result = LabelUtil.convertList2String(list, "-"); //$NON-NLS-1$
         assertEquals(result, "1-2-3"); //$NON-NLS-1$
     }
-    
+
     public void testRemoveBrackets(){
         String id = "[1]"; //$NON-NLS-1$
         assertEquals(LabelUtil.removeBrackets(id), "1"); //$NON-NLS-1$
-        
+
         id = "[ABC]"; //$NON-NLS-1$
         assertEquals(LabelUtil.removeBrackets(id), "ABC"); //$NON-NLS-1$
     }

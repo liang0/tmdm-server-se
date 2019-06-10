@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -63,7 +63,7 @@ public class DefaultStorageClassLoader extends StorageClassLoader {
                                      StorageType type) {
         super(parent, storageName, type);
     }
-    
+
     @Override
     public InputStream generateEhCacheConfig() {
         try {
@@ -282,7 +282,7 @@ public class DefaultStorageClassLoader extends StorageClassLoader {
         property.appendChild(document.createTextNode(propertyValue));
         sessionFactoryElement.appendChild(property);
     }
-    
+
     private static void setPropertyValue(Document document, String propertyName, String value) throws XPathExpressionException {
         XPathExpression compile = pathFactory.compile("hibernate-configuration/session-factory/property[@name='" + propertyName + "']"); //$NON-NLS-1$ //$NON-NLS-2$
         Node node = (Node) compile.evaluate(document, XPathConstants.NODE);
@@ -300,7 +300,7 @@ public class DefaultStorageClassLoader extends StorageClassLoader {
             parentNode.appendChild(property);
         }
     }
-    
+
     protected InputStream toInputStream(Document document) throws Exception {
         StringWriter buffer = new StringWriter();
         Transformer transformer = XMLUtils.generateTransformer();

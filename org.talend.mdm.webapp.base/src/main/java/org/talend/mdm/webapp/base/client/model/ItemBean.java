@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -26,9 +26,9 @@ public class ItemBean extends ItemBaseModel {
     private Map<String, ForeignKeyBean> foreignkeyDesc = new HashMap<String, ForeignKeyBean>();
 
     private Map<String, Object> originalMap;
-    
+
     private Map<String, String> formateMap;
-    
+
     @Deprecated
     public ItemBean() {
     }
@@ -68,7 +68,7 @@ public class ItemBean extends ItemBaseModel {
         String pk = concept;
 
         if (ids != null) {
-            pk += " " + ids;//$NON-NLS-1$ 
+            pk += " " + ids;//$NON-NLS-1$
         }
 
         return pk;
@@ -84,7 +84,7 @@ public class ItemBean extends ItemBaseModel {
 
     @Override
     public String toString() {
-        return "ItemBean [concept=" + concept + ", ids=" + ids + ", itemXml=" + itemXml + "]";//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$  
+        return "ItemBean [concept=" + concept + ", ids=" + ids + ", itemXml=" + itemXml + "]";//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     }
 
     public void copy(ItemBean itemBean) {
@@ -114,21 +114,21 @@ public class ItemBean extends ItemBaseModel {
         }
         return item.ids == this.ids;
     }
-   
+
     public Map<String, Object> getOriginalMap() {
         return originalMap;
     }
-    
+
     public void setOriginalMap(Map<String, Object> originalMap) {
         this.originalMap = originalMap;
     }
 
-    
+
     public Map<String, String> getFormateMap() {
         return formateMap;
     }
 
-    
+
     public void setFormateMap(Map<String, String> formateMap) {
         this.formateMap = formateMap;
     }

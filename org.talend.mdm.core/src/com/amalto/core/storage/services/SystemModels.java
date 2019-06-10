@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -297,7 +297,7 @@ public class SystemModels {
     @ApiOperation("Get impacts of the model update with the new XSD provided as request content. Changes will not be performed !")
     @Consumes({ MediaType.APPLICATION_XML, MediaType.TEXT_XML })
     public Response analyzeModelChange(@ApiParam("Model name") @PathParam("model") String modelName,
-            @ApiParam("Optional language to get localized result") @QueryParam("lang") String locale, 
+            @ApiParam("Optional language to get localized result") @QueryParam("lang") String locale,
             InputStream dataModel) {
         DataModelPOJO dataModelPOJO;
         try {

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -76,30 +76,30 @@ public class BrowseRecordsInStaging implements EntryPoint {
            if (!checkArgs){
                throw {message: "argument format error!"};
            }
-        
+
            var idstr = ids.join(".");
            @org.talend.mdm.webapp.browserecords.client.widget.treedetail.TreeDetailUtil::initItemsDetailPanelById(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;)(fromWhichApp, idstr, entity, new Boolean(false), new Boolean(false));
        };
-    
+
        $wnd.amalto.itemsbrowser.ItemsBrowser.lineageItem = function (lineageEntities, ids, dataObject){
        var tabPanel = $wnd.amalto.core.getTabPanel();
-    
+
        var searchEntityPanel = tabPanel.getItem("searchEntityPanel");
-    
+
        if (searchEntityPanel) {
            tabPanel.remove(searchEntityPanel);
            searchEntityPanel.destroy();
        }
-    
+
        searchEntityPanel = new $wnd.amalto.itemsbrowser.SearchEntityPanel({
            lineageEntities : lineageEntities,
            ids : ids,
            dataObject : dataObject,
            language : $wnd.language
        });
-    
+
        tabPanel.add(searchEntityPanel);
-    
+
        searchEntityPanel.show();
        searchEntityPanel.doLayout();
        searchEntityPanel.doSearchList();

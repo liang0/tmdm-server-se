@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -27,11 +27,11 @@ import com.amalto.core.save.UserAction;
  * Action performed on a field with maxOccurs = 1.
  */
 public class FieldUpdateAction extends AbstractFieldAction {
-    
+
     public static final String MODIFY_ADD_MARKER_VALUE = "tree-node-add"; //$NON-NLS-1$
-    
+
     public static final String MODIFY_UPDATE_MARKER_VALUE = "tree-node-update"; //$NON-NLS-1$
-    
+
     public static final String MODIFY_REMOVE_MARKER_VALUE = "tree-node-remove"; //$NON-NLS-1$
 
     protected final String path;
@@ -135,7 +135,7 @@ public class FieldUpdateAction extends AbstractFieldAction {
         }
         return isAllowed;
     }
-    
+
     private boolean hasAddOrRemoveRights(String role) {
         if (updatedField instanceof ReferenceFieldMetadata && updatedField.isMany()) {
             List<String> noAddRoles = updatedField.getNoAddRoles();

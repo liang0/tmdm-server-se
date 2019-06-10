@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -73,7 +73,7 @@ public class CommonUtilTest extends TestCase {
         assertTrue(((SimpleCriterion) r.cr).getKey().equals("Product/Name"));
         assertTrue(((SimpleCriterion) r.cr).getValue().equals("*"));
     }
-    
+
     public void testParseMultipleSearchExpression() throws Exception {
         String s = "((foo/bar EQUALS 3/4) AND ((a/a/a MORETHAN a/b) OR (c/b/f LESSTHAN 3.2)) AND (c/c/c MORETHAN c/c))";
         CommonUtil.CriteriaAndC r = CommonUtil.parseMultipleSearchExpression(s.toCharArray(), 0);

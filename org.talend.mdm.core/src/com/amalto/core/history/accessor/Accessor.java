@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -74,7 +74,7 @@ public interface Accessor extends Comparable<Accessor> {
      * @param value The value to be set by the accessor.
      */
     void createAndSet(String value);
-    
+
     /**
      * <p>
      * Deletes the underlying XML element of this accessor (might be an element or an attribute). This method does not
@@ -103,7 +103,7 @@ public interface Accessor extends Comparable<Accessor> {
      * <p>
      * This method is also a <i>no op</i> if {@link #exist()} returns <code>false</code>.
      * </p>
-     * @param marker The Marker to be set by the accessor,it show three kind of modify(Add,Update,Remove). 
+     * @param marker The Marker to be set by the accessor,it show three kind of modify(Add,Update,Remove).
      * @see #markUnmodified()
      */
     void markModified(Marker marker);

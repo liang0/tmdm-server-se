@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -70,14 +70,14 @@ class StagingTypeMappingRepository extends InternalRepository {
             SimpleTypeFieldMetadata errorField = new SimpleTypeFieldMetadata(database, false, false, false,
                     StorageConstants.METADATA_STAGING_ERROR, stringType, Collections.<String> emptyList(),
                     Collections.<String> emptyList(), Collections.<String> emptyList(), StringUtils.EMPTY);
-            errorField.getType().setData(TypeMapping.SQL_TYPE, TypeMapping.SQL_TYPE_TEXT); 
+            errorField.getType().setData(TypeMapping.SQL_TYPE, TypeMapping.SQL_TYPE_TEXT);
             errorField.getType().setData(LongString.PREFER_LONGVARCHAR, true); // ORACLE will use VARCHAR2(4000 CHAR)
             database.addField(errorField);
             // Staging previous values field (useful for rematching)
             SimpleTypeFieldMetadata previousValuesField = new SimpleTypeFieldMetadata(database, false, false, false,
                     StorageConstants.METADATA_STAGING_VALUES, stringType, Collections.<String> emptyList(),
                     Collections.<String> emptyList(), Collections.<String> emptyList(), StringUtils.EMPTY);
-            previousValuesField.getType().setData(TypeMapping.SQL_TYPE, TypeMapping.SQL_TYPE_TEXT); 
+            previousValuesField.getType().setData(TypeMapping.SQL_TYPE, TypeMapping.SQL_TYPE_TEXT);
             previousValuesField.getType().setData(LongString.PREFER_LONGVARCHAR, true); // ORACLE will use VARCHAR2(4000 CHAR)
             database.addField(previousValuesField);
         }

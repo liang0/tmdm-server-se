@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -100,8 +100,8 @@ public class InheritanceTest extends StorageTestCase {
         MetadataRepository repository = new MetadataRepository();
         repository.load(InheritanceTest.class.getResourceAsStream("TypeOrdering.xsd"));
         List<ComplexTypeMetadata> sortedList = MetadataUtils.sortTypes(repository);
-        
-        // test for Strict 
+
+        // test for Strict
         // Customer(1,1)==>Address(ComplexType) Address(1-1)==>Country
         boolean hasCountry = false ;
         boolean hasAddress = false ;
@@ -115,28 +115,28 @@ public class InheritanceTest extends StorageTestCase {
             }
         }
         assertTrue(hasAddress);
-        
-        // test for LENIENT 
+
+        // test for LENIENT
         sortedList = MetadataUtils.sortTypes(repository,MetadataUtils.SortType.LENIENT);
         boolean hasA = false;
         boolean hasB = false;
         boolean hasC = false;
         boolean hasD = false;
         boolean hasE = false;
-        
+
         boolean hasPerons = false;
         boolean hasEmployee = false;
         boolean hasEmployee1 = false;
         boolean hasManager = false;
         boolean hasManager1 = false;
         boolean hasCompany = false;
-        
+
         boolean hasProduct = false;
         boolean hasProductFamily = false;
         boolean hasSupplier = false;
         boolean hasStore = false;
         hasAddress = false;
-        
+
         for (ComplexTypeMetadata sortType : sortedList) {
             // A(0,1)==>B, A(0,1)==>A, C-->A, D-->B, E-->B
             if ("A".equals(sortType.getName())) {
@@ -157,7 +157,7 @@ public class InheritanceTest extends StorageTestCase {
                 assertTrue(hasB);
                 hasE = true;
             }
-            
+
             // Employee-->Persons, Manager-->Employee, Employee1(0,1) ==> Manager1,
             if ("Persons".equals(sortType.getName())) {
                 hasPerons = true;
@@ -180,7 +180,7 @@ public class InheritanceTest extends StorageTestCase {
             if ("Manager1".equals(sortType.getName())) {
                 hasManager1 = true;
             }
-            
+
             // Product(0,1) ==> ProductFamily, Product(0,unbounded) ==> Supplier, Product(0,1) ==> Store,
             // Supplier(0,1) ==> Address, Address (1,1)=> Country
             if ("Product".equals(sortType.getName())) {
@@ -810,7 +810,7 @@ public class InheritanceTest extends StorageTestCase {
         results = storage.fetch(qb.getSelect());
         assertTrue(i < results.getCount());
     }
-    
+
     public void testInheritanceCountClassLoader() throws Exception {
         UserQueryBuilder qb = UserQueryBuilder.from(employee);
         StorageResults results = storage.fetch(qb.getSelect());

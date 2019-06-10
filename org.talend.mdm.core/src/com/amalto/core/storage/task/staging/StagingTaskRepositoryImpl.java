@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -39,16 +39,16 @@ import com.amalto.core.storage.record.metadata.UnsupportedDataRecordMetadata;
 public class StagingTaskRepositoryImpl implements StagingTaskRepository {
 
     private static final Logger LOGGER = Logger.getLogger(StagingTaskRepositoryImpl.class);
-    
+
     private final Map<String, String> currentTasksIdCache = new HashMap<String, String>();
-    
+
     @Override
     public String getCurrentTaskId(String dataContainer) {
         final Storage staging = StagingTasksUtil.getStagingStorage(dataContainer);
         final ComplexTypeMetadata executionType = StagingTasksUtil.getTaskExecutionType(staging);
         return this.getRunningTaskId(staging, executionType);
     }
-    
+
     @Override
     public void saveTaskAsCancelled(String dataContainer, String taskId) {
         final Storage staging = StagingTasksUtil.getStagingStorage(dataContainer);
@@ -71,7 +71,7 @@ public class StagingTaskRepositoryImpl implements StagingTaskRepository {
             staging.rollback();
         }
     }
-    
+
     @Override
     public ExecutionStatistics getExecutionStats(String dataContainer, String executionId) {
         final Storage staging = StagingTasksUtil.getStagingStorage(dataContainer);
@@ -114,8 +114,8 @@ public class StagingTaskRepositoryImpl implements StagingTaskRepository {
         }
         return status;
     }
-    
-    
+
+
     protected String getRunningTaskId(final Storage staging, final ComplexTypeMetadata executionType){
         synchronized(this.currentTasksIdCache){
             final String cacheKey = staging.getName();
@@ -148,7 +148,7 @@ public class StagingTaskRepositoryImpl implements StagingTaskRepository {
             return null;
         }
     }
-    
+
     protected String fetchRunningTaskId(final Storage staging, final ComplexTypeMetadata executionType){
         String result = null;
         UserQueryBuilder qb = from(executionType)
@@ -171,7 +171,7 @@ public class StagingTaskRepositoryImpl implements StagingTaskRepository {
         }
         return result;
     }
-    
+
     protected boolean isCompleted(final Storage staging, final ComplexTypeMetadata executionType, final String taskId){
         boolean result = true;
         final UserQueryBuilder qb = from(executionType)
@@ -207,7 +207,7 @@ public class StagingTaskRepositoryImpl implements StagingTaskRepository {
     @Override
     public void saveNewTask(String dataContainer, String taskId, long startTime) {
         final Storage stagingStorage = StagingTasksUtil.getStagingStorage(dataContainer);
-        final ComplexTypeMetadata executionType = StagingTasksUtil.getTaskExecutionType(stagingStorage);  
+        final ComplexTypeMetadata executionType = StagingTasksUtil.getTaskExecutionType(stagingStorage);
         DataRecord execution = new DataRecord(executionType, UnsupportedDataRecordMetadata.INSTANCE);
         execution.set(executionType.getField("id"), taskId); //$NON-NLS-1$
         execution.set(executionType.getField("start_time"), startTime); //$NON-NLS-1$
@@ -220,7 +220,7 @@ public class StagingTaskRepositoryImpl implements StagingTaskRepository {
             throw new RuntimeException(e);
         }
     }
-    
+
     @Override
     public void saveTaskAsCompleted(String dataContainer, String taskId, long endMatchTime, int errorCount, int recordCount){
         final Storage stagingStorage = StagingTasksUtil.getStagingStorage(dataContainer);
@@ -246,7 +246,7 @@ public class StagingTaskRepositoryImpl implements StagingTaskRepository {
             stagingStorage.rollback();
         }
     }
-    
+
     @Override
     public List<String> listCompletedExecutions(String dataContainer, String beforeDate, int start, int size) {
         final Storage staging = StagingTasksUtil.getStagingStorage(dataContainer);

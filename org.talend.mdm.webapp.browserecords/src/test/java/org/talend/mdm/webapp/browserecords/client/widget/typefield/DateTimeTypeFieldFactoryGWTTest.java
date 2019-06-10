@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -25,7 +25,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 @SuppressWarnings("nls")
 public class DateTimeTypeFieldFactoryGWTTest extends GWTTestCase{
-	
+
     @Override
     protected void gwtSetUp() throws Exception {
         super.gwtSetUp();
@@ -33,9 +33,9 @@ public class DateTimeTypeFieldFactoryGWTTest extends GWTTestCase{
         session.put(UserSession.APP_HEADER, new AppHeader());
         Registry.register(BrowseRecords.USER_SESSION, session);
     }
-    
+
 	public void testCreateFormatDateField() {
-		
+
 		// 1. TypeModel DataType = DataTypeConstants.DATE, value is valid
 		boolean isDateTime = false;
 		TypeModel typeModel = new SimpleTypeModel("date", DataTypeConstants.DATE);
@@ -50,7 +50,7 @@ public class DateTimeTypeFieldFactoryGWTTest extends GWTTestCase{
 		assertNotNull(dateField.getValue());
 		assertEquals("2012-06-13", dateField.getPropertyEditor().getStringValue(dateField.getValue()));
 		assertEquals(true, dateField.isValid());
-		
+
 		// 2. TypeModel DataType = DataTypeConstants.DATE, value is invalid
 		context.setNode(getItemNodeModel("date", "2012/06/13", "date"));
 		dateTimeTypeFieldFactory = new DateTimeTypeFieldFactory(new TypeFieldSource(TypeFieldSource.FORM_INPUT), context);
@@ -60,7 +60,7 @@ public class DateTimeTypeFieldFactoryGWTTest extends GWTTestCase{
 		dateField = (FormatDateField) field;
 		assertNull(dateField.getValue());
         assertEquals(true, dateField.isValid());
-		
+
 		// 3. TypeModel DataType = DataTypeConstants.DATETIME, value is valid
 		isDateTime = true;
 		typeModel = new SimpleTypeModel("dateTime", DataTypeConstants.DATETIME);
@@ -75,7 +75,7 @@ public class DateTimeTypeFieldFactoryGWTTest extends GWTTestCase{
 		assertNotNull(dateField.getValue());
 		assertEquals("2012-06-13T10:08:08", dateField.getPropertyEditor().getStringValue(dateField.getValue()));
 		assertEquals(true, dateField.isValid());
-		
+
 		// 4. TypeModel DataType = DataTypeConstants.DATETIME, value is invalid
 		isDateTime = true;
 		context.setNode(getItemNodeModel("dateTime", "2012/06/13T10:08:08", "dateTime"));
@@ -97,14 +97,14 @@ public class DateTimeTypeFieldFactoryGWTTest extends GWTTestCase{
         field = dateTimeTypeFieldFactory.createField();
         assertNotNull(field);
 	}
-	
+
 	private ItemNodeModel getItemNodeModel(String name, String value, String label){
 		ItemNodeModel node = new ItemNodeModel(name);
 		node.setObjectValue(value);
 		node.setLabel(label);
 		return node;
 	}
-	
+
 	public String getModuleName() {
         return "org.talend.mdm.webapp.browserecords.TestBrowseRecords";
     }

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -20,16 +20,16 @@ public class UrlUtil {
         }
         return lang;
     }
-    
+
     public static String getUpperLanguage() {
         String lang = getLanguage();
         return lang.toUpperCase();
     }
-    
+
     public static void openSingleWindow(String url,String name) {
         openWindow(url,name);
     }
-    
+
     private static native void openWindow(String url,String name)/*-{
         var newWindow = window.open(url,name);
         newWindow.focus();
@@ -38,7 +38,7 @@ public class UrlUtil {
     private static native String getCurrentLanguage() /*-{
         return $wnd.language;
     }-*/;
-        
+
     public static native String getLocaleProperty() /*-{
         var metaArray = $doc.getElementsByTagName("meta");
         for (var i = 0; i < metaArray.length; i++) {
@@ -53,7 +53,7 @@ public class UrlUtil {
         }
         return "en";
     }-*/;
-    
+
     public static native String setCurrentLocale(String language)/*-{
         $wnd.language = language;
      }-*/;

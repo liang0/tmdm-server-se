@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -55,7 +55,7 @@ public class CallJobServiceBean extends Service {
             Element root = Util.parse(updateReportXml).getDocumentElement();
             String concept = Util.getFirstTextNode(root, "Concept");//$NON-NLS-1$
             String dataCluster = Util.getFirstTextNode(root, "DataCluster");//$NON-NLS-1$
-            String key = Util.getFirstTextNode(root, "Key");//$NON-NLS-1$ 
+            String key = Util.getFirstTextNode(root, "Key");//$NON-NLS-1$
             ComplexTypeMetadata type = ServerContext.INSTANCE.get().getMetadataRepositoryAdmin().get(dataCluster)
                     .getComplexType(concept);
             Collection<FieldMetadata> keyFields = type.getKeyFields();
@@ -76,10 +76,10 @@ public class CallJobServiceBean extends Service {
                         + lastCompositeKey.length() + 1);
             }
 
-            String clusterPK = Util.getFirstTextNode(root, "DataCluster");//$NON-NLS-1$ 
+            String clusterPK = Util.getFirstTextNode(root, "DataCluster");//$NON-NLS-1$
             ItemPOJOPK itemPk = new ItemPOJOPK(new DataClusterPOJOPK(clusterPK), concept, ids);
 
-            String itemXml = "";//$NON-NLS-1$ 
+            String itemXml = "";//$NON-NLS-1$
             if (itemCtrl2Local.existsItem(itemPk) != null) {
                 ItemPOJO itempojo = itemCtrl2Local.getItem(itemPk);
                 itemXml = itempojo.getProjectionAsString();

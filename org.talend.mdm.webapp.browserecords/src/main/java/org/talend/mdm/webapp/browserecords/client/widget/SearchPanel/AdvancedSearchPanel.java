@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -93,13 +93,13 @@ public class AdvancedSearchPanel extends FormPanel {
         if (criteriaStr.indexOf(modifiedON + blank) > -1) {
             // modified on condition
             String express = criteriaStr.indexOf(modifiedON) - 5 > -1 ? criteriaStr.substring(0,
-                    criteriaStr.indexOf(modifiedON) - 5) + ")" : "";//$NON-NLS-1$ //$NON-NLS-2$ 
+                    criteriaStr.indexOf(modifiedON) - 5) + ")" : "";//$NON-NLS-1$ //$NON-NLS-2$
             parseSearchExpression(express);
             expressionTextField.setValue(express);
             String condition = criteriaStr.endsWith(")") ? criteriaStr.substring(criteriaStr.indexOf(modifiedON), criteriaStr.length() - 1) : criteriaStr.substring(criteriaStr.indexOf(modifiedON), criteriaStr.length()); //$NON-NLS-1$
             if (!modifiedonCriteria.isAttached()) {
                 matchgroupCriteria.removeFromParent();
-                instance.add(modifiedonCriteria, new FormData("95%")); //$NON-NLS-1$ 
+                instance.add(modifiedonCriteria, new FormData("95%")); //$NON-NLS-1$
                 instance.layout(true);
             }
 
@@ -135,7 +135,7 @@ public class AdvancedSearchPanel extends FormPanel {
             String condition = getMatchGroupCondition(criteriaStr);
             if (!matchgroupCriteria.isAttached()) {
                 modifiedonCriteria.removeFromParent();
-                instance.add(matchgroupCriteria, new FormData("75%")); //$NON-NLS-1$ 
+                instance.add(matchgroupCriteria, new FormData("75%")); //$NON-NLS-1$
                 instance.layout(true);
             }
             populateMatchGroupCriteria(condition);
@@ -268,7 +268,7 @@ public class AdvancedSearchPanel extends FormPanel {
     }
 
     public void cleanCriteria() {
-        setCriteria(""); //$NON-NLS-1$    
+        setCriteria(""); //$NON-NLS-1$
     }
 
     public void setView(ViewBean viewbean) {
@@ -461,7 +461,7 @@ public class AdvancedSearchPanel extends FormPanel {
             @Override
             public void selectionChanged(SelectionChangedEvent<BaseModel> se) {
                 if (se.getSelectedItem() != null) {
-                    String selvalue = se.getSelectedItem().get("value"); //$NON-NLS-1$                   
+                    String selvalue = se.getSelectedItem().get("value"); //$NON-NLS-1$
                     if (selvalue.equals("modifiedon")) { //$NON-NLS-1$
                         if (!modifiedonCriteria.isAttached()) {
                             matchgroupCriteria.removeFromParent();

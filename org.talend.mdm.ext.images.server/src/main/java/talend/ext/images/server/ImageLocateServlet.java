@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -34,7 +34,7 @@ public class ImageLocateServlet extends HttpServlet {
     private static final long serialVersionUID = -3012919798771313147L;
 
     private static final Logger LOGGER = Logger.getLogger(ImageLocateServlet.class);
-    
+
     private static final String CONTENT_TYPE_HEADER = "Content-Type";
 
     public void init(ServletConfig config) throws ServletException {
@@ -103,7 +103,7 @@ public class ImageLocateServlet extends HttpServlet {
         // HttpServletRequest.getPathInfo() should be decoded by the web container;
         // HttpServletRequest.getRequestURI() should not be decoded by the web container.
         // In Tomcat connector URIEncoding defaults to ISO-8859-1 but might be changed.
-        // So better to not rely onto getPathInfo() and ensure we got the 
+        // So better to not rely onto getPathInfo() and ensure we got the
         // raw UTF-8 value (thx to our CharacterEncodingFilter)
         String requestURI = req.getRequestURI();
         String path = StringUtils.substringAfterLast(requestURI, "/upload"); //$NON-NLS-1$

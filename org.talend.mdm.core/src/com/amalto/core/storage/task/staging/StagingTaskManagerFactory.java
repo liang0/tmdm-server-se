@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -23,13 +23,13 @@ import org.talend.mdm.commmon.util.core.MDMConfiguration;
 
 
 public class StagingTaskManagerFactory implements ApplicationContextAware, DisposableBean {
-    
+
     private ApplicationContext applicationContext;
-    
+
     private StagingTaskRepository repository;
-    
+
     private DefaultMessageListenerContainer listener;
-    
+
     public StagingTaskManager createStagingTaskManager(){
         if (isClusterEnabled()) {
             ClusteredStagingTaskManager clusteredManager = new ClusteredStagingTaskManager();
@@ -44,7 +44,7 @@ public class StagingTaskManagerFactory implements ApplicationContextAware, Dispo
             return localManagermanager;
         }
     }
-    
+
     private void startMessageListener(ConnectionFactory connectionFactory, Topic topic, MessageListener l){
         listener = new DefaultMessageListenerContainer();
         listener.setSessionTransacted(false);
@@ -58,9 +58,9 @@ public class StagingTaskManagerFactory implements ApplicationContextAware, Dispo
         listener.afterPropertiesSet();
         listener.start();
     }
-    
+
     private JmsTemplate createJmsTemplate(ConnectionFactory connectionFactory, Topic topic){
-        
+
         JmsTemplate template = new JmsTemplate(connectionFactory);
         template.setDefaultDestination(this.getTopic());
         return template;
@@ -77,7 +77,7 @@ public class StagingTaskManagerFactory implements ApplicationContextAware, Dispo
     private Topic getTopic() {
         return this.applicationContext.getBean("stagingTaskCancellationTopic", Topic.class);
     }
-    
+
     private boolean isClusterEnabled(){
         return MDMConfiguration.isClusterEnabled();
     }
@@ -87,12 +87,12 @@ public class StagingTaskManagerFactory implements ApplicationContextAware, Dispo
         this.applicationContext = applicationContext;
     }
 
-    
+
     public StagingTaskRepository getRepository() {
         return repository;
     }
 
-    
+
     public void setRepository(StagingTaskRepository repository) {
         this.repository = repository;
     }

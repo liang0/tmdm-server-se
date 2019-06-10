@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -47,7 +47,7 @@ public abstract class TypeMapping {
     public static final String SQL_TYPE = "SQL_TYPE"; //$NON-NLS-1$
 
     public static final String SQL_TYPE_CLOB = "clob"; //$NON-NLS-1$
-    
+
     public static final String SQL_TYPE_TEXT = "text"; //$NON-NLS-1$
 
     public static final String SQL_TYPE_BOOLEAN = "boolean"; //$NON-NLS-1$
@@ -244,7 +244,7 @@ public abstract class TypeMapping {
 
     /**
      * Set values <b>from</b> MDM representation <b>to</b> a Hibernate representation (i.e. POJOs).
-     * 
+     *
      * @param session A valid (opened) Hibernate session that might be used to resolve FK values.
      * @param from A value from MDM (usually got with
      * {@link com.amalto.core.storage.Storage#fetch(com.amalto.core.query.user.Expression)}
@@ -255,7 +255,7 @@ public abstract class TypeMapping {
 
     /**
      * Set values <b>from</b> Hibernate representation <b>to</b> a MDM representation.
-     * 
+     *
      * @param from A Hibernate object that represents a MDM entity instance.
      * @param to A MDM internal representation of the MDM record.
      * @return The modified version of <code>to</code>. In fact, return can be ignored for callers, this is a

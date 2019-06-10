@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -89,7 +89,7 @@ public class Role {
 
 	/**
 	 * Role format
-	 
+
 	 <role>
 	 	<name/>
 	 	<description/>
@@ -98,12 +98,12 @@ public class Role {
  			<name/>
 	 	</applications>
 	 </role>
-	 	
+
 	 */
-	
-	
+
+
 	public String serialize() {
-		String role = 
+		String role =
 			"<Role>" +
 			"    <name>"+name+"</name>"+
 			"    <description>"+description+"</description>"+
@@ -118,42 +118,42 @@ public class Role {
 				"    </applications>";
 		}
 		role+=
-		"</Role>";			
+		"</Role>";
 
-		
+
 		return role;
-		
-		
+
+
 	}
-	
+
 	public static Role parse(String xml) throws Exception{
 		Role role = new Role();
 		parse(xml, role);
 		return role;
 	}
-	
-	
+
+
 	public static void parse(String xml, Role role) throws Exception{
-				
+
 		try {
 			Element result = Util.parse(xml).getDocumentElement();
 			role.setName(Util.getFirstTextNode(result, "//name"));
 			role.setDescription(Util.getFirstTextNode(result, "//description"));
 			role.setRole_to_assign(Util.getFirstTextNode(result, "//role_to_assign"));
 			role.setApplications(Util.getTextNodes(result, "//applications/name"));
-						
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception("Failed to parse role: " +": "+e.getLocalizedMessage());
 		}
-		
+
 	}
-	
-	
+
+
 	 private void writeObject(java.io.ObjectOutputStream out)   throws IOException {
 		 out.write(serialize().getBytes("UTF-8"));
 	 }
-	 
+
 	 private void readObject(java.io.ObjectInputStream in)  throws IOException, ClassNotFoundException {
 		 try {
 			 String xml = in.readUTF();
@@ -161,17 +161,17 @@ public class Role {
 			 parse(xml, this);
 		 } catch (Exception x) {throw new IOException(x.getLocalizedMessage());}
 	 }
-	
-	
-	
 
-	
+
+
+
+
 	/****************************************************************
 	 * Original role stuff from Role - not used here
 	 *
 	 */
-	
-	
+
+
 //	/* (non-Javadoc)
 //	 * @see org.jboss.portal.core.model.Role#getUsers()
 //	 */
@@ -186,7 +186,7 @@ public class Role {
 //		this.description = name;
 //	}
 //
-//	
+//
 //	/* (non-Javadoc)
 //	 * @see org.jboss.portal.core.model.Role#getDisplayName()
 //	 */
@@ -203,6 +203,6 @@ public class Role {
 //	}
 //
 
-	
+
 
 }

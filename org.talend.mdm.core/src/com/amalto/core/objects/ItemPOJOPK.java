@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -20,11 +20,11 @@ import com.amalto.core.util.XtentisException;
 
 
 public class ItemPOJOPK implements Serializable,Comparable{
-	
+
 	private DataClusterPOJOPK dataClusterPK;
 	private String conceptName;
 	private String[] ids;
-	
+
 	/**
 	 * For mashalling/unmarshalling purposes only
 	 *
@@ -32,7 +32,7 @@ public class ItemPOJOPK implements Serializable,Comparable{
 	public ItemPOJOPK() {
 		super();
 	}
-	
+
 	/**
 	 * @param name
 	 * @param clusterPK
@@ -80,13 +80,13 @@ public class ItemPOJOPK implements Serializable,Comparable{
 	public void setIds(String[] ids) {
 		this.ids = ids;
 	}
-	
+
 	/**
 	 * Marshal the POJO PK to a Castor XML string
 	 * @return the marshalled PK
 	 * @throws XtentisException
 	 */
-	 public String  marshal() throws XtentisException {	
+	 public String  marshal() throws XtentisException {
 	        try {
 	    		StringWriter sw = new StringWriter();
 	    		MarshallingFactory.getInstance().getMarshaller(this.getClass()).marshal(this, sw);
@@ -96,7 +96,7 @@ public class ItemPOJOPK implements Serializable,Comparable{
 	    	    		+": "+e.getClass().getName()+": "+e.getLocalizedMessage();
 	    	    org.apache.log4j.Logger.getLogger(this.getClass()).error(err,e);
 	    	    throw new XtentisException(err);
-		    } 
+		    }
 	 }
 
 	/**
@@ -104,7 +104,7 @@ public class ItemPOJOPK implements Serializable,Comparable{
 	 * @return the ItemPOJOPK
 	 * @throws XtentisException
 	 */
-	 public static ItemPOJOPK  unmarshal(String marshalledItemPOJOPK) throws XtentisException {	
+	 public static ItemPOJOPK  unmarshal(String marshalledItemPOJOPK) throws XtentisException {
 	        try {
 	            return MarshallingFactory.getInstance().getUnmarshaller(ItemPOJOPK.class).unmarshal(new StringReader(marshalledItemPOJOPK));
 		    } catch (Exception e) {
@@ -112,9 +112,9 @@ public class ItemPOJOPK implements Serializable,Comparable{
 	    	    		+": "+e.getClass().getName()+": "+e.getLocalizedMessage();
 	    	    org.apache.log4j.Logger.getLogger(ItemPOJOPK.class).error(err,e);
 	    	    throw new XtentisException(err);
-		    } 
+		    }
 	 }
-	 
+
 	 /**
 	  * Returns a unique String representing this item
 	  * @return the unique id String
@@ -153,6 +153,6 @@ public class ItemPOJOPK implements Serializable,Comparable{
 		}
 		return 0;
 	}
-	 
-	 
+
+
 }

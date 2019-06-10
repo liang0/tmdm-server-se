@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -56,7 +56,7 @@ public class MDMValidationTask extends MetadataRepositoryTask {
 
     private static final Logger LOGGER = Logger.getLogger(MDMValidationTask.class);
 
-    private static final int COMMIT_SIZE;        
+    private static final int COMMIT_SIZE;
 
     private final SaverSource source;
 
@@ -66,7 +66,7 @@ public class MDMValidationTask extends MetadataRepositoryTask {
 
     private int recordsCount;
 
-    private SecurityContext context;       
+    private SecurityContext context;
 
     static {
         // staging.validation.updatereport tells whether validation should generate update reports
@@ -180,9 +180,9 @@ public class MDMValidationTask extends MetadataRepositoryTask {
         private SaverSession session;
 
         private int commitCount;
-        
+
         private List<DataRecord> stagingRecords = new ArrayList<DataRecord>();
-        
+
         private boolean isResolve;
 
         public MDMValidationClosure(SaverSource source, SaverSession.Committer committer, Storage destinationStorage) {
@@ -191,7 +191,7 @@ public class MDMValidationTask extends MetadataRepositoryTask {
             this.destinationStorage = destinationStorage;
         }
 
-        public synchronized void begin() {            
+        public synchronized void begin() {
             session = SaverSession.newSession(source);
             session.begin(destinationStorage.getName(), committer);
             storage.begin();
@@ -291,11 +291,11 @@ public class MDMValidationTask extends MetadataRepositoryTask {
             }
             return false;
         }
-        
+
         @Override
         public void cancel() {
         }
-        
+
         private void resolve(ClosureExecutionStats stats) {
             isResolve = true;
             for(DataRecord stagingRecord : stagingRecords) {
@@ -325,10 +325,10 @@ public class MDMValidationTask extends MetadataRepositoryTask {
                 if(COMMIT_SIZE > 1 && stagingRecords.size() > 0) {
                     session.abort(committer);
                     resolve(stats);
-                } else {                    
+                } else {
                     // This is unexpected (session should only contain records that won't fail commit).
                     LOGGER.error("Could not commit changes.", e); //$NON-NLS-1$
-                    session.abort(committer);                    
+                    session.abort(committer);
                 }
             }
         }

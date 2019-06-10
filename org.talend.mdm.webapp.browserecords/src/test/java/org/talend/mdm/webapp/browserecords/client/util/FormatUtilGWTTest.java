@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -59,7 +59,7 @@ public class FormatUtilGWTTest extends GWTTestCase{
         assertEquals(FormatUtil.changeNumberToFormatedValue("0.200"), "0.200");
         assertEquals(FormatUtil.changeNumberToFormatedValue(".200"), "0.200");
         assertEquals(FormatUtil.changeNumberToFormatedValue("-.200"), "-0.200");
-        
+
         assertNotNull(FormatUtil.changeNumberToFormatedValue("2,0"));
         assertEquals(FormatUtil.changeNumberToFormatedValue("2,0"), "2.0");
         assertEquals(FormatUtil.changeNumberToFormatedValue("2,0    "), "2.0");
@@ -82,7 +82,7 @@ public class FormatUtilGWTTest extends GWTTestCase{
         assertEquals(FormatUtil.changeNumberToFormatedValue("0,200"), "0.200");
         assertEquals(FormatUtil.changeNumberToFormatedValue(",200"), "0.200");
         assertEquals(FormatUtil.changeNumberToFormatedValue("-,200"), "-0.200");
-        
+
     }
 
     public void testGetDecimalValue(){

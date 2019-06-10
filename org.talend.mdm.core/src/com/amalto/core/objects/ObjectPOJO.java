@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -197,7 +197,7 @@ public abstract class ObjectPOJO implements Serializable {
     /**
      * Loads an object of a particular revision ID<br/>
      * NO Check is done on user rights
-     * 
+     *
      * @return the instance of the object
      * @throws XtentisException
      */
@@ -226,7 +226,7 @@ public abstract class ObjectPOJO implements Serializable {
 
     /**
      * Remove the item from the DB
-     * 
+     *
      * @return the Primary Key of the object removed
      * @throws XtentisException
      */
@@ -279,7 +279,7 @@ public abstract class ObjectPOJO implements Serializable {
 
     /**
      * Retrieve all the PKs - will fetch only the PKs for which the user is authorized
-     * 
+     *
      * @return a Collection of ObjectPOJOPK
      * @throws XtentisException
      */
@@ -359,7 +359,7 @@ public abstract class ObjectPOJO implements Serializable {
     /**
      * Retrieve all PKs of an object type unsynchronized against a particular plan<br/>
      * The user must have the "administration" role to perform this task
-     * 
+     *
      * @return a Collection of ObjectPOJOPK
      * @throws XtentisException
      */
@@ -404,7 +404,7 @@ public abstract class ObjectPOJO implements Serializable {
 
     /**
      * Get the records for which the user is authorized and matching certain conditions
-     * 
+     *
      * @param objectClass The class of the XtentisObject
      * @param idsPaths The full path (starting with the object element root name) of the ids
      * @param whereItem The condition
@@ -479,7 +479,7 @@ public abstract class ObjectPOJO implements Serializable {
 
     /**
      * Unmarshals an Object POJO to the Original Object
-     * 
+     *
      * @return The Object instance
      * @throws XtentisException
      */
@@ -495,7 +495,7 @@ public abstract class ObjectPOJO implements Serializable {
             throw new XtentisException(err, t);
         }
     }
-    
+
     public String getDigest() {
         return this.digest;
     }
@@ -506,14 +506,14 @@ public abstract class ObjectPOJO implements Serializable {
 
     /**
      * The PK
-     * 
+     *
      * @return the pk, null if undefined
      */
     public abstract ObjectPOJOPK getPK();
 
     /**
      * Store the current item in the DB
-     * 
+     *
      * @return the pk of the item
      * @throws XtentisException
      */
@@ -587,7 +587,7 @@ public abstract class ObjectPOJO implements Serializable {
 
     /**
      * Returns a marshaled version of the object<br/>
-     * 
+     *
      * @return The marshaled object
      * @throws XtentisException
      */

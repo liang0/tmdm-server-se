@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -136,11 +136,11 @@ public class DataRecordJSONReader implements DataRecordReader<JsonElement> {
     *        }
     *    }
     * </pre>
-    *    
+    *
     * As above Json input, the root element is Product, fields Id, Name and Family are JsonPrimitive.
     * Field Stores is ComplexTypeMetadata and JsonObject, and filed Store is JsonArray.
-    * Field Family and each Store are ReferenceFieldMetadata, 
-    *    
+    * Field Family and each Store are ReferenceFieldMetadata,
+    *
     */
     private void readElement(MetadataRepository repository, DataRecord dataRecord, ComplexTypeMetadata type, JsonElement element) {
         JsonObject root = element.getAsJsonObject();
@@ -219,7 +219,7 @@ public class DataRecordJSONReader implements DataRecordReader<JsonElement> {
      *     <PartyProduct><id>PartyProduct1</id><name>PartyProduct1</name>
      *         <supplier xmlns:tmdm='http://www.talend.com/mdm' tmdm:type='PartyIndividual'>[PartyIndividual1]</supplier>
      *     </PartyProduct>
-     *   
+     *
      *    The expected JSON input:
      *    {
      *        "PartyProduct": {
@@ -233,7 +233,7 @@ public class DataRecordJSONReader implements DataRecordReader<JsonElement> {
      *        }
      *    }
      * </pre>
-     * 
+     *
      */
     private List<String> getReferencedTypeAndValue(String typeName) {
         try {
@@ -264,11 +264,11 @@ public class DataRecordJSONReader implements DataRecordReader<JsonElement> {
             return null;
         }
     }
-    
+
     private void readJsonPrimitive(MetadataRepository repository, DataRecord dataRecord, ComplexTypeMetadata type, JsonPrimitive currentChild, String tagName) {
-        if (tagName.equalsIgnoreCase(JSON_REF) || 
+        if (tagName.equalsIgnoreCase(JSON_REF) ||
             tagName.equalsIgnoreCase(MDM_TYPE) ||
-            tagName.equalsIgnoreCase(MDM_NAMESPACE) ||            
+            tagName.equalsIgnoreCase(MDM_NAMESPACE) ||
             tagName.equalsIgnoreCase(REERENCE_VALUE)) {
             return;
         }

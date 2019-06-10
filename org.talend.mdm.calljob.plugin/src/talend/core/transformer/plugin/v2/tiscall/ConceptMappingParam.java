@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -11,15 +11,15 @@ package talend.core.transformer.plugin.v2.tiscall;
 
 
 public class ConceptMappingParam {
-	
+
 	private String concept;
-	
+
 	//using json format
 	//TODO now only support 2 level mapping
 	//maybe we can support tree structure
 	//or simple functions
 	private String fields;
-	
+
 	public ConceptMappingParam(String concept, String fields) {
 		super();
 		this.concept = concept;
@@ -41,6 +41,6 @@ public class ConceptMappingParam {
 	public void setFields(String fields) {
 		this.fields = fields;
 	}
-	
-	
+
+
 }

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -61,7 +61,7 @@ public class StorageTestCase extends TestCase {
     protected static final ComplexTypeMetadata type;
 
     protected static final ComplexTypeMetadata person;
-    
+
     protected static final ComplexTypeMetadata dateKey;
 
     protected static final ComplexTypeMetadata customer;
@@ -141,15 +141,15 @@ public class StorageTestCase extends TestCase {
     protected static final ComplexTypeMetadata location;
 
     protected static final ComplexTypeMetadata organisation;
-    
+
     protected static final ComplexTypeMetadata e_entity;
 
     protected static final ComplexTypeMetadata t_entity;
-    
+
     protected static final ComplexTypeMetadata checkPointDetails_1;
-    
+
     protected static final ComplexTypeMetadata checkPointDetails_2;
-    
+
     protected static final ComplexTypeMetadata fullTextSearchEntityA;
 
     protected static final ComplexTypeMetadata channel;
@@ -163,9 +163,9 @@ public class StorageTestCase extends TestCase {
     protected static final ComplexTypeMetadata contract;
 
     public static final String DATABASE = "H2";
-    
+
     public static final String DATASOURCE_DEFAULT = DATABASE + "-Default";
-    
+
     public static final String DATASOURCE_FULLTEXT = DATABASE + "-Fulltext";
 
     static {
@@ -224,11 +224,11 @@ public class StorageTestCase extends TestCase {
         location = repository.getComplexType("Location");
         organisation = repository.getComplexType("Organisation");
         e_entity = repository.getComplexType("E_Entity");
-        t_entity = repository.getComplexType("T_Entity");        
+        t_entity = repository.getComplexType("T_Entity");
         checkPointDetails_1 = repository.getComplexType("CheckPointDetails_1");
-        checkPointDetails_2 = repository.getComplexType("CheckPointDetails_2");        
+        checkPointDetails_2 = repository.getComplexType("CheckPointDetails_2");
         fullTextSearchEntityA = repository.getComplexType("FullTextSearchEntityA");
-        
+
         channel = repository.getComplexType("MYLOOKUP_BUSINESS_CHANNEL");
         party = repository.getComplexType("MYPARTY");
 
@@ -239,10 +239,10 @@ public class StorageTestCase extends TestCase {
 
         systemStorage = new SecuredStorage(new HibernateStorage("MDM", StorageType.SYSTEM), userSecurity);
         systemRepository = buildSystemRepository();
-        
+
         initStorage(DATASOURCE_DEFAULT);
     }
-    
+
     protected static void initStorage(String datasource) {
         LOG.info("Preparing storage for tests...");
         storage.init(getDatasource(datasource));

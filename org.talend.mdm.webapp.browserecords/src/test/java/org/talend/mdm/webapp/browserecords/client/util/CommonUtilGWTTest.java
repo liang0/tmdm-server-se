@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -285,10 +285,10 @@ public class CommonUtilGWTTest extends GWTTestCase {
         list.add("Family"); //$NON-NLS-1$
         list.add("Price"); //$NON-NLS-1$
         list.add("Availability"); //$NON-NLS-1$
-        String xml = "<header><item>Id</item><item>Name</item><item>Family</item><item>Price</item><item>Availability</item></header>"; //$NON-NLS-1$        
+        String xml = "<header><item>Id</item><item>Name</item><item>Family</item><item>Price</item><item>Availability</item></header>"; //$NON-NLS-1$
         assertEquals(xml,CommonUtil.convertList2Xml(list, "header")); //$NON-NLS-1$
     }
-    
+
     public void testSetDeleteItemInfo() throws Exception {
         Map<ItemBean, FKIntegrityResult> items = new HashMap<ItemBean, FKIntegrityResult>();
         items.put(new ItemBean("ProductFamily", "1", "<result xmlns:metadata=\"http://www.talend.com/mdm/metadata\"\r\n" +   //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
@@ -315,15 +315,15 @@ public class CommonUtilGWTTest extends GWTTestCase {
                 "      <Name>f4</Name>\r\n" +   //$NON-NLS-1$
                 "      <taskId>null</taskId>\r\n" +   //$NON-NLS-1$
                 "</result>"), FKIntegrityResult.ALLOWED);  //$NON-NLS-1$
-        
+
         List<ItemResult> fkIntegrityMsgs = new ArrayList<ItemResult>();
         List<ItemBean> itemBeans = new ArrayList<ItemBean>();
         CommonUtil.setDeleteItemInfo(items, fkIntegrityMsgs, itemBeans);
-        
+
         assertEquals(2, fkIntegrityMsgs.size());
         assertEquals(2, itemBeans.size());
     }
-    
+
     public void testDisplayMsgBoxWindow() throws Exception {
         ItemResult result1 = new ItemResult();
         result1.setKey("1"); //$NON-NLS-1$

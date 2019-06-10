@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -22,7 +22,7 @@ import com.amalto.core.objects.marshalling.Unmarshaller;
 
 /**
  * Castor implementation of MDM XOM framework.
- * 
+ *
  * This implementation keeps a cache of {@link XMLContext} to improve performances
  */
 public class CastorMarshallingFactory extends MarshallingFactory {
@@ -31,7 +31,7 @@ public class CastorMarshallingFactory extends MarshallingFactory {
      * Castor {@link XMLContext} cache per class
      */
     private Map<Class<?>, XMLContext> castorContextCache = new HashMap<Class<?>, XMLContext>();
-    
+
     @Override
     public Marshaller getMarshaller(Class<?> clazz) throws MarshallingException {
         XMLContext context = getCastorXMLContext(clazz);
@@ -41,7 +41,7 @@ public class CastorMarshallingFactory extends MarshallingFactory {
     @Override
     public <T> Unmarshaller<T> getUnmarshaller(Class<T> clazz) throws MarshallingException {
         XMLContext context = getCastorXMLContext(clazz);
-        org.exolab.castor.xml.Unmarshaller castorUnmarshaller = context.createUnmarshaller(); 
+        org.exolab.castor.xml.Unmarshaller castorUnmarshaller = context.createUnmarshaller();
         castorUnmarshaller.setValidation(false);
         // see 0023397 can't unmarshaller WSPipeline if unmarshaller.setReuseObjects(true)
         castorUnmarshaller.setReuseObjects(false);
@@ -50,7 +50,7 @@ public class CastorMarshallingFactory extends MarshallingFactory {
         castorUnmarshaller.setClass(clazz);
         return new CastorUnmarshaller<T>(castorUnmarshaller);
     }
-    
+
     protected XMLContext getCastorXMLContext(Class<?> clazz) throws MarshallingException {
         synchronized(castorContextCache){
             XMLContext context = castorContextCache.get(clazz);
@@ -67,6 +67,6 @@ public class CastorMarshallingFactory extends MarshallingFactory {
         }
     }
 
-    
-    
+
+
 }

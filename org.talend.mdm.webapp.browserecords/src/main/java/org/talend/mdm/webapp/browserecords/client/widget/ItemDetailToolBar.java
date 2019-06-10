@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -288,7 +288,7 @@ public class ItemDetailToolBar extends ToolBar {
     }
 
     protected void initToolBar() {
-        this.addStyleName("ItemDetailToolBar"); //$NON-NLS-1$       
+        this.addStyleName("ItemDetailToolBar"); //$NON-NLS-1$
         if (operation.equalsIgnoreCase(ItemDetailToolBar.VIEW_OPERATION)
                 || operation.equalsIgnoreCase(ItemDetailToolBar.PERSONALEVIEW_OPERATION)) {
             initViewToolBar();
@@ -573,7 +573,7 @@ public class ItemDetailToolBar extends ToolBar {
 
                                             @Override
                                             public void onSuccess(ItemBean result) {
-                                                
+
                                                 ItemsDetailPanel panel = ItemsDetailPanel.newInstance();
                                                 ItemPanel itemPanel = new ItemPanel(isStaging, viewBean, result, viewType, panel);
                                                 TreeDetailUtil.initDetailPanel(viewBean, panel, itemPanel, result, fromWhichApp, isFkToolBar, isHierarchyCall,
@@ -1488,7 +1488,7 @@ public class ItemDetailToolBar extends ToolBar {
                 validate = true;
                 model = fkDetail.getRootModel();
                 app.setData(
-                        "ItemBean", fkDetail.isCreate() ? new ItemBean(fkDetail.getViewBean().getBindingEntityModel().getConceptName(), "", "") : itemBean); //$NON-NLS-1$ 
+                        "ItemBean", fkDetail.isCreate() ? new ItemBean(fkDetail.getViewBean().getBindingEntityModel().getConceptName(), "", "") : itemBean); //$NON-NLS-1$
                 app.setData("isCreate", fkDetail.isCreate()); //$NON-NLS-1$
             }
         }
@@ -1529,7 +1529,7 @@ public class ItemDetailToolBar extends ToolBar {
                 validate = true;
                 model = fkDetail.getRootModel();
                 app.setData(
-                        "ItemBean", fkDetail.isCreate() ? new ItemBean(fkDetail.getViewBean().getBindingEntityModel().getConceptName(), "", "") : itemBean); //$NON-NLS-1$ 
+                        "ItemBean", fkDetail.isCreate() ? new ItemBean(fkDetail.getViewBean().getBindingEntityModel().getConceptName(), "", "") : itemBean); //$NON-NLS-1$
                 app.setData("isCreate", fkDetail.isCreate()); //$NON-NLS-1$
             }
         }
