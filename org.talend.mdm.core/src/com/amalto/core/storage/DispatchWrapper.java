@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -30,9 +30,9 @@ import com.amalto.xmlserver.interfaces.ItemPKCriteria;
 import com.amalto.xmlserver.interfaces.XmlServerException;
 
 public class DispatchWrapper implements IXmlServerSLWrapper {
-    
+
     private static final Logger LOGGER = Logger.getLogger(DispatchWrapper.class);
-    
+
     private static IXmlServerSLWrapper mdmInternalWrapper;
 
     private static IXmlServerSLWrapper userStorageWrapper;

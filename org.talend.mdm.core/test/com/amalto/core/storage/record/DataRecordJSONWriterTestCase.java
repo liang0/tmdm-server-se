@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -25,7 +25,7 @@ import org.talend.mdm.commmon.metadata.FieldMetadata;
 public class DataRecordJSONWriterTestCase extends DataRecordDataWriterTestCase {
 
     DataRecordJSONWriter writer;
-    
+
     @Before
     public void setup() throws Exception {
         super.setup();
@@ -33,7 +33,7 @@ public class DataRecordJSONWriterTestCase extends DataRecordDataWriterTestCase {
         writer.setSecurityDelegator(delegate);
         repository.load(this.getClass().getResourceAsStream("metadata.xsd"));
     }
-    
+
     @Test
     public void testSimpleComplexType() throws Exception {
         DataRecord record = createDataRecord(repository.getComplexType("SimpleProduct"));
@@ -67,7 +67,7 @@ public class DataRecordJSONWriterTestCase extends DataRecordDataWriterTestCase {
         String result = toJSON(record);
         Assert.assertEquals("{\"witharray\":{\"id\":\"12345\",\"repeat\":[\"ABC\",\"DEF\"]}}", result);
     }
-    
+
     @Test
     public void testSimpleTypeWithNullArray() throws Exception {
         DataRecord record = createDataRecord(repository.getComplexType("WithArray"));
@@ -75,7 +75,7 @@ public class DataRecordJSONWriterTestCase extends DataRecordDataWriterTestCase {
         String result = toJSON(record);
         Assert.assertEquals("{\"witharray\":{\"id\":\"12345\"}}", result);
     }
-    
+
     @Test
     public void testSimpleTypeWithEmptyArray() throws Exception {
         DataRecord record = createDataRecord(repository.getComplexType("WithArray"));
@@ -84,7 +84,7 @@ public class DataRecordJSONWriterTestCase extends DataRecordDataWriterTestCase {
         String result = toJSON(record);
         Assert.assertEquals("{\"witharray\":{\"id\":\"12345\",\"repeat\":[]}}", result);
     }
-    
+
     @Test
     public void testTypeWithComplexType() throws Exception {
         DataRecord record = createDataRecord(repository.getComplexType("Customer"));
@@ -93,13 +93,13 @@ public class DataRecordJSONWriterTestCase extends DataRecordDataWriterTestCase {
         String result = toJSON(record);
         Assert.assertEquals("{\"customer\":{\"id\":\"12345\",\"name\":\"Name\",\"address\":{}}}", result);
     }
-    
+
     @Test
     public void testContainedType() throws Exception {
         ComplexTypeMetadata type = repository.getComplexType("WithContained");
         DataRecord record = createDataRecord(type);
         setDataRecordField(record, "Id", "ABCD");
-        
+
         FieldMetadata field = type.getField("Contained");
         Assert.assertTrue(field instanceof ContainedTypeFieldMetadata);
         ContainedTypeFieldMetadata containedField = (ContainedTypeFieldMetadata)field;
@@ -108,14 +108,14 @@ public class DataRecordJSONWriterTestCase extends DataRecordDataWriterTestCase {
         DataRecord contained = createDataRecord(tm);
         setDataRecordField(contained, "ContainedId", "CID");
         setDataRecordField(contained, "ContainedName", "CName");
-        
+
         setDataRecordField(record, "Contained", contained);
-        
+
         String result = toJSON(record);
-        
+
         Assert.assertEquals("{\"withcontained\":{\"id\":\"ABCD\",\"contained\":{\"containedid\":\"CID\",\"containedname\":\"CName\"}}}", result);
     }
-    
+
     @Test
     public void testMultiContainedType() throws Exception {
         ComplexTypeMetadata type = repository.getComplexType("WithMultiContained");
@@ -130,21 +130,21 @@ public class DataRecordJSONWriterTestCase extends DataRecordDataWriterTestCase {
         setDataRecordField(contained1, "ContainedId", "CID1");
         setDataRecordField(contained1, "ContainedName", "CName1");
         list.add(contained1);
-        
+
         DataRecord contained2 = createDataRecord(tm);
         setDataRecordField(contained2, "ContainedId", "CID2");
         setDataRecordField(contained2, "ContainedName", "CName2");
         list.add(contained2);
-        
+
         setDataRecordField(record, "Contained", list);
-        
+
         String result = toJSON(record);
-        
+
         Assert.assertEquals("{\"withmulticontained\":{\"id\":\"ABCD\",\"contained\":"
                 + "[{\"containedid\":\"CID1\",\"containedname\":\"CName1\"},"
                 + "{\"containedid\":\"CID2\",\"containedname\":\"CName2\"}]}}", result);
     }
-    
+
     @Test
     public void testMultiContainedTypeWithNullList() throws Exception {
         ComplexTypeMetadata type = repository.getComplexType("WithMultiContained");
@@ -154,13 +154,13 @@ public class DataRecordJSONWriterTestCase extends DataRecordDataWriterTestCase {
         Assert.assertTrue(field instanceof ContainedTypeFieldMetadata);
         ContainedTypeFieldMetadata containedField = (ContainedTypeFieldMetadata)field;
         ContainedComplexTypeMetadata tm = (ContainedComplexTypeMetadata)containedField.getType();
-        
+
         String result = toJSON(record);
-        
+
         Assert.assertEquals("{\"withmulticontained\":{\"id\":\"ABCD\",\"contained\":"
                 + "[]}}", result);
     }
-    
+
     @Test
     public void testMultiContainedTypeWithEmptyList() throws Exception {
         ComplexTypeMetadata type = repository.getComplexType("WithMultiContained");
@@ -172,13 +172,13 @@ public class DataRecordJSONWriterTestCase extends DataRecordDataWriterTestCase {
         ContainedComplexTypeMetadata tm = (ContainedComplexTypeMetadata)containedField.getType();
 
         setDataRecordField(record, "Contained", new ArrayList<DataRecord>());
-        
+
         String result = toJSON(record);
-        
+
         Assert.assertEquals("{\"withmulticontained\":{\"id\":\"ABCD\",\"contained\":"
                 + "[]}}", result);
     }
-    
+
     @Test
     public void testIgnoreCase() throws Exception {
         // Test IgnoreCase is false,attribute name to be raw value defined in schema

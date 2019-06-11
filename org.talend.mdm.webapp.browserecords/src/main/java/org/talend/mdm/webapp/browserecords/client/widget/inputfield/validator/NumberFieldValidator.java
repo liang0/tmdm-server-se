@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -29,12 +29,12 @@ public class NumberFieldValidator implements Validator {
         }
         return instance;
     }
-    
+
     private NumberFieldValidator(){
     }
-    
+
     public String validate(Field<?> field, String value) {
-        String defaultMessage = "";//$NON-NLS-1$ 
+        String defaultMessage = "";//$NON-NLS-1$
         boolean succeed = true;
 
         String[] digits = value.replace(",", ".").replace("-", "").split("\\.");//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$//$NON-NLS-4$//$NON-NLS-5$
@@ -73,7 +73,7 @@ public class NumberFieldValidator implements Validator {
                 defaultMessage += MessagesFactory.getMessages().check_minInclusive() + min + "\n";//$NON-NLS-1$
             }
         }
-        
+
         String maxInclusive = field.getData(FacetEnum.MAX_INCLUSIVE.getFacetName());
         if (maxInclusive != null && !maxInclusive.equals("")){//$NON-NLS-1$
             double max = Double.parseDouble(maxInclusive);
@@ -83,7 +83,7 @@ public class NumberFieldValidator implements Validator {
                 defaultMessage += MessagesFactory.getMessages().check_maxInclusive() + max + "\n";//$NON-NLS-1$
             }
         }
-        
+
         String minExclusive = field.getData(FacetEnum.MIN_EXCLUSIVE.getFacetName());
         if (minExclusive != null && !minExclusive.equals("")){//$NON-NLS-1$
             double min = Double.parseDouble(minExclusive);
@@ -93,7 +93,7 @@ public class NumberFieldValidator implements Validator {
                 defaultMessage += MessagesFactory.getMessages().check_minExclusive() + min + "\n";//$NON-NLS-1$
             }
         }
-        
+
         String maxExclusive = field.getData(FacetEnum.MAX_EXCLUSIVE.getFacetName());
         if (maxExclusive != null && !maxExclusive.equals("")){//$NON-NLS-1$
             double max = Double.parseDouble(maxExclusive);
@@ -103,12 +103,12 @@ public class NumberFieldValidator implements Validator {
                 defaultMessage += MessagesFactory.getMessages().check_maxExclusive() + max + "\n";//$NON-NLS-1$
             }
         }
-                
+
         if (!succeed){
             String error = field.getData("facetErrorMsgs");//$NON-NLS-1$
             if (error == null || error.equals("")){//$NON-NLS-1$
                 return defaultMessage;
-            } 
+            }
             return error;
         }
         return null;

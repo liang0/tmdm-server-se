@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -19,19 +19,19 @@ import com.extjs.gxt.ui.client.widget.form.Validator;
 public class TextFieldValidator implements Validator {
 
     private static TextFieldValidator instance;
-    
+
     private static String AUTO_INCREMENT = "(Auto)"; //$NON-NLS-1$
-    
+
     public static TextFieldValidator getInstance(){
         if (instance == null){
             instance = new TextFieldValidator();
         }
         return instance;
     }
-    
+
     private TextFieldValidator(){
     }
-    
+
     public String validate(Field<?> field, String value) {
         String defaultMessage = "";//$NON-NLS-1$
         boolean succeed = true;
@@ -42,7 +42,7 @@ public class TextFieldValidator implements Validator {
                 defaultMessage += MessagesFactory.getMessages().check_length() + length + "\n";//$NON-NLS-1$
             }
         }
-        
+
         String minLength = field.getData(FacetEnum.MIN_LENGTH.getFacetName());
         if (minLength != null && !minLength.equals("")) {//$NON-NLS-1$
             if (value.length() < Integer.parseInt(minLength)){
@@ -50,7 +50,7 @@ public class TextFieldValidator implements Validator {
                 defaultMessage += MessagesFactory.getMessages().check_minLength() + minLength + "\n";//$NON-NLS-1$
             }
         }
-        
+
         String maxLength = field.getData(FacetEnum.MAX_LENGTH.getFacetName());
         if (maxLength != null && !maxLength.equals("")) {//$NON-NLS-1$
             if (value.length() > Integer.parseInt(maxLength)){
@@ -58,10 +58,10 @@ public class TextFieldValidator implements Validator {
                 defaultMessage += MessagesFactory.getMessages().check_maxLength() + maxLength + "\n";//$NON-NLS-1$
             }
         }
-        
+
         String pattern = field.getData(FacetEnum.PATTERN.getFacetName());
 
-        if (pattern != null && !pattern.equals("") && value != null) { //$NON-NLS-1$            
+        if (pattern != null && !pattern.equals("") && value != null) { //$NON-NLS-1$
             if (!value.matches(pattern)) {
                 succeed = false;
                 defaultMessage += MessagesFactory.getMessages().check_pattern(value, pattern) + "\n";//$NON-NLS-1$
@@ -72,7 +72,7 @@ public class TextFieldValidator implements Validator {
             String error = field.getData("facetErrorMsgs");//$NON-NLS-1$
             if (error == null || error.equals("")){//$NON-NLS-1$
                 return defaultMessage;
-            } 
+            }
             return error;
         }
         return null;

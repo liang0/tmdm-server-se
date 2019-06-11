@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -24,18 +24,18 @@ import java.util.*;
 /**
  * @author bgrieder
  * Stores information on a job run in the server as a background thread
- * 
+ *
  */
 public class BackgroundJobPOJO extends ObjectPOJO{
-   
+
 
 	public static int _COMPLETED_=0;
-	public static int _RUNNING_=1;  
+	public static int _RUNNING_=1;
 	public static int _SUSPENDED_=2;
 	public static int _STOPPED_=3;
 	public static int _CANCEL_REQUESTED_=4;
 	public static int _SCHEDULED_=5;
-	
+
 	private String id;
     private String description;
     private int status;
@@ -44,14 +44,14 @@ public class BackgroundJobPOJO extends ObjectPOJO{
     private String timestamp;
     private WSPipeline wsPipeline;
     private byte[] serializedObject;
-    
-    
+
+
     /**
-     * 
+     *
      */
     public BackgroundJobPOJO() {
     	this.id = UUID.randomUUID().toString();
-    }    
+    }
 	public BackgroundJobPOJO(String id) {
 		super();
 		this.id = id;
@@ -110,14 +110,14 @@ public class BackgroundJobPOJO extends ObjectPOJO{
 	 * The pipeline is changed to a {@link WSPipeline} to be Marshalable
 	 * Note: doing this will consume the streams of the pipeline
 	 * @param pipeline
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public void setPipeline(HashMap<String, TypedContent> pipeline) throws Exception {
     	this.wsPipeline = POJO2WS(pipeline);
     }
 	public static WSPipeline POJO2WS(HashMap<String,TypedContent> pipeline) throws Exception{
 		if (pipeline == null) return null;
-		
+
 		ArrayList<WSPipelineTypedContentEntry> entries = new ArrayList<WSPipelineTypedContentEntry>();
 		Set keys = pipeline.keySet();
 		for (Iterator iter = keys.iterator(); iter.hasNext(); ) {
@@ -136,17 +136,17 @@ public class BackgroundJobPOJO extends ObjectPOJO{
 		}
 		return new WSPipeline(entries.toArray(new WSPipelineTypedContentEntry[entries.size()]));
 	}
-	
-	
+
+
 	@Override
 	public ObjectPOJOPK getPK() {
 		if (getId()==null) return null;
 		return new ObjectPOJOPK(new String[] {id});
 	}
 
-	
 
-	
-	
+
+
+
 
 }

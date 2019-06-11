@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -33,7 +33,7 @@ public class FormatNumberPropertyEditorGWTTest extends GWTTestCase {
     public String getModuleName() {
         return "org.talend.mdm.webapp.browserecords.TestBrowseRecords"; //$NON-NLS-1$
     }
-    
+
     public void testConvertStringValue() {
         FormatNumberPropertyEditor formatNumberPropertyEditor = new FormatNumberPropertyEditor(Float.class);
         assertEquals(formatNumberPropertyEditor.convertStringValue("1.23").toString(), "1.23");

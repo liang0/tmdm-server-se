@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -216,7 +216,7 @@ public class BrowseRecordsView extends View {
         itemPkInfoList = item.getPkInfoList();
         itemDescription = item.getDescription();
 
-        breads.add(new BreadCrumbModel("", BreadCrumb.DEFAULTNAME, null, null, false)); //$NON-NLS-1$           
+        breads.add(new BreadCrumbModel("", BreadCrumb.DEFAULTNAME, null, null, false)); //$NON-NLS-1$
         breads.add(new BreadCrumbModel(itemConcept, itemLabel, itemIds, itemDisplayPKInfo.equals(itemLabel) ? null
                 : itemDisplayPKInfo, true));
 
@@ -228,7 +228,7 @@ public class BrowseRecordsView extends View {
             ItemsDetailPanel itemsDetailPanel = this.buildNewItemsDetailPanel(isStaging, viewBean, item, operation, itemIds,
                     itemPkInfoList, itemDescription, itemLabel, breads);
 
-            itemsMainTabPanel.addMainTabItem(itemLabel + " " + itemIds, //$NON-NLS-1$ 
+            itemsMainTabPanel.addMainTabItem(itemLabel + " " + itemIds, //$NON-NLS-1$
                     itemsDetailPanel, itemIds);
 
         } else {
@@ -361,7 +361,7 @@ public class BrowseRecordsView extends View {
             Log.info("Init frame... ");//$NON-NLS-1$
         }
         GenerateContainer.getContentPanel().setLayout(new FitLayout());
-        GenerateContainer.getContentPanel().setStyleAttribute("height", "100%");//$NON-NLS-1$ //$NON-NLS-2$       
+        GenerateContainer.getContentPanel().setStyleAttribute("height", "100%");//$NON-NLS-1$ //$NON-NLS-2$
         Dispatcher.forwardEvent(BrowseRecordsEvents.InitSearchContainer);
     }
 

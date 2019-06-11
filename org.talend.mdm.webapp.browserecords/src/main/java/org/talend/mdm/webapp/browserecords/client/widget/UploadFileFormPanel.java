@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -65,7 +65,7 @@ public class UploadFileFormPanel extends FormPanel implements Listener<FormEvent
     private TextField<String> multipleValueSeparatorField;
 
     private CheckBox isPartialUpdate;
-    
+
     private CheckBox headerLine;
 
     private HiddenField<String> conceptField;
@@ -189,7 +189,7 @@ public class UploadFileFormPanel extends FormPanel implements Listener<FormEvent
         file = new FileUploadField();
         file.setAllowBlank(false);
         file.setName("file"); //$NON-NLS-1$
-        file.setId("fileUpload");//$NON-NLS-1$   
+        file.setId("fileUpload");//$NON-NLS-1$
         file.setFieldLabel(MessagesFactory.getMessages().label_field_file());
         file.addListener(Events.Change, new Listener<BaseEvent>() {
 
@@ -255,7 +255,7 @@ public class UploadFileFormPanel extends FormPanel implements Listener<FormEvent
         isPartialUpdate.setInputStyleAttribute("left", "10px"); //$NON-NLS-1$ //$NON-NLS-2$
         isPartialUpdate.setInputStyleAttribute("position", "absolute"); //$NON-NLS-1$ //$NON-NLS-2$
         this.add(isPartialUpdate);
-        
+
         headerLine = new CheckBox();
         headerLine.setId("headersOnFirstLine");//$NON-NLS-1$
         headerLine.setName("headersOnFirstLine");//$NON-NLS-1$

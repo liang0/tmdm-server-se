@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -54,7 +54,7 @@ public class IncrementalBuildTreeGWTTest extends GWTTestCase {
         foreignKeyParentMap = new HashMap<TypeModel, ItemNodeModel>();
         foreighKeyMap = new HashMap<TypeModel, List<ItemNodeModel>>();
         initJsEnv();
-        
+
         UserSession session = new UserSession();
         session.put(UserSession.APP_HEADER, new AppHeader());
         Registry.register(BrowseRecords.USER_SESSION, session);
@@ -179,7 +179,7 @@ public class IncrementalBuildTreeGWTTest extends GWTTestCase {
         initTypeModel(fkCloseType);
         addressType.addLabel("en", "close field"); //$NON-NLS-1$//$NON-NLS-2$
         metaDataTypes.put(fkCloseType.getTypePath(), fkCloseType);
-        
+
         bindingEntityModel.setMetaDataTypes(metaDataTypes);
         viewBean.setBindingEntityModel(bindingEntityModel);
 
@@ -198,7 +198,7 @@ public class IncrementalBuildTreeGWTTest extends GWTTestCase {
         ItemNodeModel nameNode = new ItemNodeModel("name"); //$NON-NLS-1$
         nameNode.setTypePath("Test/name"); //$NON-NLS-1$
         testNode.add(nameNode);
-        
+
         for (int j = 0; j < 125; j++) {
             ItemNodeModel addressNode = new ItemNodeModel("address"); //$NON-NLS-1$
             addressNode.setTypePath("Test/address"); //$NON-NLS-1$
@@ -224,7 +224,7 @@ public class IncrementalBuildTreeGWTTest extends GWTTestCase {
             detailNode.add(contentNode);
             cpNode.add(detailNode);
         }
-        
+
         ItemNodeModel openNode = new ItemNodeModel("open"); //$NON-NLS-1$
         openNode.setTypePath("Test/open"); //$NON-NLS-1$
         openNode.setHide(false);
@@ -234,7 +234,7 @@ public class IncrementalBuildTreeGWTTest extends GWTTestCase {
         closeNode.setTypePath("Test/close"); //$NON-NLS-1$
         closeNode.setHide(true);
         testNode.add(closeNode);
-        
+
         return testNode;
     }
 

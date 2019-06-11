@@ -1,15 +1,15 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -29,7 +29,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * DOC Administrator  class global comment. Detailled comment
  */
 public class JournalSearchCriteria implements IsSerializable {
-    
+
     private String dataModel;
 
     private String entity;
@@ -45,7 +45,7 @@ public class JournalSearchCriteria implements IsSerializable {
     private Date startDate;
 
     private Date endDate;
-    
+
     private boolean isStrict;
 
     public JournalSearchCriteria() {
@@ -123,7 +123,7 @@ public class JournalSearchCriteria implements IsSerializable {
     public void setStrict(boolean isStrict) {
         this.isStrict = isStrict;
     }
-    
+
     public String toString() {
         StringBuilder criteraStr= new StringBuilder();
 
@@ -135,8 +135,8 @@ public class JournalSearchCriteria implements IsSerializable {
         if (operationType != null) criteraStr.append(operationType);
         if (startDate != null) criteraStr.append(startDate);
         if (endDate != null) criteraStr.append(endDate);
-        criteraStr.append(isStrict);   
-        
+        criteraStr.append(isStrict);
+
         return criteraStr.toString();
     }
 }

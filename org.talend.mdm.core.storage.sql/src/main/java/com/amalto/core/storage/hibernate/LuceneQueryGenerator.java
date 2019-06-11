@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -501,10 +501,10 @@ class LuceneQueryGenerator extends VisitorAdapter<Query> {
     /**
      * 1. default value for configuration <b>lucene.fuzzy.search</b> is {@code true}, if not configuration it, also
      * return {@code true}, only specific configuration it to false, will return {@code false} <br/>
-     * 
+     *
      * 2. if the <i>value</i> ending ~ and ~0.8(less than 1 and include 0 and 1),
      * <i>value</i>{@code .matches(}<i>\w*?~((0(\.\d)?)|1)?</i>{@code )} return {@code true} <br/>
-     * 
+     *
      * <pre>
      * "roam~".matches("\\w*?~((0(\\.\\d)?)|1)?")       = true
      * "roam~ ".matches("\\w*?~((0(\\.\\d)?)|1)?")      = true
@@ -513,10 +513,10 @@ class LuceneQueryGenerator extends VisitorAdapter<Query> {
      * "roam~0.5".matches("\\w*?~((0(\\.\\d)?)|1)?")    = true
      * "roam~2".matches("\\w*?~((0(\\.\\d)?)|1)?")      = false
      * </pre>
-     * 
+     *
      * Only configuration of lucene.fuzzy.search is true and the <i>value</i> is ending ~ and ~decimal of less than 1,
      * will return {@code true}
-     * 
+     *
      * @param value
      * @return true if, value ending ~ and ~decimal of less than 1 and configuration of lucene.fuzzy.search is true
      */

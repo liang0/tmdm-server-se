@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -306,7 +306,7 @@ public class DisplayRuleTest extends TestCase {
         if (attr == null) {
             el.addAttribute(new QName("type", new Namespace("xsi", "http://www.w3.org/2001/XMLSchema-instance")), "Teacher"); //$NON-NLS-1$ //$NON-NLS-2$//$NON-NLS-3$//$NON-NLS-4$
         } else {
-            attr.setValue("Teacher"); //$NON-NLS-1$            
+            attr.setValue("Teacher"); //$NON-NLS-1$
         }
         el.clearContent();
         el.addElement("name"); //$NON-NLS-1$

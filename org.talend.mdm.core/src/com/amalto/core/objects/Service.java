@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -47,7 +47,7 @@ public abstract class Service {
 
     /**
      * Runs the service. The item received in an XML String
-     * 
+     *
      * @param itemPK - the item that triggered a Routing Rule <hich created the Active Routing Order
      * @param routingOrderID - the routing Order ID of the routing rule that called - From 2.19.0, the Routing Order is
      * an ActiveRoutingOrderPOJO
@@ -58,7 +58,7 @@ public abstract class Service {
 
     /**
      * To request and get the response from other applications
-     * 
+     *
      * @param command - used to call different pull method in service Object
      * @param parameters - incoming parameters, may be in xml format
      * @param schedulePlanID - the ID of schedule plan, if in schedule mode

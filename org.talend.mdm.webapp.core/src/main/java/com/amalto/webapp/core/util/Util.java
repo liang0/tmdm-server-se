@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -77,7 +77,7 @@ public abstract class Util {
 
     public static int _FORCE_WEB_SERVICE_ = 2;
 
-    public static String DATE_FORMAT_PREFIX = "%t"; //$NON-NLS-1$  
+    public static String DATE_FORMAT_PREFIX = "%t"; //$NON-NLS-1$
 
     private static final String PROVISIONING_CONCEPT = "User"; //$NON-NLS-1$
 
@@ -107,7 +107,7 @@ public abstract class Util {
 
     /**
      * Join an array of strings into a single string using a separator
-     * 
+     *
      * @return a single string or null
      */
     public static String joinStrings(String[] strings, String separator) {
@@ -124,7 +124,7 @@ public abstract class Util {
 
     /**
      * Returns the first part - eg. the concept - from the path
-     * 
+     *
      * @return the Concept Name
      */
     public static String getConceptFromPath(String path) {
@@ -409,7 +409,7 @@ public abstract class Util {
 
     /**
      * Returns a namespaced root element of a document Useful to create a namespace holder element
-     * 
+     *
      * @return the root Element
      */
     public static Element getRootElement(String elementName, String namespace, String prefix) throws Exception {
@@ -493,7 +493,7 @@ public abstract class Util {
 
     /**
      * Computes an md5 hash of a string.
-     * 
+     *
      * @param text the hashed string
      * @return the string hash
      * @exception NullPointerException if text is null
@@ -516,7 +516,7 @@ public abstract class Util {
 
     /**
      * Computes an md5 hash and returns the result as a string in hexadecimal format.
-     * 
+     *
      * @param text the hashed string
      * @return the string hash
      * @exception NullPointerException if text is null
@@ -527,7 +527,7 @@ public abstract class Util {
 
     /**
      * Returns a string in the hexadecimal format.
-     * 
+     *
      * @param bytes the converted bytes
      * @return the hexadecimal string representing the bytes data
      * @throws IllegalArgumentException if the byte array is null
@@ -745,7 +745,7 @@ public abstract class Util {
         String[] keys = copyKey.getFields();
         for (int i = 0; i < keys.length; i++) {
             if (".".equals(key.getSelector())) { //$NON-NLS-1$
-                keys[i] = concept + "/" + keys[i]; //$NON-NLS-1$ 
+                keys[i] = concept + "/" + keys[i]; //$NON-NLS-1$
             } else {
                 keys[i] = key.getSelector() + keys[i];
             }
@@ -803,7 +803,7 @@ public abstract class Util {
         NodeList annotList = el.getChildNodes();
         for (int k = 0; k < annotList.getLength(); k++) {
             if ("appinfo".equals(annotList.item(k).getLocalName())) { //$NON-NLS-1$
-                Node source1 = annotList.item(k).getAttributes().getNamedItem("source"); //$NON-NLS-1$         
+                Node source1 = annotList.item(k).getAttributes().getNamedItem("source"); //$NON-NLS-1$
                 if (source1 == null) {
                     continue;
                 }
@@ -852,7 +852,7 @@ public abstract class Util {
                 return defaultLanguage;
             }
         }
-        
+
         WSItemPK itemPK = new WSItemPK(new WSDataClusterPK(DATACLUSTER_PK), PROVISIONING_CONCEPT, new String[] { identity });
         if (identity != null && identity.length() > 0) {
             Document doc = XMLUtils.parse(Util.getPort().getItem(new WSGetItem(itemPK)).getContent());

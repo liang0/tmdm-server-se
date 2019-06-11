@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -231,8 +231,8 @@ public class DisplayRuleEngine {
         style.append("<xsl:template match=\"/" + concept + "\">"); //$NON-NLS-1$//$NON-NLS-2$
         style.append("<xsl:copy>");//$NON-NLS-1$
         style.append("<xsl:apply-templates select=\"/" + xpath + "\"/>");//$NON-NLS-1$ //$NON-NLS-2$
-        style.append("</xsl:copy>");//$NON-NLS-1$ 
-        style.append("</xsl:template>");//$NON-NLS-1$ 
+        style.append("</xsl:copy>");//$NON-NLS-1$
+        style.append("</xsl:template>");//$NON-NLS-1$
 
         style.append("<xsl:template match=\"/" + xpath + "\">");//$NON-NLS-1$ //$NON-NLS-2$
         style.append("<xsl:copy>"); //$NON-NLS-1$
@@ -261,7 +261,7 @@ public class DisplayRuleEngine {
     }
 
     private static String getPureValue(String displayValue) {
-        return displayValue.replaceAll("\r\n", "").replaceAll("\n", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ 
+        return displayValue.replaceAll("\r\n", "").replaceAll("\n", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     }
 
     public static String getRealXPath(Element el) {

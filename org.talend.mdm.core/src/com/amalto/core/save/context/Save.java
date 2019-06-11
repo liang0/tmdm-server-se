@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -56,9 +56,9 @@ class Save implements DocumentSaver {
         if (updateReportType == null) {
             throw new IllegalStateException("Could not find UpdateReport type."); //$NON-NLS-1$
         }
-        
+
         long updateReportTime = 0;
-        
+
         Accessor updateTimeAccessor = updateReportDocument.createAccessor("TimeInMillis"); //$NON-NLS-1$
         if (StringUtils.EMPTY.equals(updateTimeAccessor.get())) { // No update report need to save.
             return;

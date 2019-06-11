@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -104,21 +104,21 @@ public class MainFramePanel extends ContentPanel {
     private int outstandingDeleteCallFailCount = 0;
 
     private List<ItemsTrashItem> outstandingDeleteCallFailRecords = new LinkedList<ItemsTrashItem>();
-    
+
     private List<ItemResult> deleteMessages = new ArrayList<ItemResult>();
-    
+
     private String messageWindowTitle;
 
     private static final int COLUMN_WIDTH = 100;
-    
+
     public static final String INFO_KEYWORD = "INFO";//$NON-NLS-1$
-    
+
     public static final String FAIL_KEYWORD = "FAIL";//$NON-NLS-1$
 
     public static final String ERROR_KEYWORD = "ERROR";//$NON-NLS-1$
-    
+
     public static final String SUCCESS_KEYWORD = "SUCCESS";//$NON-NLS-1$
-    
+
     private MainFramePanel() {
         setLayout(new FitLayout());
         setBodyBorder(false);
@@ -390,7 +390,7 @@ public class MainFramePanel extends ContentPanel {
     private void initTopBar() {
         ToolBar bar = new ToolBar();
         text.setId("trash-criteria");//$NON-NLS-1$
-        text.setEmptyText("*");//$NON-NLS-1$        
+        text.setEmptyText("*");//$NON-NLS-1$
         bar.add(text);
         final Button btn = new Button(MessagesFactory.getMessages().search());
         btn.setId("search");//$NON-NLS-1$
@@ -625,15 +625,15 @@ public class MainFramePanel extends ContentPanel {
 
                                 @Override
                                 public void onSuccess(String msg) {
-                                    deleteSelectedCheckFinished(r, true, SUCCESS_KEYWORD, msg, false);                                
+                                    deleteSelectedCheckFinished(r, true, SUCCESS_KEYWORD, msg, false);
                                 }
 
                                 @Override
                                 protected void doOnFailure(Throwable caught) {
-                                    String errorMsg = caught.getLocalizedMessage();                                    
+                                    String errorMsg = caught.getLocalizedMessage();
                                     if(caught instanceof DroppedItemBeforeDeletingException){
                                         DroppedItemBeforeDeletingException e = (DroppedItemBeforeDeletingException)caught;
-                                        deleteSelectedCheckFinished(r, false, e.getMessageType(), e.getMessage(), true);                                    
+                                        deleteSelectedCheckFinished(r, false, e.getMessageType(), e.getMessage(), true);
                                     } else {
                                         if (errorMsg == null) {
                                             if (Log.isDebugEnabled()) {
@@ -643,7 +643,7 @@ public class MainFramePanel extends ContentPanel {
                                                 errorMsg = BaseMessagesFactory.getMessages().unknown_error();
                                             }
                                         }
-                                        deleteSelectedCheckFinished(r, false, ERROR_KEYWORD, errorMsg, false);                                    
+                                        deleteSelectedCheckFinished(r, false, ERROR_KEYWORD, errorMsg, false);
                                     }
                                 }
                             });
@@ -659,7 +659,7 @@ public class MainFramePanel extends ContentPanel {
             if(r != null){
                 message.setKey(r.getIds());
             }
-            
+
             String info_title = BaseMessagesFactory.getMessages().info_title();
             String fail_title = BaseMessagesFactory.getMessages().message_fail();
             String error_title = BaseMessagesFactory.getMessages().error_title();

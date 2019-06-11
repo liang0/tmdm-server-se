@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -64,7 +64,7 @@ public final class UserHelper {
 
     /**
      * get the number of normal users.
-     * 
+     *
      * @return
      */
     public int getNormalUsers() {
@@ -73,7 +73,7 @@ public final class UserHelper {
 
     /**
      * Get the number of admin users.
-     * 
+     *
      * @return
      */
     public int getNBAdminUsers() {
@@ -82,7 +82,7 @@ public final class UserHelper {
 
     /**
      * Get the number of active users.
-     * 
+     *
      * @return
      */
     public int getActiveUsers() {
@@ -91,7 +91,7 @@ public final class UserHelper {
 
     /**
      * Check if exist the specify user.
-     * 
+     *
      * @param user
      * @return
      */
@@ -101,7 +101,7 @@ public final class UserHelper {
 
     /**
      * Check if update active attribute of specify user.
-     * 
+     *
      * @param user
      * @return
      */
@@ -111,7 +111,7 @@ public final class UserHelper {
 
     /**
      * get the rolenames of specify user.
-     * 
+     *
      * @param user
      * @return
      */

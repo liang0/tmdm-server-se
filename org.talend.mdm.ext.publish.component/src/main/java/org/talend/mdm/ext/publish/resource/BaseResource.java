@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -30,7 +30,7 @@ import java.util.Map;
 
 /**
  * Base resource class that supports common behaviours or attributes shared by all resources.
- * 
+ *
  */
 public abstract class BaseResource extends Resource {
 
@@ -83,7 +83,7 @@ public abstract class BaseResource extends Resource {
 
     /**
      * Generate an XML representation of an error response.
-     * 
+     *
      * @param errorMessage the error message.
      * @param errorCode the error code.
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -54,9 +54,9 @@ public class UpdateReportOptimizer implements Optimizer {
                     MetadataRepository repository = server.getMetadataRepositoryAdmin().get(dataModelName);
                     // Query SuperType
                     if (repository != null) {
-                        select.setCondition(select.accept(new UpdateReportTransformer(repository)));    
+                        select.setCondition(select.accept(new UpdateReportTransformer(repository)));
                     }
-                    
+
                 } else if (LOGGER.isDebugEnabled()) {
                     LOGGER.debug("Can't optimize update report query: no data model information in query.");
                 }
@@ -285,8 +285,8 @@ public class UpdateReportOptimizer implements Optimizer {
                     }
                     for (TypeMetadata subType : type.getSubTypes()) {
                         current = new BinaryLogicOperator(current, Predicate.OR, new Compare(condition.getLeft(), predicate, new StringConstant(subType.getName())));
-                    }    
-                }                
+                    }
+                }
                 isUpdateReportEntityField = false;
                 updateReportEntityTypeName = null;
                 return current;

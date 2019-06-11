@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -45,27 +45,27 @@ public interface WelcomePortalMessages extends Messages {
     String chart_data_title();
 
     String chart_journal_title();
-    
+
     String chart_journal_creation();
-    
+
     String chart_journal_update();
 
     String chart_routing_event_title();
-    
+
     String chart_routing_event_completed();
-    
+
     String chart_routing_event_failed();
 
     String chart_matching_title();
 
     String chart_matching_duplicates();
-    
+
     String autorefresh();
-    
+
     String entities();
-    
+
     String timeframe();
-    
+
     String autorefresh_on();
 
     String autorefresh_off();
@@ -133,6 +133,6 @@ public interface WelcomePortalMessages extends Messages {
     String login_tds_fail();
 
     String retrieve_campaign_fail();
-    
+
     String access_tds_fail();
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -60,7 +60,7 @@ public interface Transaction {
      * Calling this method propagates the lock strategy to all contained
      * {@link com.amalto.core.storage.transaction.StorageTransaction} instances.
      * </p>
-     * 
+     *
      * @param lockStrategy A {@link com.amalto.core.storage.transaction.Transaction.LockStrategy strategy}
      * @see com.amalto.core.storage.transaction.StorageTransaction#setLockStrategy(com.amalto.core.storage.transaction.Transaction.LockStrategy)
      */
@@ -119,13 +119,13 @@ public interface Transaction {
      * @see StorageTransaction#hasFailed()
      */
     boolean hasFailed();
-    
+
     /**
      * @return the stack-trace of the current thread when this transaction
-     * was created. 
-     * 
+     * was created.
+     *
      * This feature is enabled only if the logger for
-     * com.amalto.core.server.MDMTransaction is in DEBUG 
+     * com.amalto.core.server.MDMTransaction is in DEBUG
      * otherwise creation stack-traces are not recorded at transaction creation
      */
     String getCreationStackTrace();

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -16,25 +16,25 @@ public class MultilanguageMessageParser {
 
     /**
      * Parse a multiple language string and return the message corresponding to the current language.
-     * 
+     *
      * errorString is expected to be in the following format:
-     * 
+     *
      * [en:...][fr:...][zh:...]
-     * 
+     *
      * Characters ] and \ can be escaped in these using backslash escapes, for example
-     * 
+     *
      * [en: a message with a \] character in the middle]
-     * 
+     *
      * A message for a language can also be embedded anywhere in the string, for example
-     * 
+     *
      * abcd[en:...]abcd[fr:...]abcd
-     * 
+     *
      * If a message for the current language exists, then it is returned.
-     * 
+     *
      * If a message for the current language doesn't exist, but an english message exists, then it is returned.
-     * 
+     *
      * If neither of the above are true, then no parsing takes place, and the original errorString is returned.
-     * 
+     *
      * @param errorString Multiple language message string to be parsed
      * @param lang Language code of the desired message
      * @return Message corresponding to the current language
@@ -47,10 +47,10 @@ public class MultilanguageMessageParser {
         return pickOutISOMessage(errorString, UrlUtil.getLanguage());
     }
 
-    /** 
-     * Please note that function getLocaleValue(in class com.amalto.core.util.LocaleUtil}) 
+    /**
+     * Please note that function getLocaleValue(in class com.amalto.core.util.LocaleUtil})
      * has same functionality as below function getValueByLanguage, They should be consistent during change.
-     */ 
+     */
     public static String getValueByLanguage(String multiLanguageString, String language) {
         return pickOutISOMessage(multiLanguageString, language, true);
     }

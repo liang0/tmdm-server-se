@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -34,9 +34,9 @@ public class RecycleBin implements EntryPoint {
     /**
      * Create a remote service proxy to talk to the server-side RecycleBin service.
      */
-    public static final String RECYCLEBIN_SERVICE = "RecycleBinService"; //$NON-NLS-1$  
+    public static final String RECYCLEBIN_SERVICE = "RecycleBinService"; //$NON-NLS-1$
 
-    public static final String RECYCLEBIN_ID = "Recycle Bin"; //$NON-NLS-1$  
+    public static final String RECYCLEBIN_ID = "Recycle Bin"; //$NON-NLS-1$
 
     /**
      * This is the entry point method.

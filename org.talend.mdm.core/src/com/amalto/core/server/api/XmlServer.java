@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -228,7 +228,7 @@ public interface XmlServer {
     void close() throws XtentisException;
 
     void exportDocuments(String clusterName, int start, int end, boolean includeMetadata, OutputStream outputStream) throws XtentisException;
-    
+
     List<String> globalSearch(String dataCluster, String keyword, int start, int end) throws XtentisException;
 
     boolean supportStaging(String dataCluster) throws XtentisException;
@@ -258,4 +258,3 @@ public interface XmlServer {
     String[] getDocumentsAsString(String clusterName, String[] uniqueIDs, String encoding)
             throws XtentisException;
 }
-  

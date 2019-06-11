@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (C) 2006-2013 Talend Inc. - www.talend.com
+  ~ Copyright (C) 2006-2019 Talend Inc. - www.talend.com
   ~
   ~ This source code is available under agreement available at
   ~ %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -19,7 +19,7 @@
                 <xsd:element maxOccurs="1" minOccurs="0" name="givenname" nillable="false" type="xsd:string"/>
                 <xsd:element maxOccurs="1" minOccurs="0" name="familyname" nillable="false" type="xsd:string"/>
                 <xsd:element maxOccurs="1" minOccurs="0" name="phonenumber" nillable="false" type="xsd:string"/>
-                <xsd:element maxOccurs="1" minOccurs="0" name="company" nillable="false" type="xsd:string"/>                
+                <xsd:element maxOccurs="1" minOccurs="0" name="company" nillable="false" type="xsd:string"/>
                 <xsd:element maxOccurs="1" minOccurs="0" name="signature" nillable="false" type="xsd:string"/>
                 <xsd:element maxOccurs="1" minOccurs="0" name="realemail" nillable="false" type="xsd:string"/>
                 <xsd:element maxOccurs="1" minOccurs="0" name="fakeemail" nillable="false" type="xsd:string"/>

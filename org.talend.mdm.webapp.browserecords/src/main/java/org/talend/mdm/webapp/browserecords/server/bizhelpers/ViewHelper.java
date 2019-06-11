@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -52,7 +52,7 @@ public class ViewHelper {
 
     /**
      * DOC HSHU Comment method "getViewLabel".
-     * 
+     *
      * @param language
      * @param wsview
      * @return
@@ -61,14 +61,14 @@ public class ViewHelper {
 
         String viewDesc = MultilanguageMessageParser.pickOutISOMessage(
                 !wsview.getDescription().equals("") ? wsview.getDescription() : wsview.getName(), language); //$NON-NLS-1$
-        viewDesc = viewDesc.equals("") ? wsview.getName() : viewDesc; //$NON-NLS-1$ 
+        viewDesc = viewDesc.equals("") ? wsview.getName() : viewDesc; //$NON-NLS-1$
         return viewDesc;
 
     }
 
     /**
      * DOC HSHU Comment method "getViewables".
-     * 
+     *
      * @param wsView
      * @return
      */
@@ -78,7 +78,7 @@ public class ViewHelper {
 
     /**
      * DOC HSHU Comment method "getSearchables".
-     * 
+     *
      * @param wsView
      * @param dataModel
      * @param language

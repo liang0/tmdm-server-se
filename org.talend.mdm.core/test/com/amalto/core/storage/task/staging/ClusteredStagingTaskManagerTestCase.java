@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -38,19 +38,19 @@ import com.amalto.core.storage.task.staging.ClusteredStagingTaskManager.StagingJ
 
 
 public class ClusteredStagingTaskManagerTestCase extends AbstractStagingTaskManagerTastCase {
-    
+
     private ClusteredStagingTaskManager taskManager;
-    
+
     private StagingTaskRepository repository;
-    
+
     private ActiveMQConnectionFactory connectionFactory;
-    
+
     private JmsTemplate jmsTemplate;
-    
+
     private Topic testTopic;
-    
+
     private InternalListener internalListener;
-    
+
     @Before
     public void setUp() throws Exception {
         connectionFactory = new ActiveMQConnectionFactory("vm://localhost?broker.persistent=false");
@@ -64,13 +64,13 @@ public class ClusteredStagingTaskManagerTestCase extends AbstractStagingTaskMana
         this.internalListener = new InternalListener(this.connectionFactory, this.testTopic);
         this.internalListener.startListening();
     }
-    
+
     @After
     public void tearDown() throws Exception {
         this.internalListener.stopListening();
         connectionFactory = null;
     }
-    
+
     @Test
     public void testNoCurrentTask() throws Exception {
         String container = "container";
@@ -80,7 +80,7 @@ public class ClusteredStagingTaskManagerTestCase extends AbstractStagingTaskMana
         Mockito.verifyNoMoreInteractions(repository);
         this.internalListener.assertNoMessageSent();
     }
-    
+
     @Test
     public void testCurrentTaskFromStorage() throws Exception {
         String container = "container";
@@ -92,7 +92,7 @@ public class ClusteredStagingTaskManagerTestCase extends AbstractStagingTaskMana
         Assert.assertEquals(taskId, taskManager.getCurrentTaskId(container));
         this.internalListener.assertNoMessageSent();
     }
-    
+
     @Test
     public void testCurrentTaskFromLocal() throws Exception {
         String container = "container";
@@ -105,7 +105,7 @@ public class ClusteredStagingTaskManagerTestCase extends AbstractStagingTaskMana
         Mockito.verifyNoMoreInteractions(repository);
         this.internalListener.assertNoMessageSent();
     }
-    
+
     @Test
     public void testCancelLocalTask() throws Exception {
         String container = "container";
@@ -118,7 +118,7 @@ public class ClusteredStagingTaskManagerTestCase extends AbstractStagingTaskMana
         Assert.assertEquals(taskId, taskManager.getCurrentTaskId(container));
         this.internalListener.assertNoMessageSent();
     }
-    
+
     @Test
     public void testCancelRemoteTask() throws Exception {
         String container = "container";
@@ -134,7 +134,7 @@ public class ClusteredStagingTaskManagerTestCase extends AbstractStagingTaskMana
         Assert.assertEquals(taskId, receivedMessage.getTaskId());
         Assert.assertEquals(container, receivedMessage.getDataContainer());
     }
-    
+
     @Test
     public void testReceiveEmptyMessage() throws Exception {
         TextMessage message = Mockito.mock(TextMessage.class);
@@ -143,7 +143,7 @@ public class ClusteredStagingTaskManagerTestCase extends AbstractStagingTaskMana
         Mockito.verifyNoMoreInteractions(this.repository);
         this.internalListener.assertNoMessageSent();
     }
-    
+
     @Test
     public void testReceiveNotTextMessage() throws Exception {
         ObjectMessage message = Mockito.mock(ObjectMessage.class);
@@ -151,7 +151,7 @@ public class ClusteredStagingTaskManagerTestCase extends AbstractStagingTaskMana
         Mockito.verifyNoMoreInteractions(this.repository);
         this.internalListener.assertNoMessageSent();
     }
-    
+
     @Test
     public void testReceiveUnparsableTextMessage() throws Exception {
         TextMessage message = Mockito.mock(TextMessage.class);
@@ -160,7 +160,7 @@ public class ClusteredStagingTaskManagerTestCase extends AbstractStagingTaskMana
         Mockito.verifyNoMoreInteractions(this.repository);
         this.internalListener.assertNoMessageSent();
     }
-    
+
     @Test
     public void testReceiveMessageForLocalTask() throws Exception {
         String container = "container";
@@ -174,7 +174,7 @@ public class ClusteredStagingTaskManagerTestCase extends AbstractStagingTaskMana
         Mockito.verify(task).cancel();
         this.internalListener.assertNoMessageSent();
     }
-    
+
     @Test
     public void testReceiveMessageForUnknownTask() throws Exception {
         TextMessage message = Mockito.mock(TextMessage.class);
@@ -183,7 +183,7 @@ public class ClusteredStagingTaskManagerTestCase extends AbstractStagingTaskMana
         Mockito.verifyNoMoreInteractions(this.repository);
         this.internalListener.assertNoMessageSent();
     }
-    
+
     @Test
     public void testReceiveMessageForEmptyInfo() throws Exception {
         TextMessage message = Mockito.mock(TextMessage.class);
@@ -191,18 +191,18 @@ public class ClusteredStagingTaskManagerTestCase extends AbstractStagingTaskMana
         taskManager.onMessage(message);
         Mockito.verifyNoMoreInteractions(this.repository);
         this.internalListener.assertNoMessageSent();
-        
+
         Mockito.when(message.getText()).thenReturn("<?xml version=\"1.0\"?><stagingJobCancellationMessage><dataContainer/><taskId>ABCD</taskId></stagingJobCancellationMessage>");
         taskManager.onMessage(message);
         Mockito.verifyNoMoreInteractions(this.repository);
         this.internalListener.assertNoMessageSent();
-        
+
         Mockito.when(message.getText()).thenReturn("<?xml version=\"1.0\"?><toto></toto>");
         taskManager.onMessage(message);
         Mockito.verifyNoMoreInteractions(this.repository);
         this.internalListener.assertNoMessageSent();
     }
-    
+
     @Test(expected=RuntimeException.class)
     public void testExceptionWhenReadingMessage() throws Exception {
         TextMessage message = Mockito.mock(TextMessage.class);
@@ -211,19 +211,19 @@ public class ClusteredStagingTaskManagerTestCase extends AbstractStagingTaskMana
         Mockito.verifyNoMoreInteractions(this.repository);
         this.internalListener.assertNoMessageSent();
     }
-    
+
     private static class InternalListener implements MessageListener {
-        
+
         private ConnectionFactory connectionFactory;
-        
+
         private Topic topic;
-        
+
         private Connection connection;
-        
+
         private Session session;
-        
+
         private List<String> receivedMessages = new ArrayList<String>();
-        
+
         public InternalListener(ConnectionFactory connectionFactory, Topic topic) {
             this.connectionFactory = connectionFactory;
             this.topic = topic;
@@ -236,7 +236,7 @@ public class ClusteredStagingTaskManagerTestCase extends AbstractStagingTaskMana
             consumer.setMessageListener(this);
             connection.start();
         }
-        
+
         public void stopListening() throws Exception {
             session.close();
             connection.close();
@@ -253,18 +253,18 @@ public class ClusteredStagingTaskManagerTestCase extends AbstractStagingTaskMana
                 }
             }
         }
-        
+
         public void assertNoMessageSent() throws Exception {
             Assert.assertEquals(0, receivedMessages.size());
         }
-        
+
         public void assertOneMessageSent() throws Exception {
             Assert.assertEquals(1, receivedMessages.size());
         }
-        
+
         public String getLastMessageReceived() throws Exception {
             return this.receivedMessages.get(0);
         }
-        
+
     }
 }

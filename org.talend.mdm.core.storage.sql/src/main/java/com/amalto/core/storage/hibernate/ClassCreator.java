@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -78,7 +78,7 @@ class ClassCreator extends DefaultMetadataVisitor<Void> {
     private final ClassPool classPool;
 
     private final CtClass listType;
-    
+
     private static final Logger LOGGER = Logger.getLogger(ClassCreator.class);
 
     public ClassCreator(StorageClassLoader storageClassLoader) {
@@ -501,7 +501,7 @@ class ClassCreator extends DefaultMetadataVisitor<Void> {
                                             LOGGER.error("Unexpected error : the id type doesn't match any compatible type"); //$NON-NLS-1$
                                         }
                                     }
-                                } 
+                                }
                                 annotations.addAnnotation(fieldBridge);
                             }
                         } else {
@@ -568,7 +568,7 @@ class ClassCreator extends DefaultMetadataVisitor<Void> {
             }
         }
     }
-    
+
     private boolean existsInSuperTypes(FieldMetadata metadata) {
         Iterator<TypeMetadata> superTypes = metadata.getContainingType().getSuperTypes().iterator();
         if (superTypes.hasNext()) {

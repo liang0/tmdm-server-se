@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -29,18 +29,18 @@ import com.amalto.core.storage.transaction.TransactionManager;
 
 /**
  * A Servlet filter checking if the current thread has a current transaction
- * before and after executing the request.  
+ * before and after executing the request.
  */
 public class TransactionsGuardFilter implements Filter {
 
     private static final Log LOG = LogFactory.getLog(TransactionsGuardFilter.class);
 
     private static final String THROW_EXCEPTIONS_PARAM = "throw.exceptions."; //$NON-NLS-1$
-    
+
     private Map<Phase, Boolean> throwExceptions = new HashMap<Phase, Boolean>();
-    
+
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException { 
+    public void init(FilterConfig filterConfig) throws ServletException {
         throwExceptions.put(Phase.BEFORE, Boolean.parseBoolean(filterConfig.getInitParameter(Phase.BEFORE.getFilterConfig())));
         throwExceptions.put(Phase.AFTER, Boolean.parseBoolean(filterConfig.getInitParameter(Phase.AFTER.getFilterConfig())));
     }
@@ -55,7 +55,7 @@ public class TransactionsGuardFilter implements Filter {
     @Override
     public void destroy() {
     }
-    
+
     protected void doCheck(Phase when){
         Transaction t = getThreadTransactionIfExists();
         if(t != null){
@@ -66,7 +66,7 @@ public class TransactionsGuardFilter implements Filter {
             }
         }
     }
-    
+
     protected Transaction getThreadTransactionIfExists(){
         TransactionManager tm = ServerContext.INSTANCE.get().getTransactionManager();
         if(tm.hasTransaction()){
@@ -74,11 +74,11 @@ public class TransactionsGuardFilter implements Filter {
         }
         return null;
     }
-    
+
     private enum Phase {
         BEFORE,
         AFTER;
-        
+
         public String getFilterConfig(){
             return THROW_EXCEPTIONS_PARAM + this.toString();
         }

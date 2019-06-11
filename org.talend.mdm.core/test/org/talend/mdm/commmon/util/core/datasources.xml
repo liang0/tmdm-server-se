@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (C) 2006-2015 Talend Inc. - www.talend.com
+  ~ Copyright (C) 2006-2019 Talend Inc. - www.talend.com
   ~
   ~ This source code is available under agreement available at
   ~ %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -26,7 +26,7 @@
                     <property name="hibernate.show_sql">false</property>
                 </properties>
             </rdbms-configuration>
-        </master>       
+        </master>
     </datasource>
 
     <!-- PostgreSQL DATASOURCE -->
@@ -53,6 +53,6 @@
                     <connection-password>talend123</connection-password>
                 </init>
             </rdbms-configuration>
-        </master>        
-    </datasource>   
+        </master>
+    </datasource>
 </datasources>

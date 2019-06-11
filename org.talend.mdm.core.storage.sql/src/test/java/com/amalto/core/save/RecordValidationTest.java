@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -301,7 +301,7 @@ public class RecordValidationTest extends TestCase {
         private final MetadataRepository repository;
 
         private final boolean isAdmin;
-        
+
         private final boolean invokeBeforeSaving;
 
         private AutoIdGenerator autoIdGenerator = AutoIncrementGenerator.get();
@@ -311,7 +311,7 @@ public class RecordValidationTest extends TestCase {
             this.isAdmin = isAdmin;
             this.invokeBeforeSaving = true;
         }
-        
+
         public MockSaverSource(MetadataRepository repository, boolean isAdmin, boolean invokeBeforeSaving) {
             this.repository = repository;
             this.isAdmin = isAdmin;
@@ -398,7 +398,7 @@ public class RecordValidationTest extends TestCase {
     protected static JSONObject validateRecord(String storageName, boolean isStaging, boolean isAdmin, String documentXml) throws Exception {
         return validateRecord(storageName, isStaging, isAdmin, false, documentXml);
     }
-    
+
     // Simulate the Record Validation API of DataService#validateRecord() to test RecordValidationContext, RecordValidationCommitter, etc.
     protected static JSONObject validateRecord(String storageName, boolean isStaging, boolean isAdmin, boolean invokeBeforeSaving, String documentXml) throws Exception {
         String dataCluster = isStaging ? storageName + "#STAGING" : storageName;
@@ -424,10 +424,10 @@ public class RecordValidationTest extends TestCase {
 
         JSONObject result = new JSONObject();
         try {
-            result.put("isValid", isValid); 
-            result.put("message", message); 
+            result.put("isValid", isValid);
+            result.put("message", message);
         } catch (JSONException e) {
-            throw new RuntimeException("Unable to build the record validation result.", e); 
+            throw new RuntimeException("Unable to build the record validation result.", e);
         }
         return result;
     }
@@ -438,12 +438,12 @@ public class RecordValidationTest extends TestCase {
         delegatorInstancePool.put("LocalUser", new MockAdmin()); //$NON-NLS-1$
         delegatorInstancePool.put("SecurityCheck", new MockISecurityCheck()); //$NON-NLS-1$
         createBeanDelegatorContainer();
-        BeanDelegatorContainer.getInstance().setDelegatorInstancePool(delegatorInstancePool); 
+        BeanDelegatorContainer.getInstance().setDelegatorInstancePool(delegatorInstancePool);
 
         Util.getDataClusterCtrlLocal().putDataCluster(new DataClusterPOJO("UpdateReport"));
         Util.getDataClusterCtrlLocal().putDataCluster(new DataClusterPOJO("CONF"));
         Util.getDataClusterCtrlLocal().putDataCluster(new DataClusterPOJO("Product"));
-        
+
         String dataCluster = isStaging ? storageName + "#STAGING" : storageName;
         SaverSession session = SaverSession.newSession(new MockSaverSource(productRepository, true));
         DocumentSaverContext context = session.getContextFactory().createValidation(dataCluster, storageName, false, new ByteArrayInputStream(documentXml.getBytes("UTF-8")));
@@ -602,7 +602,7 @@ public class RecordValidationTest extends TestCase {
             results.close();
         }
     }
-    
+
     // Validate record contains wrong xml node(for existing record)
     public void testXmlNodeValidation() throws Exception {
         String xmlForNode1 = "<Product><Id>1</Id><Names>Product</Names><Description>Product Description</Description></Product>";

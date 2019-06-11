@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -43,11 +43,11 @@ public class AccordionMenus extends ContentPanel {
     private HTMLMenuItem activeItem;
 
     private HTMLMenuItem welcomeportalItem;
-    
+
     private GeneralServiceAsync service = (GeneralServiceAsync) Registry.get(General.OVERALL_SERVICE);
-    
+
     private AppHeader header = (AppHeader) Registry.get(General.APP_HEADER);
-    
+
     private AccordionMenus() {
         super();
         this.setHeading(MessageFactory.getMessages().menus());
@@ -67,7 +67,7 @@ public class AccordionMenus extends ContentPanel {
         String icon = makeImageIconPart(mb, toCheckMenuID);
         StringBuffer str = new StringBuffer();
         str.append("<span class='body'>"); //$NON-NLS-1$
-        str.append("<img src='" + icon + "'/>&nbsp;&nbsp;"); //$NON-NLS-1$ //$NON-NLS-2$ 
+        str.append("<img src='" + icon + "'/>&nbsp;&nbsp;"); //$NON-NLS-1$ //$NON-NLS-2$
         str.append("<span class='desc'>" + mb.getName() + "</span></span>"); //$NON-NLS-1$ //$NON-NLS-2$
         HTMLMenuItem tempItem = new HTMLMenuItem(mb, str.toString());
         if (CHECKMENUID_WELCOME_PORTAL.equals(toCheckMenuID)) {
@@ -245,7 +245,7 @@ public class AccordionMenus extends ContentPanel {
 		}
 		return false;
     }-*/;
-    
+
     class HTMLMenuItem extends HTML {
 
         MenuBean menuBean;

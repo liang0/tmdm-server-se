@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -265,7 +265,7 @@ public class LoadServlet extends HttpServlet {
 
     /**
      * Returns a writer that does not print anything if logger hasn't DEBUG level.
-     * 
+     *
      * @param resp A servlet response output.
      * @return The same {@link HttpServletResponse} if debug <b>is</b> enabled, or a no-op one if debug is disabled.
      * @throws IOException Thrown by {@link javax.servlet.http.HttpServletResponse#getWriter()}.
@@ -281,7 +281,7 @@ public class LoadServlet extends HttpServlet {
 
     /**
      * A {@link PrintWriter} implementation that intercepts all write method calls.
-     * 
+     *
      * @see LoadServlet#configureWriter(javax.servlet.http.HttpServletResponse)
      */
     private static class NoOpPrintWriter extends PrintWriter {

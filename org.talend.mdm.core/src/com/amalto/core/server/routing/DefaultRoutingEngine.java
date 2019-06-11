@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -67,9 +67,9 @@ public class DefaultRoutingEngine implements RoutingEngine {
     private static final String JMS_CONTAINER_PROPERTY = "container";
 
     private static final String JMS_RULES_PROPERTY = "rules";
-    
+
     private static final char JMS_RULES_PROPERTY_SEPARATOR = '|';
-    
+
     private static final String JMS_SCHEDULED = "timeScheduled";
 
     private final static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd'T'HHmmss'm'SSS");
@@ -124,7 +124,7 @@ public class DefaultRoutingEngine implements RoutingEngine {
 
     /**
      * Check that a rule actually matches a document
-     * 
+     *
      * @return true if it matches
      * @throws XtentisException
      */
@@ -215,7 +215,7 @@ public class DefaultRoutingEngine implements RoutingEngine {
             throw new XtentisException(err, e);
         }
     }
-    
+
     private void sendMessage(final ItemPOJOPK itemPOJOPK, ArrayList<RoutingRulePOJO> routingRulesThatMatched) {
 
         // Sort execution order and send JMS message
@@ -358,13 +358,13 @@ public class DefaultRoutingEngine implements RoutingEngine {
             }
             return new RoutingRulePOJOPK[0];
         }
-        
+
         // execute asynchronous triggers (send JMS message)
         if (routingRulesThatAsyncMatched.size() > 0) {
             this.sendMessage(itemPOJOPK, routingRulesThatAsyncMatched);
             pks.addAll(buildListOfRulePK(routingRulesThatAsyncMatched));
         }
-        
+
         // execute synchronous triggers directly
         if (routingRulesThatSyncMatched.size() > 0) {
             Collections.sort(routingRulesThatSyncMatched);
@@ -376,7 +376,7 @@ public class DefaultRoutingEngine implements RoutingEngine {
         }
         return pks.toArray(new RoutingRulePOJOPK[pks.size()]);
     }
-    
+
     private List<RoutingRulePOJOPK> buildListOfRulePK(final List<RoutingRulePOJO> routingRules){
         List<RoutingRulePOJOPK> result = new ArrayList<RoutingRulePOJOPK>(routingRules.size());
         for (RoutingRulePOJO rulePOJO : routingRules) {
@@ -384,10 +384,10 @@ public class DefaultRoutingEngine implements RoutingEngine {
         }
         return result;
     }
-    
+
     /**
      * Proceed with rule execution, either the rule is synchronous or asynchronous.
-     * 
+     *
      * @param itemPOJOPK source instance PK
      * @param routingRule the rule to execute
      * @param routingOrderId routing id
@@ -434,13 +434,13 @@ public class DefaultRoutingEngine implements RoutingEngine {
             createAndStoreFailedRoutingOrder(itemPOJOPK, routingRule, errorMessage, startTime);
         }
     }
-    
+
     /**
      * In case of rule execution error: creates and stores a new FailedRoutingOrderV2POJO regarding the entity identified by itemPOJOPK
-     * when executing rule routingRule, with provided error message. 
-     * 
+     * when executing rule routingRule, with provided error message.
+     *
      * In case of storage failure, logs error but does not throw exception.
-     * 
+     *
      * @param itemPOJOPK the entity PK
      * @param routingRule the rule
      * @param errorMessage the error message to save
@@ -500,7 +500,7 @@ public class DefaultRoutingEngine implements RoutingEngine {
             }
             // acknowledge message once all rules are executed
             message.acknowledge();
-        } 
+        }
         catch (Exception e) {
             throw new RuntimeException("Unable to process message.", e);
         }
@@ -536,13 +536,13 @@ public class DefaultRoutingEngine implements RoutingEngine {
             return isStopped ? RoutingEngine.STOPPED : RoutingEngine.SUSPENDED;
         }
     }
-    
+
     private static void setRulesList(Message message, String[] rules) throws JMSException {
         message.setStringProperty(JMS_RULES_PROPERTY, StringUtils.join(rules, JMS_RULES_PROPERTY_SEPARATOR));
     }
-    
+
     private static String[] getRulesList(Message message) throws JMSException{
         return StringUtils.split(message.getStringProperty(JMS_RULES_PROPERTY), JMS_RULES_PROPERTY_SEPARATOR);
     }
-    
+
 }

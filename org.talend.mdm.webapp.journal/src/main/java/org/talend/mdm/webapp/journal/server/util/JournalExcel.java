@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -30,14 +30,14 @@ import com.amalto.core.util.MessagesFactory;
  *
  */
 public class JournalExcel {
-    
+
     private HSSFWorkbook workbook;
     private HSSFSheet sheet;
     private HSSFCellStyle cellStyle;
     private Locale locale;
     private Messages messages;
     private String fileName;
-    
+
     public JournalExcel(String language) {
         this.locale = new Locale(language);
         this.messages = MessagesFactory.getMessages(
@@ -49,23 +49,23 @@ public class JournalExcel {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$
         fileName = "Journal_" + dateFormat.format(new Date()) + ".xls"; //$NON-NLS-1$ //$NON-NLS-2$
     }
-    
+
     private void createWorkbook() {
         workbook = new HSSFWorkbook();
     }
-    
+
     private void createSheet() {
         sheet = workbook.createSheet("Talend MDM"); //$NON-NLS-1$
         sheet.setDefaultColumnWidth((short) 20);
     }
-    
+
     private void createCellStyle() {
         cellStyle = workbook.createCellStyle();
         HSSFFont f = workbook.createFont();
         f.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
         cellStyle.setFont(f);
     }
-    
+
     private void createHeader() {
         HSSFRow row = sheet.createRow((short) 0);
 
@@ -93,15 +93,15 @@ public class JournalExcel {
         row.createCell((short) 7).setCellValue(messages.getMessage(locale, "user_name_label")); //$NON-NLS-1$
         row.getCell((short) 7).setCellStyle(cellStyle);
     }
-    
+
     public HSSFRow createRow(short number) {
         return sheet.createRow(number);
     }
-    
+
     public HSSFWorkbook getWorkbook() {
         return workbook;
     }
-    
+
     public String getFileName() {
         return fileName;
     }

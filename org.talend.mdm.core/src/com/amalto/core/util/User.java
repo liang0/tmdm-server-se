@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -22,7 +22,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public class User implements Cloneable {
-    
+
     private static final Logger LOG = Logger.getLogger(User.class);
 
     String id;
@@ -44,7 +44,7 @@ public class User implements Cloneable {
     long registrationDateAsLong;
 
     long lastVisitDateAsLong;
-    
+
     long lastSyncTimeAsLong;
 
     String password;
@@ -75,7 +75,7 @@ public class User implements Cloneable {
 
     /**
      * User format
-     * 
+     *
      * <user> <username/> <password/> <givename/> <familyname/> <portalid/> <signature/> <realemail/> <fakeemail/>
      * <viewrealemail/> <compagny/> <registrationdate/> <lastvisitdate/> <enabled/> <homePage> <roles> <role/> </roles>
      * <properties> <property> <name/> <value/> </property> </properties> <applications> <application> <name/> <value/>
@@ -256,11 +256,11 @@ public class User implements Cloneable {
     public String getFakeemail() {
         return getFakeEmail();
     }
-    
+
     public String getFakeEmail() {
         return fakeEmail;
     }
-    
+
     public void setFakeEmail(String fakeEmail) {
         this.fakeEmail = fakeEmail;
     }
@@ -269,7 +269,7 @@ public class User implements Cloneable {
     public String getFamilyname() {
         return getFamilyName();
     }
-    
+
     public String getFamilyName() {
         return familyName;
     }
@@ -286,7 +286,7 @@ public class User implements Cloneable {
     public String getGivenName() {
         return givenName;
     }
-    
+
     public void setGivenName(String givenName) {
         this.givenName = givenName;
     }
@@ -295,7 +295,7 @@ public class User implements Cloneable {
     public String getHomepage() {
         return getHomePage();
     }
-    
+
     public String getHomePage() {
         return homePage;
     }
@@ -316,7 +316,7 @@ public class User implements Cloneable {
     public long getLastvisitdate() {
         return getLastVisitDateAsLong();
     }
-    
+
     public long getLastVisitDateAsLong() {
         return lastVisitDateAsLong;
     }
@@ -324,7 +324,7 @@ public class User implements Cloneable {
     public void setLastVisitDate(Date lastVisitDate) {
         this.lastVisitDateAsLong = (lastVisitDate == null ? 0 : lastVisitDate.getTime());
     }
-    
+
     public long getLastSyncTime() {
         return lastSyncTimeAsLong;
     }
@@ -345,7 +345,7 @@ public class User implements Cloneable {
     public String getPhonenumber() {
         return getPhoneNumber();
     }
-    
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -361,12 +361,12 @@ public class User implements Cloneable {
     public void setProperties(Map<String, String> properties) {
         this.properties = properties;
     }
-    
+
     // for groovy
     public String getRealemail() {
         return getRealEmail();
     }
-    
+
     public String getRealEmail() {
         return realEmail;
     }
@@ -379,7 +379,7 @@ public class User implements Cloneable {
     public long getRegistrationdate() {
         return getRegistrationDate();
     }
-    
+
     public long getRegistrationDate() {
         return registrationDateAsLong;
     }
@@ -392,7 +392,7 @@ public class User implements Cloneable {
     public Set<String> getRolenames() {
         return getRoleNames();
     }
-    
+
     public Set<String> getRoleNames() {
         return roleNames;
     }
@@ -421,7 +421,7 @@ public class User implements Cloneable {
     public String getUsername() {
         return getUserName();
     }
-    
+
     public String getUserName() {
         return userName;
     }
@@ -429,7 +429,7 @@ public class User implements Cloneable {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    
+
     // for groovy
     public boolean isViewrealemail() {
         return isViewRealEmail();

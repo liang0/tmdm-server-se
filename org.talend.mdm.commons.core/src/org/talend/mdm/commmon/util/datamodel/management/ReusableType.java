@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -46,9 +46,9 @@ public class ReusableType {
     private Map<String, String> labelMap;
 
     private Map<String, String> foreignKeyMap;
-    
+
     private Map<String, ReusableType> xPathReusableTypeMap;
-    
+
     // TODO: translate it from technique to business logic
     // mainly maintain the relationships among different business concepts
 
@@ -67,12 +67,12 @@ public class ReusableType {
     }
 
     public void load() {
-        load(new HashMap<String, ReusableType>());  
+        load(new HashMap<String, ReusableType>());
     }
-    
+
     public void load(Map<String, ReusableType> reusableTypeMap){
         beforeLoad();
-        parseRootAnnotation(this.xsType);  
+        parseRootAnnotation(this.xsType);
         if (this.xsType.isComplexType())
             traverseXSType(this.xsType.asComplexType().getContentType().asParticle(),
                     "/" + this.xsType.getName(), reusableTypeMap, null); //$NON-NLS-1$

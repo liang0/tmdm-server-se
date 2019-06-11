@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -647,9 +647,9 @@ public class ItemsToolBar extends ToolBar {
 
                     if (!GenerateContainer.getDefaultViewPk().equals("")) { //$NON-NLS-1$
                         boolean isExist = false;
-                        String pk = "Browse_items_" + GenerateContainer.getDefaultViewPk(); //$NON-NLS-1$   
+                        String pk = "Browse_items_" + GenerateContainer.getDefaultViewPk(); //$NON-NLS-1$
                         for (ItemBaseModel bm : result) {
-                            if (bm.get("value").equals(pk)) { //$NON-NLS-1$                               
+                            if (bm.get("value").equals(pk)) { //$NON-NLS-1$
                                 entityCombo.setValue(bm);
                                 isExist = true;
                                 break;
@@ -657,7 +657,7 @@ public class ItemsToolBar extends ToolBar {
                         }
                         if (!isExist) {
                             for (ItemBaseModel bm : result) {
-                                if (bm.get("value").toString().startsWith(pk + "#")) { //$NON-NLS-1$ //$NON-NLS-2$                               
+                                if (bm.get("value").toString().startsWith(pk + "#")) { //$NON-NLS-1$ //$NON-NLS-2$
                                     entityCombo.setValue(bm);
                                     isExist = true;
                                     break;
@@ -1008,7 +1008,7 @@ public class ItemsToolBar extends ToolBar {
         Iterator<ItemBaseModel> i = userCriteriasList.iterator();
         while (i.hasNext()) {
             if ((i.next()).get("value").equals( //$NON-NLS-1$
-                    model.get("value").toString())) { //$NON-NLS-1$    
+                    model.get("value").toString())) { //$NON-NLS-1$
                 return true;
             }
         }

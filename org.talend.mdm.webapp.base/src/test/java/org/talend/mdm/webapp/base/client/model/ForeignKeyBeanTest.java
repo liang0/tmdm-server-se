@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -14,8 +14,8 @@ import junit.framework.TestCase;
 @SuppressWarnings("nls")
 public class ForeignKeyBeanTest extends TestCase {
 
-    
-    private ForeignKeyBean mockForeignKeyBean(){        
+
+    private ForeignKeyBean mockForeignKeyBean(){
         ForeignKeyBean bean = new ForeignKeyBean();
         bean.set("Name", "Apple Store");
         bean.set("Id", "1");
@@ -23,7 +23,7 @@ public class ForeignKeyBeanTest extends TestCase {
         bean.set("i", "1");
         return bean;
     }
-    
+
     public void testToString(){
         ForeignKeyBean bean = mockForeignKeyBean();
         assertNull(bean.toString());

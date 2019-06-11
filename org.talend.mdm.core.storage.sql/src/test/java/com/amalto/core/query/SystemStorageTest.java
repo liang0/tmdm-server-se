@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -85,7 +85,7 @@ import junit.framework.TestCase;
 public class SystemStorageTest extends TestCase {
 
     private static Logger LOG = Logger.getLogger(StorageTestCase.class);
-    
+
     private static boolean beanDelegatorContainerFlag = false;
 
     private static Collection<String> getConfigFiles() throws Exception {
@@ -132,7 +132,7 @@ public class SystemStorageTest extends TestCase {
         }
         return result;
     }
-    
+
     private static void createBeanDelegatorContainer(){
         if(!beanDelegatorContainerFlag){
             BeanDelegatorContainer.createInstance();
@@ -299,7 +299,7 @@ public class SystemStorageTest extends TestCase {
         // Add a user (parse a user XML from a 5.0 install)
         XmlDOMDataRecordReader reader = new XmlDOMDataRecordReader();
         DocumentBuilder builder = getDocumentBuilder();
-        String[] datas = { "SystemStorageTest_2.xml", "SystemStorageTest_3.xml" }; //$NON-NLS-1$ //$NON-NLS-2$ 
+        String[] datas = { "SystemStorageTest_2.xml", "SystemStorageTest_3.xml" }; //$NON-NLS-1$ //$NON-NLS-2$
         storage.begin();
         for (String data : datas) {
             Document document = builder.parse(SystemStorageTest.class.getResourceAsStream(data));
@@ -350,7 +350,7 @@ public class SystemStorageTest extends TestCase {
         assertNotNull(xmls);
         assertTrue(xmls.contains("bookmark.1"));
     }
-    
+
     public void testGetAutoIncrement() throws Exception {
         createBeanDelegatorContainer();
         BeanDelegatorContainer.getInstance().setDelegatorInstancePool(Collections.<String, Object> singletonMap("LocalUser", new MockUser())); //$NON-NLS-1$
@@ -372,12 +372,12 @@ public class SystemStorageTest extends TestCase {
         Element element = (Element) document.getElementsByTagName("AutoIncrement").item(0);
         final DataRecord user = reader.read(repository, repository.getComplexType("AutoIncrement"), element);
         storage.update(user);
-        
+
         storage.commit();
 
         String xmls = wrapper.getDocumentAsString("CONF", uniqueIDs[0], "UTF-8");
         assertNotNull(xmls);
-        assertTrue(xmls.contains("Product.ProductFamily.Id"));        
+        assertTrue(xmls.contains("Product.ProductFamily.Id"));
     }
 
     public void testStorageInit() throws Exception {

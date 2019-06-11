@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -178,7 +178,7 @@ public class ItemsListPanel4Staging extends ItemsListPanel {
                     ItemBean item = grid.getStore().getAt(rowIndex);
                     String error = (String) item.get(item.getConcept() + StagingConstant.STAGING_ERROR);
                     if (error != null && error.trim().length() != 0) {
-                        tip.update(new ToolTipConfig("<b>" + MessagesFactory.getMessages().error() + "</b>:" + error)); //$NON-NLS-1$ //$NON-NLS-2$ 
+                        tip.update(new ToolTipConfig("<b>" + MessagesFactory.getMessages().error() + "</b>:" + error)); //$NON-NLS-1$ //$NON-NLS-2$
                         tip.showAt(DOM.eventGetCurrentEvent().getClientX() + 6, DOM.eventGetCurrentEvent().getClientY() + 6);
                     }
                 }

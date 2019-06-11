@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -20,11 +20,11 @@ import com.extjs.gxt.ui.client.Registry;
  * DOC Administrator  class global comment. Detailled comment
  */
 public class TimelineUtil {
-    
+
     public static String TIMELIME_INIT = "init"; //$NON-NLS-1$
-    
+
     public static String TIMELIME_LOAD = "load"; //$NON-NLS-1$
-    
+
     public native static void regLoadDate()/*-{
         $wnd.loadDate = function(start, limit){
             $wnd.startIndex = start;
@@ -44,7 +44,7 @@ public class TimelineUtil {
             @org.talend.mdm.webapp.journal.client.util.TimelineUtil::openTabPanel(Ljava/lang/String;)(modelStr);
         }
     }-*/;
-    
+
     public static void openTabPanel(String modelStr){
         String[] configArr = modelStr.split(","); //$NON-NLS-1$
         JournalGridModel model = new JournalGridModel();
@@ -59,7 +59,7 @@ public class TimelineUtil {
         model.setUserName(configArr[8]);
         JournalGridPanel.getInstance().openTabPanel(model);
     }
-        
+
     public static void loadTimeline(String type) {
         JournalSearchCriteria criteria = Registry.get(Journal.SEARCH_CRITERIA);
         String dataModel = criteria.getDataModel() == null ? "" : criteria.getDataModel(); //$NON-NLS-1$
@@ -74,13 +74,13 @@ public class TimelineUtil {
         else if (type.equalsIgnoreCase(TimelineUtil.TIMELIME_LOAD))
             loadTimelineLoad(dataModel, entity, key, source, operationType, startDate, endDate, criteria.isStrict());
     }
-    
+
     public native static void loadTimelineInit(String dataModel, String entity, String key, String source, String operationType,
             String startDate, String endDate, boolean isStrict)/*-{
         $wnd.JournalInterface.getReportString($wnd.startIndex + $wnd.configStr, dataModel, entity, key, source, operationType,
                 startDate, endDate, isStrict, $wnd.journalCallback);
     }-*/;
-    
+
     public native static void loadTimelineLoad(String dataModel, String entity, String key, String source, String operationType,
             String startDate, String endDate, boolean isStrict)/*-{
         $wnd.JournalInterface.getReportString($wnd.startIndex + $wnd.configStr, dataModel, entity, key, source, operationType,
@@ -90,28 +90,28 @@ public class TimelineUtil {
     public native static void setSearchStart(int searchStart)/*-{
         $wnd.searchStart = searchStart;
     }-*/;
-    
+
     public native static void setTimelinePanelActive(boolean isActive)/*-{
         $wnd.timelinePanelActive = isActive;
     }-*/;
-    
+
     public native static void setTimeLinePanelHeight(int height)/*-{
         $wnd.timeLinePanelHeight = height;
     }-*/;
-    
+
     public native static void setPageSize(int pageSize)/*-{
         $wnd.pageSize = pageSize;
     }-*/;
-    
+
     public native static void setConfigStr(String configStr)/*-{
         $wnd.configStr = configStr;
     }-*/;
-    
+
     public native static void setEnterprise(boolean isEnterprise)/*-{
         $wnd.isEnterprise = isEnterprise;
     }-*/;
-    
+
     public native static void setStartIndex(int startIndex)/*-{
         $wnd.startIndex = startIndex;
-    }-*/;    
+    }-*/;
 }

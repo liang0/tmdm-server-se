@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -135,7 +135,7 @@ public class ViewUtil {
     }
 
     public static ItemNodeModel transformToCustomLayoutModel(ItemNodeModel rootModel, List<ColumnTreeModel> columnTreeModels) {
-        ItemNodeModel customLayoutModel = rootModel;        
+        ItemNodeModel customLayoutModel = rootModel;
         if(columnTreeModels.size() > 0){
             List<ItemNodeModel> nodeList = new ArrayList<ItemNodeModel>();
             for(ColumnTreeModel ctm: columnTreeModels){
@@ -152,19 +152,19 @@ public class ViewUtil {
                         }
                     }
                 }
-            }            
+            }
             customLayoutModel.setChildNodes(nodeList);
         }
         return customLayoutModel;
     }
-    
+
     public static ItemNodeModel __transformToCustomLayoutModel(ItemNodeModel nodeModel, ColumnElement customLayoutElement) {
         ItemNodeModel customLayoutModel = nodeModel.clone(true);
         if(customLayoutElement.getChildren().size() < 1){
             return nodeModel;
-        }                
+        }
         List<ItemNodeModel> nodeList = new ArrayList<ItemNodeModel>();
-        for(ColumnElement node : customLayoutElement.getChildren()){            
+        for(ColumnElement node : customLayoutElement.getChildren()){
             for(ModelData model : nodeModel.getChildren()){
                 ItemNodeModel tempModel = (ItemNodeModel)model;
                 if(node.getxPath().equals("/" + tempModel.getTypePath())){ //$NON-NLS-1$
@@ -174,11 +174,11 @@ public class ViewUtil {
                     nodeList.add(tempModel);
                 }
             }
-        }        
+        }
         customLayoutModel.setChildNodes(nodeList);
         return customLayoutModel;
     }
-    
+
     public static void applyStyleTreeItem(final TreeItemEx item, final String labelStyle, final String valueStyle, String style) {
         String marginLeft = item.getElement().getStyle().getMarginLeft();
         String padding = item.getElement().getStyle().getPadding();
@@ -205,12 +205,12 @@ public class ViewUtil {
                         String height = inputEl.dom.getStyle().getHeight();
                         String overflow = inputEl.dom.getStyle().getOverflow();
                         setStyleAttribute(inputEl.dom, valueStyle);
-                        inputEl.dom.getStyle().setProperty("width", width); //$NON-NLS-1$                       
+                        inputEl.dom.getStyle().setProperty("width", width); //$NON-NLS-1$
                         if (!height.isEmpty()) {
                             inputEl.dom.getStyle().setProperty("height", height); //$NON-NLS-1$
                         }
                         if (!overflow.isEmpty()) {
-                            inputEl.dom.getStyle().setProperty("overflow", overflow); //$NON-NLS-1$ 
+                            inputEl.dom.getStyle().setProperty("overflow", overflow); //$NON-NLS-1$
                         }
                     }
                 }
@@ -284,7 +284,7 @@ public class ViewUtil {
     private static native El getInputEl(Field<?> field)/*-{
 		return field.@com.extjs.gxt.ui.client.widget.form.Field::getInputEl()();
     }-*/;
-    
+
     public static String convertCSS4ValueStyle(String css) {
         if (css == null) {
             return null;
@@ -294,7 +294,7 @@ public class ViewUtil {
         }
         return css;
     }
-    
+
     public static ItemBaseModel getDefaultSmartViewModel(List<ItemBaseModel> list, String concept) {
         String defSmartView = "Smart_view_" + concept; //$NON-NLS-1$
         String defSmartViewWithLang = defSmartView + "_" + Locale.getLanguage(); //$NON-NLS-1$

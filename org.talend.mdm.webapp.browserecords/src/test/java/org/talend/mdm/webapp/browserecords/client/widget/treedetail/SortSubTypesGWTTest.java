@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -36,7 +36,7 @@ public class SortSubTypesGWTTest extends GWTTestCase {
         session.put(UserSession.APP_HEADER, new AppHeader());
         Registry.register(BrowseRecords.USER_SESSION, session);
     }
-    
+
     public void testSortSubTypes() {
         ComplexTypeModel dataType = new ComplexTypeModel("typeEDA", DataTypeConstants.STRING);
 
@@ -44,55 +44,55 @@ public class SortSubTypesGWTTest extends GWTTestCase {
         typeEDA.setOrderValue(0);
         dataType.addComplexReusableTypes(typeEDA);
 
-        ComplexTypeModel balit = new ComplexTypeModel("Balit", null); 
+        ComplexTypeModel balit = new ComplexTypeModel("Balit", null);
         balit.setOrderValue(1);
         dataType.addComplexReusableTypes(balit);
 
-        ComplexTypeModel pointEchange = new ComplexTypeModel("PointEchange", null); 
+        ComplexTypeModel pointEchange = new ComplexTypeModel("PointEchange", null);
         pointEchange.setOrderValue(3);
         dataType.addComplexReusableTypes(pointEchange);
 
-        ComplexTypeModel secoursMutuelGrt = new ComplexTypeModel("SecoursMutuelGrt", null); 
+        ComplexTypeModel secoursMutuelGrt = new ComplexTypeModel("SecoursMutuelGrt", null);
         secoursMutuelGrt.setOrderValue(2);
         dataType.addComplexReusableTypes(secoursMutuelGrt);
 
-        ComplexTypeModel pointSoutirageJumeleRpd = new ComplexTypeModel("PointSoutirageJumeleRpd", null); 
+        ComplexTypeModel pointSoutirageJumeleRpd = new ComplexTypeModel("PointSoutirageJumeleRpd", null);
         pointSoutirageJumeleRpd.setOrderValue(9);
         dataType.addComplexReusableTypes(pointSoutirageJumeleRpd);
 
-        ComplexTypeModel pointSoutirageRpt = new ComplexTypeModel("PointSoutirageRpt", null); 
+        ComplexTypeModel pointSoutirageRpt = new ComplexTypeModel("PointSoutirageRpt", null);
         pointSoutirageRpt.setOrderValue(4);
         dataType.addComplexReusableTypes(pointSoutirageRpt);
 
-        ComplexTypeModel pointInjectionRptRpd = new ComplexTypeModel("PointInjectionRptRpd", null); 
+        ComplexTypeModel pointInjectionRptRpd = new ComplexTypeModel("PointInjectionRptRpd", null);
         pointInjectionRptRpd.setOrderValue(13);
         dataType.addComplexReusableTypes(pointInjectionRptRpd);
 
-        ComplexTypeModel pointSoutirageRpd = new ComplexTypeModel("PointSoutirageRpd", null); 
+        ComplexTypeModel pointSoutirageRpd = new ComplexTypeModel("PointSoutirageRpd", null);
         pointSoutirageRpd.setOrderValue(5);
         dataType.addComplexReusableTypes(pointSoutirageRpd);
 
-        ComplexTypeModel pointSoutirageProfile = new ComplexTypeModel("PointSoutirageProfile", null); 
+        ComplexTypeModel pointSoutirageProfile = new ComplexTypeModel("PointSoutirageProfile", null);
         pointSoutirageProfile.setOrderValue(7);
         dataType.addComplexReusableTypes(pointSoutirageProfile);
 
-        ComplexTypeModel pointInjectionRpt = new ComplexTypeModel("PointInjectionRpt", null); 
+        ComplexTypeModel pointInjectionRpt = new ComplexTypeModel("PointInjectionRpt", null);
         pointInjectionRpt.setOrderValue(11);
         dataType.addComplexReusableTypes(pointInjectionRpt);
 
-        ComplexTypeModel pointInjectionRpd = new ComplexTypeModel("PointInjectionRpd", null); 
+        ComplexTypeModel pointInjectionRpd = new ComplexTypeModel("PointInjectionRpd", null);
         pointInjectionRpd.setOrderValue(12);
         dataType.addComplexReusableTypes(pointInjectionRpd);
 
-        ComplexTypeModel pointSoutirageJumeleRpt = new ComplexTypeModel("PointSoutirageJumeleRpt", null); 
+        ComplexTypeModel pointSoutirageJumeleRpt = new ComplexTypeModel("PointSoutirageJumeleRpt", null);
         pointSoutirageJumeleRpt.setOrderValue(8);
         dataType.addComplexReusableTypes(pointSoutirageJumeleRpt);
 
-        ComplexTypeModel pointSoutirageRptRpd = new ComplexTypeModel("PointSoutirageRptRpd", null); 
+        ComplexTypeModel pointSoutirageRptRpd = new ComplexTypeModel("PointSoutirageRptRpd", null);
         pointSoutirageRptRpd.setOrderValue(6);
         dataType.addComplexReusableTypes(pointSoutirageRptRpd);
 
-        ComplexTypeModel pointSoutirageJumeleRptRpd = new ComplexTypeModel("PointSoutirageJumeleRptRpd", null); 
+        ComplexTypeModel pointSoutirageJumeleRptRpd = new ComplexTypeModel("PointSoutirageJumeleRptRpd", null);
         pointSoutirageJumeleRptRpd.setOrderValue(10);
         dataType.addComplexReusableTypes(pointSoutirageJumeleRptRpd);
 
@@ -129,6 +129,6 @@ public class SortSubTypesGWTTest extends GWTTestCase {
     }
 
     public String getModuleName() {
-        return "org.talend.mdm.webapp.browserecords.TestBrowseRecords"; 
+        return "org.talend.mdm.webapp.browserecords.TestBrowseRecords";
     }
 }

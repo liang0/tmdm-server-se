@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -241,7 +241,7 @@ class ProjectionIterator implements CloseableIterator<DataRecord> {
             currentElement = new ProjectionElement();
             currentElement.field = field;
         }
-        
+
         private void createElement(String typeName, String fieldName, SimpleTypeFieldMetadata fieldMetadata) {
             SimpleTypeMetadata fieldType = new SimpleTypeMetadata(XMLConstants.W3C_XML_SCHEMA_NS_URI, typeName);
             FieldMetadata field = new SimpleTypeFieldMetadata(fieldMetadata.getContainingType(), false, false, false, fieldName, fieldType,

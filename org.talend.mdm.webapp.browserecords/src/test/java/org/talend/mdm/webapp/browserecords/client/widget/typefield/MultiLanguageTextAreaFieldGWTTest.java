@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -29,14 +29,14 @@ import com.google.gwt.junit.client.GWTTestCase;
 public class MultiLanguageTextAreaFieldGWTTest  extends GWTTestCase {
 
     private String languageEN = "en"; //$NON-NLS-1$
-    
+
     private TypeModel descriptionNodeModel = new SimpleTypeModel("description", DataTypeConstants.MLS); //$NON-NLS-1$
-    
+
     @Override
     public String getModuleName() {
         return "org.talend.mdm.webapp.browserecords.TestBrowseRecords"; //$NON-NLS-1$
     }
-    
+
     @Override
     protected void gwtSetUp() throws Exception {
         super.gwtSetUp();
@@ -53,14 +53,14 @@ public class MultiLanguageTextAreaFieldGWTTest  extends GWTTestCase {
         context.setLanguage(languageEN);
         context.setAutoTextAreaLength(30);
         TypeFieldCreator typeFieldCreator = new TypeFieldCreator(new TypeFieldSource(TypeFieldSource.FORM_INPUT), context);
-        
+
         ItemNodeModel descriptionNode = new ItemNodeModel("Description"); //$NON-NLS-1$
         descriptionNode.setObjectValue(descriptionValue);
-        
+
         Map<String, TypeFieldStyle> sytles = new HashMap<String, TypeFieldStyle>();
         sytles.put(TypeFieldStyle.ATTRI_WIDTH, new TypeFieldStyle(TypeFieldStyle.ATTRI_WIDTH, "400", //$NON-NLS-1$
                 TypeFieldStyle.SCOPE_BUILTIN_TYPEFIELD));
-        
+
         context.setDataType(descriptionNodeModel);
         createdField = typeFieldCreator.createFieldWithValueAndUpdateStyle(descriptionNode, sytles);
         assertNotNull(createdField);

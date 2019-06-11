@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -33,19 +33,19 @@ import org.springframework.jms.core.MessageCreator;
 
 /**
  * Clustered ready implementation of {@link StagingTaskManager} that supports situations where
- * a task is run in a different node that the current one: it queries the underlying storage 
+ * a task is run in a different node that the current one: it queries the underlying storage
  * to get current running task if there is no task running locally. Also sends a JMS message on a topic
  * for tasks's cancellation with this task is not running in the local node.
  */
 public class ClusteredStagingTaskManager extends LocalStagingTaskManager implements MessageListener {
-    
+
     private static final Logger LOGGER = Logger.getLogger(ClusteredStagingTaskManager.class);
-    
+
     private JmsTemplate jmsTemplate;
-    
+
     @Override
     public String getCurrentTaskId(String dataContainer) {
-        // let's first check this node runs a task locally 
+        // let's first check this node runs a task locally
         String result = super.getCurrentTaskId(dataContainer);
         // if not found search in database
         if(result == null){
@@ -58,7 +58,7 @@ public class ClusteredStagingTaskManager extends LocalStagingTaskManager impleme
     public void cancelTask(String dataContainer, String taskId) {
         this.cancelTask(dataContainer, taskId, true);
     }
-    
+
     protected void cancelTask(String dataContainer, String taskId, boolean sendJmsMessage){
         String localTaskId = super.getCurrentTaskId(dataContainer);
         if(localTaskId != null && localTaskId.equals(taskId)){
@@ -73,7 +73,7 @@ public class ClusteredStagingTaskManager extends LocalStagingTaskManager impleme
             // this node is not concerned by this message
         }
     }
-    
+
     protected void sendCancellationMessage(final String dataContainer, final String taskId){
         jmsTemplate.send(new MessageCreator() {
             @Override
@@ -116,31 +116,31 @@ public class ClusteredStagingTaskManager extends LocalStagingTaskManager impleme
             LOGGER.error("Received an unsupported JMS message " + message + " forgetting it.");
         }
     }
-    
+
     public JmsTemplate getJmsTemplate() {
         return jmsTemplate;
     }
 
-    
+
     public void setJmsTemplate(JmsTemplate jmsTemplate) {
         this.jmsTemplate = jmsTemplate;
     }
-    
+
     /**
-     * Internal message sent on the JMS topic for cancellation.  
+     * Internal message sent on the JMS topic for cancellation.
      */
     @XmlRootElement(name="stagingJobCancellationMessage")
     @XmlAccessorType(XmlAccessType.FIELD)
     static class StagingJobCancellationMessage {
-        
+
         @XmlElement(name="dataContainer")
         private String dataContainer;
-        
+
         @XmlElement(name="taskId")
         private String taskId;
-        
+
         private static final JAXBContext JAXBCONTEXT;
-        
+
         static {
             try {
                 JAXBCONTEXT = JAXBContext.newInstance(StagingJobCancellationMessage.class);
@@ -148,40 +148,40 @@ public class ClusteredStagingTaskManager extends LocalStagingTaskManager impleme
                 throw new RuntimeException("Cannot instanciate JAXBContext", e);
             }
         }
-        
+
         @SuppressWarnings("unused")
         public StagingJobCancellationMessage(){
-            
+
         }
-        
+
         public StagingJobCancellationMessage(String dataContainer, String taskId){
             this.dataContainer = dataContainer;
             this.taskId = taskId;
         }
-        
+
         public String getDataContainer() {
             return dataContainer;
         }
-        
+
         @SuppressWarnings("unused")
         public void setDataContainer(String dataContainer) {
             this.dataContainer = dataContainer;
         }
-        
+
         public String getTaskId() {
             return taskId;
         }
-        
+
         @SuppressWarnings("unused")
         public void setTaskId(String taskId) {
             this.taskId = taskId;
         }
-        
+
         public static StagingJobCancellationMessage fromString(final String content) throws JAXBException{
             JAXBElement<StagingJobCancellationMessage> element = JAXBCONTEXT.createUnmarshaller().unmarshal(new StreamSource(new StringReader(content)), StagingJobCancellationMessage.class);
             return element.getValue();
         }
-        
+
         public static String toString(StagingJobCancellationMessage message) throws JAXBException{
             StringWriter writer = new StringWriter();
             JAXBCONTEXT.createMarshaller().marshal(message, writer);

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -18,10 +18,10 @@ public class WSWhereCondition {
     protected java.lang.String rightValueOrPath;
     protected com.amalto.core.webservice.WSStringPredicate stringPredicate;
     protected boolean spellCheck;
-    
+
     public WSWhereCondition() {
     }
-    
+
     public WSWhereCondition(java.lang.String leftPath, com.amalto.core.webservice.WSWhereOperator operator, java.lang.String rightValueOrPath, com.amalto.core.webservice.WSStringPredicate stringPredicate, boolean spellCheck) {
         this.leftPath = leftPath;
         this.operator = operator;
@@ -29,43 +29,43 @@ public class WSWhereCondition {
         this.stringPredicate = stringPredicate;
         this.spellCheck = spellCheck;
     }
-    
+
     public java.lang.String getLeftPath() {
         return leftPath;
     }
-    
+
     public void setLeftPath(java.lang.String leftPath) {
         this.leftPath = leftPath;
     }
-    
+
     public com.amalto.core.webservice.WSWhereOperator getOperator() {
         return operator;
     }
-    
+
     public void setOperator(com.amalto.core.webservice.WSWhereOperator operator) {
         this.operator = operator;
     }
-    
+
     public java.lang.String getRightValueOrPath() {
         return rightValueOrPath;
     }
-    
+
     public void setRightValueOrPath(java.lang.String rightValueOrPath) {
         this.rightValueOrPath = rightValueOrPath;
     }
-    
+
     public com.amalto.core.webservice.WSStringPredicate getStringPredicate() {
         return stringPredicate;
     }
-    
+
     public void setStringPredicate(com.amalto.core.webservice.WSStringPredicate stringPredicate) {
         this.stringPredicate = stringPredicate;
     }
-    
+
     public boolean isSpellCheck() {
         return spellCheck;
     }
-    
+
     public void setSpellCheck(boolean spellCheck) {
         this.spellCheck = spellCheck;
     }

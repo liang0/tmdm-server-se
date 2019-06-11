@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -31,7 +31,7 @@ public final class DateUtil {
 
     /**
      * Return default date format (yyyy/MM/dd)
-     * 
+     *
      * @return the date format will be show
      */
     public static String getDatePattern() {
@@ -39,8 +39,8 @@ public final class DateUtil {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param aDate
      * @return
      */
@@ -57,8 +57,8 @@ public final class DateUtil {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param aMask
      * @param strDate
      * @return Date
@@ -83,7 +83,7 @@ public final class DateUtil {
 
     /**
      * This method returns the current date time in the format: yyyy/MM/dd HH:MM a
-     * 
+     *
      * @param theTime the current time
      * @return the current date/time
      */
@@ -93,7 +93,7 @@ public final class DateUtil {
 
     /**
      * This method returns the current date in the format: yyyy/MM/dd
-     * 
+     *
      * @return the current date
      * @throws ParseException
      */
@@ -112,11 +112,11 @@ public final class DateUtil {
 
     /**
      * This method generates a string representation of a date's date/time in the format you specify on input
-     * 
+     *
      * @param aMask the date pattern the string is in
      * @param aDate a date object
      * @return a formatted string representation of the date
-     * 
+     *
      * @see java.text.SimpleDateFormat
      */
     public static final String getDateTime(String aMask, Date aDate) {
@@ -134,8 +134,8 @@ public final class DateUtil {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param aDate
      * @return
      */
@@ -144,11 +144,11 @@ public final class DateUtil {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param strDate (format yyyy/MM/dd)
      * @return
-     * 
+     *
      * @throws ParseException
      */
     public static Date convertStringToDate(String strDate) throws ParseException {

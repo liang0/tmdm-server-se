@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -59,7 +59,7 @@ public class WelcomePortalAction implements WelcomePortalService {
     private static final Logger LOG = Logger.getLogger(WelcomePortalAction.class);
 
     private static final String STANDALONE_PROCESS_PREFIX = "Runnable#"; //$NON-NLS-1$
-    
+
     private static final Messages MESSAGES = MessagesFactory.getMessages(
             "org.talend.mdm.webapp.welcomeportal.client.i18n.WelcomePortalMessages", WelcomePortalAction.class.getClassLoader()); //$NON-NLS-1$
 
@@ -67,7 +67,7 @@ public class WelcomePortalAction implements WelcomePortalService {
 
     /**
      * check if is show workflow task link.
-     * 
+     *
      * @return
      */
     @Override
@@ -77,7 +77,7 @@ public class WelcomePortalAction implements WelcomePortalService {
 
     /**
      * check if is show dsc task link.
-     * 
+     *
      * @return
      */
     @Override
@@ -94,7 +94,7 @@ public class WelcomePortalAction implements WelcomePortalService {
 
     /**
      * check if is show specify menu.
-     * 
+     *
      * @param menu
      * @return
      */
@@ -117,7 +117,7 @@ public class WelcomePortalAction implements WelcomePortalService {
 
     /**
      * get workflow task informations.
-     * 
+     *
      * @return
      */
     @Override
@@ -163,7 +163,7 @@ public class WelcomePortalAction implements WelcomePortalService {
 
     /**
      * run the standalone process.
-     * 
+     *
      * @param transformerPK
      * @return
      */

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -28,15 +28,15 @@ import org.apache.log4j.Logger;
 public class TransformerContext implements Serializable {
 
 	private LinkedHashMap<String, Object> contextMap = null;
-	
+
     private LinkedHashMap<String, TypedContent> pipeline = null;
-	
+
     private SortedSet<ItemPOJOPK>projectedPKs = null;
-	
+
     private TransformerV2POJOPK transformerPOJOPK = null;
-	
+
     private final Object contextLock = new Object();
-    
+
     private final Object pipelineLock = new Object();
 
     private final Logger LOGGER = Logger.getLogger(TransformerContext.class);
@@ -45,7 +45,7 @@ public class TransformerContext implements Serializable {
 	 * For serialization only
 	 */
 	protected TransformerContext() {}
-	
+
 	/**
 	 * Instantiate a TransformerContext
 	 * The transformer Context contains
@@ -58,19 +58,19 @@ public class TransformerContext implements Serializable {
 		pipeline = new LinkedHashMap<String, TypedContent>();
 		projectedPKs = Collections.synchronizedSortedSet(new TreeSet<ItemPOJOPK>());
 	}
-	
+
 	public TransformerV2POJOPK getTransformerV2POJOPK() {
 		return transformerPOJOPK;
 	}
 
-	
+
 	/******************************************************************
-	 * 
+	 *
 	 * Local Variables Manipulation
-	 * 
+	 *
 	 ******************************************************************/
-	
-	
+
+
 	public void put(String key, Object value) {
 		synchronized (contextLock) {
 			contextMap.put(key, value);
@@ -82,13 +82,13 @@ public class TransformerContext implements Serializable {
 			return contextMap.get(key);
 		}
 	}
-	
+
 	public Set<String> keySet() {
 		synchronized (contextLock) {
 			return contextMap.keySet();
 		}
 	}
-	
+
 	public Object remove(String key) {
 		synchronized (contextLock) {
 			return contextMap.remove(key);
@@ -101,7 +101,7 @@ public class TransformerContext implements Serializable {
 		}
 		return this;
 	}
-	
+
 	public void dumpLocalVariables() {
 		synchronized(contextLock) {
 			Set<String> keys = new TreeSet<String>(contextMap.keySet());
@@ -110,7 +110,7 @@ public class TransformerContext implements Serializable {
             }
 		}
 	}
-	
+
 	protected LinkedHashMap<String, Object> getContextMap() {
 		return contextMap;
 	}
@@ -119,14 +119,14 @@ public class TransformerContext implements Serializable {
 		this.contextMap = contextMap;
 	}
 
-	
+
 	/******************************************************************
-	 * 
+	 *
 	 * Pipeline Manipulation
-	 * 
+	 *
 	 ******************************************************************/
-	
-	
+
+
 	public void putInPipeline(String key, TypedContent content) {
 		synchronized (pipelineLock) {
 			pipeline.put(key, content);
@@ -138,13 +138,13 @@ public class TransformerContext implements Serializable {
 			return pipeline.get(variableName);
 		}
 	}
-	
+
 	public Set<String> getPipelineVariableNames() {
 		synchronized (pipelineLock) {
 			return new LinkedHashSet<String>(pipeline.keySet());
 		}
 	}
-	
+
 	public Object removeFrompipeline(String variableName) {
 		synchronized (pipelineLock) {
 			return pipeline.remove(variableName);
@@ -157,7 +157,7 @@ public class TransformerContext implements Serializable {
 		}
 		return this;
 	}
-	
+
 	public void dumpPipeline() {
 		synchronized(pipelineLock) {
 			Set<String> keys = new TreeSet<String>(pipeline.keySet());
@@ -166,13 +166,13 @@ public class TransformerContext implements Serializable {
             }
 		}
 	}
-	
+
 	public LinkedHashMap<String, TypedContent> getPipelineClone() {
 		synchronized (pipelineLock) {
 			return new LinkedHashMap<String, TypedContent>(pipeline);
 		}
 	}
-	
+
 	protected LinkedHashMap<String, TypedContent> getPipeline() {
         synchronized (pipelineLock) {
             return pipeline;
@@ -186,11 +186,11 @@ public class TransformerContext implements Serializable {
     }
 
 
-	
+
 	/******************************************************************
-	 * 
+	 *
 	 * Projected Item PKs Manipulation
-	 * 
+	 *
 	 ******************************************************************/
 
 	public SortedSet<ItemPOJOPK> getProjectedPKs() {
@@ -200,24 +200,24 @@ public class TransformerContext implements Serializable {
 	protected void setProjectedPKs(TreeSet<ItemPOJOPK> projectedPKs) {
 		this.projectedPKs = Collections.synchronizedSortedSet(projectedPKs);
 	}
-	
+
 	protected void setProjectedPKs(SortedSet<ItemPOJOPK> projectedPKs) {
 		this.projectedPKs = projectedPKs;
 	}
-		
-	
+
+
 	/******************************************************************
-	 * 
+	 *
 	 * Serializable Implementation
-	 * 
+	 *
 	 ******************************************************************/
-	
+
 	private void writeObject(java.io.ObjectOutputStream out)  throws IOException {
 		HashMap<String, Serializable> serializable = new HashMap<String, Serializable>();
 		serializable.put("transformerPK", this.getTransformerV2POJOPK());
 		serializable.put("pipeline", this.getPipeline());
 		serializable.put("projectedPKs", (Serializable)this.getProjectedPKs());
-		
+
 		LinkedHashMap<String, Serializable> ctxMap = new LinkedHashMap<String, Serializable>();
 		//do not copy over non serializable stuff from the context Map
 		//FIXME: this creates tons of issues
@@ -230,10 +230,10 @@ public class TransformerContext implements Serializable {
 //			}
 //		}
 		serializable.put("ctxMap", ctxMap);
-		
+
 		out.writeObject(serializable);
 	}
-	
+
     private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
         HashMap<String, Serializable> serializable = (HashMap<String, Serializable>) in.readObject();
         this.transformerPOJOPK = (TransformerV2POJOPK) serializable.get("transformerPK");

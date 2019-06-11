@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -44,7 +44,7 @@ public class TimeSlicer {
      * Each expression navigate through the minimum of timestamp to its maximum. In this example, each slice covers a
      * time of ((max(timestamp) - min(timestamp)) / 10) milliseconds.
      * </p>
-     * 
+     *
      * @param expression The original expression to slice into queries on timestamp ranges.
      * @param storage Use to get the last modified record time (upper bound for timestamp) and the less modified record
      * (lower bound for timestamp), <b>IF</b> lower bounds or upper bounds were not in <code>expression</code>.
@@ -95,7 +95,7 @@ public class TimeSlicer {
      * <p>
      * This method uses the default timestamp property {@link UserQueryBuilder#timestamp()}.
      * </p>
-     * 
+     *
      * @param expression The original expression to slice into queries on timestamp ranges.
      * @param storage Use to get the last modified record time (upper bound for timestamp) and the less modified record
      * (lower bound for timestamp).
@@ -121,7 +121,7 @@ public class TimeSlicer {
      * returns a {@link java.util.Iterator iterator} of {@link com.amalto.core.query.user.Expression expressions} that
      * groups modifications done within the same hour, using the built-in timestamp value.
      * </p>
-     * 
+     *
      * @param expression The original expression to slice into queries on timestamp ranges.
      * @param storage Use to get the last modified record time (upper bound for timestamp) and the less modified record
      * (lower bound for timestamp).

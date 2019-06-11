@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -27,7 +27,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface JournalServiceAsync {
 
     void getJournalList(JournalSearchCriteria criteria, BasePagingLoadConfigImpl load,
-            AsyncCallback<ItemBasePageLoadResult<JournalGridModel>> callback);    
+            AsyncCallback<ItemBasePageLoadResult<JournalGridModel>> callback);
 
     void getDetailTreeModel(JournalParameters parameter, String language, AsyncCallback<JournalTreeModel> callback);
 
@@ -43,9 +43,9 @@ public interface JournalServiceAsync {
             AsyncCallback<String> callback);
 
     void isAdmin(AsyncCallback<Boolean> callback);
-    
+
     void isJournalHistoryExist(JournalParameters parameter,AsyncCallback<Boolean> callback);
-    
+
     void checkConflict(String itemPk, String conceptName, String id,AsyncCallback<Boolean> callback);
 
     void getDataModels(AsyncCallback<List<ItemBaseModel>> callback);

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -46,7 +46,7 @@ import org.springframework.stereotype.Service;
  *
  *
  */
-     
+
 @Service("amalto/local/transformer/plugin/dumpandgo")
 public class DumpAndGoPluginBean extends Plugin {
 
@@ -57,11 +57,11 @@ public class DumpAndGoPluginBean extends Plugin {
 	//various
 	private static final String INPUT_TEXT ="in_text";
 	private static final String OUTPUT_TEXT ="out_text";
-	
+
 	public DumpAndGoPluginBean() {
 		super();
 	}
-	
+
 	/**
      * @throws XtentisException
      *
@@ -72,7 +72,7 @@ public class DumpAndGoPluginBean extends Plugin {
     public String getJNDIName() throws XtentisException {
 		return "amalto/local/transformer/plugin/dumpandgo";
 	}
-	
+
 	/**
      * @throws XtentisException
      *
@@ -107,7 +107,7 @@ public class DumpAndGoPluginBean extends Plugin {
 		"Notes for Plugin Developers: " +"\n"+
 		"		empty"	;
 	}
-	
+
 	/**
      * @throws XtentisException
      *
@@ -118,7 +118,7 @@ public class DumpAndGoPluginBean extends Plugin {
     public ArrayList<TransformerPluginVariableDescriptor> getInputVariableDescriptors(
             String twoLettersLanguageCode) throws XtentisException {
 		 ArrayList<TransformerPluginVariableDescriptor> inputDescriptors = new ArrayList<TransformerPluginVariableDescriptor>();
-		
+
 		 TransformerPluginVariableDescriptor descriptor = new TransformerPluginVariableDescriptor();
 		 descriptor.setVariableName(INPUT_TEXT);
 		 descriptor.setContentTypesRegex(
@@ -135,7 +135,7 @@ public class DumpAndGoPluginBean extends Plugin {
 		 descriptor.setPossibleValuesRegex(null);
 		 inputDescriptors.add(descriptor);
 		 return inputDescriptors;
-		
+
 	}
 
 
@@ -169,7 +169,7 @@ public class DumpAndGoPluginBean extends Plugin {
 
 		 return outputDescriptors;
 	}
-	
+
 	/**
      * @throws XtentisException
      *
@@ -193,7 +193,7 @@ public class DumpAndGoPluginBean extends Plugin {
 		return parameters;
 	}
 
-	
+
 
 	/**
      * @throws XtentisException
@@ -208,14 +208,14 @@ public class DumpAndGoPluginBean extends Plugin {
 		try {
 
 			context.put(PARAMETERS, compiledParameters);
-			
+
 		}  catch (Exception e) {
 			String err = "Could not init the DumpAndGo plugin:"+
 				e.getClass().getName()+": "+e.getLocalizedMessage();
 			org.apache.log4j.Logger.getLogger(this.getClass()).error(err,e);
 			throw new XtentisException(e);
 		}
-		
+
 	}
 
     @Override
@@ -233,18 +233,18 @@ public class DumpAndGoPluginBean extends Plugin {
     public void execute(TransformerPluginContext context)
 			throws XtentisException {
 		org.apache.log4j.Logger.getLogger(this.getClass()).trace("execute() DumpAndGo");
-		
+
 		TypedContent textTC = (TypedContent)context.get(INPUT_TEXT);
 		try {
 
 			//attempt to read charset
 			String charset = Util.extractCharset(textTC.getContentType());
 			String inText = new String(textTC.getContentBytes(),charset);
-			
+
 			org.apache.log4j.Logger.getLogger(this.getClass()).info("[Dump]:\n"+inText);
-			
-			String outText=inText;			
-			
+
+			String outText=inText;
+
 			context.put(OUTPUT_TEXT, new TypedContent(outText.getBytes(),"text/xml;charset=utf-8"));
 			//call the callback content is ready
 			context.getPluginCallBack().contentIsReady(context);
@@ -257,9 +257,9 @@ public class DumpAndGoPluginBean extends Plugin {
 			org.apache.log4j.Logger.getLogger(this.getClass()).error(err,e);
 			throw new XtentisException(e);
 		}
-		
+
 		org.apache.log4j.Logger.getLogger(this.getClass()).trace("execute() DumpAndGo done");
-		
+
 	}
 
 

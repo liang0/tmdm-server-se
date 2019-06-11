@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -51,7 +51,7 @@ public class EventStatistics {
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value="Lists number of executed triggers grouped by status (failed and completed) and name.")
     public Response getEventStatistics(
-            @ApiParam(value="Limit result to triggers executed less than x seconds from now") @QueryParam("timeframe") Long timeFrame, 
+            @ApiParam(value="Limit result to triggers executed less than x seconds from now") @QueryParam("timeframe") Long timeFrame,
             @ApiParam(value="Limit result to the first x entries") @QueryParam("top") Integer top) {
         StorageAdmin storageAdmin = ServerContext.INSTANCE.get().getStorageAdmin();
         Storage system = storageAdmin.get(StorageAdmin.SYSTEM_STORAGE, StorageType.SYSTEM);

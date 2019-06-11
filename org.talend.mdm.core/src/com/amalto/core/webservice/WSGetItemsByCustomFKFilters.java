@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -26,7 +26,7 @@ public class WSGetItemsByCustomFKFilters {
 
     public WSGetItemsByCustomFKFilters() {
     }
-    
+
     public WSGetItemsByCustomFKFilters(WSDataClusterPK wsDataClusterPK, String conceptName, WSStringArray viewablePaths, String injectedXpath, int skip, int maxItems, String orderBy, String direction, boolean returnCount, WSWhereItem whereItem) {
         this.wsDataClusterPK = wsDataClusterPK;
         this.conceptName = conceptName;
@@ -39,67 +39,67 @@ public class WSGetItemsByCustomFKFilters {
         this.returnCount = returnCount;
         this.whereItem = whereItem;
     }
-    
+
     public com.amalto.core.webservice.WSDataClusterPK getWsDataClusterPK() {
         return wsDataClusterPK;
     }
-    
+
     public void setWsDataClusterPK(com.amalto.core.webservice.WSDataClusterPK wsDataClusterPK) {
         this.wsDataClusterPK = wsDataClusterPK;
     }
-    
+
     public java.lang.String getConceptName() {
         return conceptName;
     }
-    
+
     public void setConceptName(java.lang.String conceptName) {
         this.conceptName = conceptName;
     }
-    
+
     public com.amalto.core.webservice.WSStringArray getViewablePaths() {
         return viewablePaths;
     }
-    
+
     public void setViewablePaths(com.amalto.core.webservice.WSStringArray viewablePaths) {
         this.viewablePaths = viewablePaths;
     }
-    
+
     public java.lang.String getInjectedXpath() {
         return injectedXpath;
     }
-    
+
     public void setInjectedXpath(java.lang.String injectedXpath) {
         this.injectedXpath = injectedXpath;
     }
-    
+
     public int getSkip() {
         return skip;
     }
-    
+
     public void setSkip(int skip) {
         this.skip = skip;
     }
-    
+
     public int getMaxItems() {
         return maxItems;
     }
-    
+
     public void setMaxItems(int maxItems) {
         this.maxItems = maxItems;
     }
-    
+
     public java.lang.String getOrderBy() {
         return orderBy;
     }
-    
+
     public void setOrderBy(java.lang.String orderBy) {
         this.orderBy = orderBy;
     }
-    
+
     public java.lang.String getDirection() {
         return direction;
     }
-    
+
     public void setDirection(java.lang.String direction) {
         this.direction = direction;
     }

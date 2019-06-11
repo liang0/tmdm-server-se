@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -68,7 +68,7 @@ public abstract class AbstractMigrationTask {
         }
     }
 
-    public void start() {	
+    public void start() {
 		if (isDone() && !forceExe) {
 			return;
 		}
@@ -92,15 +92,15 @@ public abstract class AbstractMigrationTask {
 		}
 		LOGGER.info(this.getClass().getName()+" has been done. ");
 	}
-	
+
    protected abstract Boolean execute();
-		
+
    public static MigrationTaskBox unmarshal(String marshalledRevision) throws XtentisException {
         try {
             return MarshallingFactory.getInstance().getUnmarshaller(MigrationTaskBox.class).unmarshal(new StringReader(marshalledRevision));
 	    } catch (Exception e) {
     	    LOGGER.error(e);
     	    throw new XtentisException(e.getMessage(), e);
-	    } 
+	    }
 	 }
 }

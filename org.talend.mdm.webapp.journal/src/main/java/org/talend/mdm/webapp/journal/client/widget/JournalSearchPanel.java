@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -64,35 +64,35 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public class JournalSearchPanel extends FormPanel {
 
     protected static JournalSearchPanel formPanel;
-    
+
     private JournalServiceAsync service = Registry.get(Journal.JOURNAL_SERVICE);
 
     protected ComboBox<ItemBaseModel> dataModelCombo;
-        
+
     protected TextField<String> entityField;
-    
+
     protected TextField<String> keyField;
-    
+
     protected ComboBox<ItemBaseModel> sourceCombo;
-    
+
     protected ComboBox<ItemBaseModel> operationTypeCombo;
-    
+
     protected DateField startDateField;
-    
+
     protected DateField endDateField;
-    
+
     protected CheckBox strictCheckBox;
-        
+
     protected Button resetButton;
-    
+
     protected Button searchButton;
-    
+
     protected Button exportButton;
 
     protected LayoutContainer left;
 
     protected LayoutContainer right;
-    
+
     protected FormData formData = new FormData();
 
     public static JournalSearchPanel getInstance() {
@@ -101,7 +101,7 @@ public class JournalSearchPanel extends FormPanel {
         }
         return formPanel;
     }
-    
+
     protected JournalSearchPanel() {
         init();
     }
@@ -386,7 +386,7 @@ public class JournalSearchPanel extends FormPanel {
         });
         this.addButton(exportButton);
     }
-    
+
     protected void searchAction() {
         if (validSearchCondition()) {
             if (validDateValue()) {
@@ -437,7 +437,7 @@ public class JournalSearchPanel extends FormPanel {
         store.add(modelList);
         return store;
     }
-    
+
     protected void bundleCriteria() {
         JournalSearchCriteria criteria = Registry.get(Journal.SEARCH_CRITERIA);
         if (dataModelCombo.getValue() != null && !"ALL".equals(dataModelCombo.getValue().get("key").toString())) { //$NON-NLS-1$//$NON-NLS-2$
@@ -494,15 +494,15 @@ public class JournalSearchPanel extends FormPanel {
 
         return map;
     }
-    
+
     public void initPanel() {
         resetButton.fireEvent(Events.Select);
     }
-    
+
     public void setEntityFieldValue(String value) {
         this.entityField.setValue(value);
     }
-    
+
     public void setKeyFieldValue(String value) {
         this.keyField.setValue(value);
     }
@@ -511,7 +511,7 @@ public class JournalSearchPanel extends FormPanel {
         ItemBaseModel currentModel = new ItemBaseModel();
         if (UserContextUtil.getDataModel() != null) {
             currentModel.set("key", UserContextUtil.getDataModel()); //$NON-NLS-1$
-            currentModel.set("label", UserContextUtil.getDataModel()); //$NON-NLS-1$      
+            currentModel.set("label", UserContextUtil.getDataModel()); //$NON-NLS-1$
             this.dataModelCombo.setValue(currentModel);
         }
     }

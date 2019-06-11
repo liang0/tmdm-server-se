@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -129,7 +129,7 @@ public class DataSourceDefinition {
 
     /**
      * Transforms the current datasource definitions for the given <code>container</code> and <code>revisionId</code>.
-     * 
+     *
      * @param container A MDM container name.
      * @return A copy of current {@link com.amalto.core.storage.datasource.DataSourceDefinition definition} with
      * {@link com.amalto.core.storage.datasource.DataSource datasources} modified for given parameters.

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -30,13 +30,13 @@ public class PicturesDAOFSImpl implements PicturesDAO {
     private static final String FILTER_IMAGR_START_SYMBOL = "."; //$NON-NLS-1$
 
     public PicturesDAOFSImpl(String picturesLocation) {
-        this.picturesLocation = picturesLocation; 
+        this.picturesLocation = picturesLocation;
     }
 
     public String[] getAllPKs() {
 
         List<String> pks = new ArrayList<String>();
-        
+
         // The imageserver upload home conversion:
         // Use catalog folders under root directory
         // Store imagefiles within each catalog folder

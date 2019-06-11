@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -84,7 +84,7 @@ public class ItemResult extends BaseModel implements IsSerializable, Serializabl
     public void setInsertionTime(long insertionTime) {
         this.insertionTime = insertionTime;
     }
-    
+
     public String getMessage() {
         return get("message"); //$NON-NLS-1$
     }

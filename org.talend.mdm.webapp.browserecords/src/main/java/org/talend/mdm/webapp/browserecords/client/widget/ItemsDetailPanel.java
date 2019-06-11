@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -195,7 +195,7 @@ public class ItemsDetailPanel extends ContentPanel {
         if (desc != null && !desc.equals("")) { //$NON-NLS-1$
             toolTipString = "<img style='margin-left:16px;' " + //$NON-NLS-1$
                     "src='secure/img/genericUI/information_icon.png' title='" //$NON-NLS-1$
-                    + LabelUtil.convertSpecialHTMLCharacter(desc) + "'/>"; //$NON-NLS-1$ 
+                    + LabelUtil.convertSpecialHTMLCharacter(desc) + "'/>"; //$NON-NLS-1$
         }
         if (xpathList != null && xpathList.size() > 0) {
             int i = 1;
@@ -424,7 +424,7 @@ public class ItemsDetailPanel extends ContentPanel {
 
         /**
          * Get the number of tabs.
-         * 
+         *
          * @return The number of tabs.
          */
         public int getTabCount() {
@@ -456,7 +456,7 @@ public class ItemsDetailPanel extends ContentPanel {
 
         /**
          * Add a new tab.
-         * 
+         *
          * @param title
          * @param panel
          * @param pattern
@@ -568,9 +568,9 @@ public class ItemsDetailPanel extends ContentPanel {
         /**
          * Takes care of truncating and adding ellipsis to the tab label if it is too long. This actually calculates
          * exactly how long the rendered text will be and truncates it as little as possible.
-         * 
+         *
          * Takes care of adding tooltip to the tab label for when mouse hovers over the label.
-         * 
+         *
          * @param title The text to display in the label.
          * @return label to add to tab.
          */
@@ -591,7 +591,7 @@ public class ItemsDetailPanel extends ContentPanel {
         /**
          * This does nothing if index is not valid. If tab is selected, tries to select next one if there is one, and if
          * not, select the previous one.
-         * 
+         *
          * @param index Index of the tab to remove. If out of bounds, method does nothing.
          */
         public void closeTabAtIndex(int index) {
@@ -632,7 +632,7 @@ public class ItemsDetailPanel extends ContentPanel {
 
         /**
          * Close tab with specified id. This does nothing if no tab has id.
-         * 
+         *
          * @param tabItemId
          */
         public void closeTabPanelWithId(String tabItemId) {
@@ -644,7 +644,7 @@ public class ItemsDetailPanel extends ContentPanel {
 
         /**
          * Close tab with title. This does nothing if no tab title.
-         * 
+         *
          * @param tabTitle
          */
         public void closeTabPanelWithTitle(String tabTitle) {
@@ -666,7 +666,7 @@ public class ItemsDetailPanel extends ContentPanel {
 
         /**
          * Select the tab at index. This does nothing if index is not valid.
-         * 
+         *
          * @param index Index of tab to select, starts from 0.
          */
         public void selectTabAtIndex(int index) {
@@ -688,7 +688,7 @@ public class ItemsDetailPanel extends ContentPanel {
 
         /**
          * Return the Primary Key Tab by constant 'PKTAB'
-         * 
+         *
          * @return
          */
         public Widget getPrimaryKeyTabWidget() {
@@ -704,7 +704,7 @@ public class ItemsDetailPanel extends ContentPanel {
 
         /**
          * Returns widget contained in first tab. Returns null if no tabs.
-         * 
+         *
          * @return
          */
         public Widget getFirstTabWidget() {
@@ -716,7 +716,7 @@ public class ItemsDetailPanel extends ContentPanel {
 
         /**
          * Returns widget contained in currently selected tab. Returns null if no currently selected tab.
-         * 
+         *
          * @return Widget in currently selected tab.
          */
         public Widget getCurrentlySelectedTabWidget() {
@@ -730,7 +730,7 @@ public class ItemsDetailPanel extends ContentPanel {
         /**
          * Returns ItemPanel in currently selected tab. If no currently selected tab or widget not ItemPanel, null is
          * returned.
-         * 
+         *
          * @return ItemPanel in currently selected tab.
          */
         public ItemPanel getCurrentlySelectedTabItemPanel() {
@@ -745,7 +745,7 @@ public class ItemsDetailPanel extends ContentPanel {
 
         /**
          * Get widget in tab at specified index. Returns null if index is not valid.
-         * 
+         *
          * @param index
          * @return
          */
@@ -770,7 +770,7 @@ public class ItemsDetailPanel extends ContentPanel {
 
     /**
      * Wraps the banner in a panel that gives it side borders.
-     * 
+     *
      * @param banner
      * @return
      */
@@ -858,7 +858,7 @@ public class ItemsDetailPanel extends ContentPanel {
 
     /**
      * Utility method for generating BorderLayoutData for the borders.
-     * 
+     *
      * @param region
      * @param width
      * @return
@@ -872,7 +872,7 @@ public class ItemsDetailPanel extends ContentPanel {
 
     /**
      * Utility method for generating BorderLayoutData for the borders.
-     * 
+     *
      * @return
      */
     private BorderLayoutData newBorderCenterData() {

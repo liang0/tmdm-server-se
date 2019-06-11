@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -45,7 +45,7 @@ import com.google.gwt.junit.client.GWTTestCase;
 public class FormatCellEditorGWTTest extends GWTTestCase {
 
     Field<?> field;
-    
+
     ForeignKeyField foreignKeyField;
 
     CellEditor cellEditor;
@@ -66,7 +66,7 @@ public class FormatCellEditorGWTTest extends GWTTestCase {
         cellEditor = new NumberFieldCellEditor((NumberField) field);
 
         assertEquals(55, selectedItem.getOriginalMap().get(field.getName()));
-        
+
         Object num = cellEditor.preProcessValue("55"); //$NON-NLS-1$
         assertEquals(55, num);
 
@@ -80,39 +80,39 @@ public class FormatCellEditorGWTTest extends GWTTestCase {
         numStr = (String) cellEditor.postProcessValue(77);
         assertEquals("77", numStr);
         assertEquals(77, selectedItem.getOriginalMap().get(field.getName()));
-        
+
         field.setData("numberType", DataTypeConstants.FLOAT.getTypeName());
         numStr = (String) cellEditor.postProcessValue(77f);
         assertEquals("77.0", numStr);
         assertEquals(77.0f, selectedItem.getOriginalMap().get(field.getName()));
-        
+
         numStr = (String) cellEditor.postProcessValue(77.23f);
         assertEquals("77.23", numStr);
         assertEquals(77.23f, selectedItem.getOriginalMap().get(field.getName()));
-        
+
         numStr = (String) cellEditor.postProcessValue(569874584547.365f);
         assertEquals(Float.valueOf("569874580000").toString(), numStr);
         assertEquals(569874580000f, selectedItem.getOriginalMap().get(field.getName()));
-        
+
         field.setData("numberType", DataTypeConstants.DOUBLE.getTypeName());
         numStr = (String) cellEditor.postProcessValue(66d);
         assertEquals("66.0", numStr);
         assertEquals(66.0d, selectedItem.getOriginalMap().get(field.getName()));
-        
+
         numStr = (String) cellEditor.postProcessValue(66.36d);
         assertEquals("66.36", numStr);
         assertEquals(66.36d, selectedItem.getOriginalMap().get(field.getName()));
-        
-        
+
+
         field.setData("numberType", DataTypeConstants.DECIMAL.getTypeName());
         numStr = (String) cellEditor.postProcessValue(new BigDecimal("99999999999999999.999"));
         assertEquals("99999999999999999.999", numStr);
         assertEquals("99999999999999999.999", selectedItem.getOriginalMap().get(field.getName()).toString());
-        
+
         numStr = (String) cellEditor.postProcessValue(new BigDecimal("66.3600"));
         assertEquals("66.3600", numStr);
         assertEquals("66.3600", selectedItem.getOriginalMap().get(field.getName()).toString());
-        
+
         field.setName("FormatTest/test");
         num = cellEditor.preProcessValue(null);
         assertNull(num);
@@ -308,7 +308,7 @@ public class FormatCellEditorGWTTest extends GWTTestCase {
         selectedItem.setFormateMap(formatMap);
         List<ColumnConfig> conlumns = new ArrayList<ColumnConfig>();
         ColumnModel cm = new ColumnModel(conlumns);
-        
+
         ListStore<ItemBean> store = new ListStore<ItemBean>();
         Grid<ItemBean> grid = new Grid<ItemBean>(store, cm);
         grid.setSelectionModel(new GridSelectionModel<ItemBean>() {

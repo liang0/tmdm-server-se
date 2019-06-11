@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -36,37 +36,37 @@ import com.google.gwt.user.client.ui.Widget;
 public class IncrementalBuildTree implements IncrementalCommand {
 
 	private TreeDetail treeDetail;
-	
+
 	private ItemNodeModel itemNode;
-	
+
 	private List<ModelData> itemNodeChildren;
-	
+
 	private ViewBean viewBean;
-	
+
 	private Map<String, TypeModel> metaDataTypes;
-	
+
 	private boolean withDefaultValue;
-	
+
 	private Map<TypeModel, List<ItemNodeModel>> foreighKeyMap = new HashMap<TypeModel, List<ItemNodeModel>>();
-	
+
 	private String operation;
-	
+
 	private DynamicTreeItem item;
-	
+
 	int level = 0;
-	
+
 	private int index = 0;
-	
+
 	private int itemWidth = 0;
 	private int offset = 0;
-	
+
     public static final int GROUP_SIZE = 5;
-	
+
 	public int getChildCount(){
 		return itemNode.getChildCount();
 	}
-	
-	public IncrementalBuildTree(TreeDetail treeDetail, ItemNodeModel itemNode, ViewBean viewBean, boolean withDefaultValue, 
+
+	public IncrementalBuildTree(TreeDetail treeDetail, ItemNodeModel itemNode, ViewBean viewBean, boolean withDefaultValue,
             String operation, DynamicTreeItem item) {
 		this.treeDetail = treeDetail;
 		this.itemNode = itemNode;
@@ -77,10 +77,10 @@ public class IncrementalBuildTree implements IncrementalCommand {
 		this.viewBean = viewBean;
 		metaDataTypes = viewBean.getBindingEntityModel().getMetaDataTypes();
 		level = getLevel();
-		
+
 		ColumnTreeLayoutModel columnLayoutModel = viewBean.getColumnLayoutModel();
         if (columnLayoutModel != null) {
-        	int columnWidth = treeDetail.getWidth() / columnLayoutModel.getColumnTreeModels().size(); 
+        	int columnWidth = treeDetail.getWidth() / columnLayoutModel.getColumnTreeModels().size();
     		itemWidth = columnWidth;
     		offset = 300;
         } else {
@@ -89,7 +89,7 @@ public class IncrementalBuildTree implements IncrementalCommand {
         }
         treeDetail.stepRenderCounter();
 	}
-	
+
 	private int getLevel(){
         TreeItemEx current = item;
 		int leval = 0;
@@ -99,7 +99,7 @@ public class IncrementalBuildTree implements IncrementalCommand {
 		}
 		return leval;
 	}
-	
+
     private void initItemWidth(TreeItemEx childItem, int leval) {
 		if (childItem.getWidget() instanceof HorizontalPanel) {
 			HorizontalPanel hp = (HorizontalPanel) childItem.getWidget();
@@ -119,7 +119,7 @@ public class IncrementalBuildTree implements IncrementalCommand {
 		}
 	}
 
-	
+
 	private void tryRenderFks(){
 		if (foreighKeyMap.size() > 0) {
 			for (TypeModel model : foreighKeyMap.keySet()) {
@@ -128,7 +128,7 @@ public class IncrementalBuildTree implements IncrementalCommand {
 			foreighKeyMap.clear();
         }
 	}
-	
+
 	private void executeGroup(){
 		while (index < itemNodeChildren.size()){
 	        ItemNodeModel node = (ItemNodeModel) itemNodeChildren.get(index++);
@@ -164,7 +164,7 @@ public class IncrementalBuildTree implements IncrementalCommand {
 	        }
 		}
 	}
-	
+
 	@Override
     public boolean execute() {
 		try {
@@ -173,10 +173,10 @@ public class IncrementalBuildTree implements IncrementalCommand {
 			treeDetail.resetRenderCounter();
 			Log.info("render tree item generate error:", e); //$NON-NLS-1$
 		}
-		
+
         if (index < itemNodeChildren.size()){
         	return true;
-        } else { 
+        } else {
         	try {
         		tryRenderFks();
         	} catch (Exception e){

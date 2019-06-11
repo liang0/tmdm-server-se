@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -121,7 +121,7 @@ public class ConfigurableContainsOptimizer implements Optimizer {
     /**
      * Checks the entity type for multiple usages of a reusable type. If a type is reused multiple times within entity
      * Lucene indexes won't be able to generate the right query.
-     * 
+     *
      * @param type An entity {@link org.talend.mdm.commmon.metadata.ComplexTypeMetadata type}.
      * @return <code>true</code> if <code>type</code> reuses more than once a contained type. <code>false</code>
      * otherwise or if <code>type</code> is null.

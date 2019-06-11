@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -164,7 +164,7 @@ public abstract class StorageClassLoader extends ClassLoader {
         }
         throw new IllegalArgumentException("Type '" + type.getName() + "' is not registered.");
     }
-    
+
     @Override
     protected Package getPackage(String name) {
         if(ClassCreator.PACKAGE_PREFIX.subSequence(0, ClassCreator.PACKAGE_PREFIX.length() -1).equals(name)){

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -149,7 +149,7 @@ public class DefaultTransformer implements TransformerPluginCallBack, com.amalto
     /**
      * Read an item and process it through a transformer. The content of the item is mapped to the
      * {@link #DEFAULT_VARIABLE} variable
-     * 
+     *
      * @return The pipeline after the transformer is run
      * @throws com.amalto.core.util.XtentisException
      */
@@ -513,7 +513,7 @@ public class DefaultTransformer implements TransformerPluginCallBack, com.amalto
 
     /**
      * Returns the content to be mapped to the input of a plugin
-     * 
+     *
      * @param descriptor
      * @param processStep
      * @param context

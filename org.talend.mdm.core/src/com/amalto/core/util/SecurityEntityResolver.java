@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -26,8 +26,8 @@ import org.xml.sax.SAXException;
 
 public class SecurityEntityResolver implements EntityResolver {
 
-   public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException 
-   { 
+   public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException
+   {
 	   if (systemId != null) {
            Pattern httpUrl = Pattern.compile("(http|https|ftp):(\\//|\\\\)(.*):(.*)");
            Matcher match = httpUrl.matcher(systemId);
@@ -57,7 +57,7 @@ public class SecurityEntityResolver implements EntityResolver {
            }
 
        }
-       return null; 
-  } 
+       return null;
+  }
 
 }

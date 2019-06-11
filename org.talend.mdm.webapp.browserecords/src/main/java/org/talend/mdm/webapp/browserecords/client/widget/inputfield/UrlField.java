@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -42,9 +42,9 @@ public class UrlField extends Field<String> {
     private boolean allowBlank = true;
 
     protected Image editImage = new Image(Icons.INSTANCE.add_element());
-    
+
     private EditWindow editWin = new EditWindow();
-    
+
     private boolean readOnly;
 
     protected Element handler;
@@ -85,7 +85,7 @@ public class UrlField extends Field<String> {
         input.setId(XDOM.getUniqueId());
         input.makePositionable();
 
-        input.dom.setAttribute("target", "_blank");//$NON-NLS-1$ //$NON-NLS-2$  
+        input.dom.setAttribute("target", "_blank");//$NON-NLS-1$ //$NON-NLS-2$
         input.dom.setClassName("urlStyle"); //$NON-NLS-1$
         input.dom.getStyle().setMarginRight(5, Unit.PX);
         wrap.dom.appendChild(input.dom);

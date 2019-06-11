@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -54,7 +54,7 @@ public class TypeFieldCreateContext implements IsSerializable {
     private ItemNodeModel node;
 
     private boolean isMandatory;
-    
+
     private int autoTextAreaLength;
 
     private boolean isBulkUpdate = false;
@@ -92,7 +92,7 @@ public class TypeFieldCreateContext implements IsSerializable {
         this.node = node;
     }
 
-    
+
     public boolean isUpdateStyle() {
         return updateStyle;
     }
@@ -117,14 +117,14 @@ public class TypeFieldCreateContext implements IsSerializable {
         this.isMandatory = isMandatory;
     }
 
-    
+
     public int getAutoTextAreaLength() {
         if (autoTextAreaLength == 0)
             autoTextAreaLength = BrowseRecords.getSession().getAppHeader().getAutoTextAreaLength();
         return autoTextAreaLength;
     }
 
-    
+
     public void setAutoTextAreaLength(int autoTextAreaLength) {
         this.autoTextAreaLength = autoTextAreaLength;
     }

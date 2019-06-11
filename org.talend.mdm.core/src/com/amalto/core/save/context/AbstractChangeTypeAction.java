@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -87,7 +87,7 @@ abstract class AbstractChangeTypeAction implements FieldAction {
             impliedActions = Collections.emptyList();
         }
     }
-    
+
     private List<String> getIndexedPathToClean(MutableDocument document, ComplexTypeMetadata previousType, String parentPath,
             Set<String> pathToClean) {
         Set<String> indexedPathToClean = new TreeSet<String>();
@@ -104,7 +104,7 @@ abstract class AbstractChangeTypeAction implements FieldAction {
                     }
                 }
             } else {// Currency/Code, Currency/DictRecordDetails, Currency/DictRecordDetails/Action
-                String firstPart = path.substring(0, path.lastIndexOf('/')); 
+                String firstPart = path.substring(0, path.lastIndexOf('/'));
                 String lastPart = path.substring(firstPart.length());
                 Set<String> partPaths = partPathsMap.get(firstPart);
                 if (partPaths != null) {
@@ -128,12 +128,12 @@ abstract class AbstractChangeTypeAction implements FieldAction {
         Collections.reverse(list);
         return list;
     }
-    
+
     private Set<String> getPathsWithIndex(MutableDocument document, String path, boolean isMany, int size) {
         Set<String> paths = new TreeSet<String>();
         if (isMany) {
             for (int i = size; i > 0; i--) {
-                paths.add(path + '[' + i + ']'); 
+                paths.add(path + '[' + i + ']');
             }
         } else {
             paths.add(path);

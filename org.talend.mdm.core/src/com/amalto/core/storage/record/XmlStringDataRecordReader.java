@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -62,7 +62,7 @@ public class XmlStringDataRecordReader implements DataRecordReader<String> {
     public DataRecord read(MetadataRepository repository, ComplexTypeMetadata type, String input) {
         return read(repository, type, input, false);
     }
-    
+
     public DataRecord read(MetadataRepository repository, ComplexTypeMetadata type, String input, boolean includeFK) {
         if (type == null) {
             throw new IllegalArgumentException("Type can not be null"); //$NON-NLS-1$
@@ -268,7 +268,7 @@ public class XmlStringDataRecordReader implements DataRecordReader<String> {
     public void setStorageName(String storageName) {
         this.storageName = storageName;
     }
-    
+
     public DataRecord getReferenceFieldData(String storageName, MetadataRepository repository, ReferenceFieldMetadata refField, String key) {
         List<String> ids = StorageMetadataUtils.getIds(key);
         if (ids.isEmpty() || ids.size() != refField.getReferencedType().getKeyFields().size()) {
@@ -285,7 +285,7 @@ public class XmlStringDataRecordReader implements DataRecordReader<String> {
         if (storage == null) {
             throw new IllegalArgumentException("Container '" + storageName + "' does not exist."); //$NON-NLS-1$ //$NON-NLS-2$
         }
-        
+
         IWhereItem whereItems = new WhereAnd(whereItemList);
         UserQueryBuilder userQuery = from(refField.getReferencedType());
         userQuery = userQuery.where(UserQueryHelper.buildCondition(userQuery, whereItems, repository));

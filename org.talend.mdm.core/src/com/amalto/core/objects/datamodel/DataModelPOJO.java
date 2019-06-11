@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -50,10 +50,10 @@ public class DataModelPOJO extends ObjectPOJO{
     private String schema;
 
     /**
-     * 
+     *
      */
     public DataModelPOJO() {
-    }    
+    }
 	public DataModelPOJO(String name) {
 		super();
 		this.name = name;
@@ -78,7 +78,7 @@ public class DataModelPOJO extends ObjectPOJO{
 		this.name = name;
 	}
 
-	
+
 	/**
 	 * @return Returns the Description.
 	 */
@@ -92,26 +92,26 @@ public class DataModelPOJO extends ObjectPOJO{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	/**
 	 * @return the xsd Schema
 	 */
     @LongString
 	public String getSchema() {
-		return schema;		
+		return schema;
 	}
-	
+
 	public void setSchema(String schema) {
 		this.schema = schema;
 	}
-	
-	
+
+
 	@Override
 	public ObjectPOJOPK getPK() {
 		if (getName()==null) return null;
 		return new ObjectPOJOPK(new String[] {name});
 	}
-	
+
 
     @Override
     public ObjectPOJOPK store() throws XtentisException {

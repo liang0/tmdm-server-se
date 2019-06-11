@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -44,9 +44,9 @@ public class SaverSession {
     private final SaverContextFactory contextFactory = new SaverContextFactory();
 
     private final Map<String, List<Document>> itemsToUpdate = new HashMap<String, List<Document>>();
-    
+
     private final Map<String, List<Document>> itemsToLogicDelete = new HashMap<String, List<Document>>();
-    
+
     private final Map<String, List<Document>> itemsToPhysicalDelete = new HashMap<String, List<Document>>();
 
     private final SaverSource dataSource;
@@ -105,7 +105,7 @@ public class SaverSession {
 
     /**
      * Start a transaction for this session on a given data cluster.
-     * 
+     *
      * @param dataCluster The data cluster where a transaction should be started.
      */
     public void begin(String dataCluster) {
@@ -125,7 +125,7 @@ public class SaverSession {
 
     /**
      * Start a transaction for this session on a given data cluster.
-     * 
+     *
      * @param dataCluster The data cluster where a transaction should be started.
      * @param committer A {@link Committer} committer for interaction between save session and underlying storage.
      */
@@ -147,7 +147,7 @@ public class SaverSession {
 
     /**
      * End this session (means commit on all data clusters where a transaction was started).
-     * 
+     *
      * @param committer A {@link Committer} committer to use when committing transactions on underlying storage.
      */
     public void end(Committer committer) {
@@ -249,7 +249,7 @@ public class SaverSession {
             }
         }
     }
-    
+
     /**
      * Get cause message.
      * @param throwable exception.
@@ -289,7 +289,7 @@ public class SaverSession {
             documentsToSave.add(document);
         }
     }
-    
+
     /**
      * Adds a new record to be saved in this session.
      * @param dataCluster Data cluster where the record should be saved.
@@ -333,7 +333,7 @@ public class SaverSession {
 
     /**
      * Aborts current transaction (means rollback on all data clusters where a transaction was started).
-     * 
+     *
      * @param committer A {@link Committer} committer for interaction between save session and underlying storage.
      */
     public void abort(Committer committer) {
@@ -366,7 +366,7 @@ public class SaverSession {
 
     /**
      * Invalidate any type cache entry for the data model.
-     * 
+     *
      * @param dataModelName A data model name.
      */
     public void invalidateTypeCache(String dataModelName) {
@@ -377,28 +377,28 @@ public class SaverSession {
 
         /**
          * Begin a transaction on a data cluster
-         * 
+         *
          * @param dataCluster A data cluster name.
          */
         void begin(String dataCluster);
 
         /**
          * Commit a transaction on a data cluster
-         * 
+         *
          * @param dataCluster A data cluster name
          */
         void commit(String dataCluster);
 
         /**
          * Saves a MDM record for a given revision.
-         * 
+         *
          * @param item The item to save.
          */
         void save(Document item);
 
         /**
          * Deletes a MDM record.
-         * 
+         *
          * @param document The item to delete.
          * @param deleteType The type of delete to perform (either {@link com.amalto.core.history.DeleteType#LOGICAL
          * logical} or {@link com.amalto.core.history.DeleteType#PHYSICAL physical}).
@@ -407,7 +407,7 @@ public class SaverSession {
 
         /**
          * Rollbacks changes done on a data cluster.
-         * 
+         *
          * @param dataCluster Data cluster name.
          */
         void rollback(String dataCluster);

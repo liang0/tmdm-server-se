@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -26,15 +26,15 @@ import com.amalto.core.storage.transaction.TransactionManager;
  *
  */
 public class LongTransactionConcurrencyTestCase extends LongTransactionAbstractTestCase {
-    
+
     /**
      * begin
-     *    + insert 
+     *    + insert
      *    + insert
      *    + insert
      *    + ...
      * commit
-     * 
+     *
      * in a pool of threads
      */
     public void testSeveralLongTransactionsInSeveralThreadsJoinBeforeCommit() throws Exception {
@@ -57,7 +57,7 @@ public class LongTransactionConcurrencyTestCase extends LongTransactionAbstractT
             for(int j=0; j<nbTasksPerTransaction; j++){
                 int id = ((i+1) * 1000) + j;
                 tasks[taskId++] = threadPool.submit(new UpdateRunnable(transactionId, id));
-                
+
             }
         }
         for(int i=0; i<nbTasks; i++){
@@ -71,13 +71,13 @@ public class LongTransactionConcurrencyTestCase extends LongTransactionAbstractT
         threadPool.shutdown();
         Assert.assertEquals(nbTasks, countCountries());
     }
-    
+
     /**
      *  + begin insert insert insert ... commit
      *  + begin insert insert insert ... commit
      *  + begin insert insert insert ... commit
      *  + begin insert insert insert ... commit
-     *  
+     *
      *  in a pool of threads
      */
     public void testSeveralLongTransactionsInSeveralThreadsWithCommit() throws Exception {
@@ -104,7 +104,7 @@ public class LongTransactionConcurrencyTestCase extends LongTransactionAbstractT
             longTask.addTask(new CommitRunnable(transactionId));
             threads[i] = new Thread(longTask);
             threads[i].start();
-            
+
         }
         for(int i=0; i<nbTransactions; i++){
             threads[i].join();
@@ -112,13 +112,13 @@ public class LongTransactionConcurrencyTestCase extends LongTransactionAbstractT
         threadPool.shutdown();
         Assert.assertEquals(nbTasks, countCountries());
     }
-    
+
     /**
      *  + begin insert storage1 fetch storage2 insert storage1 ... commit
      *  + begin insert storage1 fetch storage2 insert storage1 ... commit
      *  + begin insert storage1 fetch storage2 insert storage1 ... commit
      *  + begin insert storage1 fetch storage2 insert storage1 ... commit
-     *  
+     *
      *  in a pool of threads
      */
     public void testSeveralLongTransactionsInSeveralThreadsWithSeveralStorages() throws Exception {
@@ -145,7 +145,7 @@ public class LongTransactionConcurrencyTestCase extends LongTransactionAbstractT
             longTask.addTask(new CommitRunnable(transactionId));
             threads[i] = new Thread(longTask);
             threads[i].start();
-            
+
         }
         for(int i=0; i<nbTransactions; i++){
             threads[i].join();
@@ -154,13 +154,13 @@ public class LongTransactionConcurrencyTestCase extends LongTransactionAbstractT
         Assert.assertEquals(0, tm.list().size());
         Assert.assertEquals(nbTasks, countCountries());
     }
-    
+
     /**
      *  + begin insert storage1 insert storage2 insert storage1 ... commit
      *  + begin insert storage1 insert storage2 insert storage1 ... commit
      *  + begin insert storage1 insert storage2 insert storage1 ... commit
      *  + begin insert storage1 insert storage2 insert storage1 ... commit
-     *  
+     *
      *  in a pool of threads
      */
     public void testSeveralLongTransactionsInSeveralThreadsWithSeveralStoragesWrite() throws Exception {
@@ -187,7 +187,7 @@ public class LongTransactionConcurrencyTestCase extends LongTransactionAbstractT
             longTask.addTask(new CommitRunnable(transactionId));
             threads[i] = new Thread(longTask);
             threads[i].start();
-            
+
         }
         for(int i=0; i<nbTransactions; i++){
             threads[i].join();

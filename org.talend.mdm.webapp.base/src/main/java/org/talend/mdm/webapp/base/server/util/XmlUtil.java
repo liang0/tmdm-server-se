@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -112,7 +112,7 @@ public final class XmlUtil {
 
     /**
      * DOC HSHU Comment method "parse".
-     * 
+     *
      * @throws DocumentException
      */
     public static Document parseText(String text) throws DocumentException {
@@ -233,7 +233,7 @@ public final class XmlUtil {
             Node chilidNode = element.node(i);
             if (chilidNode instanceof Element) {
                 if (!"".equals(value.toString())) { //$NON-NLS-1$
-                    value.append(" "); //$NON-NLS-1$                     
+                    value.append(" "); //$NON-NLS-1$
                 }
                 value.append(chilidNode.getText());
                 recursionNode(chilidNode, value);
@@ -388,7 +388,7 @@ public final class XmlUtil {
         String tmpPath = nodeList[0];
         Element element = null;
         for (int i = 1; i < nodeList.length; i++) {
-            tmpPath = tmpPath + "/" + nodeList[i]; //$NON-NLS-1$            
+            tmpPath = tmpPath + "/" + nodeList[i]; //$NON-NLS-1$
 
             if (doc.selectSingleNode(tmpPath) != null) {
                 element = (Element) doc.selectSingleNode(tmpPath);

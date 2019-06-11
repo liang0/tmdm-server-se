@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -21,9 +21,9 @@ import org.xml.sax.XMLReader;
 /**
  * Xtentis performs all calls to the DataBase via this interface<br>
  * which must be implemented by supported DataBases
- * 
+ *
  * @author Bruno Grieder
- * 
+ *
  */
 public interface IXmlServerSLWrapper {
 
@@ -32,11 +32,11 @@ public interface IXmlServerSLWrapper {
 
     /** Sort by ascending order in queries */
     public final static String ORDER_ASCENDING = "ascending"; //$NON-NLS-1$
-    
+
     /** Sort by descending order in queries */
     public final static String ORDER_DESCENDING = "descending"; //$NON-NLS-1$
 
-    
+
     /**
      * Is the XML Database Server up?
      */
@@ -54,7 +54,7 @@ public interface IXmlServerSLWrapper {
      *          The name of the cluster
      * @return the milliseconds to perform the operation
      * @throws XmlServerException
-     * 
+     *
      */
     public long deleteCluster(String clusterName) throws XmlServerException;
 
@@ -62,7 +62,7 @@ public interface IXmlServerSLWrapper {
      * Delete All clusters for a particular revision
      * @return the milliseconds to perform the operation
      * @throws XmlServerException
-     * 
+     *
      */
     public long deleteAllClusters() throws XmlServerException;
 
@@ -72,12 +72,12 @@ public interface IXmlServerSLWrapper {
      *          The name of the cluster
      * @return the milliseconds to perform the operation
      * @throws XmlServerException
-     * 
+     *
      */
     public long createCluster(String clusterName) throws XmlServerException;
 
     /**
-     * Reads a document from a file and stores it in the DB 
+     * Reads a document from a file and stores it in the DB
      * @param revisionID
      *          The ID of the revision, <code>null</code> for the head
      * @param fileName
@@ -202,7 +202,7 @@ public interface IXmlServerSLWrapper {
     /**
      * Gets the bytes of a document from the DB<br>
      * For an xml "DOCUMENT" type, the bytes will be encoded using UTF-16
-     * 
+     *
      * @param revisionID
      *          The ID of the revision, <code>null</code> for the head
      * @param clusterName
@@ -218,7 +218,7 @@ public interface IXmlServerSLWrapper {
 
     /**
      * The list of documents unique ids in a cluster of a particular revision
-     * 
+     *
      * @param clusterName
      *          The unique ID of the cluster
      * @return the list of document unique IDs
@@ -240,7 +240,7 @@ public interface IXmlServerSLWrapper {
     public long deleteDocument(String clusterName, String uniqueID, String documentType) throws XmlServerException;
 
     /**
-         * Delete Items matching a particular condition<br> 
+         * Delete Items matching a particular condition<br>
          * @param conceptPatternsToRevisionID
          *          An ordered map that gives the revision ID of a Concept when matching the first pattern found
          * @param conceptPatternsToClusterName
@@ -260,7 +260,7 @@ public interface IXmlServerSLWrapper {
 
     /**
      * Move a document between two clusters of particular revision
-     * 
+     *
      * @param targetRevisionID The ID of the target revision
      * @param sourceclusterName The unique ID of the source cluster
      * @param uniqueID The unique ID of the document
@@ -312,7 +312,7 @@ public interface IXmlServerSLWrapper {
 
     public ArrayList<String> runQuery(String clusterName, String query, String[] parameters, boolean includeNullValue) throws XmlServerException;
     /**
-     * 
+     *
      * Retrieves a list of PKs using provided criteria
      * @param criteria
      * @return
@@ -336,7 +336,7 @@ public interface IXmlServerSLWrapper {
     public void end(String dataClusterName) throws XmlServerException;
 
     public void close() throws XmlServerException;
-    
+
     public List<String> globalSearch(String dataCluster, String keyword, int start, int end) throws XmlServerException;
 
     public void exportDocuments(String clusterName, int start, int end, boolean includeMetadata, OutputStream outputStream) throws XmlServerException;
@@ -354,7 +354,7 @@ public interface IXmlServerSLWrapper {
      * @throws XmlServerException
      */
     public String[] getDocumentsAsString(String clusterName, String[] uniqueIDs) throws XmlServerException;
-    
+
     /**
      * Gets many XML document from the DB<br>
      * The XML instruction will have the encoding specified in the encoding parameter<br>

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -86,8 +86,8 @@ public class MultipleCriteria implements Criteria {
     public String toXmlString() {
         StringBuilder multipleCriteriaBuilder = new StringBuilder();
         multipleCriteriaBuilder.append("<").append(MultipleCriteria.Multiple_Criteria).append(">"); //$NON-NLS-1$ //$NON-NLS-2$
-        multipleCriteriaBuilder.append("<appearance>").append(appearance).append("</appearance>"); //$NON-NLS-1$ //$NON-NLS-2$     
-        multipleCriteriaBuilder.append("<operator>").append(operator).append("</operator>"); //$NON-NLS-1$ //$NON-NLS-2$  
+        multipleCriteriaBuilder.append("<appearance>").append(appearance).append("</appearance>"); //$NON-NLS-1$ //$NON-NLS-2$
+        multipleCriteriaBuilder.append("<operator>").append(operator).append("</operator>"); //$NON-NLS-1$ //$NON-NLS-2$
 
         for (Criteria c : children) {
             if (c instanceof SimpleCriterion) {

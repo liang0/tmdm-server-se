@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -31,7 +31,7 @@ class MDMTransaction implements Transaction {
     private static final Logger LOGGER = Logger.getLogger(MDMTransaction.class);
 
     private final Table<Storage, Thread, StorageTransaction> storageTransactions = HashBasedTable.<Storage, Thread, StorageTransaction>create();
-    
+
     private final String id;
 
     private final Lifetime lifetime;
@@ -39,7 +39,7 @@ class MDMTransaction implements Transaction {
     private final Object[] lockChange = new Object[0];
 
     private LockStrategy lockStrategy = LockStrategy.NO_LOCK;
-    
+
     private StackTraceElement[] creationStackTrace = null;
 
     MDMTransaction(Lifetime lifetime, String id) {

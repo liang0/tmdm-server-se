@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -64,41 +64,41 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 /**
  * A combobox component. the code comes from Ext GWT 2.2.0
- * 
+ *
  * <p />
  * When not forcing a selection ({@link #setForceSelection(boolean)}) {@link #getValue()} can return null event if the
  * user has typed text into the field if that text cannot be tied to a model from from the combo's store. In this case,
  * you can use {@link #getRawValue()} to get the fields string value.
- * 
+ *
  * <p />
  * Combo uses a <code>XTemplate</code> to render it's drop down list. A custom template can be specified to customize
  * the display of the drop down list. See {@link #setTemplate(XTemplate)}.
- * 
+ *
  * <p />
  * A custom <code>PropertyEditor</code> can be used to "format" the value that is displayed in the combo's text field.
  * For example:
- * 
+ *
  * <pre>
  * combo.setPropertyEditor(new ListModelPropertyEditor&lt;State&gt;() {
- * 
+ *
  *     public String getStringValue(State value) {
  *         return value.getAbbr() + &quot; &quot; + value.getName();
  *     }
  * });
  * </pre>
- * 
+ *
  * A <code>ModelProcessor</code> can be used to "format" the values in the drop down list:
- * 
+ *
  * <pre>
  * combo.getView().setModelProcessor(new ModelProcessor&lt;State&gt;() {
- * 
+ *
  *     public State prepareData(State model) {
  *         model.set(&quot;test&quot;, model.getAbbr() + &quot; &quot; + model.getName());
  *         return model;
  *     }
  * });
  * </pre>
- * 
+ *
  * <dl>
  * <dt><b>Events:</b></dt>
  * <dd><b>Expand</b> : FieldEvent(field)<br>
@@ -107,14 +107,14 @@ import com.google.gwt.user.client.ui.RootPanel;
  * <li>field : this</li>
  * </ul>
  * </dd>
- * 
+ *
  * <dd><b>Collapse</b> : FieldEvent(field)<br>
  * <div>Fires when the dropdown list is collapsed.</div>
  * <ul>
  * <li>field : this</li>
  * </ul>
  * </dd>
- * 
+ *
  * <dd><b>BeforeSelect</b> : FieldEvent(field)<br>
  * <div>Fires before a list item is selected. Listeners can cancel the action by calling
  * {@link BaseEvent#setCancelled(boolean)}.</div>
@@ -128,7 +128,7 @@ import com.google.gwt.user.client.ui.RootPanel;
  * <li>field : this</li>
  * </ul>
  * </dd>
- * 
+ *
  * <dd><b>BeforeQuery</b> : FieldEvent(field, value)<br>
  * <div>Fires before all queries are processed. Listeners can cancel the action by calling
  * {@link BaseEvent#setCancelled(boolean)}.</div>
@@ -139,7 +139,7 @@ import com.google.gwt.user.client.ui.RootPanel;
  * </dd>
  * </dl>
  * <dl>
- * 
+ *
  * <dt>Inherited Events:</dt>
  * <dd>Field Focus</dd>
  * <dd>Field Blur</dd>
@@ -150,7 +150,7 @@ import com.google.gwt.user.client.ui.RootPanel;
  * <dd>Field SpecialKey</dd>
  * <dd>TriggerField TriggerClick</dd>
  * </dl>
- * 
+ *
  * @param <D> the model data type
  */
 public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements SelectionProvider<D> {
@@ -166,7 +166,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
         /**
          * Returns the loading text.
-         * 
+         *
          * @return the loading text
          */
         public String getLoadingText() {
@@ -175,7 +175,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
         /**
          * Returns the value not found error text.
-         * 
+         *
          * @return the error text
          */
         public String getValueNoutFoundText() {
@@ -184,7 +184,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
         /**
          * Sets the loading text.
-         * 
+         *
          * @param loadingText the loading text
          */
         public void setLoadingText(String loadingText) {
@@ -194,7 +194,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
         /**
          * When using a name/value combo, if the value passed to setValue is not found in the store, valueNotFoundText
          * will be displayed as the field text if defined.
-         * 
+         *
          * @param valueNoutFoundText
          */
         public void setValueNoutFoundText(String valueNoutFoundText) {
@@ -340,7 +340,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
     /**
      * Execute a query to filter the dropdown list. Fires the BeforeQuery event prior to performing the query allowing
      * the query action to be canceled if needed.
-     * 
+     *
      * @param q the query
      * @param forceAll true to force the query to execute even if there are currently fewer characters in the field than
      * the minimum specified by the minChars config option. It also clears any filter previously saved in the current
@@ -401,7 +401,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the all query.
-     * 
+     *
      * @return the all query
      */
     public String getAllQuery() {
@@ -410,7 +410,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the display field.
-     * 
+     *
      * @return the display field
      */
     public String getDisplayField() {
@@ -419,7 +419,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns true if the field's value is forced to one of the value in the list.
-     * 
+     *
      * @return the force selection state
      */
     public boolean getForceSelection() {
@@ -428,7 +428,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the item selector.
-     * 
+     *
      * @return the item selector
      */
     public String getItemSelector() {
@@ -437,7 +437,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the list's list align value.
-     * 
+     *
      * @return the list align value
      */
     public String getListAlign() {
@@ -446,7 +446,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the list style.
-     * 
+     *
      * @return the list style
      */
     public String getListStyle() {
@@ -455,7 +455,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the combo's list view.
-     * 
+     *
      * @return the view
      */
     public ListView<D> getListView() {
@@ -464,7 +464,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the loading text.
-     * 
+     *
      * @return the loading text
      */
     public String getLoadingText() {
@@ -473,7 +473,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the dropdown list's max height.
-     * 
+     *
      * @return the max height
      */
     public int getMaxHeight() {
@@ -488,7 +488,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the min characters used for autocompete and typeahead.
-     * 
+     *
      * @return the minimum number of characters
      */
     public int getMinChars() {
@@ -497,7 +497,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the dropdown list's min width.
-     * 
+     *
      * @return the min width
      */
     public int getMinListWidth() {
@@ -506,7 +506,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the page size.
-     * 
+     *
      * @return the page size
      */
     public int getPageSize() {
@@ -515,7 +515,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the combo's paging tool bar.
-     * 
+     *
      * @return the tool bar
      */
     public PagingToolBar getPagingToolBar() {
@@ -529,7 +529,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the query delay.
-     * 
+     *
      * @return the query delay
      */
     public int getQueryDelay() {
@@ -538,7 +538,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the selected style.
-     * 
+     *
      * @return the selected style
      */
     public String getSelectedStyle() {
@@ -557,7 +557,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the combo's store.
-     * 
+     *
      * @return the store
      */
     public ListStore<D> getStore() {
@@ -566,7 +566,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the custom template.
-     * 
+     *
      * @return the template
      */
     public XTemplate getTemplate() {
@@ -575,7 +575,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the trigger action.
-     * 
+     *
      * @return the trigger action
      */
     public TriggerAction getTriggerAction() {
@@ -584,7 +584,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the type ahead delay in milliseconds.
-     * 
+     *
      * @return the type ahead delay
      */
     public int getTypeAheadDelay() {
@@ -606,7 +606,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the value field name.
-     * 
+     *
      * @return the value field name
      */
     public String getValueField() {
@@ -615,7 +615,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the combo's list view.
-     * 
+     *
      * @return the view
      */
     public ListView<D> getView() {
@@ -624,7 +624,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns <code>true</code> if the panel is expanded.
-     * 
+     *
      * @return the expand state
      */
     public boolean isExpanded() {
@@ -633,7 +633,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns true if lazy rendering is enabled.
-     * 
+     *
      * @return true of lazy rendering
      */
     public boolean isLazyRender() {
@@ -642,7 +642,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns true if type ahead is enabled.
-     * 
+     *
      * @return the type ahead state
      */
     public boolean isTypeAhead() {
@@ -651,7 +651,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Returns the state if the query cache is used or not.
-     * 
+     *
      * @return the useQueryCache state
      */
     public boolean isUseQueryCache() {
@@ -686,7 +686,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
     /**
      * Select an item in the dropdown list by its numeric index in the list. This function does NOT cause the select
      * event to fire. The list must expanded for this function to work, otherwise use #setValue.
-     * 
+     *
      * @param index the index of the item to select
      */
     public void select(int index) {
@@ -695,7 +695,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * The text query to send to the server to return all records for the list with no filtering (defaults to '').
-     * 
+     *
      * @param allQuery the all query
      */
     public void setAllQuery(String allQuery) {
@@ -704,7 +704,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * The underlying data field name to bind to this ComboBox (defaults to 'text').
-     * 
+     *
      * @param displayField the display field
      */
     public void setDisplayField(String displayField) {
@@ -713,7 +713,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Sets the panel's expand state.
-     * 
+     *
      * @param expand <code>true<code> true to expand
      */
     public void setExpanded(boolean expand) {
@@ -730,7 +730,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
     /**
      * Sets whether the combo's value is restricted to one of the values in the list, false to allow the user to set
      * arbitrary text into the field (defaults to false).
-     * 
+     *
      * @param forceSelection true to force selection
      */
     public void setForceSelection(boolean forceSelection) {
@@ -739,7 +739,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * This setting is required if a custom XTemplate has been specified.
-     * 
+     *
      * @param itemSelector the item selector
      */
     public void setItemSelector(String itemSelector) {
@@ -748,7 +748,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * True to lazily render the combo's drop down list (default to true, pre-render).
-     * 
+     *
      * @param lazyRender true to lazy render the drop down list
      */
     public void setLazyRender(boolean lazyRender) {
@@ -758,7 +758,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
     /**
      * Sets a valid anchor position value. See {@link El#alignTo} for details on supported anchor positions (defaults to
      * 'tl-bl?').
-     * 
+     *
      * @param listAlign the new list align value
      */
     public void setListAlign(String listAlign) {
@@ -767,7 +767,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Sets the style for the drop down list (defaults to 'x-combo-list');
-     * 
+     *
      * @param listStyle the list style
      */
     public void setListStyle(String listStyle) {
@@ -776,7 +776,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Sets the loading text.
-     * 
+     *
      * @param loadingText the loading text
      */
     public void setLoadingText(String loadingText) {
@@ -785,7 +785,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Sets the maximum height in pixels of the dropdown list before scrollbars are shown (defaults to 300).
-     * 
+     *
      * @param maxHeight the max hieght
      */
     public void setMaxHeight(int maxHeight) {
@@ -795,7 +795,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
     /**
      * Sets the minimum number of characters the user must type before autocomplete and typeahead active (defaults to 4
      * if remote, or 0 if local).
-     * 
+     *
      * @param minChars
      */
     public void setMinChars(int minChars) {
@@ -805,7 +805,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
     /**
      * Sets the minimum width of the dropdown list in pixels (defaults to 70, will be ignored if listWidth has a higher
      * value).
-     * 
+     *
      * @param minListWidth the min width
      */
     public void setMinListWidth(int minListWidth) {
@@ -814,7 +814,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Sets the page size. Only applies when using a paging toolbar.
-     * 
+     *
      * @param pageSize the page size
      */
     public void setPageSize(int pageSize) {
@@ -840,7 +840,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
     /**
      * The length of time in milliseconds to delay between the start of typing and sending the query to filter the
      * dropdown list.
-     * 
+     *
      * @param queryDelay the query delay
      */
     public void setQueryDelay(int queryDelay) {
@@ -849,7 +849,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Sets the CSS style name to apply to the selected item in the dropdown list (defaults to 'x-combo-selected').
-     * 
+     *
      * @param selectedStyle the selected style
      */
     public void setSelectedStyle(String selectedStyle) {
@@ -867,13 +867,13 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Sets the template fragment to be used for the text of each combo list item.
-     * 
+     *
      * <pre>
-     * 
+     *
      * &lt;code&gt; combo.setSimpleTemplate(&quot;{abbr} {name}&quot;); &lt;/code&gt;
-     * 
+     *
      * </pre>
-     * 
+     *
      * @param html the html used only for the text of each item in the list
      */
     public void setSimpleTemplate(String html) {
@@ -884,7 +884,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Sets the combo's store.
-     * 
+     *
      * @param store the store
      */
     public void setStore(ListStore<D> store) {
@@ -901,7 +901,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
      * <p>
      * If you wish to preserve the default visual look of list items, add the CSS class name 'x-combo-list-item' to the
      * template's container element.
-     * 
+     *
      * @param html the html
      */
     public void setTemplate(String html) {
@@ -911,7 +911,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Sets the custom template used to render the combo's drop down list.
-     * 
+     *
      * @param template the template
      */
     public void setTemplate(XTemplate template) {
@@ -922,7 +922,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
     /**
      * The action to execute when the trigger field is activated. Use {@link TriggerAction#ALL} to run the query
      * specified by the allQuery config option (defaults to {@link TriggerAction#QUERY}).
-     * 
+     *
      * @param triggerAction the trigger action
      */
     public void setTriggerAction(TriggerAction triggerAction) {
@@ -932,7 +932,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
     /**
      * True to populate and autoselect the remainder of the text being typed after a configurable delay (
      * {@link #typeAheadDelay}) if it matches a known value (defaults to false)
-     * 
+     *
      * @param typeAhead
      */
     public void setTypeAhead(boolean typeAhead) {
@@ -956,7 +956,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
     /**
      * The length of time in milliseconds to wait until the typeahead text is displayed if typeAhead = true (defaults to
      * 250).
-     * 
+     *
      * @param typeAheadDelay the type ahead delay
      */
     public void setTypeAheadDelay(int typeAheadDelay) {
@@ -965,13 +965,13 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Set this to false to disable the last query cache (defaults to true).
-     * 
+     *
      * When set to false the store gets queried on each expand for the data that should get displayed in the list. If
      * you use a loader, than each time the ComboBox gets expanded, the server gets asked for the data.
-     * 
+     *
      * You want to do this for example, if you filter the content of this ComboBox against some selection in another
      * field.
-     * 
+     *
      * @param useQueryCache the useQueryCache to set
      */
     public void setUseQueryCache(boolean useQueryCache) {
@@ -994,7 +994,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
     /**
      * Sets the model field used to retrieve the "value" from the model. If specified, a hidden form field will contain
      * the value. The hidden form field name will be the combo's field name plus "-hidden".
-     * 
+     *
      * @param valueField the value field name
      */
     public void setValueField(String valueField) {
@@ -1003,7 +1003,7 @@ public class ComboBoxEx<D extends ModelData> extends TriggerField<D> implements 
 
     /**
      * Sets the combo's view.
-     * 
+     *
      * @param view the view
      */
     public void setView(ListView<D> view) {

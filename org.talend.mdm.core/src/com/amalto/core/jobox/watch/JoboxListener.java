@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -28,12 +28,12 @@ import java.util.zip.ZipException;
 public class JoboxListener implements DirListener {
 
     private static final Logger LOGGER = Logger.getLogger(JoboxListener.class);
-    
+
     public void fileChanged(List<String> newFiles, List<String> deleteFiles, List<String> modifyFiles) {
         JobContainer container = JobContainer.getUniqueInstance();
         JobDeploy jobDeployer = container.getJobDeployer();
         JobAware jobAware = container.getJobAware();
-        
+
         if (newFiles.size() > 0) { // new
             for (String jobPackageName : newFiles) {
                 String warningMessage = "Attempted to deploy new job '" + jobPackageName + "' but has been deleted by concurrent process."; //$NON-NLS-1$ //$NON-NLS-2$
@@ -47,7 +47,7 @@ public class JoboxListener implements DirListener {
                     if (jobInfo != null) {
                         container.updateJobLoadersPool(jobInfo);
                     } else {
-                        LOGGER.warn(warningMessage); 
+                        LOGGER.warn(warningMessage);
                     }
                 } catch (JoboxException e) {
                     if (e.getCause() instanceof FileNotFoundException) {
@@ -60,7 +60,7 @@ public class JoboxListener implements DirListener {
                         throw e;
                     }
                 }
-                
+
             }
         }
 
@@ -80,7 +80,7 @@ public class JoboxListener implements DirListener {
             for (String jobPackageName : modifyFiles) {
                 String deletedWarningMessage = "Attempted to update job '" + jobPackageName + "' but has been deleted by concurrent process.";  //$NON-NLS-1$ //$NON-NLS-2$
                 String modifiedWarningMessage = "Attempted to update job '" + jobPackageName + "' but has been modified by concurrent process.";  //$NON-NLS-1$ //$NON-NLS-2$
-                
+
                 // deploy
                 try {
                     jobDeployer.deploy(jobPackageName);
@@ -102,7 +102,7 @@ public class JoboxListener implements DirListener {
                         throw e;
                     }
                 }
-                
+
             }
         }
     }

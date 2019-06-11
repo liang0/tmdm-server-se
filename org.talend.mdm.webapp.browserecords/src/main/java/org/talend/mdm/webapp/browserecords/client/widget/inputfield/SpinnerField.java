@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -29,10 +29,10 @@ import com.google.gwt.user.client.Timer;
 /**
  * Provides a convenient wrapper for NumberField that adds a clickable dual trigger button (looks like a JSpinner in
  * java Swing).
- * 
+ *
  * <dl>
  * <dt><b>Events:</b></dt>
- * 
+ *
  * <dd><b>TriggerClick</b> : FieldEvent(field, event)<br>
  * <div>Fires after the trigger is clicked or keys up & down used.</div>
  * <ul>
@@ -41,7 +41,7 @@ import com.google.gwt.user.client.Timer;
  * </ul>
  * </dd>
  * </dl>
- * 
+ *
  * <dl>
  * <dt>Inherited Events:</dt>
  * <dd>Field Focus</dd>
@@ -55,7 +55,7 @@ import com.google.gwt.user.client.Timer;
  * <dd>Field SpinnerUpClick</dd>
  * <dd>Field SpinnerDownClick</dd>
  * </dl>
- * 
+ *
  * <code><pre>
  * SpinnerField spinnerInteger = new SpinnerField();
  * spinnerInteger.setFieldLabel("Spinner Integer");
@@ -68,7 +68,7 @@ import com.google.gwt.user.client.Timer;
  * spinnerInteger.setMaxValue(100);
  * spinnerInteger.setMinValue(1);
  * spinnerInteger.setValue(45);
- * 
+ *
  * SpinnerField spinnerDouble = new SpinnerField();
  * spinnerDouble.setFieldLabel("Spinner Double");
  * spinnerDouble.setStepValue(Double.valueOf(0.1d));
@@ -80,9 +80,9 @@ import com.google.gwt.user.client.Timer;
  * spinnerDouble.setMaxValue(Double.valueOf(100.0d));
  * spinnerDouble.setMinValue(Double.valueOf(1.0d));
  * spinnerDouble.setValue(Double.valueOf(45.0d));
- * 
+ *
  * </pre></code>
- * 
+ *
  */
 public class SpinnerField extends NumberField {
 
@@ -130,7 +130,7 @@ public class SpinnerField extends NumberField {
 
     /**
      * Returns the trigger style.
-     * 
+     *
      * @return the trigger style
      */
     public String getTriggerStyle() {
@@ -139,7 +139,7 @@ public class SpinnerField extends NumberField {
 
     /**
      * Returns true if the combo is editable.
-     * 
+     *
      * @return true if editable
      */
     public boolean isEditable() {
@@ -148,7 +148,7 @@ public class SpinnerField extends NumberField {
 
     /**
      * Returns true if the trigger is hidden.
-     * 
+     *
      * @return the hide trigger state
      */
     public boolean isHideTrigger() {
@@ -217,7 +217,7 @@ public class SpinnerField extends NumberField {
     /**
      * Allow or prevent the user from directly editing the field text. If false is passed, the user will only be able to
      * select from the items defined in the dropdown list.
-     * 
+     *
      * @param editable true to allow the user to directly edit the field text
      */
     public void setEditable(boolean editable) {
@@ -233,7 +233,7 @@ public class SpinnerField extends NumberField {
 
     /**
      * True to hide the trigger (defaults to false, pre-render).
-     * 
+     *
      * @param hideTrigger true to hide the trigger
      */
     public void setHideTrigger(boolean hideTrigger) {
@@ -246,7 +246,7 @@ public class SpinnerField extends NumberField {
 
     /**
      * Sets the trigger style name.
-     * 
+     *
      * @param triggerStyle
      */
     public void setTriggerStyle(String triggerStyle) {

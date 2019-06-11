@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -15,12 +15,12 @@ import java.math.RoundingMode;
 import com.google.gwt.i18n.client.NumberFormat;
 
 public class FormatUtil {
-    
+
     public static String defaultDatePattern = "yyyy-MM-dd"; //$NON-NLS-1$
-    
+
     public static String defaultDateTimePattern = "yyyy-MM-dd HH:mm:ss"; //$NON-NLS-1$
 
-    
+
     public static String convertDatePattren(String pattern) {
         if(pattern == null)
             return defaultDatePattern;
@@ -28,20 +28,20 @@ public class FormatUtil {
             return defaultDatePattern;
         if(!pattern.startsWith("%")) //$NON-NLS-1$
             return pattern;
-        
+
         String result = ""; //$NON-NLS-1$
         pattern = pattern.trim();
         pattern = pattern.replace("%t", ""); //$NON-NLS-1$ //$NON-NLS-2$
         pattern = pattern.replace("%1$t", ""); //$NON-NLS-1$ //$NON-NLS-2$
         pattern = pattern.replace("%T", "");  //$NON-NLS-1$//$NON-NLS-2$
         pattern = pattern.replace("%1$T", ""); //$NON-NLS-1$ //$NON-NLS-2$
-        
+
         for (int i=0;i<pattern.length();i++){
             result += transferPattern(String.valueOf(pattern.charAt(i)));
         }
         return result;
     }
-    
+
     private static String transferPattern(String pattern) {
         if ("c".equals(pattern)){ //$NON-NLS-1$
             return "E M dd HH:mm:ss z y"; //$NON-NLS-1$
@@ -83,7 +83,7 @@ public class FormatUtil {
             return pattern;
         }
     }
-    
+
     public static String changeNumberToFormatedValue(String value) {
         StringBuilder pattern = new StringBuilder("###0.");
         if(value == null || value.equals("")){
@@ -107,7 +107,7 @@ public class FormatUtil {
         NumberFormat nf = NumberFormat.getFormat(pattern.toString());
         return nf.format(Double.valueOf(value));
     }
-    
+
     public static Number getDecimalValue(String value, Object franctionDigits) {
         if (value == null || "".equals(value)) {
             return null;

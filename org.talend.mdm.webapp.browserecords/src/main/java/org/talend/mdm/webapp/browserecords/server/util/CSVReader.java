@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -44,7 +44,7 @@ public class CSVReader {
 
     /**
      * Constructs CSVReader using a comma for the separator.
-     * 
+     *
      * @param reader the reader to an underlying CSV source.
      */
     public CSVReader(Reader reader) {
@@ -53,7 +53,7 @@ public class CSVReader {
 
     /**
      * Constructs CSVReader with supplied separator.
-     * 
+     *
      * @param reader the reader to an underlying CSV source.
      * @param separator the delimiter to use for separating entries.
      */
@@ -63,7 +63,7 @@ public class CSVReader {
 
     /**
      * Constructs CSVReader with supplied separator and quote char.
-     * 
+     *
      * @param reader the reader to an underlying CSV source.
      * @param separator the delimiter to use for separating entries
      * @param quotechar the character to use for quoted elements
@@ -74,7 +74,7 @@ public class CSVReader {
 
     /**
      * Constructs CSVReader with supplied separator and quote char.
-     * 
+     *
      * @param reader the reader to an underlying CSV source.
      * @param separator the delimiter to use for separating entries
      * @param quotechar the character to use for quoted elements
@@ -89,9 +89,9 @@ public class CSVReader {
 
     /**
      * Reads the entire file into a List with each element being a String[] of tokens.
-     * 
+     *
      * @return a List of String[], with each String[] representing a line of the file.
-     * 
+     *
      * @throws IOException if bad things happen during the read
      */
     public List<String[]> readAll() throws IOException {
@@ -108,9 +108,9 @@ public class CSVReader {
 
     /**
      * Reads the next line from the buffer and converts to a string array.
-     * 
+     *
      * @return a string array with each comma-separated element as a separate entry.
-     * 
+     *
      * @throws IOException if bad things happen during the read
      */
     public String[] readNext() throws IOException {
@@ -121,7 +121,7 @@ public class CSVReader {
 
     /**
      * Reads the next line from the file.
-     * 
+     *
      * @return the next line from the file without trailing newline
      * @throws IOException if bad things happen during the read
      */
@@ -141,7 +141,7 @@ public class CSVReader {
 
     /**
      * Parses an incoming String and returns an array of elements.
-     * 
+     *
      * @param nextLine the string to parse
      * @return the comma-tokenized list of elements, or null if nextLine is null
      * @throws IOException if bad things happen during the read
@@ -193,7 +193,7 @@ public class CSVReader {
 
     /**
      * Closes the underlying reader.
-     * 
+     *
      * @throws IOException if the close fails
      */
     public void close() throws IOException {

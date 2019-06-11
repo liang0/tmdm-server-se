@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -110,13 +110,13 @@ public class ServerTest extends TestCase {
     /*
      * public void testStorageReindex() throws Exception { Server server = ServerContext.INSTANCE.get();
      * assertNotNull(server);
-     * 
+     *
      * String metadataRepositoryId = "../query/metadata.xsd"; MetadataRepository metadataRepository =
      * server.getMetadataRepositoryAdmin().get(metadataRepositoryId); assertNotNull(metadataRepository);
-     * 
+     *
      * StorageAdmin storageAdmin = server.getStorageAdmin(); assertNotNull(storageAdmin); Storage storage =
      * storageAdmin.create(metadataRepositoryId, "Storage", "H2-Default", null); assertNotNull(storage);
-     * 
+     *
      * storage.reindex(); }
      */
 
@@ -235,7 +235,7 @@ public class ServerTest extends TestCase {
             storage.commit();
         }
     }
-    
+
     public void testStorageDropAll() throws Exception {
         Server server = ServerContext.INSTANCE.get();
         assertNotNull(server);
@@ -259,7 +259,7 @@ public class ServerTest extends TestCase {
             fetch.close();
             storage.commit();
         }
-        
+
         //instantiate BeanDelegator to manage user
         BeanDelegatorContainer.createInstance().setDelegatorInstancePool(
             Collections.<String, Object> singletonMap("LocalUser", new ILocalUser() {
@@ -267,8 +267,8 @@ public class ServerTest extends TestCase {
             public ILocalUser getILocalUser() throws XtentisException {
                 return this;
             }
-            
-            //no need to mock the getRole methode as its going 
+
+            //no need to mock the getRole methode as its going
             //to retrieve the role in securityContext (see below)
 //            @Override
 //            public HashSet<String> getRoles() {
@@ -280,40 +280,40 @@ public class ServerTest extends TestCase {
 //                return roleSet;
 //            }
         }));
-        
-        //create the storage __SYSTEM 
+
+        //create the storage __SYSTEM
         // Initialize system storage
         String systemDataSourceName = storageAdmin.getDatasource(StorageAdmin.SYSTEM_STORAGE);
         storageAdmin.create(StorageAdmin.SYSTEM_STORAGE, StorageAdmin.SYSTEM_STORAGE, StorageType.SYSTEM, systemDataSourceName);
         Storage systemStorage = storageAdmin.get(StorageAdmin.SYSTEM_STORAGE, StorageType.SYSTEM);
         assertNotNull(systemStorage);
-        
+
         List<GrantedAuthority> roles = AuthorityUtils.createAuthorityList(ICoreConstants.ADMIN_PERMISSION,
                 ICoreConstants.AUTHENTICATED_PERMISSION);
         Authentication authentication = new UsernamePasswordAuthenticationToken("MDMInternalUser", "", roles); //$NON-NLS-1$
-        
+
         //set the authentication to the security context holder
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        
+
         //add cluster into __SYSTEM
         DataCluster cluster = com.amalto.core.util.Util.getDataClusterCtrlLocal();
         if (cluster.existsDataCluster(new DataClusterPOJOPK("Storage")) == null) {
             cluster.putDataCluster(new DataClusterPOJO("Storage", "cluster for a person", ""));
         }
-        
+
         //test if the cluster is present
         assertNotNull(cluster.existsDataCluster(new DataClusterPOJOPK("Storage")));
-        
+
         //delete storage/cluster
-        //check if cluster still exist 
-        
+        //check if cluster still exist
+
         // Destroy storage (and data).
         storageAdmin.delete("Storage", true);
-        
+
         //After removing the cluster, this result should be null
         assertNull(cluster.existsDataCluster(new DataClusterPOJOPK("Storage")));
-        
-        
+
+
         //test if storage is still accessible after deleteting it
         assertNotNull(storage);
         qb = UserQueryBuilder.from(person);
@@ -322,8 +322,8 @@ public class ServerTest extends TestCase {
             fail( "should have thown an exception : java.lang.IllegalStateException: Storage has not been prepared." );
         } catch (java.lang.IllegalStateException expectedException) {
             //do nothing
-        }        
-        
+        }
+
         // Re create a storage on the same metadataRepository so we can do action again
         storage = storageAdmin.create(metadataRepositoryId, "Storage", StorageType.MASTER, "H2-DS1");
         assertNotNull(storage);

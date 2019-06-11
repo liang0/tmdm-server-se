@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -34,7 +34,7 @@ import io.swagger.annotations.ApiParam;
 @Path("/system/containers")
 @Api(value="Containers management", tags="Administration")
 public class SystemContainers {
-    
+
     private static final Logger LOGGER = Logger.getLogger(SystemContainers.class);
 
     public SystemContainers() {
@@ -53,7 +53,7 @@ public class SystemContainers {
             throw new RuntimeException("Could not store new data container.", e); //$NON-NLS-1$
         }
     }
-    
+
     @GET
     @ApiOperation("Get all data container names as array")
     public Response getAllContainers() {
@@ -67,7 +67,7 @@ public class SystemContainers {
             throw new RuntimeException("Could not get all containers.", e); //$NON-NLS-1$
         }
     }
-    
+
     @GET
     @Path("{containerName}/hasStaging")
     @ApiOperation(value="Returns true of this container has a staging area, false otherwise.")
@@ -75,7 +75,7 @@ public class SystemContainers {
         boolean output = ServerContext.INSTANCE.get().getStorageAdmin().supportStaging(containerName);
         return Response.ok(output).type(MediaType.APPLICATION_JSON_TYPE).build();
     }
-    
+
     @GET
     @Path("{containerName}/isExisting")
     @ApiOperation(value="Returns true of this container exits, false otherwise.")

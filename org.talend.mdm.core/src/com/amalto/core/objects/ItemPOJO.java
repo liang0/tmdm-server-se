@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -172,7 +172,7 @@ public class ItemPOJO implements Serializable {
     private String projectionString = null;
 
     /**
-     * 
+     *
      * @return The projection as a String
      * @throws XtentisException
      */
@@ -234,7 +234,7 @@ public class ItemPOJO implements Serializable {
 
     /**
      * The PK
-     * 
+     *
      * @return the pk, null if undefined
      */
     public ItemPOJOPK getItemPOJOPK() {
@@ -317,7 +317,7 @@ public class ItemPOJO implements Serializable {
             LOG.error(err, e);
             throw new RuntimeException(err, e);
         }
-    
+
     }
 
     /**
@@ -347,7 +347,7 @@ public class ItemPOJO implements Serializable {
 
     /**
      * drop an item to items-trash
-     * 
+     *
      * @param createItemsTrashOnly Only create dropped record in Recycle Bin, source records will be deleted using query
      */
     public static DroppedItemPOJOPK drop(ItemPOJOPK itemPOJOPK, String partPath, boolean createItemsTrashOnly)
@@ -505,7 +505,7 @@ public class ItemPOJO implements Serializable {
     /**
      * Stores the item in DB.<br/>
      * Users rights will NOT be checked
-     * 
+     *
      * @return The {@link ItemPOJOPK} of the stored item
      * @throws XtentisException In case of internal exception.
      */
@@ -568,9 +568,9 @@ public class ItemPOJO implements Serializable {
 
     /**
      * Serializes the object to an xml string
-     * 
+     *
      * @return the xml string
-     * 
+     *
      * Note: dmn & dmr tags are used for binding data model
      * @throws com.amalto.core.util.XtentisException In case of serialization exception.
      */
@@ -696,7 +696,7 @@ public class ItemPOJO implements Serializable {
             throw new XtentisException(err);
         }
     }
-    
+
     public static boolean isExistDataCluster(DataClusterPOJOPK dataClusterPOJOPK) throws XtentisException {
         try {
             if (Util.getDataClusterCtrlLocal().existsDataCluster(dataClusterPOJOPK) == null) {

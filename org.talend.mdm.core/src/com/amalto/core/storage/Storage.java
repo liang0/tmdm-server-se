@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -45,7 +45,7 @@ public interface Storage {
      * This method is <b>just</b> a factory method and should never register with current (global) MDM transaction.
      * The proper way to include the returned value in a {@link com.amalto.core.server.MDMTransaction} is a call to
      * {@link com.amalto.core.server.MDMTransaction#include(Storage)}.
-     * 
+     *
      * @return An implementation of {@link StorageTransaction} ready for usage. Implementations are always expected to
      * return a new transaction instance.
      */
@@ -54,7 +54,7 @@ public interface Storage {
     /**
      * Early initialization (i.e. might create pools): performs all actions that do not need to know what kind of types
      * this storage should take care of (usually stateless components).
-     * 
+     *
      * @param dataSource Represents the underlying data storage (e.g. RDBMS, XML DB...)
      * @see com.amalto.core.server.Server#getDefinition(String, String)
      */
@@ -62,7 +62,7 @@ public interface Storage {
 
     /**
      * Prepare storage to handle types located in {@link MetadataRepository}.
-     * 
+     *
      * @param repository A initialized {@link org.talend.mdm.commmon.metadata.MetadataRepository} instance.
      * @param optimizedExpressions A {@link java.util.Set} of {@link Expression} that need to be optimized. It is up to
      * the implementation to decide whether this information should be used or not. Callers of this method expects
@@ -80,7 +80,7 @@ public interface Storage {
 
     /**
      * Prepare storage to handle types located in {@link MetadataRepository}.
-     * 
+     *
      * @param repository A initialized {@link MetadataRepository} instance.
      * @param dropExistingData if <code>true</code>, storage preparation will drop all data that may previously exist.
      * Use this parameter with caution since recovery is not supported.
@@ -98,7 +98,7 @@ public interface Storage {
     /**
      * Returns all records that match the {@link Expression}. The <code>expression</code> should be a valid
      * {@link com.amalto.core.query.user.Select}.
-     * 
+     *
      * @param userQuery A {@link com.amalto.core.query.user.Select} instance.
      * @return A {@link Iterable} instance to navigate through query results. This iterable class also provides ways to
      * get how many records are returned and how many matched query in database.
@@ -109,7 +109,7 @@ public interface Storage {
     /**
      * Updates storage with a new or existing record. Record might already exist, storage implementation (or underlying
      * storage framework) will decide whether this is new record or old one.
-     * 
+     *
      * @param record Record to be created or updated.
      */
     void update(DataRecord record);
@@ -117,7 +117,7 @@ public interface Storage {
     /**
      * Updates storage with new or existing records. Records might already exist, storage implementation (or underlying
      * storage framework) will decide whether this is all new records or old ones.
-     * 
+     *
      * @param records Records to be created or updated.
      */
     void update(Iterable<DataRecord> records);
@@ -131,7 +131,7 @@ public interface Storage {
      * Implementations are expected to throw {@link IllegalArgumentException} if <code>userQuery</code> does not match
      * any record.
      * </p>
-     * 
+     *
      * @param userQuery A {@link com.amalto.core.query.user.Select} instance.
      * @throws IllegalArgumentException If <code>userQuery</code> does not match any document in storage.
      * @see com.amalto.core.query.user.UserQueryBuilder
@@ -142,7 +142,7 @@ public interface Storage {
     /**
      * Deletes a {@link DataRecord} record using the record instance (no need for a query as in
      * {@link #delete(com.amalto.core.query.user.Expression)}.
-     * 
+     *
      * @param record The record to be deleted.
      * @see #delete(com.amalto.core.query.user.Expression)
      */
@@ -165,7 +165,7 @@ public interface Storage {
      * Starts a transaction for current thread. If a previous call to this method has been made without calling any end
      * of transaction method (e.g. {@link #commit()}), calling this method has no effect.
      * </p>
-     * 
+     *
      * @throws IllegalStateException If a transaction was already started for the current thread.
      * @see #commit()
      * @see #rollback()
@@ -198,7 +198,7 @@ public interface Storage {
     /**
      * Returns suggested keywords (words that match result in full text index) for the <code>keyword</code>. Returned
      * results depend on {@link FullTextSuggestion}.
-     * 
+     *
      * @param keyword A word to be used as input for this method (only one word).
      * @param mode {@link FullTextSuggestion} suggestion mode.
      * @param suggestionSize Number of suggestions this method should return.
@@ -231,7 +231,7 @@ public interface Storage {
     /**
      * Adapts the underlying storage schema to match the changes in <code>diffResults</code>. Storage operations will
      * stop during update, but it isn't a "restart" (restart are done by stop and recreating the storage instance).
-     * 
+     *
      * @param newRepository The new version of the data model.
      * @param force <code>true</code> to force all changes (even
      * {@link org.talend.mdm.commmon.metadata.compare.ImpactAnalyzer.Impact#HIGH high} and
@@ -261,7 +261,7 @@ public interface Storage {
 
     /**
      * Returns the list of entities and all dependencies to be dropped
-     * 
+     *
      * @param diffResults
      * @param force <code>true</code> to force all changes
      */
@@ -269,7 +269,7 @@ public interface Storage {
 
     /**
      * Returns the list of all tables to be dropped
-     * 
+     *
      * @param sortedTypesToDrop
      */
     Set<String> findTablesToDrop(List<ComplexTypeMetadata> sortedTypesToDrop);

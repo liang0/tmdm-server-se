@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -98,7 +98,7 @@ public class ForeignKeyTreeDetail extends ContentPanel {
             final CountMapItem countMapItem = new CountMapItem(xpath, parentModel);
             final int count = occurMap.containsKey(countMapItem) ? occurMap.get(countMapItem) : 0;
             final TypeModel typeModel = viewBean.getBindingEntityModel().getMetaDataTypes().get(typePath);
-            if ("Add".equals(arg0.getRelativeElement().getId()) || "Clone".equals(arg0.getRelativeElement().getId())) { //$NON-NLS-1$ //$NON-NLS-2$               
+            if ("Add".equals(arg0.getRelativeElement().getId()) || "Clone".equals(arg0.getRelativeElement().getId())) { //$NON-NLS-1$ //$NON-NLS-2$
                 if (typeModel.getMaxOccurs() < 0 || count < typeModel.getMaxOccurs()) {
                     // clone a new item
                     ItemNodeModel model = selectedModel.clone("Clone".equals(arg0.getRelativeElement().getId()) ? true : false); //$NON-NLS-1$

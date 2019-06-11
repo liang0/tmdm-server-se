@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -14,14 +14,14 @@ import org.talend.mdm.commmon.util.core.MDMConfiguration;
 import com.amalto.core.initdb.InitDBUtil;
 
 public class InitDataSubProc extends AssembleSubProc{
-	
+
 
 	@Override
 	public void run() throws Exception {
-		
-		//perform initial 
+
+		//perform initial
 		boolean autoinit = "true".equals(MDMConfiguration.getConfiguration().getProperty(
-				"system.data.auto.init", 
+				"system.data.auto.init",
 				"false"
 			));
 		if(autoinit){
@@ -33,7 +33,7 @@ public class InitDataSubProc extends AssembleSubProc{
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 
 

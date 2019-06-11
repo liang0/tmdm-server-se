@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -43,7 +43,7 @@ class HibernateStorageTransaction extends StorageTransaction {
     private static final Logger LOGGER = Logger.getLogger(HibernateStorageTransaction.class);
 
     private static final int TRANSACTION_DUMP_MAX = 10;
-    
+
     private static final int LOCK_TIMEOUT_SECONDS = 30;
 
     private final HibernateStorage storage;
@@ -51,7 +51,7 @@ class HibernateStorageTransaction extends StorageTransaction {
     private final Session session;
 
     private final Thread initiatorThread;
-    
+
     private final Lock lock = new ReentrantLock();
 
     private boolean hasFailed;
@@ -91,7 +91,7 @@ class HibernateStorageTransaction extends StorageTransaction {
             this.releaseLock();
         }
     }
-    
+
     public void acquireLock() {
         if(LOGGER.isDebugEnabled()){
             LOGGER.debug("Trying to acquire lock for " + this + " on thread " + Thread.currentThread().getName()); //$NON-NLS-1$ //$NON-NLS-2$
@@ -108,7 +108,7 @@ class HibernateStorageTransaction extends StorageTransaction {
             LOGGER.debug("Lock acquired for " + this + " on thread " + Thread.currentThread().getName()); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
-    
+
     public void releaseLock(){
         if(LOGGER.isDebugEnabled()){
             LOGGER.debug("Trying to release for " + this + " on thread " + Thread.currentThread().getName()); //$NON-NLS-1$ //$NON-NLS-2$

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -52,7 +52,7 @@ import com.google.gwt.user.client.ui.AbstractImagePrototype;
 import com.google.gwt.user.client.ui.Accessibility;
 
 public class JournalComparisonPanel extends ContentPanel {
-    
+
     private static final String LEFT_BRAKCET = "[";
 
     private static final String RIGHT_BRAKCET = "]";
@@ -85,26 +85,26 @@ public class JournalComparisonPanel extends ContentPanel {
         this.setBodyBorder(false);
 
         toolbar = new ToolBar();
-        
+
         if (isBeforePanel) {
             previousChangeButton = new Button(MessagesFactory.getMessages().previous_change_button());
             previousChangeButton.setIcon(AbstractImagePrototype.create(Icons.INSTANCE.up()));
-            previousChangeButton.setEnabled(false);            
+            previousChangeButton.setEnabled(false);
             toolbar.add(previousChangeButton);
-            
+
             nextChangeButton = new Button(MessagesFactory.getMessages().next_change_button());
             nextChangeButton.setIcon(AbstractImagePrototype.create(Icons.INSTANCE.down()));
             nextChangeButton.setIconAlign(IconAlign.RIGHT);
             nextChangeButton.setEnabled(false);
             toolbar.add(nextChangeButton);
         }
-        
+
         toolbar.add(new FillToolItem());
         restoreButton = new Button(MessagesFactory.getMessages().restore_button());
         restoreButton.setIcon(AbstractImagePrototype.create(Icons.INSTANCE.restore()));
         restoreButton.setEnabled(false);
         toolbar.add(restoreButton);
-        
+
 
         getService().getComparisionTree(parameter, UrlUtil.getLanguage(), new SessionAwareAsyncCallback<JournalTreeModel>() {
 
@@ -125,7 +125,7 @@ public class JournalComparisonPanel extends ContentPanel {
                         if (node != null) {
                             Element e = getElementContainer(node);
                             if (e != null) {
-                                if (model.getCls() != null && !"".equals(model.getCls())) { //$NON-NLS-1$                               
+                                if (model.getCls() != null && !"".equals(model.getCls())) { //$NON-NLS-1$
                                     El.fly(e).setStyleName("x-ftree2-selected", select); //$NON-NLS-1$
                                     Document doc = e.getOwnerDocument();
                                     com.google.gwt.dom.client.Element textElement = doc.getElementById(model.getId()
@@ -139,7 +139,7 @@ public class JournalComparisonPanel extends ContentPanel {
                                 if (select) {
                                     String tid = tree.getId();
                                     Accessibility.setState(tree.getElement(),
-                                            "aria-activedescendant", tid + "__" + node.getElement().getId()); //$NON-NLS-1$ //$NON-NLS-2$ 
+                                            "aria-activedescendant", tid + "__" + node.getElement().getId()); //$NON-NLS-1$ //$NON-NLS-2$
                                 }
                             }
                         }
@@ -326,7 +326,7 @@ public class JournalComparisonPanel extends ContentPanel {
                 nextChangeButton.setEnabled(true);
             }
         }
-        
+
         if (UpdateReportPOJO.OPERATION_TYPE_UPDATE.equals(journalGridModel.getOperationType()) || (UpdateReportPOJO.OPERATION_TYPE_LOGICAL_DELETE.equals(journalGridModel.getOperationType()) && isBeforePanel)) {
             getService().isAdmin(new SessionAwareAsyncCallback<Boolean>() {
 

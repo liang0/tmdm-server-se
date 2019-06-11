@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -105,7 +105,7 @@ public class BrandingBar extends ContentPanel {
                             } else if (query.startsWith("?language=" + lang)) { //$NON-NLS-1$
                                 query = query.replaceAll("language=" + lang + "&?", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                             }
-                            setHref(path + query + "&language=" + languageBox.getValue(languageBox.getSelectedIndex())); //$NON-NLS-1$     
+                            setHref(path + query + "&language=" + languageBox.getValue(languageBox.getSelectedIndex())); //$NON-NLS-1$
                         }
                     }
                 });
@@ -178,7 +178,7 @@ public class BrandingBar extends ContentPanel {
         logoMDM.setHeight("28px");
         hp1.add(logoMDM);
         hp1.add(new HTML("&nbsp;&nbsp;")); //$NON-NLS-1$
-        
+
         if (userBean.isEnterprise()) {
             versionLabel.setStyleName("version-label help"); //$NON-NLS-1$
         } else {
@@ -191,12 +191,12 @@ public class BrandingBar extends ContentPanel {
         hp2.getElement().getStyle().setProperty("top", "5px"); //$NON-NLS-1$ //$NON-NLS-2$
         hp2.getElement().getStyle().setProperty("right", "1px"); //$NON-NLS-1$ //$NON-NLS-2$
         hp2.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-        
+
         String html = userBean.getName();
         HTML userLabel = new HTML(html);
         userLabel.setStyleName("username"); //$NON-NLS-1$
         userLabel.getElement().setId("username-div"); //$NON-NLS-1$
-        hp2.add(userLabel);      
+        hp2.add(userLabel);
         hp2.add(new HTML("&nbsp;&nbsp;")); //$NON-NLS-1$
 
         languageBox.getElement().setId("languageSelect"); //$NON-NLS-1$
@@ -205,7 +205,7 @@ public class BrandingBar extends ContentPanel {
         languageBox.setHeight("20px"); //$NON-NLS-1$
         hp2.add(languageBox);
         hp2.add(new HTML("&nbsp;&nbsp;")); //$NON-NLS-1$
-        
+
         logout.setId("btn-logout"); //$NON-NLS-1$
         hp2.add(logout);
         hp2.add(new HTML("&nbsp;&nbsp;")); //$NON-NLS-1$

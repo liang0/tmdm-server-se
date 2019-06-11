@@ -1,16 +1,15 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
 package org.talend.mdm.webapp.base.server;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -186,11 +185,12 @@ public class ForeignKeyHelper {
                     // TMDM-5276: use substringBeforeLast in case sort field is a contained field
                     // (Entity/field1/.../fieldN)
                     xpath = config.getSortField();
+                    // Set sort language if foreign key info field is multiple lingual.
+                    if (Types.MULTI_LINGUAL.equals(entityModel.getTypeModel(config.getSortField()).getType().getTypeName())) {
+                        OrderBy.SortLanguage.set(language.toUpperCase());
+                    }
                 } else {
                     xpath = StringUtils.substringBefore(xPaths.get(0), "/") + "/../../i"; //$NON-NLS-1$ //$NON-NLS-2$
-                }
-                if (Types.MULTI_LINGUAL.equals(entityModel.getTypeModel(config.getSortField()).getType().getTypeName())) {
-                    OrderBy.SortLanguage.set(language.toUpperCase());
                 }
             } else {
                 xpath = null;
@@ -475,7 +475,7 @@ public class ForeignKeyHelper {
                         fkInfo = getForeignKeyInfos.get(++keyInfoIndex);
                     }
                     if (!fkInfo.endsWith(nodeName)) {
-                        fkInfo = fk + "/" + curEle.getNodeName(); //$NON-NLS-1$ 
+                        fkInfo = fk + "/" + curEle.getNodeName(); //$NON-NLS-1$
                     }
                 } else {
                     fkInfo = fk + "/" + curEle.getNodeName(); //$NON-NLS-1$

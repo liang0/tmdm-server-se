@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -16,7 +16,7 @@ public class BeanDelegatorContainer {
     private Map<String, Object> delegatorInstancePool;
 
     private static final String LOCAL_USER = "LocalUser"; //$NON-NLS-1$
-    
+
     private static final String SECURITY_CHECK = "SecurityCheck"; //$NON-NLS-1$
 
     private static final String MENU_UTIL = "MenuUtil"; //$NON-NLS-1$
@@ -31,7 +31,7 @@ public class BeanDelegatorContainer {
 
     private BeanDelegatorContainer() {
     }
-   
+
     public void setDelegatorInstancePool(Map<String, Object> delegatorInstancePool) {
         this.delegatorInstancePool = delegatorInstancePool;
     }

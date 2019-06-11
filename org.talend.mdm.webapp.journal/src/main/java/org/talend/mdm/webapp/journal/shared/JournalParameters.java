@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -23,20 +23,20 @@ public class JournalParameters implements Serializable, IsSerializable {
     private String ids;
 
     private String[] id;
-    
+
     private String dataClusterName;
-    
+
     private String dataModelName;
-    
+
     private String conceptName;
 
     private long date;
 
     private String action;
-    
+
     private boolean isAuth;
-    
-    private String OperationType; 
+
+    private String OperationType;
 
     public JournalParameters() {
 
@@ -45,11 +45,11 @@ public class JournalParameters implements Serializable, IsSerializable {
     public String getIds() {
         return ids;
     }
-    
+
     public void setIds(String ids) {
         this.ids = ids;
     }
-    
+
     public String[] getId() {
         return id;
     }
@@ -57,7 +57,7 @@ public class JournalParameters implements Serializable, IsSerializable {
     public void setId(String[] id) {
         this.id = id;
     }
-    
+
     public String getDataClusterName() {
         return dataClusterName;
     }
@@ -65,7 +65,7 @@ public class JournalParameters implements Serializable, IsSerializable {
     public void setDataClusterName(String dataClusterName) {
         this.dataClusterName = dataClusterName;
     }
-    
+
     public String getDataModelName() {
         return dataModelName;
     }
@@ -73,7 +73,7 @@ public class JournalParameters implements Serializable, IsSerializable {
     public void setDataModelName(String dataModelName) {
         this.dataModelName = dataModelName;
     }
-    
+
     public String getConceptName() {
         return conceptName;
     }
@@ -81,11 +81,11 @@ public class JournalParameters implements Serializable, IsSerializable {
     public void setConceptName(String conceptName) {
         this.conceptName = conceptName;
     }
-    
+
     public long getDate() {
         return date;
     }
-    
+
     public void setDate(long date) {
         this.date = date;
     }
@@ -101,7 +101,7 @@ public class JournalParameters implements Serializable, IsSerializable {
     public boolean isAuth() {
         return isAuth;
     }
-    
+
     public void setAuth(boolean isAuth) {
         this.isAuth = isAuth;
     }

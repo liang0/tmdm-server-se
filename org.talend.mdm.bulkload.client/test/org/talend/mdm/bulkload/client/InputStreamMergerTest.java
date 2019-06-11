@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -234,7 +234,7 @@ public class InputStreamMergerTest extends TestCase {
         }
         assertEquals("testtesttesttest", reader.getRebuiltString()); //$NON-NLS-1$
     }
-    
+
     /**
      * This test reproduces the case of a job with an error while using
      * tMDMBulkLoad
@@ -295,8 +295,8 @@ public class InputStreamMergerTest extends TestCase {
         }
         assertEquals(expectedOutput, reader.getRebuiltString());
     }
-    
-    
+
+
     public void testSlowConsumer() {
         int times = 50;
         InputStreamMerger bis = new InputStreamMerger();
@@ -393,8 +393,8 @@ public class InputStreamMergerTest extends TestCase {
             }
         }
     }
-    
-    
+
+
     private static class SlowReaderRunnable implements Runnable {
         private final InputStreamMerger bis;
         private final Object runLock = new Object();
@@ -460,12 +460,12 @@ public class InputStreamMergerTest extends TestCase {
                 }
             }
         }
-        
+
         public String getRebuiltString() {
             synchronized (runLock) {
                 return rebuiltString;
             }
-        } 
+        }
     }
 
 
@@ -498,7 +498,7 @@ public class InputStreamMergerTest extends TestCase {
             }
         }
     }
-    
+
     private static class PusherRunnableWithError implements Runnable {
         private final InputStreamMerger bis;
         private final String testString;

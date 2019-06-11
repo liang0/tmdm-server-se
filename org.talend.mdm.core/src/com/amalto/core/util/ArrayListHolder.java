@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Used to facilitate Castor marshalling/unmarshalling<br/> 
+ * Used to facilitate Castor marshalling/unmarshalling<br/>
  * Castor has issues with variables of the type like HashMap<String, ArrayList<String>>
  * This can be replaced using HashMap<String, ArrayListHolder<String>>
  * @author Bruno Grieder
@@ -21,7 +21,7 @@ import java.util.List;
  *
  */
 public class ArrayListHolder<T> {
-	
+
 	private  ArrayList<T> list = new ArrayList<T>();
 
 	public ArrayList<T> getList() {
@@ -32,14 +32,14 @@ public class ArrayListHolder<T> {
 		this.list = list;
 	}
 
-	
+
 	public ArrayListHolder() {
 	}
-	
+
 	public ArrayListHolder(List<T> list) {
 		this.list = new ArrayList<T>(list);
 	}
-	
-	
+
+
 
 }

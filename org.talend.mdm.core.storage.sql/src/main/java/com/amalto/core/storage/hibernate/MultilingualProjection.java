@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -50,7 +50,7 @@ public class MultilingualProjection extends SimpleProjection {
         String containerTable = resolver.get(containingType);
 
         final String colName = criteriaQuery.getColumn(criteria, containerTable + '.' + columnName);
-        
+
         if (dataSourceDialect == DataSourceDialect.ORACLE_10G) {
             columnName = columnName.toUpperCase();
             containerTable = containerTable.toUpperCase();
@@ -63,7 +63,7 @@ public class MultilingualProjection extends SimpleProjection {
          * H2 & MySQL: SUBSTRING(this_.x_name, LOCATE('[ZH:', this_.x_name) + 4, LOCATE(']', this_.x_name, LOCATE('[ZH:', this_.x_name)) - LOCATE('[ZH:', this_.x_name) - 4)
          * SQL_SERVER: SUBSTRING(this_.x_name, CHARINDEX('[ZH:', this_.x_name) + 4 , CHARINDEX(']', this_.x_name, CHARINDEX('[ZH:', this_.x_name)) -  CHARINDEX('ZH:', this_.x_name) - 3)
          * POSTGRES: SUBSTRING(this_.x_name, '\[ZH:(.*?)\]')
-         * ORACLE_10G: SUBSTR(this_.x_name, INSTR(this_.x_name, '[ZH:') + 4, INSTR(this_.x_name, ']', INSTR(this_.x_name, '[ZH:')) - INSTR(this_.x_name, '[ZH:') - 4) 
+         * ORACLE_10G: SUBSTR(this_.x_name, INSTR(this_.x_name, '[ZH:') + 4, INSTR(this_.x_name, ']', INSTR(this_.x_name, '[ZH:')) - INSTR(this_.x_name, '[ZH:') - 4)
          */
         String sql = StringUtils.EMPTY;
         switch (dataSourceDialect) {
@@ -98,7 +98,7 @@ public class MultilingualProjection extends SimpleProjection {
     public String[] getColumnAliases(String alias, int loc) {
         return new String[] { StringUtils.EMPTY };
     }
-    
+
     @Override
     public Type[] getTypes(Criteria criteria, CriteriaQuery criteriaQuery) throws HibernateException {
         return new Type[] { new StringType() };

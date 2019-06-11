@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -51,7 +51,7 @@ public class DownloadData extends HttpServlet {
         Map<String, List<String>> fkMap = null;
         String fkColXPath = null;
         String fkInfo = null;
-        
+
         String viewPk = request.getParameter("tableName"); //$NON-NLS-1$
         String concept = ViewHelper.getConceptFromDefaultViewName(viewPk);
         String header = new String(request.getParameter("header").getBytes("iso-8859-1"), "UTF-8"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -63,7 +63,7 @@ public class DownloadData extends HttpServlet {
         boolean fkResovled = Boolean.valueOf(request.getParameter("fkResovled")); //$NON-NLS-1$
         String fkDisplay = request.getParameter("fkDisplay"); //$NON-NLS-1$
         String language = request.getParameter("language"); //$NON-NLS-1$
-        
+
         if (request.getParameter("itemIdsListString") != null && !request.getParameter("itemIdsListString").isEmpty()) { //$NON-NLS-1$ //$NON-NLS-2$
             idsList = org.talend.mdm.webapp.base.shared.util.CommonUtil
                     .convertStrigToList(request.getParameter("itemIdsListString"), Constants.FILE_EXPORT_IMPORT_SEPARATOR); //$NON-NLS-1$

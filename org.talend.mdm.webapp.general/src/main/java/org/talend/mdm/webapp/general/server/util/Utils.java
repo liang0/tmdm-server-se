@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -198,7 +198,7 @@ public class Utils {
                         }
                     }
                 } else {
-                    String tmp = "<script type=\"text/javascript\" src=\"" + gxtEntryModule + "/" //$NON-NLS-1$ //$NON-NLS-2$ 
+                    String tmp = "<script type=\"text/javascript\" src=\"" + gxtEntryModule + "/" //$NON-NLS-1$ //$NON-NLS-2$
                             + gxtEntryModule + ".nocache.js\"></script>\n"; //$NON-NLS-1$
                     if ("browserecords".equals(context) && "browserecords".equals(gxtEntryModule)) { //$NON-NLS-1$ //$NON-NLS-2$
                         // DWR
@@ -348,7 +348,7 @@ public class Utils {
             ILocalUser user = LocalUser.getLocalUser();
             if (user.userCanWrite()) {
                 String identity = user.getIdentity();
-                
+
                 if (com.amalto.core.util.Util.isEnterprise()) {
                     WSWhereItem wi = new WSWhereItem();
                     String criteria = "User/id EQUALS " + identity; //$NON-NLS-1$
@@ -360,7 +360,7 @@ public class Utils {
                         return false;
                     }
                 }
-                
+
                 WSItemPK itemPK = new WSItemPK(new WSDataClusterPK(DATACLUSTER_PK), PROVISIONING_CONCEPT,
                         new String[] { identity });
                 if (identity != null && identity.length() > 0) {

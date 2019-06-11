@@ -5,17 +5,17 @@ import java.util.Date;
 import com.google.gwt.i18n.client.DateTimeFormat;
 
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
 public class DateUtil {
 
-    public static String datePattern = "yyyy-MM-dd";//$NON-NLS-1$    
+    public static String datePattern = "yyyy-MM-dd";//$NON-NLS-1$
 
     public static String timePattern = "HH:mm:ss";//$NON-NLS-1$
 
@@ -55,7 +55,7 @@ public class DateUtil {
         }
         throw re;
     }
-    
+
     public static final String convertDateToString(Date aDate) {
         return getDateTime(aDate);
     }
@@ -90,7 +90,7 @@ public class DateUtil {
      * <ul>
      * <li>for instance: value = "13/2/2012" and format = "dd/MM/yyyy";
      * </ul>
-     * 
+     *
      * @param value
      * @param _format
      * @return

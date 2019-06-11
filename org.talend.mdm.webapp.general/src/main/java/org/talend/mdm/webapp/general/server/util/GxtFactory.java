@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -49,7 +49,7 @@ public class GxtFactory {
     private GxtFactory() {
         init();
     }
-    
+
     private void init() {
         try {
             entries = loadProperties(GXT_PROPERTIES);
@@ -76,7 +76,7 @@ public class GxtFactory {
         String value = excludedEntries.getProperty(key);
         return Boolean.valueOf(value);
     }
-    
+
     private Properties loadProperties(String location) throws IOException {
         Enumeration<URL> resourceUrls = getClass().getClassLoader().getResources(location);
         Properties props = new Properties();
@@ -104,7 +104,7 @@ public class GxtFactory {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             props.list(pw);
-            LOG.debug("-- " + location + " --"); //$NON-NLS-1$ //$NON-NLS-2$            
+            LOG.debug("-- " + location + " --"); //$NON-NLS-1$ //$NON-NLS-2$
             LOG.debug(sw.toString());
         }
         return props;

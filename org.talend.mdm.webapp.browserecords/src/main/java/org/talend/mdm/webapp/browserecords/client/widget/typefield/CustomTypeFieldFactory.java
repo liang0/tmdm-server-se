@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -32,7 +32,7 @@ public class CustomTypeFieldFactory extends TypeFieldFactory {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.mdm.webapp.base.client.widget.typefield.TypeFieldFactory#createField()
      */
     @Override
@@ -75,18 +75,18 @@ public class CustomTypeFieldFactory extends TypeFieldFactory {
             if (context.isWithValue()) {
                 mlsField.setMultiLanguageStringValue(hasValue() ? getValue().toString() : ""); //$NON-NLS-1$
             }
-            
+
             // auto switch text area
             if (source != null && source.getName().equals(TypeFieldSource.FORM_INPUT)) {
                 if (hasValue() && mlsField.getMultiLanguageModel().getValueByLanguage(mlsField.getCurrentLanguage()).length() > context.getAutoTextAreaLength()) {
                     mlsField = new MultiLanguageTextAreaField(isFormInput ? true : false, BrowseRecords.getSession().getAppHeader().getUserProperties());
-                    
+
                     if (context.isWithValue()) {
                         mlsField.setMultiLanguageStringValue(getValue().toString());
                     }
                 }
             }
-            
+
             field = mlsField;
         }
         return field;
@@ -94,7 +94,7 @@ public class CustomTypeFieldFactory extends TypeFieldFactory {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.mdm.webapp.browserecords.client.widget.typefield.TypeFieldFactory#createSearchField()
      */
     @Override
@@ -104,7 +104,7 @@ public class CustomTypeFieldFactory extends TypeFieldFactory {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.mdm.webapp.browserecords.client.widget.typefield.TypeFieldFactory#updateStyle()
      */
     @Override

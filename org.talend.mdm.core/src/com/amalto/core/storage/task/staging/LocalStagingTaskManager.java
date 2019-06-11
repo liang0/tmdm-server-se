@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -21,9 +21,9 @@ import com.amalto.core.storage.task.Task;
  * Simple implementation of {@link StagingTaskManager} where tasks are all running in the same node.
  */
 public class LocalStagingTaskManager extends AbstractStagingTaskManager {
-    
+
     private final Map<String, Task> runningTasks = new HashMap<String, Task>();
-    
+
     @Override
     public String getCurrentTaskId(String dataContainer) {
         final Task currentTask = this.getCurrentTask(dataContainer);
@@ -55,7 +55,7 @@ public class LocalStagingTaskManager extends AbstractStagingTaskManager {
             }
         }
     }
-    
+
     @Override
     public void taskStarted(StagingTask task) {
         synchronized (runningTasks) {
@@ -87,9 +87,9 @@ public class LocalStagingTaskManager extends AbstractStagingTaskManager {
                 throw new RuntimeException("Unknown task " + task.getId() + " on container " + dataContainer);
             }
         }
-        
+
     }
-    
+
     private Task getCurrentTask(final String dataContainer){
         synchronized (runningTasks) {
             Task task = runningTasks.get(dataContainer);
@@ -102,7 +102,7 @@ public class LocalStagingTaskManager extends AbstractStagingTaskManager {
             return task;
         }
     }
-    
+
     private ExecutionStatistics getExecutionStatsForTask(final Task task){
         ExecutionStatistics status = new ExecutionStatistics();
         status.setId(task.getId());

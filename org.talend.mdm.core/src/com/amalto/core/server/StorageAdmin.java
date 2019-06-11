@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -37,7 +37,7 @@ public interface StorageAdmin {
     /**
      * Removes a storage from MDM: this is what happens when a user deletes a container. This method does not always
      * removes container's data (this depends on the value of <code>dropExistingData</code>).
-     * 
+     *
      * @param storageName A storage name.
      * @param type The storage {@link com.amalto.core.storage.StorageType type} (Staging, Master...).
      * @param dropExistingData <code>true</code> removes also storage data during operation.
@@ -47,7 +47,7 @@ public interface StorageAdmin {
     /**
      * Removes a storage from MDM (MASTER, STAGGING, SYSTEM): this is what happens when a user deletes a container. This
      * method does not always removes container's data (this depends on the value of <code>dropExistingData</code>).
-     * 
+     *
      * @param storageName A storage name.
      * @param dropExistingData <code>true</code> removes also storage data during operation.
      */
@@ -107,7 +107,7 @@ public interface StorageAdmin {
     /**
      * Returns if <code>storageName</code> is allowed to get a staging area (for instance Update Report and
      * Crossreferencing are not allowed to).
-     * 
+     *
      * @param storageName A storage name.
      * @return <code>true</code> if <code>storageName</code> can have a staging area, <code>false</code> otherwise.
      */

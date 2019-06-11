@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -310,7 +310,7 @@ public class DataChart extends ChartPortlet {
             @Override
             public void onPlotHover(Plot plot, PlotPosition position, PlotItem item) {
                 if (item != null) {
-                    hoveringTXT = (entityNamesSorted.get(item.getSeriesIndex()) + " : " //$NON-NLS-1$ 
+                    hoveringTXT = (entityNamesSorted.get(item.getSeriesIndex()) + " : " //$NON-NLS-1$
                             + formatter.format(item.getSeries().getData().getY(0)) + " / " //$NON-NLS-1$
                             + formatter.format(percentageValueMap.get(item.getSeries().getLabel())) + "%"); //$NON-NLS-1$
                     hoverLabel.setText(hoveringTXT);
@@ -318,7 +318,7 @@ public class DataChart extends ChartPortlet {
                     popup.setPopupPosition(cursorX, cursorY);
                     popup.show();
                     entityName = entityNamesSorted.get(item.getSeriesIndex());
-                    portal.setStyleAttribute("cursor", "pointer"); //$NON-NLS-1$ //$NON-NLS-2$ 
+                    portal.setStyleAttribute("cursor", "pointer"); //$NON-NLS-1$ //$NON-NLS-2$
                 } else {
                     popup.hide();
                     entityName = ""; //$NON-NLS-1$

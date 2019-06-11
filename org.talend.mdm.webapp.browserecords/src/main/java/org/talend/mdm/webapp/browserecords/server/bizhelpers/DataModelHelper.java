@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -108,7 +108,7 @@ public class DataModelHelper {
 
     /**
      * DOC Administrator Comment method "convertXsd2ElDecl".
-     * 
+     *
      * @param concept
      * @param xsd
      * @return
@@ -126,7 +126,7 @@ public class DataModelHelper {
 
     /**
      * DOC HSHU Comment method "getBusinessConcept".
-     * 
+     *
      * @throws Exception
      */
     public static XSElementDecl getBusinessConcept(String model, String concept) {
@@ -141,7 +141,7 @@ public class DataModelHelper {
 
     /**
      * DOC HSHU Comment method "getElementDeclByName".
-     * 
+     *
      * @param eleName
      * @param xss
      * @return
@@ -160,7 +160,7 @@ public class DataModelHelper {
 
     /**
      * DOC HSHU Comment method "travelXSElement". go through XSElement
-     * 
+     *
      * @param e
      * @param currentXPath
      */
@@ -300,7 +300,7 @@ public class DataModelHelper {
                             if (subParticles != null) {
                                 for (XSParticle xsParticle : subParticles) {
                                     travelParticle(xsParticle,
-                                            currentXPath + ":" + reusableType.getName(), entityModel, reusableComplexType, roles); //$NON-NLS-1$ 
+                                            currentXPath + ":" + reusableType.getName(), entityModel, reusableComplexType, roles); //$NON-NLS-1$
                                 }
                             }
                         }
@@ -412,8 +412,8 @@ public class DataModelHelper {
             Element annotations = (Element) e.getAnnotation().getAnnotation();
             NodeList annotList = annotations.getChildNodes();
             for (int k = 0; k < annotList.getLength(); k++) {
-                if ("appinfo".equals(annotList.item(k).getLocalName())) {//$NON-NLS-1$                   
-                    Node source = annotList.item(k).getAttributes().getNamedItem("source");//$NON-NLS-1$                                                    
+                if ("appinfo".equals(annotList.item(k).getLocalName())) {//$NON-NLS-1$
+                    Node source = annotList.item(k).getAttributes().getNamedItem("source");//$NON-NLS-1$
                     if (source == null) {
                         continue;
                     }
@@ -557,7 +557,7 @@ public class DataModelHelper {
             keys = copyKey.getFields();
             for (int i = 0; i < keys.length; i++) {
                 if (".".equals(key.getSelector())) { //$NON-NLS-1$
-                    keys[i] = concept + "/" + keys[i]; //$NON-NLS-1$ 
+                    keys[i] = concept + "/" + keys[i]; //$NON-NLS-1$
                 } else {
                     keys[i] = key.getSelector() + keys[i];
                 }

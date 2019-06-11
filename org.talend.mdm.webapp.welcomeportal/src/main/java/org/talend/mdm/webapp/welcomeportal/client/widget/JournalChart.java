@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -65,7 +65,7 @@ public class JournalChart extends ChartPortlet {
     }
 
     @Override
-    protected void initChart() { 
+    protected void initChart() {
         String noDCAlertPrefix = "<span id=\"licenseAlert\" style=\"padding-right:8px;cursor: pointer;\" class=\"labelStyle\" title=\"" //$NON-NLS-1$
                 + MessagesFactory.getMessages().alerts_title() + "\">"; //$NON-NLS-1$
         final String alertIcon = "<IMG SRC=\"secure/img/genericUI/alert-icon.png\"/>&nbsp;"; //$NON-NLS-1$
@@ -139,10 +139,10 @@ public class JournalChart extends ChartPortlet {
             JSONObject curUpdate;
             for (int k = 0; k < updateArray.size(); k++) {
                 curUpdate = updateArray.get(k).isObject();
-                numOfUpdates += (int) curUpdate.get(JOURNAL_ACTION_UPDATE).isNumber().getValue(); 
+                numOfUpdates += (int) curUpdate.get(JOURNAL_ACTION_UPDATE).isNumber().getValue();
             }
 
-            eventMap.put(JOURNAL_ACTION_CREATE, numOfCreates); 
+            eventMap.put(JOURNAL_ACTION_CREATE, numOfCreates);
             eventMap.put(JOURNAL_ACTION_UPDATE, numOfUpdates);
             journalDataNew.put(entityName, eventMap);
         }
@@ -179,13 +179,13 @@ public class JournalChart extends ChartPortlet {
     protected int getSeriesSize() {
         return 2;
     }
-    
+
     @Override
     protected String[] getSeriesLabels(){
         String[] labels = { MessagesFactory.getMessages().chart_journal_creation(), MessagesFactory.getMessages().chart_journal_update() };
         return labels;
     }
-    
+
     @Override
     protected String[] getSeriesDataKeys(){
         String[] keys = { JOURNAL_ACTION_CREATE, JOURNAL_ACTION_UPDATE };

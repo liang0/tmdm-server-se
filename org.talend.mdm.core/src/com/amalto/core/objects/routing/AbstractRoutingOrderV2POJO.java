@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -17,17 +17,17 @@ import com.amalto.core.objects.ObjectPOJOPK;
 
 /**
  * @author bgrieder
- * 
+ *
  */
 @SuppressWarnings("nls")
 public abstract class AbstractRoutingOrderV2POJO extends ObjectPOJO{
 
     private static final long serialVersionUID = -4752706364468289676L;
-    
+
     public final static int FAILED = 0;
 	public final static int ACTIVE = 1;
 	public final static int COMPLETED = 2;
-	
+
     protected String name;
     protected int status = ACTIVE;
     protected long timeCreated = System.currentTimeMillis();
@@ -42,11 +42,11 @@ public abstract class AbstractRoutingOrderV2POJO extends ObjectPOJO{
     protected String routingEngineToken = null;
     protected String bindingUniverseName = null;
     protected String bindingUserToken = null;
-    
+
     protected AbstractRoutingOrderV2POJO() {
     	super();
     }
-    
+
 	protected AbstractRoutingOrderV2POJO(
 		String name,
 		int status,
@@ -91,9 +91,9 @@ public abstract class AbstractRoutingOrderV2POJO extends ObjectPOJO{
 			String bindingUniverseName) {
 		    this(name,status,timeCreated,timeScheduled,timeLastRunStarted,timeLastRunCompleted,itemPOJOPK,serviceJNDI,serviceParameters,message,routingEnginePOJOPK,routingEngineToken);
 			this.bindingUniverseName=bindingUniverseName;
-			
+
 		}
-	
+
 	protected AbstractRoutingOrderV2POJO(
 			String name,
 			int status,
@@ -111,7 +111,7 @@ public abstract class AbstractRoutingOrderV2POJO extends ObjectPOJO{
 			String bindingUserToken) {
 		    this(name,status,timeCreated,timeScheduled,timeLastRunStarted,timeLastRunCompleted,itemPOJOPK,serviceJNDI,serviceParameters,message,routingEnginePOJOPK,routingEngineToken,bindingUniverseName);
 			this.bindingUserToken=bindingUserToken;
-			
+
 		}
 
 
@@ -167,7 +167,7 @@ public abstract class AbstractRoutingOrderV2POJO extends ObjectPOJO{
 		long timeLastRunCompleted) {
 		this.timeLastRunCompleted = timeLastRunCompleted;
 	}
-	
+
 	public ItemPOJOPK getItemPOJOPK() {
 		return itemPOJOPK;
 	}
@@ -176,7 +176,7 @@ public abstract class AbstractRoutingOrderV2POJO extends ObjectPOJO{
 		ItemPOJOPK itemPOJOPK) {
 		this.itemPOJOPK = itemPOJOPK;
 	}
-	
+
 	public String getServiceJNDI() {
 		return serviceJNDI;
 	}
@@ -223,7 +223,7 @@ public abstract class AbstractRoutingOrderV2POJO extends ObjectPOJO{
 		String routingEngineToken) {
 		this.routingEngineToken = routingEngineToken;
 	}
-	
+
     public String getBindingUniverseName() {
 		return bindingUniverseName;
 	}
@@ -231,7 +231,7 @@ public abstract class AbstractRoutingOrderV2POJO extends ObjectPOJO{
 	public void setBindingUniverseName(String bindingUniverseName) {
 		this.bindingUniverseName = bindingUniverseName;
 	}
-	
+
 	public String getBindingUserToken() {
 		return this.bindingUserToken;
 	}

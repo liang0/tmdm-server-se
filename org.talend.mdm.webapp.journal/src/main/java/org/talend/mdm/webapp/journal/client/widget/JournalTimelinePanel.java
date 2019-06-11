@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -104,28 +104,28 @@ public class JournalTimelinePanel extends ContentPanel {
     public native void renderTimeline(JavaScriptObject jsonData, String dateFormat)/*-{
         var timelineDiv = $doc.getElementById("journalTimeLine");
         if (timelineDiv == null){
-            return 
-        }       
-                                                                                   
+            return
+        }
+
         var theme1 = $wnd.Timeline.ClassicTheme.create();
         theme1.autoWidth = true;
         theme1.timeline_start = new Date(Date.UTC(1950, 0, 1));
-        theme1.timeline_stop = new Date(Date.UTC(2020, 0, 1));  
+        theme1.timeline_stop = new Date(Date.UTC(2020, 0, 1));
         var theme2 = $wnd.Timeline.ClassicTheme.create();
         theme2.event.tape.height = 6;
         theme2.event.track.height = theme2.event.tape.height + 10;
         var d = $wnd.Timeline.DateTime.parseGregorianDateTime(dateFormat)
-                                                                                   
+
         var bandInfos = [ $wnd.Timeline.createBandInfo({
-            width : this.@org.talend.mdm.webapp.journal.client.widget.JournalTimelinePanel::getTimeLinePanelHeight()() * 0.7,          
+            width : this.@org.talend.mdm.webapp.journal.client.widget.JournalTimelinePanel::getTimeLinePanelHeight()() * 0.7,
             intervalUnit : $wnd.Timeline.DateTime.HOUR,
             intervalPixels : 240,
             eventSource:    this.@org.talend.mdm.webapp.journal.client.widget.JournalTimelinePanel::eventSource,
             date:           d,
-            theme:          theme1,   
-            layout:         'original' 
+            theme:          theme1,
+            layout:         'original'
         }), $wnd.Timeline.createBandInfo({
-            width : this.@org.talend.mdm.webapp.journal.client.widget.JournalTimelinePanel::getTimeLinePanelHeight()() * 0.2,         
+            width : this.@org.talend.mdm.webapp.journal.client.widget.JournalTimelinePanel::getTimeLinePanelHeight()() * 0.2,
             intervalUnit : $wnd.Timeline.DateTime.DAY,
             intervalPixels : 150,
             eventSource:    this.@org.talend.mdm.webapp.journal.client.widget.JournalTimelinePanel::eventSource,
@@ -133,7 +133,7 @@ public class JournalTimelinePanel extends ContentPanel {
             theme:          theme2,
             layout:         'overview'
         }), $wnd.Timeline.createBandInfo({
-            width : this.@org.talend.mdm.webapp.journal.client.widget.JournalTimelinePanel::getTimeLinePanelHeight()() * 0.1,         
+            width : this.@org.talend.mdm.webapp.journal.client.widget.JournalTimelinePanel::getTimeLinePanelHeight()() * 0.1,
             intervalUnit : $wnd.Timeline.DateTime.YEAR,
             intervalPixels : 110,
             eventSource:    this.@org.talend.mdm.webapp.journal.client.widget.JournalTimelinePanel::eventSource,
@@ -147,7 +147,7 @@ public class JournalTimelinePanel extends ContentPanel {
            bandInfos[2].syncWith = 0;
            bandInfos[1].highlight = true;
            bandInfos[2].highlight = true;
-                                                                                   
+
            var timeLine = $wnd.Timeline.create(timelineDiv, bandInfos,
            $wnd.Timeline.HORIZONTAL);
            this.@org.talend.mdm.webapp.journal.client.widget.JournalTimelinePanel::eventSource.loadJSON(jsonData, $doc.location.href);
@@ -156,15 +156,15 @@ public class JournalTimelinePanel extends ContentPanel {
            currentInstance.@org.talend.mdm.webapp.journal.client.widget.JournalTimelinePanel::getTimeRange(Lcom/google/gwt/core/client/JavaScriptObject;)(band);
         });
 
-           timeLine.getBand(2).addOnScrollListener(function(band) {  
-           currentInstance.@org.talend.mdm.webapp.journal.client.widget.JournalTimelinePanel::getTimeRange(Lcom/google/gwt/core/client/JavaScriptObject;)(band);       
-        });                                                                                                                            
-                                                                                   
+           timeLine.getBand(2).addOnScrollListener(function(band) {
+           currentInstance.@org.talend.mdm.webapp.journal.client.widget.JournalTimelinePanel::getTimeRange(Lcom/google/gwt/core/client/JavaScriptObject;)(band);
+        });
+
     }-*/;
 
     public native void getTimeRange(JavaScriptObject band)/*-{
 
-        var currentInstance = this;                                                          
+        var currentInstance = this;
         if (currentInstance.@org.talend.mdm.webapp.journal.client.widget.JournalTimelinePanel::timeOutId) {
             $wnd.clearTimeout(currentInstance.@org.talend.mdm.webapp.journal.client.widget.JournalTimelinePanel::timeOutId);
         }

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -38,7 +38,7 @@ import com.google.gwt.user.client.ui.HTML;
 public class TaskPortlet extends BasePortlet {
 
     private AppHeader header = (AppHeader) Registry.get(WelcomePortal.APP_HEADER);
-    
+
     private final String TASK_AMOUNT = "amount";
 
     private String tdsServiceBaseUrl = GWT.getHostPageBaseURL() + "services/rest/tds/";
@@ -50,7 +50,7 @@ public class TaskPortlet extends BasePortlet {
     private boolean isHiddenWorkFlowTask = true;
 
     private boolean isHiddenTask = true;
-    
+
     private String ACCESS_TDS_FAIL = "access_tds_fail";
 
     private enum TASK_TYPE {
@@ -299,7 +299,7 @@ public class TaskPortlet extends BasePortlet {
         errorHtml.setHTML(errorStringBuilder.toString());
         return errorHtml;
     }
-    
+
     private String getResponseErrorMessage(Response response) {
         switch (response.getStatusCode()) {
         case Response.SC_SERVICE_UNAVAILABLE:

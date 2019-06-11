@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -27,20 +27,20 @@ import com.extjs.gxt.ui.client.widget.layout.BorderLayoutData;
  * DOC Administrator  class global comment. Detailled comment
  */
 public class JournalHistoryPanel extends ContentPanel {
-    
+
     private boolean isAuth;
     private JournalDataPanel journalDataPanel;
-    
+
     private JournalComparisonPanel beforePanel;
-    
+
     private JournalComparisonPanel afterPanel;
-    
+
     private BorderLayoutData westData;
-    
+
     private BorderLayoutData centerData;
-    
+
     BorderLayoutData northData;
-    
+
     public JournalHistoryPanel(JournalTreeModel root, JournalGridModel gridModel, boolean isAuth, int width) {
         this.isAuth = isAuth;
         this.setFrame(false);
@@ -48,37 +48,37 @@ public class JournalHistoryPanel extends ContentPanel {
         this.setHeaderVisible(false);
         this.setHeading(MessagesFactory.getMessages().data_change_viewer());
         this.setLayout(new BorderLayout());
-        
+
         northData = new BorderLayoutData(LayoutRegion.NORTH, 200);
         northData.setCollapsible(false);
         northData.setSplit(true);
-        northData.setMargins(new Margins(0, 0, 0, 0));        
-        
+        northData.setMargins(new Margins(0, 0, 0, 0));
+
         journalDataPanel = generateJournalDataPanel(root, gridModel);
         journalDataPanel.setJournalHistoryPanel(this);
-        this.add(journalDataPanel, northData);        
+        this.add(journalDataPanel, northData);
 
         westData = new BorderLayoutData(LayoutRegion.WEST, width);
         westData.setCollapsible(false);
         westData.setSplit(true);
         westData.setMargins(new Margins(5, 5, 0, 0));
-        
+
         beforePanel = generateJournalComparisonPanel(MessagesFactory.getMessages().before_label(),
                 JournalSearchUtil.buildParameter(gridModel, "before", isAuth),journalDataPanel.getJournalGridModel(),true); //$NON-NLS-1$
         this.add(beforePanel, westData);
-        
+
         centerData = new BorderLayoutData(LayoutRegion.CENTER);
         westData.setCollapsible(false);
         centerData.setMargins(new Margins(5, 0, 0, 0));
         centerData.setSplit(true);
-        
+
         afterPanel = generateJournalComparisonPanel(MessagesFactory.getMessages().after_label(),
                 JournalSearchUtil.buildParameter(gridModel, "current", isAuth),journalDataPanel.getJournalGridModel(),false); //$NON-NLS-1$
         this.add(afterPanel, centerData);
-        
+
         beforePanel.setOtherPanel(afterPanel);
         afterPanel.setOtherPanel(beforePanel);
-    }    
+    }
 
     public void update() {
         this.remove(afterPanel);
@@ -91,13 +91,13 @@ public class JournalHistoryPanel extends ContentPanel {
         this.afterPanel = generateJournalComparisonPanel(MessagesFactory.getMessages().after_label(),
                 JournalSearchUtil.buildParameter(gridModel, "current", isAuth),journalDataPanel.getJournalGridModel(),false); //$NON-NLS-1$
         this.add(afterPanel, centerData);
-        
+
         beforePanel.setOtherPanel(afterPanel);
         afterPanel.setOtherPanel(beforePanel);
         this.getJournalDataPanel().layout();
         this.layout();
     }
-    
+
     public String getCriteriaString() {
         return Registry.get(Journal.SEARCH_CRITERIA).toString();
     }
@@ -105,7 +105,7 @@ public class JournalHistoryPanel extends ContentPanel {
     public JournalComparisonPanel getBeforePanel() {
         return beforePanel;
     }
-  
+
     public JournalComparisonPanel getAfterPanel() {
         return afterPanel;
     }

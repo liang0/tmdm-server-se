@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -23,16 +23,16 @@ import com.amalto.core.objects.ObjectPOJOPK;
 
 /**
  * @author bgrieder
- * 
+ *
  */
 public class RoutingEngineV2POJO extends ObjectPOJO{
-   
 
-	
+
+
     public static final int STOPPED = 1;
     public static final int  RUNNING = 2;
     public static final int  SUSPENDED = 3;
-	
+
 	private static int _NUMBER_OF_EXECUTORS_ = 20;
 	private static long _MAX_EXECUTION_TIME_MILLIS_ = 1000*60*5; //5 minutes default;
 	private static long _RUN_PERIOD_MILLIS_ = 2500; //3 seconds
@@ -40,7 +40,7 @@ public class RoutingEngineV2POJO extends ObjectPOJO{
 	 * The minimum frequency between two runs
 	 */
 	public final static long _MIN_PERIOD_MILLIS_ = 150;
-	
+
 	static {
 		Properties conf = MDMConfiguration.getConfiguration();
 		//Number of simultaneous executors
@@ -78,32 +78,32 @@ public class RoutingEngineV2POJO extends ObjectPOJO{
 		}
 
 	}
-	
+
 //    private String name;
     //Routing Engines run by default
     //private int status = RUNNING;
 	private int status = STOPPED;
     //private int maxNumberOfExecutors = 1;
-//    private long maxExecutionTimeMillis = _MAX_EXECUTION_TIME_MILLIS_; 
-    
+//    private long maxExecutionTimeMillis = _MAX_EXECUTION_TIME_MILLIS_;
+
     private transient Map<String, RoutingEngineV2ExecutorPOJO> executors = Collections.synchronizedMap(new HashMap<String,RoutingEngineV2ExecutorPOJO>(_NUMBER_OF_EXECUTORS_));
     private transient long lastDeadRoutingOrdersSweep = 0;
-    
-    
+
+
     //singleton
-    
+
     private static RoutingEngineV2POJO instance = null;
-    
+
     public static RoutingEngineV2POJO getInstance() {
     	if (instance == null) {
     		instance = new RoutingEngineV2POJO();
     	}
     	return instance;
     }
-    
-    
+
+
     private RoutingEngineV2POJO() {super();}
-    
+
 
 
 	public int getStatus() {
@@ -131,7 +131,7 @@ public class RoutingEngineV2POJO extends ObjectPOJO{
 		HashMap<String, RoutingEngineV2ExecutorPOJO> executors) {
 		this.executors = Collections.synchronizedMap(executors);
 	}
-	
+
 	public long getMaxExecutionTimeMillis() {
 		return _MAX_EXECUTION_TIME_MILLIS_;
 	}
@@ -139,7 +139,7 @@ public class RoutingEngineV2POJO extends ObjectPOJO{
 	public void setMaxExecutionTimeMillis(long consideredDeadMillis) {
 		_MAX_EXECUTION_TIME_MILLIS_ = consideredDeadMillis;
 	}
-	
+
 
 	public long getRunPeriodMillis() {
 		return _RUN_PERIOD_MILLIS_;
@@ -148,11 +148,11 @@ public class RoutingEngineV2POJO extends ObjectPOJO{
 	public void setRunPeriodMillis(long runPeriodMillis) {
 		_RUN_PERIOD_MILLIS_ = Math.max(_MIN_PERIOD_MILLIS_, runPeriodMillis);
 	}
-	
+
 	public long getMinRunPeriodMillis() {
 		return _MIN_PERIOD_MILLIS_;
 	}
-	
+
 
 	public long getLastDeadRoutingOrdersSweep() {
 		return lastDeadRoutingOrdersSweep;

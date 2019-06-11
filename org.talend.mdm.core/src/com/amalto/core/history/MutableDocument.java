@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -45,10 +45,10 @@ public interface MutableDocument extends Document {
      * Replaces content of this document with another. This is similar to {@link #create(MutableDocument)} but without the
      * create status update.
      * @param content Content of a document.
-     * @return Returns a document with content from parameter. Document is not expected to be in created status 
+     * @return Returns a document with content from parameter. Document is not expected to be in created status
      */
     MutableDocument setContent(MutableDocument content);
-    
+
     /**
      * Deletes the document. MDM supports two different kinds of deletes: LOGICAL and PHYSICAL.
      *
@@ -90,11 +90,11 @@ public interface MutableDocument extends Document {
      * @param taskId A String task id (usually a UUID).
      */
     void setTaskId(String taskId);
-    
+
     /**
      * @return whether a missing element in the document should be considered as an empty value
-     * or a missing value. 
-     * 
+     * or a missing value.
+     *
      * Empty value means information exists and is empty (empty string)
      * Missing value means document is not complete (value was not provided an should be unchanged)
      */

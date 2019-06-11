@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -47,9 +47,9 @@ import com.amalto.core.webservice.WSPutItemWithReport;
 import com.amalto.core.webservice.WSPutItemWithReportArray;
 
 /**
- * 
+ *
  * @author asaintguilhem
- * 
+ *
  * read excel and csv file
  */
 
@@ -62,7 +62,7 @@ public class UploadData extends HttpServlet {
             "org.talend.mdm.webapp.browserecords.client.i18n.BrowseRecordsMessages", UploadData.class.getClassLoader()); //$NON-NLS-1$
 
     private boolean cusExceptionFlag = false;
-    
+
 
     @Override
     public void init() throws ServletException {
@@ -116,7 +116,7 @@ public class UploadData extends HttpServlet {
                 if (item.isFormField()) {
                     // we are not expecting any field just (one) file(s)
                     String name = item.getFieldName();
-                    LOG.debug("doPost() Field: '" + name + "' - value:'" + item.getString() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
+                    LOG.debug("doPost() Field: '" + name + "' - value:'" + item.getString() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                     if (name.equals("concept")) { //$NON-NLS-1$
                         concept = item.getString();
                     } else if (name.equals("sep")) { //$NON-NLS-1$

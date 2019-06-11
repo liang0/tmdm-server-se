@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -38,7 +38,7 @@ public class DateTimeTypeFieldFactory extends TypeFieldFactory {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.mdm.webapp.base.client.widget.typefield.TypeFieldFactory#createField()
      */
     @Override
@@ -70,7 +70,7 @@ public class DateTimeTypeFieldFactory extends TypeFieldFactory {
      */
     public Field<?> createFormatDateField(boolean isDateTime){
         final FormatDateField dateField = new FormatDateField();
-        if (!isEmpty(displayformatPattern)) {               
+        if (!isEmpty(displayformatPattern)) {
             dateField.setFormatPattern(displayformatPattern);
         }
         dateField.setDateTime(isDateTime);
@@ -82,7 +82,7 @@ public class DateTimeTypeFieldFactory extends TypeFieldFactory {
         		Date d = DateUtil.convertStringToDate(isDateTime ? DateUtil.dateTimePattern : DateUtil.datePattern, getValue().toString());
         		dateField.setValue(hasValue() ? d : null);
         	} catch (Exception e) {
-            	String label = context.getNode().getDynamicLabel() != null && context.getNode().getDynamicLabel().trim().length() > 0 ? 
+            	String label = context.getNode().getDynamicLabel() != null && context.getNode().getDynamicLabel().trim().length() > 0 ?
             			context.getNode().getDynamicLabel() : LabelUtil.getNormalLabel(context.getNode().getLabel());
             	DeferredCommand.addCommand(new Command(){
                 	public void execute() {
@@ -98,7 +98,7 @@ public class DateTimeTypeFieldFactory extends TypeFieldFactory {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.mdm.webapp.browserecords.client.widget.typefield.TypeFieldFactory#createSearchField()
      */
     @Override
@@ -107,7 +107,7 @@ public class DateTimeTypeFieldFactory extends TypeFieldFactory {
         if (baseType.equals(DataTypeConstants.DATE.getBaseTypeName())) {
             DateField dateField = new DateField();
             dateField.setMessageTarget("tooltip");//$NON-NLS-1$
-            dateField.setPropertyEditor(new DateTimePropertyEditor("yyyy-MM-dd"));//$NON-NLS-1$            
+            dateField.setPropertyEditor(new DateTimePropertyEditor("yyyy-MM-dd"));//$NON-NLS-1$
             field = dateField;
             source.setOperatorMap(OperatorConstants.dateOperators);
         } else if (baseType.equals(DataTypeConstants.DATETIME.getBaseTypeName())) {
@@ -123,7 +123,7 @@ public class DateTimeTypeFieldFactory extends TypeFieldFactory {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.mdm.webapp.browserecords.client.widget.typefield.TypeFieldFactory#updateStyle()
      */
     @Override

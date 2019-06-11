@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -44,14 +44,14 @@ public class Util {
 
     public static final int TIME_OF_ONE_SECOND = 1000;
 
-    public static final String concept = "Update"; //$NON-NLS-1$   
+    public static final String concept = "Update"; //$NON-NLS-1$
 
     private static final Logger LOG = Logger.getLogger(Util.class);
 
     public static List<WSWhereItem> buildWhereItems(JournalSearchCriteria criteria, WebService webService)
             throws ServiceException {
-        
-        List<WSWhereItem> whereItemList = new ArrayList<WSWhereItem>();        
+
+        List<WSWhereItem> whereItemList = new ArrayList<WSWhereItem>();
 
         if (criteria.getEntity() != null) {
             WSWhereCondition wc = new WSWhereCondition(
@@ -114,13 +114,13 @@ public class Util {
                         if (!XSystemObjects.isXSystemObject(xDataModelsMap, wsDataModelsPK.getPk())) {
                             accessModels.add(wsDataModelsPK.getPk());
                             WSWhereCondition wc = new WSWhereCondition(
-                                    "DataModel", WSWhereOperator.EQUALS, (wsDataModelsPK.getPk()), WSStringPredicate.NONE, false); //$NON-NLS-1$ 
+                                    "DataModel", WSWhereOperator.EQUALS, (wsDataModelsPK.getPk()), WSStringPredicate.NONE, false); //$NON-NLS-1$
                             modelConditions.add(new WSWhereItem(wc, null, null));
                         }
                     }
                     if (modelConditions.size() == 0) {
                         WSWhereCondition wc = new WSWhereCondition(
-                                "DataModel", WSWhereOperator.EQUALS, (""), WSStringPredicate.NONE, false); //$NON-NLS-1$ 
+                                "DataModel", WSWhereOperator.EQUALS, (""), WSStringPredicate.NONE, false); //$NON-NLS-1$
                         WSWhereItem modelItem = new WSWhereItem(wc, null, null);
                         whereItemList.add(modelItem);
                     } else {
@@ -149,12 +149,12 @@ public class Util {
             LOG.error(e.getMessage(), e);
             throw new ServiceException("Error occurs during checking access to data model and entities: " //$NON-NLS-1$
                     + e.getLocalizedMessage());
-        }        
+        }
         return whereItemList;
     }
-    
+
     public static WSGetItems buildGetItem(List<WSWhereItem> conditions,int start, int limit) {
-        
+
         WSWhereItem wi;
         if (conditions.size() == 0) {
             wi = null;
@@ -174,9 +174,9 @@ public class Util {
         item.setWsDataClusterPK(new WSDataClusterPK(XSystemObjects.DC_UPDATE_PREPORT.getName()));
         return item;
     }
-    
+
     public static WSGetItemsSort buildGetItemsSort(List<WSWhereItem> conditions,int start, int limit,String sort,String dir) {
-        
+
         WSWhereItem wi;
         if (conditions.size() == 0) {
             wi = null;
@@ -198,7 +198,7 @@ public class Util {
         item.setDir(dir);
         return item;
     }
-    
+
     private static String getOrderXPath(String fieldName) {
         if (fieldName != null && fieldName.length() > 0) {
             String elementName;
@@ -224,6 +224,6 @@ public class Util {
             return concept + "/" + elementName; //$NON-NLS-1$
         } else {
             return null;
-        }        
+        }
     }
 }

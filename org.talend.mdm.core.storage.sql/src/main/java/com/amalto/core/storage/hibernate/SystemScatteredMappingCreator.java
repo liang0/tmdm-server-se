@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -130,7 +130,7 @@ class SystemScatteredMappingCreator extends DefaultMetadataVisitor<TypeMapping> 
                 referencedType,
                 referencedFieldCopy,
                 Collections.<FieldMetadata>emptyList(),
-                StringUtils.EMPTY, 
+                StringUtils.EMPTY,
                 fkIntegrity,
                 referenceField.allowFKIntegrityOverride(),
                 new SimpleTypeMetadata(XMLConstants.W3C_XML_SCHEMA_NS_URI, Types.STRING),
@@ -227,7 +227,7 @@ class SystemScatteredMappingCreator extends DefaultMetadataVisitor<TypeMapping> 
                 typeRef,
                 new SoftIdFieldRef(internalRepository, containedTypeName),
                 Collections.<FieldMetadata>emptyList(),
-                StringUtils.EMPTY, 
+                StringUtils.EMPTY,
                 enforceTechnicalFK,
                 false,
                 new SimpleTypeMetadata(XMLConstants.W3C_XML_SCHEMA_NS_URI, Types.STRING),

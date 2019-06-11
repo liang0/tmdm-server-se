@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -50,18 +50,18 @@ public class CommonUtil {
 
     public static final String AND = "AND"; //$NON-NLS-1$
 
-    public static final String OR = "OR"; //$NON-NLS-1$ 
+    public static final String OR = "OR"; //$NON-NLS-1$
 
     public static final String EQUALS = "EQUALS"; //$NON-NLS-1$
 
     private static final Pattern extractIdPattern = Pattern.compile("\\[.*?\\]"); //$NON-NLS-1$
 
     private static final Messages MESSAGES = MessagesFactory.getMessages(
-            "org.talend.mdm.webapp.base.client.i18n.BaseMessages", CommonUtil.class.getClassLoader()); //$NON-NLS-1$    
+            "org.talend.mdm.webapp.base.client.i18n.BaseMessages", CommonUtil.class.getClassLoader()); //$NON-NLS-1$
 
     /**
      * DOC HSHU Comment method "getPort".
-     * 
+     *
      * @return
      * @throws XtentisWebappException
      */
@@ -71,7 +71,7 @@ public class CommonUtil {
 
     /**
      * Join an arraylist of strings into a single string using a separator
-     * 
+     *
      * @param strings
      * @param separator
      * @return a single string or null
@@ -80,9 +80,9 @@ public class CommonUtil {
         if (strings == null) {
             return null;
         }
-        String res = ""; //$NON-NLS-1$ 
+        String res = ""; //$NON-NLS-1$
         for (int i = 0; i < strings.size(); i++) {
-            res += (i > 0) ? separator : ""; //$NON-NLS-1$ 
+            res += (i > 0) ? separator : ""; //$NON-NLS-1$
             res += strings.get(i);
         }
         return res;
@@ -167,9 +167,9 @@ public class CommonUtil {
 
     public static WSWhereItem buildWhereItem(String criteria) throws Exception {
         WSWhereItem wi;
-        String[] filters = criteria.split(" "); //$NON-NLS-1$ 
+        String[] filters = criteria.split(" "); //$NON-NLS-1$
         String filterXpaths, filterOperators;
-        String filterValues = ""; //$NON-NLS-1$ 
+        String filterValues = ""; //$NON-NLS-1$
 
         filterXpaths = filters[0];
         filterOperators = filters[1];
@@ -180,7 +180,7 @@ public class CommonUtil {
             for (int i = 2; i < filters.length; i++) {
                 filterValues += filters[i];
                 if (i != filters.length - 1) {
-                    filterValues += " "; //$NON-NLS-1$ 
+                    filterValues += " "; //$NON-NLS-1$
                 }
             }
         }
@@ -202,7 +202,7 @@ public class CommonUtil {
             String type = businessConcept.getXpathTypeMap().get(filterXpaths);
             if (type != null && type.equals("xsd:boolean")) { //$NON-NLS-1$
                 wc.setStringPredicate(WSStringPredicate.OR);
-                conditions.add(new WSWhereItem(new WSWhereCondition(filterXpaths, Util.getOperator("EMPTY_NULL"),//$NON-NLS-1$ 
+                conditions.add(new WSWhereItem(new WSWhereCondition(filterXpaths, Util.getOperator("EMPTY_NULL"),//$NON-NLS-1$
                         filterValues, WSStringPredicate.NONE, false), null, null));
             }
         }

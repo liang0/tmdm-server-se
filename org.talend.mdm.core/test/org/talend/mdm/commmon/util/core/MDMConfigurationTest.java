@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -34,11 +34,11 @@ public class MDMConfigurationTest extends TestCase {
         assertEquals("install", properties.getProperty("technical.password"));
 
         Properties propertiesInFile = new Properties();
-        FileInputStream in = new FileInputStream(filePath);                
+        FileInputStream in = new FileInputStream(filePath);
         propertiesInFile.load(in);
         assertEquals("aYfBEdcXYP3t9pofaispXA==,Encrypt", propertiesInFile.getProperty("admin.password"));
         assertEquals("tKyTop7U6czAJKGTd9yWRA==,Encrypt", propertiesInFile.getProperty("technical.password"));
-        
+
 
         Field field = configuration.getClass().getDeclaredField("instance");
         field.setAccessible(true);

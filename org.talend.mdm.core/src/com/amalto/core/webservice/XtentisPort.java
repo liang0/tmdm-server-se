@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -108,7 +108,7 @@ public interface XtentisPort extends java.rmi.Remote {
     public WSStringArray quickSearch(WSQuickSearch wsQuickSearch) throws RemoteException;
 
     public WSItemPK putItem(WSPutItem wsPutItem) throws RemoteException;
-    
+
     public WSItemPK updateItemMetadata(WSUpdateMetadataItem wsUpdateMetadataItem) throws RemoteException;
 
     public WSBoolean existsRole(WSExistsRole wsExistsRole) throws RemoteException;
@@ -272,9 +272,9 @@ public interface XtentisPort extends java.rmi.Remote {
     public WSRoutingEngineV2Status routingEngineV2Action(WSRoutingEngineV2Action wsRoutingEngineAction) throws RemoteException;
 
     public WSRoutingRulePKArray routeItemV2(WSRouteItemV2 wsRouteItem) throws RemoteException;
-    
+
     public WSMDMJobArray getMDMJob(WSMDMNULL mdmJobRequest) throws RemoteException;
-    
+
     public WSCategoryData getMDMCategory(WSCategoryData wsCategoryDataRequest) throws RemoteException;
 
     public WSAutoIncrement getAutoIncrement(WSAutoIncrement wsAutoIncrementRequest) throws RemoteException;

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -63,16 +63,16 @@ public class MenuTest extends TestCase {
         subMenus[1] = new WSMenuEntry("Browser", browser_descriptions, "Browser", "Browser", null, null);
         WSMenuEntry menuEntry = new WSMenuEntry("Home", home_descriptions, "Home", "Home", null, subMenus);
         WsMenuUtil.wsMenu2Menu(menuIndex, menuEntry, null, "", 0);
-        
+
         Map<String, Object> delegatorInstancePool = new HashMap<String, Object>();
         delegatorInstancePool.put("LocalUser", new MockAdmin()); //$NON-NLS-1$
         delegatorInstancePool.put("MenuUtil", new MockMenuUtil()); //$NON-NLS-1$
         createBeanDelegatorContainer();
-        BeanDelegatorContainer.getInstance().setDelegatorInstancePool(delegatorInstancePool); 
+        BeanDelegatorContainer.getInstance().setDelegatorInstancePool(delegatorInstancePool);
     }
 
     private static class MockMenuUtil extends BaseMenu {
-        
+
     }
     private static class MockAdmin extends ILocalUser {
 

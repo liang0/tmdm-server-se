@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -38,7 +38,7 @@ public class SmartViewServlet extends HttpServlet {
     @Override
     protected void doGet(final HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.setCharacterEncoding("UTF-8");//$NON-NLS-1$ 
+        response.setCharacterEncoding("UTF-8");//$NON-NLS-1$
         response.setHeader("Cache-Control", "no-cache, must-revalidate");//$NON-NLS-1$ //$NON-NLS-2$
         response.setHeader("Expires", "Mon, 26 Jul 1997 05:00:00 GMT");//$NON-NLS-1$ //$NON-NLS-2$
 

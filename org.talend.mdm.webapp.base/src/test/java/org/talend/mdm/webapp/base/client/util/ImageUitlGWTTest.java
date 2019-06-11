@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -18,7 +18,7 @@ import com.google.gwt.junit.client.GWTTestCase;
 
 @SuppressWarnings("nls")
 public class ImageUitlGWTTest extends GWTTestCase{
-    
+
     private static String testXml = null;
     static{
         StringBuffer sb=new StringBuffer();
@@ -314,7 +314,7 @@ public class ImageUitlGWTTest extends GWTTestCase{
         sb.append("</list> ");
         testXml = sb.toString();
     }
-        
+
 
     public void testGetImages() throws Exception
     {
@@ -340,7 +340,7 @@ public class ImageUitlGWTTest extends GWTTestCase{
         assertEquals("c201203", image15.getCatalog()); //$NON-NLS-1$
         assertEquals("/imageserver/upload/c201203/wanted-poster-1.jpg", image15.getUri()); //$NON-NLS-1$
     }
-    
+
     public void testGetImagesWithEmptyResponse() throws Exception {
 
         List<Image> images = ImageUtil.getImages(null);
@@ -356,7 +356,7 @@ public class ImageUitlGWTTest extends GWTTestCase{
 
     // GWTTestCase Required
     @Override
-    public String getModuleName() {        
+    public String getModuleName() {
         return "org.talend.mdm.webapp.base.TestBase"; //$NON-NLS-1$
     }
 }

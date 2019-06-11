@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -37,7 +37,7 @@ public class WebServiceImp implements WebService {
     public WSItem getItem(WSGetItem wSGetItem) throws XtentisWebappException, RemoteException {
         return Util.getPort().getItem(wSGetItem);
     }
-    
+
     public WSStringArray getItemsBySort(WSGetItemsSort wsGetItemsSort) throws RemoteException, XtentisWebappException {
         return Util.getPort().getItemsSort(wsGetItemsSort);
     }
@@ -46,7 +46,7 @@ public class WebServiceImp implements WebService {
       Map<String, XSElementDecl> map = CommonDWR.getConceptMap(dataModel);
       return map.get(concept);
     }
-    
+
     @Override
     public boolean isEnterpriseVersion() {
         return Webapp.INSTANCE.isEnterpriseVersion();

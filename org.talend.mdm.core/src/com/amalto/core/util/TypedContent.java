@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * 
+ *
  * @author bgrieder
  * @deprecated - use TransformerV2 package
  *
@@ -23,18 +23,18 @@ public class TypedContent {
 
     private String contentType="";
 	private InputStream stream = null;
-	
+
 	public TypedContent() {
 		super();
 	}
-	
+
 	public TypedContent(InputStream is, byte[] bytes, String contentType) {
 		super();
 		this.stream = is;
 		this.bytes = bytes;
 		this.contentType = contentType;
 	}
-	
+
 	public InputStream getStream() {
 		return stream;
 	}
@@ -53,7 +53,7 @@ public class TypedContent {
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
-	
+
 	public static com.amalto.core.objects.transformers.util.TypedContent getNewTypedContent(TypedContent oldContent) {
     	com.amalto.core.objects.transformers.util.TypedContent newContent = null;
     	if (oldContent.getBytes() != null)
@@ -63,7 +63,7 @@ public class TypedContent {
     	}
     	return newContent;
 	}
-	
+
 	public static TypedContent getOldTypedContent(com.amalto.core.objects.transformers.util.TypedContent newContent) throws IOException{
     	TypedContent oldContent = new TypedContent();
    		oldContent.setStream(newContent.getContentStream());
@@ -73,5 +73,5 @@ public class TypedContent {
    		oldContent.setContentType(newContent.getContentType());
     	return oldContent;
 	}
-	
+
 }

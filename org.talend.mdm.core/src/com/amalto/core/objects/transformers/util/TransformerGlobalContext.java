@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -22,10 +22,10 @@ import com.amalto.core.util.XtentisException;
 
 
 public class TransformerGlobalContext extends TransformerContext{
-	
+
 	private final static String PLUGIN_CONTEXTS = "com.amalto.core.util.TransformerGlobalContext.PLUGIN_CONTEXTS";
 	private final static String TRANSFORMER_POJO = "com.amalto.core.util.TransformerGlobalContext.TRANSFORMER_POJO";
-	
+
 	private static final String EXECUTE_CALLBACK = "com.amalto.core.util.TransformerGlobalContext.EXECUTE_CALLBACK";
 	private static final String PROCESS_CALLBACK = "com.amalto.core.util.TransformerGlobalContext.PROCESS_CALLBACK";
 	private static final String INSTANTIATED_PLUGINS = "com.amalto.core.util.TransformerGlobalContext.INSTANTIATED_PLUGINS";
@@ -36,16 +36,16 @@ public class TransformerGlobalContext extends TransformerContext{
 	private static final String JOB = "com.amalto.core.util.TransformerGlobalContext.JBO";
 	private static final String USERTOKEN = "com.amalto.core.util.TransformerGlobalContext.USERTOKEN";
 
-	
+
 	//private HashMap<Integer, TransformerPluginContext> pluginContexts;
 	//private TransformerPOJO transformerPOJO = null;
 
-	
+
 	public TransformerGlobalContext(TransformerV2POJOPK transformerPOJOPK) {
 		super(transformerPOJOPK);
 		initialize();
 	}
-	
+
 	/**
 	 * Create a Global Context from an existing context
 	 * @param context  - An exitsing Transformer Context
@@ -56,9 +56,9 @@ public class TransformerGlobalContext extends TransformerContext{
 		this.setPipeline(context.getPipeline());
 		this.setProjectedPKs(context.getProjectedPKs());
 		initialize();
-	}	
+	}
 
-	
+
 	/**
 	 * Initilializes the Global COntext with default values
 	 */
@@ -68,10 +68,10 @@ public class TransformerGlobalContext extends TransformerContext{
 		setTransformerDone(false);
 		setIterationNumber(0);
 		setInstantiatedPlugins(new LinkedHashMap<Integer, TransformerPluginV2LocalInterface>());
-		setDecisionTable(new HashMap<String, String>());		
+		setDecisionTable(new HashMap<String, String>());
 	}
 
-	
+
 	public TransformerPluginContext getTransformerPluginContext(int pluginNumber) throws XtentisException{
 		TransformerPluginContext pluginContext = getPluginContexts().get(new Integer(pluginNumber));
 		if (pluginContext == null) {
@@ -80,15 +80,15 @@ public class TransformerGlobalContext extends TransformerContext{
 		}
 		return pluginContext;
 	}
-	
-	
+
+
 	public TransformerV2POJO getTransformerPOJO() throws XtentisException {
 		TransformerV2POJO transformerPOJO = (TransformerV2POJO)this.get(TRANSFORMER_POJO);
 		if (transformerPOJO == null) {
 	    	try {
 				transformerPOJO = Util.getTransformerV2CtrlLocal().getTransformer(this.getTransformerV2POJOPK());
 			} catch (Exception e) {
-				String err = 
+				String err =
 					"Unable to get the transformer "+this.getTransformerV2POJOPK().getUniqueId()+" from the global Context: "+
 					e.getClass().getName()+": "+e.getMessage();
 				org.apache.log4j.Logger.getLogger(this.getClass()).error("executeNextPlugin() "+err);
@@ -98,8 +98,8 @@ public class TransformerGlobalContext extends TransformerContext{
 		}
 		return transformerPOJO;
 	}
-	
-	
+
+
 	private Map<Integer, TransformerPluginContext> getPluginContexts() {
 		return (Map<Integer, TransformerPluginContext>)this.get(PLUGIN_CONTEXTS);
 	}
@@ -127,14 +127,14 @@ public class TransformerGlobalContext extends TransformerContext{
 	public void setInstantiatedPlugins(LinkedHashMap<Integer, TransformerPluginV2LocalInterface> instantiatedPlugins) {
 		put(INSTANTIATED_PLUGINS,instantiatedPlugins);
 	}
-	
+
 	public long getIterationNumber() {
 		return ((Long) get(COUNTER)).longValue();
 	}
 	public void setIterationNumber(long counter) {
 		put(COUNTER, new Long(counter));
 	}
-	
+
 	public boolean isTransformerDone() {
 		return ((Boolean) get(TRANSFOMER_DONE)).booleanValue();
 	}
@@ -148,7 +148,7 @@ public class TransformerGlobalContext extends TransformerContext{
 	public void setDecisionTable(HashMap<String, String> decisionTable) {
 		put(DECISION_TABLE,decisionTable);
 	}
-	
+
 
 	public long getStartTime() {
 		return ((Long) get(TIME)).longValue();
@@ -156,22 +156,22 @@ public class TransformerGlobalContext extends TransformerContext{
 	public void setStartTime(long timeInMillis) {
 		put(TIME, new Long(timeInMillis));
 	}
-	
+
 	public BackgroundJobPOJO getJob() {
 		return (BackgroundJobPOJO) get(JOB);
 	}
 	public void setJob(BackgroundJobPOJO jobPOJO) {
 		put(JOB,jobPOJO);
 	}
-	
+
 	public String getUserToken() {
 		return (String) get(USERTOKEN);
 	}
 	public void setUserToken(String userToken) {
 		put(USERTOKEN,userToken);
 	}
-	
-//	
+
+//
 //	@Override
 //	public byte[] toBytes() throws IOException {
 //		TransformerContext ctx = new TransformerContext(this.getTransformerV2POJOPK());
@@ -179,8 +179,8 @@ public class TransformerGlobalContext extends TransformerContext{
 //		ctx.setPipeline(this.getPipeline());
 //		ctx.setProjectedPKs(this.getProjectedPKs());
 //		return ctx.toBytes();
-//		
+//
 //	}
-	
-	
+
+
 }

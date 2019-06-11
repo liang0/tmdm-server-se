@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -17,13 +17,13 @@ import java.util.Map;
 import com.amalto.core.objects.marshalling.MarshallingFactory;
 
 public class MigrationTaskBox implements  Serializable{
-	
+
 	private static final long serialVersionUID = 5658917963695194606L;
 
 	public MigrationTaskBox() {
-	
+
 	}
-	
+
 
 	public MigrationTaskBox(Map<String, Boolean> handlerMap) {
 		super();
@@ -41,8 +41,8 @@ public class MigrationTaskBox implements  Serializable{
 	public void setHandlerMap(Map<String, Boolean> handlerMap) {
 		this.handlerMap = handlerMap;
 	}
-	
-	 
+
+
 	public String toString() {
 		try {
 			StringWriter sw = new StringWriter();
@@ -51,6 +51,6 @@ public class MigrationTaskBox implements  Serializable{
 	    } catch (Exception e) {
 		    org.apache.log4j.Logger.getLogger(this.getClass()).error(e);
 		    return null;
-	    } 
+	    }
 	}
 }

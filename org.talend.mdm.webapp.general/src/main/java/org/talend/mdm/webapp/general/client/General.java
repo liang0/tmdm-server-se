@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -35,7 +35,7 @@ public class General implements EntryPoint {
     public static final String OVERALL_SERVICE = "GeneralService"; //$NON-NLS-1$
 
     public static final String USER_BEAN = "UserBean"; //$NON-NLS-1$
-    
+
     public static final String APP_HEADER = "appHeader"; //$NON-NLS-1$
 
     @Override
@@ -64,7 +64,7 @@ public class General implements EntryPoint {
         if (!GXT.isIE) {
             preventSelecStart();
         }
-        
+
         ((GeneralServiceAsync)service).getAppHeader(new SessionAwareAsyncCallback<AppHeader>() {
 
             @Override

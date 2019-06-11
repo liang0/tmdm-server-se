@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -173,8 +173,8 @@ public class XMLParserSecurityTest extends TestCase {
         InputSource source = new InputSource(inputSource);
         final List<String> list = new ArrayList<>();
         reader.setContentHandler(new DefaultHandler() {
-            @Override       
-            public void startElement(String uri, String localName, String qName,Attributes attributes) throws SAXException {           
+            @Override
+            public void startElement(String uri, String localName, String qName,Attributes attributes) throws SAXException {
                 super.startElement(uri, localName, qName, attributes);
                 if ("Description".equals(localName)) {
                     list.add(localName);

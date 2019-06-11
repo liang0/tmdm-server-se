@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -40,23 +40,23 @@ class NoOpWrapper implements IXmlServerSLWrapper{
     }
 
     public long deleteCluster(String clusterName) throws XmlServerException {
-        return 0;  
+        return 0;
     }
 
     public long deleteAllClusters() throws XmlServerException {
-        return 0;  
+        return 0;
     }
 
     public long createCluster(String clusterName) throws XmlServerException {
-        return 0;  
+        return 0;
     }
 
     public long putDocumentFromFile(String fileName, String uniqueID, String clusterName) throws XmlServerException {
-        return 0;  
+        return 0;
     }
 
     public long putDocumentFromFile(String fileName, String uniqueID, String clusterName, String documentType) throws XmlServerException {
-        return 0;  
+        return 0;
     }
 
     public boolean existCluster(String cluster) throws XmlServerException {
@@ -64,19 +64,19 @@ class NoOpWrapper implements IXmlServerSLWrapper{
     }
 
     public long putDocumentFromString(String xmlString, String uniqueID, String clusterName) throws XmlServerException {
-        return 0;  
+        return 0;
     }
 
     public long putDocumentFromString(String string, String uniqueID, String clusterName, String documentType) throws XmlServerException {
-        return 0;  
+        return 0;
     }
 
     public long putDocumentFromDOM(Element root, String uniqueID, String clusterName) throws XmlServerException {
-        return 0;  
+        return 0;
     }
 
     public long putDocumentFromSAX(String dataClusterName, XMLReader docReader, InputSource input) throws XmlServerException {
-        return 0;  
+        return 0;
     }
 
     public String getDocumentAsString(String clusterName, String uniqueID) throws XmlServerException {
@@ -86,7 +86,7 @@ class NoOpWrapper implements IXmlServerSLWrapper{
     public String getDocumentAsString(String clusterName, String uniqueID, String encoding) throws XmlServerException {
         return ""; //$NON-NLS-1$
     }
-    
+
     public byte[] getDocumentBytes(String clusterName, String uniqueID, String documentType) throws XmlServerException {
         return new byte[0];
     }
@@ -96,23 +96,23 @@ class NoOpWrapper implements IXmlServerSLWrapper{
     }
 
     public long deleteDocument(String clusterName, String uniqueID, String documentType) throws XmlServerException {
-        return 0;  
+        return 0;
     }
 
     public int deleteItems(String clusterName, String conceptName, IWhereItem whereItem) throws XmlServerException {
-        return 0;  
+        return 0;
     }
 
     public long moveDocumentById(String sourceClusterName, String uniqueID, String targetClusterName) throws XmlServerException {
-        return 0;  
+        return 0;
     }
 
     public long countItems(String clusterName, String conceptName, IWhereItem whereItem) throws XmlServerException {
-        return 0;  
+        return 0;
     }
 
     public ArrayList<String> runQuery(String clusterName, String query, String[] parameters) throws XmlServerException {
-        return null;  
+        return null;
     }
 
     public ArrayList<String> runQuery(String clusterName, String query, String[] parameters, boolean includeNullValue) throws XmlServerException {
@@ -120,15 +120,15 @@ class NoOpWrapper implements IXmlServerSLWrapper{
     }
 
     public ArrayList<String> runQuery(String clusterName, String query, String[] parameters, int start, int limit, boolean withTotalCount) throws XmlServerException {
-        return null;  
+        return null;
     }
 
     public List<String> getItemPKsByCriteria(ItemPKCriteria criteria) throws XmlServerException {
-        return null;  
+        return null;
     }
 
     public void clearCache() {
-        
+
     }
 
     public boolean supportTransaction() {
@@ -136,31 +136,31 @@ class NoOpWrapper implements IXmlServerSLWrapper{
     }
 
     public void start(String dataClusterName) throws XmlServerException {
-        
+
     }
 
     public void commit(String dataClusterName) throws XmlServerException {
-        
+
     }
 
     public void rollback(String dataClusterName) throws XmlServerException {
-        
+
     }
 
     public void end(String dataClusterName) throws XmlServerException {
-        
+
     }
 
     public void close() throws XmlServerException {
-        
+
     }
 
     public List<String> globalSearch(String dataCluster, String keyword, int start, int end) throws XmlServerException {
-        return null;  
+        return null;
     }
 
     public void exportDocuments(String clusterName, int start, int end, boolean includeMetadata, OutputStream outputStream) throws XmlServerException {
-        
+
     }
 
     public String[] getDocumentsAsString(String clusterName, String[] uniqueIDs) throws XmlServerException {

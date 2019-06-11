@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -115,7 +115,7 @@ public abstract class SchemaManager {
                 dataModelBean.addReusableType(new ReusableType(t));
         }
     }
-    
+
     public void removeFromDatamodelPool(String uniqueID) {
         removeFromPool(new DataModelID(uniqueID));
     }
@@ -134,7 +134,7 @@ public abstract class SchemaManager {
 
     /**
      * Get Business Concept
-     * 
+     *
      * @param conceptName
      * @param dataModelID
      * @return
@@ -174,7 +174,7 @@ public abstract class SchemaManager {
 
     /**
      * DOC Administrator Comment method "getMySubtypes".
-     * 
+     *
      * @param parentTypeName
      * @param deep
      * @param dataModelBean
@@ -195,7 +195,7 @@ public abstract class SchemaManager {
 
     /**
      * DOC HSHU Comment method "setMySubtypes".
-     * 
+     *
      * @param parentTypeName
      * @param subTypes
      * @param reusableTypes

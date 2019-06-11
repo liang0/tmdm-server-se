@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -43,13 +43,13 @@ import static org.mockito.Mockito.when;
 
 /**
  * created by talend2 on 2013-1-29 Detailled comment
- * 
+ *
  */
 @PrepareForTest({ XtentisPort.class, WSDataModelPKArray.class, WSRegexDataModelPKs.class, com.amalto.webapp.core.util.Util.class })
 @SuppressWarnings("nls")
 public class UtilTest extends TestCase {
-    
-    private JournalSearchCriteria criteria;   
+
+    private JournalSearchCriteria criteria;
 
     private WebServiceMock mock = new WebServiceMock();
 
@@ -155,7 +155,7 @@ public class UtilTest extends TestCase {
         assertFalse(conceptFlag);
         assertTrue(modelFlag);
     }
-    
+
     public void testBuildGetItem() throws Exception {
         List<WSWhereItem> conditions = Util.buildWhereItems(criteria, mock);
         WSGetItems item = Util.buildGetItem(conditions, 0, 20);
@@ -165,7 +165,7 @@ public class UtilTest extends TestCase {
         assertEquals(0, item.getSkip());
         assertEquals(20, item.getMaxItems());
     }
-    
+
     public void testBuildGetItemsSort() throws Exception {
         List<WSWhereItem> conditions = Util.buildWhereItems(criteria, mock);
         String sort = "ASC";
@@ -183,7 +183,7 @@ public class UtilTest extends TestCase {
         assertEquals(Constants.SEARCH_DIRECTION_ASC,itemSort.getDir());
         assertEquals("Update/Key",itemSort.getSort());
     }
-    
+
     public void testGetOrderXPath() throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         Method method = Util.class.getDeclaredMethod("getOrderXPath", String.class);
         method.setAccessible(true);
@@ -212,5 +212,5 @@ public class UtilTest extends TestCase {
         returnValue = method.invoke(null, new Object[] { null });
         assertNull(returnValue);
     }
-    
+
 }

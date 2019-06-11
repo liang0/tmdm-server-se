@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -20,13 +20,13 @@ import com.amalto.core.objects.marshalling.Unmarshaller;
 
 /**
  * Castor implementation of {@link Unmarshaller}
- * 
+ *
  * @param <T>
  */
 public class CastorUnmarshaller<T> implements Unmarshaller<T> {
-    
+
     private org.exolab.castor.xml.Unmarshaller castorUnmarshaller;
-    
+
     // package visibility to force using abstract factory
     CastorUnmarshaller(org.exolab.castor.xml.Unmarshaller castorUnmarshaller){
         this.castorUnmarshaller = castorUnmarshaller;

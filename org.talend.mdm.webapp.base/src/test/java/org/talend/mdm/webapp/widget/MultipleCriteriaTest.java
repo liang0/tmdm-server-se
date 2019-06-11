@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -21,7 +21,7 @@ public class MultipleCriteriaTest extends TestCase {
 
     public void testToXmlString() {
         String xmlResult = "<MultipleCriteria><appearance>false</appearance><operator>AND</operator><SimpleCriterion><key>S1</key><operator>EQUALS</operator><value>*</value><info>S6_INFO</info></SimpleCriterion><SimpleCriterion><key>S2</key><operator>EQUALS</operator><value>*</value><info>S2_INFO</info></SimpleCriterion><MultipleCriteria><appearance>false</appearance><operator>AND</operator><SimpleCriterion><key>S3</key><operator>EQUALS</operator><value>*</value><info>S3_INFO</info></SimpleCriterion><SimpleCriterion><key>S4</key><operator>EQUALS</operator><value>*</value><info>S4_INFO</info></SimpleCriterion><MultipleCriteria><appearance>false</appearance><operator>AND</operator><SimpleCriterion><key>S5</key><operator>EQUALS</operator><value>*</value><info>null</info></SimpleCriterion><SimpleCriterion><key>S6</key><operator>EQUALS</operator><value>*</value><info>null</info></SimpleCriterion></MultipleCriteria></MultipleCriteria></MultipleCriteria>"; //$NON-NLS-1$
-        MultipleCriteria multipleCriteria1 = new MultipleCriteria("AND"); //$NON-NLS-1$ 
+        MultipleCriteria multipleCriteria1 = new MultipleCriteria("AND"); //$NON-NLS-1$
         SimpleCriterion SimpleCriterion1 = new SimpleCriterion("S1", "EQUALS", "*"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         SimpleCriterion1.setInfo("S1_INFO"); //$NON-NLS-1$
         SimpleCriterion SimpleCriterion2 = new SimpleCriterion("S2", "EQUALS", "*"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -26,7 +26,7 @@ public class UserManageImpl extends UserManage {
 
     /**
      * Get the number of active users.
-     * 
+     *
      * @return
      */
     @Override
@@ -44,7 +44,7 @@ public class UserManageImpl extends UserManage {
 
     /**
      * Check if exist the specify user.
-     * 
+     *
      * @param user
      * @return
      */
@@ -63,7 +63,7 @@ public class UserManageImpl extends UserManage {
 
     /**
      * Check if update active attribute of specify user.
-     * 
+     *
      * @param user
      * @return
      */
@@ -85,7 +85,7 @@ public class UserManageImpl extends UserManage {
 
     /**
      * get the rolenames of specify user.
-     * 
+     *
      * @param user
      * @return
      */

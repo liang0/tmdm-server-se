@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -50,7 +50,7 @@ import io.swagger.annotations.ApiParam;
 public class StagingTaskService {
 
     private static final Logger LOGGER = Logger.getLogger(StagingTaskService.class);
-    
+
     public static final String TASKS = "/tasks/staging"; //$NON-NLS-1$
 
     private final StagingTaskServiceDelegate delegate = new DefaultStagingTaskService();
@@ -153,7 +153,7 @@ public class StagingTaskService {
                                                  @ApiParam(value="Execution id") @PathParam("executionId") String executionId) {
         return delegate.getExecutionStats(dataContainer, dataModel, executionId);
     }
-    
+
     @GET
     @Path("{container}/hasStaging")
     @ApiOperation(value="Returns true of ths container has a staging area, false otherwise.")

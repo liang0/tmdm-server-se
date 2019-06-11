@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -64,7 +64,7 @@ public class PartialUpdateSaverContext implements DocumentSaverContext {
             return new PartialUpdateSaverContext(context, pivot, key, index, overwrite, UserAction.PARTIAL_UPDATE);
         } else {
             return new PartialUpdateSaverContext(context, pivot, key, index, overwrite, UserAction.UPDATE);
-        }    
+        }
     }
 
     @Override
@@ -182,7 +182,7 @@ public class PartialUpdateSaverContext implements DocumentSaverContext {
     public void setId(String[] id) {
         delegate.setId(id);
     }
-    
+
     public DocumentSaverContext getDelegate() {
         return delegate;
     }

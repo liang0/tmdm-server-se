@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
  *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -22,7 +22,7 @@ import com.amalto.core.storage.Storage;
  * @see Transaction
  */
 public abstract class StorageTransaction {
-    
+
     private static final Logger LOG = Logger.getLogger(StorageTransaction.class);
 
     private final Object[] lockChange = new Object[0];
@@ -31,14 +31,14 @@ public abstract class StorageTransaction {
 
     // Keep it private, use getLockStrategy() in sub classes to ensure correct synchronization.
     private Transaction.LockStrategy lockStrategy = Transaction.LockStrategy.NO_LOCK;
-    
+
     // Upper level transaction coordinating this storage transaction
     private Transaction coordinator = null;
 
     public StorageTransaction(){
         this.coordinator = ServerContext.INSTANCE.get().getTransactionManager().currentTransaction();
     }
-    
+
     /**
      * @return The {@link Storage} managed by this storage transaction.
      */
@@ -51,7 +51,7 @@ public abstract class StorageTransaction {
 
     /**
      * Commits pending changes to the underlying storage.
-     * 
+     *
      * @see #autonomous()
      * @see #dependent()
      * @throws java.lang.RuntimeException Implementations are expected to throw {@link java.lang.RuntimeException} in
@@ -124,7 +124,7 @@ public abstract class StorageTransaction {
             return lockStrategy;
         }
     }
-    
+
     /**
      * @return the application level {@link Transaction} coordinating this storage transaction
      */

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -573,7 +573,7 @@ public class TreeDetail extends ContentPanel {
             }
         } else {
             tree = new TreeEx();
-            tree.getElement().setId("TreeDetail-tree"); //$NON-NLS-1$ 
+            tree.getElement().setId("TreeDetail-tree"); //$NON-NLS-1$
             tree.addItem(root);
             this.setFiledWidth(root, this.getWidth(), 400, 0);
             add(tree);

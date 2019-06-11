@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -26,7 +26,7 @@ public class ItemBeanStatusTest extends TestCase {
     public void testLastUpdateTime() {
 
         long myInitTimeToken=1327653438644l;
-       
+
         ItemNodeModel itemNodeModel = new ItemNodeModel();
         itemNodeModel.set("time", myInitTimeToken);
 
@@ -34,12 +34,12 @@ public class ItemBeanStatusTest extends TestCase {
         itembean.setLastUpdateTime(itemNodeModel);
 
         assertEquals(itembean.getLastUpdateTime(), myInitTimeToken);
-        
+
         ItemResult itemResult1=new ItemResult(ItemResult.SUCCESS, "", "Test.test.1");
         itembean.setLastUpdateTime(itemResult1);
 
         assertEquals(itembean.getLastUpdateTime(), myInitTimeToken);
-        
+
         long myUpdatedTimeToken=System.currentTimeMillis();
         ItemResult itemResult2 = new ItemResult(ItemResult.SUCCESS, "", "Test.test.1", myUpdatedTimeToken);
         itembean.setLastUpdateTime(itemResult2);

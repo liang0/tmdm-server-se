@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -16,23 +16,23 @@ import com.amalto.core.objects.ObjectPOJOPK;
 
 /**
  * @author bgrieder
- * 
+ *
  */
 public class TransformerPluginV2POJO extends ObjectPOJO{
-   
-		
+
+
     private String name;
     private String configuration;
     private String serviceData;
-   
-    
+
+
     /**
-     * 
+     *
      */
     public TransformerPluginV2POJO() {
         super();
     }
-    
+
 	public TransformerPluginV2POJO(String name, String configuration, String serviceData) {
 		super();
 		this.name = name;
@@ -40,14 +40,14 @@ public class TransformerPluginV2POJO extends ObjectPOJO{
 		this.serviceData = serviceData;
 	}
 
-	
+
 	@Override
 	public ObjectPOJOPK getPK() {
 		return new ObjectPOJOPK(new String[] {name});
 	}
 
 
-	
+
 
 	/**
 	 * @return Returns the Name.
@@ -62,7 +62,7 @@ public class TransformerPluginV2POJO extends ObjectPOJO{
 	public void setName(String name) {
 		this.name = name;
 	}
-    
+
     public String getConfiguration() {
 		return configuration;
 	}
@@ -80,6 +80,6 @@ public class TransformerPluginV2POJO extends ObjectPOJO{
 	}
 
 
- 
+
 
 }

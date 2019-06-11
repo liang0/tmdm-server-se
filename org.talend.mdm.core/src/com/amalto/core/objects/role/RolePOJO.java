@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2006-2018 Talend Inc. - www.talend.com
- * 
+ * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+ *
  * This source code is available under agreement available at
  * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -20,27 +20,27 @@ import com.amalto.core.util.XtentisException;
 /**
  * @author Bruno Grieder
  * A role with the specifications for each Object Type
- * 
+ *
  */
 public class RolePOJO extends ObjectPOJO{
-   
-		
+
+
     private String name;
     private String description;
     private HashMap<String,RoleSpecification> specifications;
-    
-    
+
+
     /**
-     * 
+     *
      */
     public RolePOJO() {
         this.specifications = new HashMap<String,RoleSpecification>();
-    }    
+    }
 	public RolePOJO(String name) {
 		super();
 		this.name = name;
 	}
-	
+
 
 	/**
 	 * @return Returns the Name.
@@ -56,7 +56,7 @@ public class RolePOJO extends ObjectPOJO{
 		this.name = name;
 	}
 
-	
+
 	/**
 	 * @return Returns the Description.
 	 */
@@ -70,7 +70,7 @@ public class RolePOJO extends ObjectPOJO{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	/**
 	 * The specifications of the role<br/>
 	 * The key is the Object Type
@@ -85,14 +85,14 @@ public class RolePOJO extends ObjectPOJO{
 	public void setRoleSpecifications(HashMap<String,RoleSpecification> specifications) {
 		this.specifications = specifications;
 	}
-	
-	
+
+
 	@Override
 	public ObjectPOJOPK getPK() {
 		if (getName()==null) return null;
 		return new ObjectPOJOPK(new String[] {name});
 	}
-	
+
     @Override
     public ObjectPOJOPK store() throws XtentisException {
         /*if(SecurityConfig.isSecurityPermission(getName())) {
@@ -100,7 +100,7 @@ public class RolePOJO extends ObjectPOJO{
         }*/
     	return super.store();
     }
-	
-	
+
+
 
 }
