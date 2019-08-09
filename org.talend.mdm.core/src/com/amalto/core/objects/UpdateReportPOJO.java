@@ -11,6 +11,10 @@ package com.amalto.core.objects;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
+import com.ibm.wsdl.util.StringUtils;
+
+import bsh.StringUtil;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -60,6 +64,8 @@ public class UpdateReportPOJO {
 
     private String key;
 
+    private String primaryKeyInfo;
+
     private Map<String, UpdateReportItemPOJO> updateReportItemsMap;
 
     // additional fields
@@ -101,6 +107,13 @@ public class UpdateReportPOJO {
         } else {
             this.updateReportItemsMap = updateReportItemsMap;
         }
+    }
+
+    public UpdateReportPOJO(String concept, String key, String operationType, String source, long timeInMillis, String uuid,
+            String dataCluster, String dataModel, String userName, Map<String, UpdateReportItemPOJO> updateReportItemsMap,
+            String primaryKeyInfo) {
+        this(concept, key, operationType, source, timeInMillis, uuid, dataCluster, dataModel, userName, updateReportItemsMap);
+        this.primaryKeyInfo = primaryKeyInfo;
     }
 
     public String getSource() {
@@ -175,6 +188,14 @@ public class UpdateReportPOJO {
         this.uuid = uuid;
     }
 
+    public String getPrimaryKeyInfo() {
+        return primaryKeyInfo;
+    }
+
+    public void setPrimaryKeyInfo(String primaryKeyInfo) {
+        this.primaryKeyInfo = primaryKeyInfo;
+    }
+
     public Map<String, UpdateReportItemPOJO> getUpdateReportItemsMap() {
         if (updateReportItemsMap == null) {
             updateReportItemsMap = new LinkedHashMap<String, UpdateReportItemPOJO>();
@@ -204,7 +225,9 @@ public class UpdateReportPOJO {
                 .append("<DataModel>").append(StringEscapeUtils.escapeXml(this.dataModel)).append("</DataModel>\n") //$NON-NLS-1$ //$NON-NLS-2$
                 .append("<Concept>").append(StringEscapeUtils.escapeXml(this.concept)).append("</Concept>\n") //$NON-NLS-1$ //$NON-NLS-2$
                 .append("<Key>").append(StringEscapeUtils.escapeXml(this.key)).append("</Key>\n"); //$NON-NLS-1$ //$NON-NLS-2$
-
+        if (org.apache.commons.lang.StringUtils.isNotBlank(this.primaryKeyInfo)) {
+            log.append("<PrimaryKeyInfo>").append(StringEscapeUtils.escapeXml(this.primaryKeyInfo)).append("</PrimaryKeyInfo>\n"); //$NON-NLS-1$ //$NON-NLS-2$
+        }
         if (OPERATION_TYPE_UPDATE.equals(operationType)) {
             Map<String, UpdateReportItemPOJO> map = this.updateReportItemsMap == null ? new HashMap<String, UpdateReportItemPOJO>()
                     : this.updateReportItemsMap;
