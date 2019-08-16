@@ -66,6 +66,7 @@ class UpdateReportTypeMapping extends TypeMapping {
         map(updateReportType.getField("DataModel"), databaseUpdateReportType.getField("x_data_model")); //$NON-NLS-1$ //$NON-NLS-2$
         map(updateReportType.getField("Concept"), databaseUpdateReportType.getField("x_concept")); //$NON-NLS-1$ //$NON-NLS-2$
         map(updateReportType.getField("Key"), databaseUpdateReportType.getField("x_key")); //$NON-NLS-1$ //$NON-NLS-2$
+        map(updateReportType.getField("PrimaryKeyInfo"), databaseUpdateReportType.getField("x_primary_key_info")); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     @Override
@@ -96,6 +97,10 @@ class UpdateReportTypeMapping extends TypeMapping {
         to.set("x_data_model", from.get("DataModel")); //$NON-NLS-1$ //$NON-NLS-2$
         to.set("x_concept", from.get("Concept")); //$NON-NLS-1$ //$NON-NLS-2$
         to.set("x_key", from.get("Key")); //$NON-NLS-1$ //$NON-NLS-2$
+        Object pkinfo = from.get("PrimaryKeyInfo"); //$NON-NLS-1$
+        if (pkinfo != null) {
+            to.set("x_primary_key_info", isUsingClob(to, "x_primary_key_info") ? Hibernate.getLobCreator(session).createClob(pkinfo.toString()) : pkinfo.toString()); //$NON-NLS-1$ //$NON-NLS-2$
+        }
         try {
             List<DataRecord> dataRecord = (List<DataRecord>) from.get("Item"); //$NON-NLS-1$
             if (dataRecord != null) { // this might be null if there is no 'Item' element in update report.
@@ -104,44 +109,44 @@ class UpdateReportTypeMapping extends TypeMapping {
                 for (DataRecord record : dataRecord) {
                     writer.write(record, new BufferedWriter(stringWriter));
                 }
-                to.set("x_items_xml", isUsingClob(to) ? Hibernate.getLobCreator(session).createClob(stringWriter.toString()) : stringWriter.toString()); //$NON-NLS-1$
+                to.set("x_items_xml", isUsingClob(to, "x_items_xml") ? Hibernate.getLobCreator(session).createClob(stringWriter.toString()) : stringWriter.toString());
             }
         } catch (IOException e) {
             throw new RuntimeException("Could not set Items XML value", e); //$NON-NLS-1$
         }
     }
     
-    private boolean isUsingClob(Wrapper data) {
+    private boolean isUsingClob(Wrapper data, String field) {
         try {
-            return data.getClass().getField("x_items_xml").getType().equals(Clob.class); //$NON-NLS-1$ 
+            return data.getClass().getField(field).getType().equals(Clob.class); //$NON-NLS-1$ 
         } catch (Exception e) {
-            throw new RuntimeException("Could not check Items XML type", e); //$NON-NLS-1$
+            throw new RuntimeException("Could not check " + field + " type", e); //$NON-NLS-1$
         }
     }
     
-    private String getItemsXml(Wrapper data) {
-        String itemsXml = null;
-        Object value = data.get("x_items_xml"); //$NON-NLS-1$
+    private String getStringValue(Wrapper data, String field) {
+        String strValue = null;
+        Object value = data.get(field);
         if (value != null) {
-            if (isUsingClob(data)) {
+            if (isUsingClob(data, field)) {
                 try {
                     Reader characterStream = ((Clob) value).getCharacterStream();
-                    itemsXml = new String(IOUtils.toCharArray(characterStream));
+                    strValue = new String(IOUtils.toCharArray(characterStream));
                 } catch (Exception e) {
                     throw new RuntimeException("Unexpected read from clob exception", e); //$NON-NLS-1$
                 }
             } else {
-                itemsXml = (String) value;
+                strValue = (String) value;
             }
         }
-        return itemsXml;
+        return strValue;
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public DataRecord setValues(Wrapper from, DataRecord to) {
         DataRecordReader<String> itemReader = new XmlStringDataRecordReader();
-        DataRecord items = itemReader.read(repository, updateReportType, "<Update>" + getItemsXml(from) + "</Update>");  //$NON-NLS-1$ //$NON-NLS-2$
+        DataRecord items = itemReader.read(repository, updateReportType, "<Update>" + getStringValue(from, "x_items_xml") + "</Update>");  //$NON-NLS-1$ //$NON-NLS-2$
 
         to.set(updateReportType.getField("UUID"), from.get("x_uuid")); //$NON-NLS-1$ //$NON-NLS-2$
         to.set(updateReportType.getField("UserName"), from.get("x_user_name")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -153,6 +158,7 @@ class UpdateReportTypeMapping extends TypeMapping {
         to.set(updateReportType.getField("DataModel"), from.get("x_data_model")); //$NON-NLS-1$ //$NON-NLS-2$
         to.set(updateReportType.getField("Concept"), from.get("x_concept")); //$NON-NLS-1$ //$NON-NLS-2$
         to.set(updateReportType.getField("Key"), from.get("x_key")); //$NON-NLS-1$ //$NON-NLS-2$
+        to.set(updateReportType.getField("PrimaryKeyInfo"), getStringValue(from, "x_primary_key_info")); //$NON-NLS-1$
         List<DataRecord> itemList = (List<DataRecord>) items.get("Item"); //$NON-NLS-1$
         if (itemList != null) { // Might be null for create update report for instance.
             for (DataRecord dataRecord : itemList) {

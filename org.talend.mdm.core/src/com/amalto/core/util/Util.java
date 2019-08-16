@@ -48,7 +48,9 @@ import javax.xml.xpath.XPathFactory;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.talend.mdm.commmon.metadata.ComplexTypeMetadata;
 import org.talend.mdm.commmon.metadata.FieldMetadata;
+import org.talend.mdm.commmon.metadata.MetadataRepository;
 import org.talend.mdm.commmon.util.core.ITransformerConstants;
 import org.talend.mdm.commmon.util.core.MDMConfiguration;
 import org.w3c.dom.Document;
@@ -60,6 +62,8 @@ import org.xml.sax.SAXException;
 
 import com.amalto.commons.core.utils.XMLUtils;
 import com.amalto.core.delegator.BeanDelegatorContainer;
+import com.amalto.core.history.MutableDocument;
+import com.amalto.core.history.accessor.Accessor;
 import com.amalto.core.jobox.JobContainer;
 import com.amalto.core.objects.DroppedItemPOJO;
 import com.amalto.core.objects.DroppedItemPOJOPK;
@@ -71,6 +75,8 @@ import com.amalto.core.objects.transformers.TransformerV2POJOPK;
 import com.amalto.core.objects.transformers.util.TransformerCallBack;
 import com.amalto.core.objects.transformers.util.TransformerContext;
 import com.amalto.core.objects.transformers.util.TypedContent;
+import com.amalto.core.save.DocumentSaverContext;
+import com.amalto.core.save.context.StorageDocument;
 import com.amalto.core.server.DefaultBackgroundJob;
 import com.amalto.core.server.DefaultConfigurationInfo;
 import com.amalto.core.server.DefaultCustomForm;
@@ -87,6 +93,8 @@ import com.amalto.core.server.DefaultTransformer;
 import com.amalto.core.server.DefaultView;
 import com.amalto.core.server.DefaultXmlServer;
 import com.amalto.core.server.ServerAccess;
+import com.amalto.core.server.ServerContext;
+import com.amalto.core.server.StorageAdmin;
 import com.amalto.core.server.api.BackgroundJob;
 import com.amalto.core.server.api.ConfigurationInfo;
 import com.amalto.core.server.api.CustomForm;
@@ -102,6 +110,10 @@ import com.amalto.core.server.api.StoredProcedure;
 import com.amalto.core.server.api.View;
 import com.amalto.core.server.api.XmlServer;
 import com.amalto.core.server.routing.RoutingEngineFactory;
+import com.amalto.core.storage.Storage;
+import com.amalto.core.storage.StorageType;
+import com.amalto.core.storage.record.DataRecord;
+import com.amalto.core.storage.record.XmlStringDataRecordReader;
 import com.amalto.core.webservice.WSMDMJob;
 import com.amalto.xmlserver.interfaces.IWhereItem;
 import com.amalto.xmlserver.interfaces.WhereCondition;
@@ -1198,5 +1210,126 @@ public class Util extends XmlUtil {
             path = path.replaceAll("\\[\\d+\\]", "");
         }
         return path;
+    }
+
+    /**
+     * Get primary key info from record's ID
+     *
+     * @param cluster
+     * @param concept
+     * @param ids record's id
+     * @return
+     */
+    public static String getPrimaryKeyInfo(String cluster, String concept, String[] ids) {
+        ItemPOJOPK pk = new ItemPOJOPK(new DataClusterPOJOPK(cluster), concept, ids);
+        try {
+            ItemPOJO pojo = Util.getItemCtrl2Local().getItem(pk);
+            return getPrimaryKeyInfo(cluster, concept, pojo.getProjectionAsString());
+        } catch (XtentisException e) {
+            LOGGER.error("Failed to get primary key info.", e);
+            return null;
+        }
+    }
+
+    /**
+     * Get primary key info from record's XML
+     *
+     * @param cluster
+     * @param concept
+     * @param userXml
+     * @return
+     */
+    public static String getPrimaryKeyInfo(String cluster, String concept, String userXml) {
+        MetadataRepository repository = getMetadataRepository(cluster);
+        ComplexTypeMetadata type = repository.getComplexType(concept);
+        DataRecord dataRecord = new XmlStringDataRecordReader().read(repository, type, userXml);
+        return getPrimaryKeyInfo(cluster, concept, dataRecord);
+    }
+
+    /**
+     * Get primary key info from data record
+     *
+     * @param cluster
+     * @param concept
+     * @param dataRecord
+     * @return
+     */
+    public static String getPrimaryKeyInfo(String cluster, String concept, DataRecord dataRecord) {
+        MetadataRepository repository = getMetadataRepository(cluster);
+        MutableDocument userDocument = new StorageDocument(cluster, repository, dataRecord);
+        return getPKInfo(repository.getComplexType(concept), null, userDocument);
+    }
+
+    /**
+     * Get primary key info from document saver context
+     *
+     * <pre>
+     * - Partial Update, pivot=null, user doc may not contain all PK Info fields, PKInfo from = user doc + db doc
+     * - Partial Update, pivot!=null, user doc won't contain any PK Info fields, PKInfo from = db doc
+     * - Normal Create/Update, user doc will contain all mandatory fields, PKInfo from = user doc
+     * </pre>
+     */
+    public static String getPrimaryKeyInfo(DocumentSaverContext context) {
+        MutableDocument userDocument = context.getUserDocument();
+        MutableDocument dbDocument = context.getDatabaseDocument();
+        ComplexTypeMetadata type = userDocument.getType();
+        return getPKInfo(type, dbDocument, userDocument);
+    }
+
+    /**
+     * Check if the type has set primary key info
+     *
+     * @param cluster
+     * @param concept
+     * @return
+     */
+    public static boolean isPKInfoSet(String cluster, String concept) {
+        MetadataRepository repository = getMetadataRepository(cluster);
+        ComplexTypeMetadata type = repository.getComplexType(concept);
+        return type.getPrimaryKeyInfo().size() > 0;
+    }
+
+    /**
+     * Get primary key info from document object
+     * <ul>
+     * <li>If exist in user document, get from user document</li>
+     * <li>If not exist in user document, get from database document</li>
+     * <li>CREATE, will get from user document</li>
+     * <li>PARTIAL_DELETE and PARTIAL_UPDATE will get from database document</li>
+     * <li>Others, maybe part from user document, part from database document</li>
+     * </ul>
+     *
+     * @param type
+     * @param dbDocument
+     * @param userDocument
+     * @return
+     */
+    private static String getPKInfo(ComplexTypeMetadata type, MutableDocument dbDocument, MutableDocument userDocument) {
+        List<String> valueList = new ArrayList<>();
+        for (FieldMetadata field : type.getPrimaryKeyInfo()) {
+            Accessor accessor = userDocument.createAccessor(field.getPath());
+            if (!accessor.exist() && dbDocument != null) {
+                accessor = dbDocument.createAccessor(field.getPath());
+            }
+            if (accessor.exist()) {
+                String value = accessor.get();
+                if (StringUtils.isNotBlank(value)) {
+                    valueList.add(StringUtils.trim(value));
+                }
+            }
+        }
+        return StringUtils.join(valueList.toArray(), "-"); //$NON-NLS-1$
+    }
+
+    /**
+     * Get metadata repository by storage name
+     *
+     * @param storageName
+     * @return
+     */
+    private static MetadataRepository getMetadataRepository(String storageName) {
+        StorageAdmin storageAdmin = ServerContext.INSTANCE.get().getStorageAdmin();
+        Storage storage = storageAdmin.get(storageName, StorageType.MASTER);
+        return storage.getMetadataRepository();
     }
 }

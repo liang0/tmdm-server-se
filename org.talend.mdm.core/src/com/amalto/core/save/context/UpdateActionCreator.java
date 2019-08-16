@@ -56,7 +56,7 @@ public class UpdateActionCreator extends DefaultMetadataVisitor<List<Action>> {
 
     private static final Logger LOGGER = Logger.getLogger(UpdateActionCreator.class);
 
-    protected final LinkedList<Action> actions = new LinkedList<Action>();
+    protected final LinkedList<Action> actions = new LinkedList<>();
 
     protected final Date date;
 
@@ -72,13 +72,13 @@ public class UpdateActionCreator extends DefaultMetadataVisitor<List<Action>> {
 
     protected final MetadataRepository repository;
 
-    private final Stack<String> path = new Stack<String>();
+    private final Stack<String> path = new Stack<>();
 
     private final Closure closure = new CompareClosure();
 
-    private final Set<String> touchedPaths = new HashSet<String>();
+    private final Set<String> touchedPaths = new HashSet<>();
 
-    private final Map<FieldMetadata, Integer> invertedIndex = new HashMap<FieldMetadata, Integer>();
+    private final Map<FieldMetadata, Integer> invertedIndex = new HashMap<>();
 
     protected final boolean preserveCollectionOldValues;
 
@@ -90,7 +90,7 @@ public class UpdateActionCreator extends DefaultMetadataVisitor<List<Action>> {
     
     private boolean isPartialDelete = false;
 
-    private List<String> visitedOneToManyPath = new ArrayList<String>();
+    private List<String> visitedOneToManyPath = new ArrayList<>();
 
     private String rootTypeName = null;
 
@@ -492,7 +492,10 @@ public class UpdateActionCreator extends DefaultMetadataVisitor<List<Action>> {
                         throw new IllegalArgumentException("Type '" + field.getType().getName()
                                 + "' is not assignable from type '" + newTypeMetadata.getName() + "'");
                     }
-                    if (!newTypeMetadata.getSuperTypes().isEmpty() || !newTypeMetadata.getSubTypes().isEmpty()) {
+                    boolean isSuperType = newTypeMetadata.getSuperTypes().isEmpty() && !newTypeMetadata.getSubTypes().isEmpty();
+                    boolean addedCreateSuperType = previousType.isEmpty() && isSuperType;
+                    boolean isInherit = !newTypeMetadata.getSuperTypes().isEmpty() || !newTypeMetadata.getSubTypes().isEmpty();
+                    if (!addedCreateSuperType && !newType.equals(previousType) && isInherit) {
                         actions.addAll(ChangeTypeAction.create(originalDocument, date, source, userName, getLeftPath(), previousTypeMetadata, newTypeMetadata, field, userAction));
                     } else if (LOGGER.isDebugEnabled()) {
                         LOGGER.debug("Ignore type change on '" + getLeftPath() + "': type '" + newTypeMetadata.getName() + "' does not belong to an inheritance tree.");
@@ -506,6 +509,17 @@ public class UpdateActionCreator extends DefaultMetadataVisitor<List<Action>> {
             }
 
             compare(field);
+            // If previous type isn't null, need to add a ChangeTypeAction
+            // Like: path=detail[2]/@xsi:type, previousType=ContractDetailSubType, newValue=null
+            if (leftAccessor.exist() && !rightAccessor.exist()) {
+                String previousType = leftAccessor.getActualType();
+                if (!previousType.isEmpty() && !previousType.startsWith(MetadataRepository.ANONYMOUS_PREFIX)) {
+                    ComplexTypeMetadata previousTypeMetadata = (ComplexTypeMetadata) repository.getNonInstantiableType(repository.getUserNamespace(), previousType);
+                    if (!previousTypeMetadata.getSuperTypes().isEmpty() || !previousTypeMetadata.getSubTypes().isEmpty()) {
+                        actions.addAll(ChangeTypeAction.create(originalDocument, date, source, userName, getLeftPath(), previousTypeMetadata, null, field, userAction));
+                    }
+                }
+            }
             // Way to detect if there is a change in elements below: check if last action in list changed.
             Action last = actions.isEmpty() ? null : actions.getLast();
             boolean hasActions = last != before;
