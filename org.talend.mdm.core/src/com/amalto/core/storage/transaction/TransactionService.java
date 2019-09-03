@@ -25,6 +25,8 @@ import java.util.List;
 @Api("Transactions")
 public class TransactionService {
 
+    private static TransactionListener transactionListener = new RouteItemListener();
+
     /**
      * Lists all actives transactions ({@link Transaction.Lifetime#LONG} and {@link Transaction.Lifetime#AD_HOC}).
      * @return A space-separated list of transaction ids (as UUID).
@@ -65,6 +67,7 @@ public class TransactionService {
         Transaction transaction = transactionManager.get(transactionId);
         if (transaction != null) {
             transaction.commit();
+            transactionListener.transactionCommitted(transactionId);
         }
     }
 
@@ -81,6 +84,7 @@ public class TransactionService {
         Transaction transaction = transactionManager.get(transactionId);
         if (transaction != null) {
             transaction.rollback();
+            transactionListener.transactionRollbacked(transactionId);
         }
     }
 }
