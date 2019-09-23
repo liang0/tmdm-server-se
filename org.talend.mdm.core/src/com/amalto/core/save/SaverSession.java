@@ -28,8 +28,13 @@ import com.amalto.core.save.context.SaverContextFactory;
 import com.amalto.core.save.context.SaverSource;
 import com.amalto.core.save.context.StorageDocument;
 import com.amalto.core.save.context.StorageSaverSource;
-import com.amalto.core.save.generator.AutoIncrementGenerator;
+import com.amalto.core.server.ServerContext;
 import com.amalto.core.storage.record.DataRecord;
+import com.amalto.core.storage.transaction.Transaction;
+import com.amalto.core.storage.transaction.TransactionManager;
+import com.amalto.core.storage.transaction.Transaction.Lifetime;
+import com.amalto.core.util.MDMEhCacheUtil;
+import static com.amalto.core.util.MDMEhCacheUtil.UPDATE_REPORT_EVENT_CACHE;
 
 public class SaverSession {
 
@@ -211,25 +216,25 @@ public class SaverSession {
                     throw e;
                 }
             }
+
             // If any change was made to data cluster "UpdateReport", route committed update reports.
             List<Document> updateReport = itemsToUpdate.get(XSystemObjects.DC_UPDATE_PREPORT.getName());
+            String longTransactionId = getLongTransactionId();
             if (updateReport != null && !DataRecord.ValidateRecord.get()) {
-                Iterator<Document> iterator = updateReport.iterator();
-                while (iterator.hasNext()) {
-                    MutableDocument document = (MutableDocument) iterator.next();
-                    String dataCluster = document.getDataCluster();
-                    String typeName = document.getType().getName();
-
-                    Collection<FieldMetadata> keyFields = document.getType().getKeyFields();
-                    String[] itemsId = new String[keyFields.size()];
-                    int i = 0;
-                    for (FieldMetadata keyField : keyFields) {
-                        itemsId[i++] = document.createAccessor(keyField.getName()).get();
+                if (longTransactionId == null) {
+                    routeItems(updateReport);
+                } else {
+                    List<String> stringObjects = MDMEhCacheUtil.getCache(UPDATE_REPORT_EVENT_CACHE, longTransactionId);
+                    if (stringObjects == null) {
+                        stringObjects = new ArrayList<>();
                     }
-                    saverSource.routeItem(dataCluster, typeName, itemsId);
-                    iterator.remove();
+                    for (Document document : updateReport) {
+                        stringObjects.add(document.exportToString());
+                    }
+                    MDMEhCacheUtil.addCache(UPDATE_REPORT_EVENT_CACHE, longTransactionId, stringObjects);
                 }
             }
+
             // reset the AutoIncrement
             if (needResetAutoIncrement) {
                 saverSource.initAutoIncrement();
@@ -244,10 +249,38 @@ public class SaverSession {
                     committer.commit(dataCluster);
                 } catch (Exception e) {
                     committer.rollback(dataCluster);
-                    throw new RuntimeException("Could not save auto increment counter state.", e);
+                    throw new RuntimeException("Could not save auto increment counter state.", e); //$NON-NLS-1$
                 }
             }
         }
+    }
+
+    public void routeItems(List<Document> updateReportList) {
+        SaverSource saverSource = getSaverSource();
+        Iterator<Document> iterator = updateReportList.iterator();
+        while (iterator.hasNext()) {
+            MutableDocument document = (MutableDocument) iterator.next();
+            String dataCluster = document.getDataCluster();
+            String typeName = document.getType().getName();
+
+            Collection<FieldMetadata> keyFields = document.getType().getKeyFields();
+            String[] itemsId = new String[keyFields.size()];
+            int i = 0;
+            for (FieldMetadata keyField : keyFields) {
+                itemsId[i++] = document.createAccessor(keyField.getName()).get();
+            }
+            saverSource.routeItem(dataCluster, typeName, itemsId);
+            iterator.remove();
+        }
+    }
+
+    private String getLongTransactionId() {
+        final TransactionManager transactionManager = ServerContext.INSTANCE.get().getTransactionManager();
+        Transaction currentTransaction = transactionManager.currentTransaction();
+        if (currentTransaction != null && currentTransaction.getLifetime() == Lifetime.LONG) {
+            return currentTransaction.getId();
+        }
+        return null;
     }
 
     /**
@@ -412,5 +445,4 @@ public class SaverSession {
          */
         void rollback(String dataCluster);
     }
-
 }

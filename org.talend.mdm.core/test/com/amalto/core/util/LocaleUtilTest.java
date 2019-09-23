@@ -14,7 +14,7 @@ import junit.framework.TestCase;
 @SuppressWarnings("nls")
 public class LocaleUtilTest extends TestCase {
 
-    public void testLocaleValue() {
+    public void testNormalLocaleValue() {
         String str1 = "[FR:Produit avec Magasins][EN:Product with Stores][ZH:Zhong Wen]";
 
         //case 1
@@ -37,6 +37,9 @@ public class LocaleUtilTest extends TestCase {
         results = LocaleUtil.getLocaleValue(str1, "");
         assertEquals(str1, results);
 
+        results = LocaleUtil.getLocaleValue(str1, null);
+        assertEquals(str1, results);
+
         //case 6
         results = LocaleUtil.getLocaleValue(str1, "xx");
         assertEquals(str1, results);
@@ -52,5 +55,24 @@ public class LocaleUtilTest extends TestCase {
         //case 9
         results = LocaleUtil.getLocaleValue("", "xx");
         assertEquals("", results);
+    }
+
+    public void testLocaleValueWithSpecialCharacters() {
+        String str1 = "[FR:[Org\\]Produit avec Magasins][EN:[Org\\]Product with Stores][ZH:Zhong Wen]";
+        String str2 = "[FR:[Org]Produit avec Magasins][EN:[Org]Product with Stores][ZH:Zhong Wen]";
+        //case 1
+        String results = LocaleUtil.getLocaleValue(str1, "EN");
+        assertEquals("[Org]Product with Stores", results);
+
+        //case 2
+        results = LocaleUtil.getLocaleValue(str1, "FR");
+        assertEquals("[Org]Produit avec Magasins", results);
+
+        //case 3
+        results = LocaleUtil.getLocaleValue(str1, "zh");
+        assertEquals("Zhong Wen", results);
+        
+        results = LocaleUtil.getLocaleValue(str1, "null");
+        assertEquals(str2, results);
     }
 }
