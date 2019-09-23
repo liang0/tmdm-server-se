@@ -9,15 +9,19 @@
  */
 package org.talend.mdm.webapp.browserecords.client.mvc;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.talend.mdm.webapp.base.client.SessionAwareAsyncCallback;
+import org.talend.mdm.webapp.base.client.model.ForeignKeyBean;
 import org.talend.mdm.webapp.base.client.model.ItemResult;
 import org.talend.mdm.webapp.base.client.util.MultilanguageMessageParser;
 import org.talend.mdm.webapp.base.client.util.XmlUtil;
 import org.talend.mdm.webapp.base.client.widget.CallbackAction;
 import org.talend.mdm.webapp.base.shared.EntityModel;
 import org.talend.mdm.webapp.base.shared.TypeModel;
+import org.talend.mdm.webapp.base.shared.util.CommonUtil;
 import org.talend.mdm.webapp.browserecords.client.BrowseRecords;
 import org.talend.mdm.webapp.browserecords.client.BrowseRecordsEvents;
 import org.talend.mdm.webapp.browserecords.client.BrowseRecordsServiceAsync;
@@ -37,9 +41,12 @@ import org.talend.mdm.webapp.browserecords.client.widget.ItemsDetailPanel;
 import org.talend.mdm.webapp.browserecords.client.widget.ItemsListPanel;
 import org.talend.mdm.webapp.browserecords.client.widget.ItemsMainTabPanel;
 import org.talend.mdm.webapp.browserecords.client.widget.LineageListPanel;
+import org.talend.mdm.webapp.browserecords.client.widget.ForeignKey.ForeignKeyCellField;
+import org.talend.mdm.webapp.browserecords.client.widget.ForeignKey.ForeignKeyField;
 import org.talend.mdm.webapp.browserecords.client.widget.ForeignKey.ForeignKeySelector;
 import org.talend.mdm.webapp.browserecords.client.widget.ForeignKey.ReturnCriteriaFK;
 import org.talend.mdm.webapp.browserecords.client.widget.treedetail.ForeignKeyTablePanel;
+import org.talend.mdm.webapp.browserecords.client.widget.treedetail.ForeignKeyUtil;
 import org.talend.mdm.webapp.browserecords.shared.ViewBean;
 import org.talend.mdm.webapp.browserecords.shared.VisibleRuleResult;
 
@@ -51,6 +58,7 @@ import com.extjs.gxt.ui.client.mvc.AppEvent;
 import com.extjs.gxt.ui.client.mvc.Controller;
 import com.extjs.gxt.ui.client.widget.Dialog;
 import com.extjs.gxt.ui.client.widget.MessageBox;
+import com.extjs.gxt.ui.client.widget.form.Field;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -75,6 +83,7 @@ public class BrowseRecordsController extends Controller {
         registerEventTypes(BrowseRecordsEvents.ViewLineageItem);
         registerEventTypes(BrowseRecordsEvents.DefaultView);
         registerEventTypes(BrowseRecordsEvents.BulkUpdateItem);
+        registerEventTypes(BrowseRecordsEvents.TransformFkFilterItem);
     }
 
     @Override
@@ -125,6 +134,9 @@ public class BrowseRecordsController extends Controller {
             break;
         case BrowseRecordsEvents.BulkUpdateItemCode:
             onBulkUpdateItem(event);
+            break;
+        case BrowseRecordsEvents.TransformFkFilterCode:
+            onTransformFkFilter(event);
             break;
         default:
             break;
@@ -241,7 +253,7 @@ public class BrowseRecordsController extends Controller {
                         AppEvent ae = new AppEvent(event.getType(), fkModel);
                         ae.setData(BrowseRecordsView.ITEMS_DETAIL_PANEL, detailPanel);
                         forwardToView(view, ae);
-                    };
+                    }
                 });
 
     }
@@ -388,6 +400,104 @@ public class BrowseRecordsController extends Controller {
                             forwardToView(view, event);
                         }
                     });
+        }
+    }
+
+    /**
+     * Execute the App Event to transform the fk filter after catch the 'select fk relation' click event
+     * contains two types ForeignKeyField:
+     *    ForeignKeySelector: defined in detail for fk
+     *    ForeignKeyCellField, defined in grid for fk
+     * execute work flow:
+     *      fkFilter
+     *         |
+     *         |_if contain function____|
+     *                       |____if contains 'xpath:', parse the xpath's value -->|
+     *                       |____value ------------------------------------------>|
+     *                                                                           value
+     *                                                                             |
+     *                             execute the server service to execute the function and return the function result
+     *                                                                             |
+     *         to invoke the ActionView|<------------------------------------function result
+     *
+     * @param event
+     */
+    private void onTransformFkFilter(final AppEvent event) {
+        String foreignKeyFilter = event.getData();
+        List<String> filterList = new ArrayList<String>();
+        if (foreignKeyFilter != null && foreignKeyFilter.contains(CommonUtil.FN_PREFIX)) {
+            ForeignKeyField foreignKeyField = event.getData(BrowseRecords.FOREIGN_KEY_FIELD);
+            String[] criterias = CommonUtil.getCriteriasByForeignKeyFilter(foreignKeyFilter);
+            if (foreignKeyField instanceof ForeignKeySelector) {
+                ForeignKeySelector foreignKeySelector = (ForeignKeySelector) foreignKeyField;
+                for (String criteria : criterias) {
+                    Map<String, String> conditionMap = CommonUtil.buildConditionByCriteria(criteria);
+                    String filterValue = conditionMap.get(CommonUtil.VALUE_STR);
+                    if (CommonUtil.isFunction(filterValue)) {
+                        if (CommonUtil.containsXPath(filterValue)) {
+                            Map<String, String> xpathMap = CommonUtil.getArgumentsWithXpath(filterValue);
+                            for (Map.Entry<String, String> entry : xpathMap.entrySet()) {
+                                String filterValuePath = entry.getValue();
+                                String xpathValue;
+                                //if the xpath is a relative path, fetch the path's value
+                                if (CommonUtil.isRelativePath(filterValuePath)) {
+                                    xpathValue = ForeignKeyUtil.findRelativePathValueForSelectFK(filterValuePath,
+                                            conditionMap.get(CommonUtil.XPATH_STR), foreignKeySelector.getCurrentPath(),
+                                            foreignKeySelector.getItemNode());
+                                } else {
+                                    xpathValue = ForeignKeyUtil
+                                            .getXpathValue(filterValuePath, foreignKeySelector.getCurrentPath(),
+                                                    foreignKeySelector.getItemNode());
+                                }
+                                if (xpathValue.equals(filterValuePath)) {
+                                    xpathValue = CommonUtil.EMPTY;
+                                }
+                                filterValue = filterValue.replaceAll(entry.getKey(), xpathValue);
+                            }
+                        }
+                        filterList.add(filterValue);
+                    }
+                }
+            } else if (foreignKeyField instanceof ForeignKeyCellField) {
+                ForeignKeyCellField foreignKeyCellField = (ForeignKeyCellField) foreignKeyField;
+                for (int i = 0; i < criterias.length; i++) {
+                    String criteria = criterias[i];
+                    Map<String, String> conditionMap = CommonUtil.buildConditionByCriteria(criteria);
+                    String filterValue = conditionMap.get(CommonUtil.VALUE_STR);
+                    if (CommonUtil.isFunction(filterValue)) {
+                        if (CommonUtil.containsXPath(filterValue)) {
+                            Map<Integer, Map<String, Field<?>>> targetFields = foreignKeyCellField.getTargetFields();
+                            if (targetFields != null && targetFields.get(i) != null) {
+                                Map<String, Field<?>> targetFieldMap = targetFields.get(i);
+                                for (Map.Entry<String, Field<?>> entry : targetFieldMap.entrySet()) {
+                                    Field<?> targetField = entry.getValue();
+                                    Object targetValue = targetField.getValue();
+                                    String targetValueStr;
+                                    if (targetValue != null) {
+                                        if (targetValue instanceof ForeignKeyBean) {
+                                            targetValueStr = CommonUtil.unwrapFkValue(((ForeignKeyBean) targetValue).getId());
+                                        } else {
+                                            targetValueStr = targetValue.toString();
+                                        }
+                                    } else {
+                                        targetValueStr = CommonUtil.EMPTY;
+                                    }
+                                    filterValue = filterValue.replaceAll(entry.getKey(), targetValueStr);
+                                }
+                            }
+                        }
+                    }
+                    filterList.add(filterValue);
+                }
+            }
+
+            service.transformFunctionValue(filterList, new SessionAwareAsyncCallback<List<String>>() {
+
+                @Override public void onSuccess(List<String> result) {
+                    event.setData(result);
+                    forwardToView(view, event);
+                }
+            });
         }
     }
 

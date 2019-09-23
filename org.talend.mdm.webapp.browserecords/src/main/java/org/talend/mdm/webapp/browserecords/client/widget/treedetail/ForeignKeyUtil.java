@@ -9,14 +9,20 @@
  */
 package org.talend.mdm.webapp.browserecords.client.widget.treedetail;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
 import org.talend.mdm.webapp.base.client.SessionAwareAsyncCallback;
+import org.talend.mdm.webapp.base.client.model.ForeignKeyBean;
 import org.talend.mdm.webapp.base.client.model.ItemResult;
 import org.talend.mdm.webapp.base.client.util.MultilanguageMessageParser;
 import org.talend.mdm.webapp.base.shared.TypeModel;
+import org.talend.mdm.webapp.base.shared.util.CommonUtil;
 import org.talend.mdm.webapp.browserecords.client.BrowseRecords;
 import org.talend.mdm.webapp.browserecords.client.BrowseRecordsEvents;
 import org.talend.mdm.webapp.browserecords.client.BrowseRecordsServiceAsync;
@@ -227,5 +233,157 @@ public class ForeignKeyUtil {
             current = (ItemNodeModel) current.getParent();
         }
         return realXPath;
+    }
+
+    /**
+     * Return the true xpath of the relative xpath
+     * @param xpath current fk field xpath
+     * @param filterValue the current fk field's filter relative path
+     * @return true xpath of the releative xpath
+     */
+    public static String findTargetRelativePathForCellFK(String xpath, String filterValue) {
+        String[] rightPathArray = filterValue.split("/"); //$NON-NLS-1$
+        String relativeMark = rightPathArray[0];
+        if (".".equals(relativeMark)) { //$NON-NLS-1$
+            return xpath + filterValue.substring(filterValue.indexOf(".")); //$NON-NLS-1$
+        } else if ("..".equals(relativeMark)) { //$NON-NLS-1$
+            return xpath.substring(0, xpath.lastIndexOf("/")) + filterValue  //$NON-NLS-1$
+                    .substring(filterValue.indexOf("..") + 2); //$NON-NLS-1$
+        }
+        return CommonUtil.EMPTY;
+    }
+
+    /**
+     * Find the xpath value from ItemNodeModel
+     * @param filterValue fk filter's value(include the xpath)
+     * @param currentPath current fk field xpath
+     * @param itemNode current fk field's ItemNodeModel
+     * @return xpath value from ItemNodeModel
+     */
+    public static String getXpathValue(String filterValue, String currentPath, ItemNodeModel itemNode) {
+        String[] rightValueOrPathArray = filterValue.split("/"); //$NON-NLS-1$
+        if (rightValueOrPathArray.length > 0) {
+            String rightConcept = rightValueOrPathArray[0];
+            if (rightConcept.equals(currentPath.split("/")[0])) { //$NON-NLS-1$
+                List<String> duplicatedPathList = new ArrayList<String>();
+                List<String> leftPathNodeList = new ArrayList<String>();
+                List<String> rightPathNodeList = Arrays.asList(filterValue.split("/")); //$NON-NLS-1$
+                String[] leftValueOrPathArray = currentPath.split("/"); //$NON-NLS-1$
+                Collections.addAll(leftPathNodeList, leftValueOrPathArray);
+                for (int i = 0; i < leftPathNodeList.size(); i++) {
+                    if (i < rightPathNodeList.size() && leftPathNodeList.get(i).equals(rightPathNodeList.get(i))) {
+                        duplicatedPathList.add(rightPathNodeList.get(i));
+                    } else {
+                        break;
+                    }
+                }
+                leftPathNodeList.removeAll(duplicatedPathList);
+                ItemNodeModel parentNode = itemNode;
+                for (int i = 0; i < leftPathNodeList.size(); i++) {
+                    parentNode = (ItemNodeModel) parentNode.getParent();
+                }
+                ItemNodeModel targetNode = findTarget(filterValue, parentNode);
+                filterValue = getFilterValueFromTargetNode(targetNode);
+            }
+        }
+        return filterValue;
+    }
+
+    private static String getFilterValueFromTargetNode(ItemNodeModel targetNode) {
+        String filterValue;
+        if (targetNode != null && targetNode.getObjectValue() != null) {
+            Object targetValue = targetNode.getObjectValue();
+            if (targetValue instanceof ForeignKeyBean) {
+                ForeignKeyBean targetForeignKeyBean = (ForeignKeyBean) targetValue;
+                filterValue = org.talend.mdm.webapp.base.shared.util.CommonUtil.unwrapFkValue(targetForeignKeyBean.getId());
+            } else {
+                filterValue = targetNode.getObjectValue().toString();
+            }
+        } else {
+            filterValue = CommonUtil.EMPTY;
+        }
+        return filterValue;
+    }
+
+    /**
+     * Find the value of relative path 'relaterValue''s corresponding ItemNodeModel
+     * @param filterValue the filter value is a relative path
+     * @param filterOfXPath current filter corresponding xpath content
+     * @param currentPath current field path
+     * @param itemNode current field corresponding ItemNodeModel
+     * @return the relative path's value
+     */
+    public static String findRelativePathValueForSelectFK(String filterValue, String filterOfXPath, String currentPath,
+            ItemNodeModel itemNode) {
+        if (filterOfXPath != null && filterOfXPath.split("/").length > 0 //$NON-NLS-1$
+                && currentPath.split("/")[0].equals(filterOfXPath.split("/")[0])) { //$NON-NLS-1$//$NON-NLS-2$
+            String[] rightPathArray = filterValue.split("/"); //$NON-NLS-1$
+            String relativeMark = rightPathArray[0];
+            String targetPath = itemNode.getTypePath();
+            ItemNodeModel parentNode = itemNode;
+            if (".".equals(relativeMark)) { //$NON-NLS-1$
+                targetPath = targetPath + filterValue.substring(filterValue.indexOf("/")); //$NON-NLS-1$
+            } else if ("..".equals(relativeMark)) { //$NON-NLS-1$
+                parentNode = (ItemNodeModel) parentNode.getParent();
+                targetPath = targetPath.substring(0, targetPath.lastIndexOf("/")); //$NON-NLS-1$
+                targetPath = targetPath + filterValue.substring(filterValue.indexOf("/")); //$NON-NLS-1$
+            }
+            ItemNodeModel targetNode = ForeignKeyUtil.findTarget(targetPath, parentNode);
+            filterValue = getFilterValueFromTargetNode(targetNode);
+        }
+        return filterValue;
+    }
+
+    /**
+     * Find the corresponding ItemNodeModel according to the target path
+     * eg: for Product Entity,
+     *    findTarget("Product/Name", ProductItemNodeModel) ==> the Product/Name's ItemNodeModel.
+     * @param targetPath the path need to find out
+     * @param node current Entity's ItemNodeModel
+     * @return the corresponding ItemNodeModel
+     */
+    public static ItemNodeModel findTarget(String targetPath, ItemNodeModel node) {
+        List<ModelData> childrenList = node.getChildren();
+        if (childrenList != null && childrenList.size() > 0) {
+            for (ModelData modelData : childrenList) {
+                ItemNodeModel child = (ItemNodeModel) modelData;
+                String typePath = child.getTypePath();
+                if (typePath.contains(":")) { //$NON-NLS-1$
+                    String[] pathArray = typePath.split("/"); //$NON-NLS-1$
+                    for (int j = 0; j < pathArray.length; j++) {
+                        String nodePath = pathArray[j];
+                        if (nodePath.contains(":")) { //$NON-NLS-1$
+                            String[] nodePathArray = nodePath.split(":");
+                            if (targetPath.contains("xsi:type")) {
+                                pathArray[j] = nodePathArray[0] + "[@xsi:type=\"" + nodePathArray[1]
+                                        + "\"]"; //$NON-NLS-1$  //$NON-NLS-2$
+                            } else {
+                                pathArray[j] = nodePathArray[0];
+                            }
+                        }
+                    }
+                    typePath = transformPath(pathArray);
+                }
+                if (targetPath.contains(typePath)) {
+                    if (targetPath.equals(typePath)) {
+                        return child;
+                    } else {
+                        return findTarget(targetPath, child);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public static String transformPath(String[] pathArray) {
+        StringBuilder pathBuilder = new StringBuilder();
+        for (int i = 0; i < pathArray.length; i++) {
+            pathBuilder.append(pathArray[i]);
+            if (i < pathArray.length - 1) {
+                pathBuilder.append("/"); //$NON-NLS-1$
+            }
+        }
+        return pathBuilder.toString();
     }
 }
