@@ -12,6 +12,7 @@ package org.talend.mdm.webapp.browserecords.server.actions;
 import java.io.Serializable;
 import java.io.StringReader;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -196,15 +197,13 @@ public class BrowseRecordsAction implements BrowseRecordsService {
 
     @Override
     public List<ItemResult> deleteItemBeans(List<ItemBean> items, boolean override, String language) throws ServiceException {
-        List<ItemResult> itemResults = new ArrayList<ItemResult>();
-        Map<String, List<String>> deleteRecordMap = new HashMap<String, List<String>>();
+        List<ItemResult> itemResults = new ArrayList<>();
+        Map<String, List<String>> deleteRecordMap = new HashMap<>();
         String concept;
         List<String> records;
         for (ItemBean item : items) {
             concept = item.getConcept();
-            if (deleteRecordMap.get(concept) == null) {
-                deleteRecordMap.put(concept, new ArrayList<String>());
-            }
+            deleteRecordMap.computeIfAbsent(concept, k -> new ArrayList<>());
             records = deleteRecordMap.get(concept);
             if (!records.contains(item.getIds())) {
                 Locale locale = LocaleUtil.getLocale(language);
@@ -278,7 +277,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
     public Map<ItemBean, FKIntegrityResult> checkFKIntegrity(List<ItemBean> selectedItems) throws ServiceException {
 
         try {
-            Map<ItemBean, FKIntegrityResult> itemBeanToResult = new HashMap<ItemBean, FKIntegrityResult>(selectedItems.size());
+            Map<ItemBean, FKIntegrityResult> itemBeanToResult = new HashMap<>(selectedItems.size());
             WSConceptKey key = null;
             for (ItemBean selectedItem : selectedItems) {
                 String concept = selectedItem.getConcept();
@@ -357,8 +356,8 @@ public class BrowseRecordsAction implements BrowseRecordsService {
         String navigator_node_concept = "navigator_node_concept"; //$NON-NLS-1$
         String navigator_node_label = "navigator_node_label"; //$NON-NLS-1$
         JSONArray jsonArray = JSONArray.fromObject(jsonString);
-        for (int i = 0; i < jsonArray.size(); i++) {
-            JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+        for (Object o : jsonArray) {
+            JSONObject jsonObject = (JSONObject) o;
             String ids = (String) jsonObject.get(navigator_node_ids);
             String concept = (String) jsonObject.get(navigator_node_concept);
             ItemBean itemBean = getItemBeanById(concept, ids, language);
@@ -372,7 +371,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
         try {
             String fkEntityType;
             ReusableType entityReusableType = null;
-            List<Restriction> ret = new ArrayList<Restriction>();
+            List<Restriction> ret = new ArrayList<>();
 
             if (xpathForeignKey != null && xpathForeignKey.length() > 0) {
                 if (xpathForeignKey.startsWith("/")) { //$NON-NLS-1$
@@ -397,7 +396,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
                     subtypes.add(0, entityReusableType);
                 }
                 List<BusinessConcept> list = SchemaWebAgent.getInstance().getAllBusinessConcepts();
-                LinkedHashMap<String, String> businessConceptMap = new LinkedHashMap<String, String>();
+                LinkedHashMap<String, String> businessConceptMap = new LinkedHashMap<>();
                 if (list != null) {
                     for (BusinessConcept businessConcept : list) {
                         if (businessConcept.getCorrespondTypeName() != null
@@ -498,7 +497,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
                         if (nodes.item(0) instanceof Element) {
                             Element value = (Element) nodes.item(0);
                             if (typeModel.isMultiOccurrence()) {
-                                List<Serializable> list = new ArrayList<Serializable>();
+                                List<Serializable> list = new ArrayList<>();
                                 for (int t = 0; t < nodes.getLength(); t++) {
                                     if (nodes.item(t) instanceof Element) {
                                         Node node = nodes.item(t);
@@ -550,7 +549,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
 
     public void dynamicAssembleByResultOrder(ItemBean itemBean, ViewBean viewBean, EntityModel entityModel,
             Map<String, EntityModel> map, String language) throws Exception {
-        List<String> viewableXpaths = new ArrayList<String>(viewBean.getViewableXpaths());
+        List<String> viewableXpaths = new ArrayList<>(viewBean.getViewableXpaths());
         org.talend.mdm.webapp.browserecords.server.util.CommonUtil.dynamicAssembleByResultOrder(itemBean, viewableXpaths,
                 entityModel, map, language, isStaging());
     }
@@ -571,7 +570,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
 
     @Override
     public String getExsitedViewName(String concept) throws ServiceException {
-        List<String> viewNameList = new ArrayList<String>();
+        List<String> viewNameList = new ArrayList<>();
         String defaultViewName = ViewHelper.DEFAULT_VIEW_PREFIX + "_" + concept; //$NON-NLS-1$
 
         try {
@@ -581,13 +580,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
                     viewNameList.add(viewPK.getPk());
                 }
             }
-            Collections.sort(viewNameList, new Comparator<String>() {
-
-                @Override
-                public int compare(String o1, String o2) {
-                    return o1.compareTo(o2);
-                }
-            });
+            viewNameList.sort((o1, o2) -> o1.compareTo(o2));
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
             throw new ServiceException(e.getLocalizedMessage());
@@ -746,7 +739,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
             }
             @SuppressWarnings("unchecked")
             List<ItemBean> itemBeans = (List<ItemBean>) result[0];
-            return new ItemBasePageLoadResult<ItemBean>(itemBeans, pagingLoad.getOffset(), totalSize);
+            return new ItemBasePageLoadResult<>(itemBeans, pagingLoad.getOffset(), totalSize);
         } catch (Exception exception) {
             Throwable cause = exception.getCause();
             if (cause != null && FieldNotFoundException.class.isInstance(cause.getCause())) {
@@ -813,7 +806,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
 
         int totalSize = 0;
 
-        List<ItemBean> itemBeans = new ArrayList<ItemBean>();
+        List<ItemBean> itemBeans = new ArrayList<>();
         String concept = ViewHelper.getConceptFromDefaultViewName(viewBean.getViewPK());
         Map<String, String[]> formatMap = org.talend.mdm.webapp.browserecords.server.util.CommonUtil.checkDisplayFormat(
                 entityModel, language);
@@ -835,7 +828,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
             OrderBy.SortLanguage.remove();
         }
         // set foreignKey's EntityModel
-        Map<String, EntityModel> map = new HashMap<String, EntityModel>();
+        Map<String, EntityModel> map = new HashMap<>();
         if (results.length > 0 && viewBean.getViewableXpaths() != null) {
             for (String xpath : viewBean.getViewableXpaths()) {
                 TypeModel typeModel = entityModel.getMetaDataTypes().get(xpath);
@@ -845,7 +838,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
             }
         }
         // TODO change ids to array?
-        List<String> idsArray = new ArrayList<String>();
+        List<String> idsArray = new ArrayList<>();
         for (int i = 0; i < results.length; i++) {
             if (i == 0) {
                 try {
@@ -974,7 +967,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
     public List<ItemBaseModel> getUserCriterias(String view) throws ServiceException {
         try {
             String[] results = getSearchTemplateNames(view, false, 0, 0);
-            List<ItemBaseModel> list = new ArrayList<ItemBaseModel>();
+            List<ItemBaseModel> list = new ArrayList<>();
 
             for (String result : results) {
                 ItemBaseModel bm = new ItemBaseModel();
@@ -1049,7 +1042,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
     @Override
     public List<ItemBaseModel> getViewsList(String language) throws ServiceException {
         try {
-            Map<String, String> unsortedViewsMap = new HashMap<String, String>();
+            Map<String, String> unsortedViewsMap = new HashMap<>();
             String model = getCurrentDataModel();
             if (model != null) {
                 MetadataRepository repository = ServerContext.INSTANCE.get().getMetadataRepositoryAdmin().get(model);
@@ -1081,10 +1074,10 @@ public class BrowseRecordsAction implements BrowseRecordsService {
     }
 
     public static List<ItemBaseModel> getViewsListOrderedByLabels(Map<String, String> unsortedViewsMap) {
-        TreeMap<String, String> sortedViewsByLabelsMap = new TreeMap<String, String>(new ViewLabelComparator(unsortedViewsMap));
+        TreeMap<String, String> sortedViewsByLabelsMap = new TreeMap<>(new ViewLabelComparator(unsortedViewsMap));
         sortedViewsByLabelsMap.putAll(unsortedViewsMap);
 
-        List<ItemBaseModel> viewsList = new ArrayList<ItemBaseModel>();
+        List<ItemBaseModel> viewsList = new ArrayList<>();
         for (String viewName : sortedViewsByLabelsMap.keySet()) {
             String viewLabel = unsortedViewsMap.get(viewName);
             ItemBaseModel bm = new ItemBaseModel();
@@ -1202,7 +1195,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
             for (String item : tempResults) {
                 results.add(item);
             }
-            List<ItemBaseModel> list = new ArrayList<ItemBaseModel>();
+            List<ItemBaseModel> list = new ArrayList<>();
             for (String result : results) {
                 ItemBaseModel bm = new ItemBaseModel();
                 org.w3c.dom.Node resultNode = com.amalto.webapp.core.util.Util.parse(result).getFirstChild();
@@ -1219,7 +1212,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
                 list.add(bm);
             }
             int totalSize = results.size();
-            return new ItemBasePageLoadResult<ItemBaseModel>(list, load.getOffset(), totalSize);
+            return new ItemBasePageLoadResult<>(list, load.getOffset(), totalSize);
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
             throw new ServiceException(e.getLocalizedMessage());
@@ -1274,13 +1267,13 @@ public class BrowseRecordsAction implements BrowseRecordsService {
     @Override
     public Map<String, List<String>> getForeignKeyValues(String concept, String ids, String language) throws ServiceException {
         try {
-            Map<ViewBean, Map<String, List<String>>> map = new HashMap<ViewBean, Map<String, List<String>>>();
+            Map<ViewBean, Map<String, List<String>>> map = new HashMap<>();
             MetadataRepository repository = CommonUtil.getCurrentRepository();
             String[] idsArray = CommonUtil.getItemId(repository, ids, concept);
             // 1. getView
             String viewName = getExsitedViewName(concept);
             ViewBean viewBean = getView(viewName, language);
-            Map<String, List<String>> fkValues = new HashMap<String, List<String>>();
+            Map<String, List<String>> fkValues = new HashMap<>();
             // 2. getItem
             WSItem wsItem = CommonUtil.getPort().getItem(
                     new WSGetItem(new WSItemPK(new WSDataClusterPK(this.getCurrentDataCluster()), concept, idsArray)));
@@ -1291,11 +1284,11 @@ public class BrowseRecordsAction implements BrowseRecordsService {
             for (String key : metaData.keySet()) {
                 TypeModel typeModel = metaData.get(key);
                 if (typeModel.getForeignkey() != null && typeModel.getForeignkey().trim().length() > 0) {
-                    fkValues.put(typeModel.getXpath(), new ArrayList<String>());
+                    fkValues.put(typeModel.getXpath(), new ArrayList<>());
                     List<?> nodeList = doc.selectNodes(typeModel.getXpath());
                     if (nodeList != null && nodeList.size() > 0) {
-                        for (int i = 0; i < nodeList.size(); i++) {
-                            org.dom4j.Element current = (org.dom4j.Element) nodeList.get(i);
+                        for (Object o : nodeList) {
+                            org.dom4j.Element current = (org.dom4j.Element) o;
                             fkValues.get(typeModel.getXpath()).add(current.getText());
                         }
                     }
@@ -1329,7 +1322,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
             Element root = doc.getDocumentElement();
 
             Map<String, TypeModel> metaDataTypes = entity.getMetaDataTypes();
-            Map<String, Integer> multiNodeIndex = new HashMap<String, Integer>();
+            Map<String, Integer> multiNodeIndex = new HashMap<>();
             StringBuffer foreignKeyDeleteMessage = new StringBuffer();
             isModelUpdated = false;
             ItemNodeModel itemModel = builderNode(multiNodeIndex, root, entity,
@@ -1387,7 +1380,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
             }
 
             Document resultDoc = org.talend.mdm.webapp.base.server.util.XmlUtil.parseDocument(doc4j);
-            Map<String, Integer> multiNodeIndex = new HashMap<String, Integer>();
+            Map<String, Integer> multiNodeIndex = new HashMap<>();
             StringBuffer foreignKeyDeleteMessage = new StringBuffer();
             Element root = resultDoc.getDocumentElement();
             itemModel = builderNode(multiNodeIndex, root, entity, "", "", false, foreignKeyDeleteMessage, true, false, language); //$NON-NLS-1$ //$NON-NLS-2$
@@ -1422,7 +1415,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
             ruleEngine.execDefaultValueRule(doc4j);
 
             Document resultDoc = org.talend.mdm.webapp.browserecords.server.util.CommonUtil.getSubDoc(doc4j, contextPath);
-            Map<String, Integer> multiNodeIndex = new HashMap<String, Integer>();
+            Map<String, Integer> multiNodeIndex = new HashMap<>();
             StringBuffer foreignKeyDeleteMessage = new StringBuffer();
             Element root = resultDoc.getDocumentElement();
             String baseXpath = contextPath.substring(0, contextPath.lastIndexOf('/'));
@@ -1552,7 +1545,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
                                     childModel.setAbstract(typeModel.isAbstract());
                                     childModel.setXpath(path);
                                     childModel.setTypePath(path);
-                                    childModel.setTypePathObject(new TypePath(path, new HashMap<String, List<String>>()));
+                                    childModel.setTypePathObject(new TypePath(path, new HashMap<>()));
                                     childModel.setNillable(typeModel.isNillable());
                                     childModel.setMinOccurs(typeModel.getMinOccurs());
                                     childModel.setMaxOccurs(typeModel.getMaxOccurs());
@@ -1628,7 +1621,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
 
             XSElementDecl decl;
             decl = xss.getElementDecl("", tableName);//$NON-NLS-1$
-            ArrayList<String> fieldNames = new ArrayList<String>();
+            ArrayList<String> fieldNames = new ArrayList<>();
             if (decl == null) {
                 return fieldNames;
             }
@@ -1648,7 +1641,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
     }
 
     @Override
-    public String bulkUpdateItem(String concept, String xml, String language) throws ServiceException {
+    public String bulkUpdateItem(String concept, String xml, String language) {
         try {
             BulkUpdate bulkUpdate = (BulkUpdate) MDMContextAccessor.getApplicationContext().getBean("navigatorDataService"); //$NON-NLS-1$
 
@@ -1813,9 +1806,8 @@ public class BrowseRecordsAction implements BrowseRecordsService {
     }
 
     @Override
-    public List<ItemResult> updateItems(List<UpdateItemModel> updateItems, boolean isWarningApprovedBeforeSave, String language)
-            throws ServiceException {
-        List<ItemResult> resultes = new ArrayList<ItemResult>();
+    public List<ItemResult> updateItems(List<UpdateItemModel> updateItems, boolean isWarningApprovedBeforeSave, String language) {
+        List<ItemResult> resultes = new ArrayList<>();
         for (UpdateItemModel item : updateItems) {
             try {
                 resultes.add(updateItem(item.getConcept(), item.getIds(), item.getChangedNodes(), null, null,
@@ -1860,9 +1852,8 @@ public class BrowseRecordsAction implements BrowseRecordsService {
                     new WSGetBusinessConceptKey(new WSDataModelPK(getCurrentDataModel()), itemBean.getConcept()));
             ItemPOJOPK itempk = new ItemPOJOPK(new DataClusterPOJOPK(getCurrentDataCluster()), itemBean.getConcept(),
                     CommonUtil.extractIdWithDots(key.getFields(), itemBean.getIds()));
-            boolean isModified = com.amalto.core.util.Util.getItemCtrl2Local().isItemModifiedByOther(itempk,
+            return com.amalto.core.util.Util.getItemCtrl2Local().isItemModifiedByOther(itempk,
                     itemBean.getLastUpdateTime());
-            return isModified;
         } catch (WebBaseException e) {
             throw new ServiceException(BASEMESSAGE.getMessage(e.getMessage(), e.getArgs()));
         } catch (Exception e) {
@@ -1895,7 +1886,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
 
     @Override
     public List<ItemBaseModel> getRunnableProcessList(String businessConcept, String language) throws ServiceException {
-        List<ItemBaseModel> processList = new ArrayList<ItemBaseModel>();
+        List<ItemBaseModel> processList = new ArrayList<>();
         if (businessConcept == null || language == null) {
             return processList;
         }
@@ -1943,11 +1934,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
             }
         }
 
-        if (ownerConcept != null && ownerConcept.equals(possibleConcept)) {
-            return true;
-        }
-
-        return false;
+        return ownerConcept != null && ownerConcept.equals(possibleConcept);
     }
 
     @Override
@@ -1971,8 +1958,8 @@ public class BrowseRecordsAction implements BrowseRecordsService {
                     LocalUser.getLocalUser().getUsername(), null, primaryKeyInfo);
 
             String updateReport = updateReportPOJO.serialize();
-            WSTypedContent wsTypedContent = new WSTypedContent(null, new WSByteArray(updateReport.getBytes("UTF-8")), //$NON-NLS-1$
-                    "text/xml; charset=utf-8");//$NON-NLS-1$
+            WSTypedContent wsTypedContent = new WSTypedContent(null,
+                    new WSByteArray(updateReport.getBytes(StandardCharsets.UTF_8)), "text/xml; charset=utf-8");//$NON-NLS-1$
             WSExecuteTransformerV2 wsExecuteTransformerV2 = new WSExecuteTransformerV2(wsTransformerContext, wsTypedContent);
 
             // execute
@@ -2042,17 +2029,13 @@ public class BrowseRecordsAction implements BrowseRecordsService {
         // Add the no language Smart Views too
         smDescSet.addAll(smDescs.get(null));
 
-        if (!smDescSet.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+        return !smDescSet.isEmpty();
     }
 
     @Override
     public List<ItemBaseModel> getSmartViewList(String regex) throws ServiceException {
         try {
-            List<ItemBaseModel> smartViewList = new ArrayList<ItemBaseModel>();
+            List<ItemBaseModel> smartViewList = new ArrayList<>();
             if (regex == null || regex.length() == 0) {
                 return smartViewList;
             }
@@ -2103,7 +2086,8 @@ public class BrowseRecordsAction implements BrowseRecordsService {
             // FIXME: consider about revision
             String passToProcessContent = itemBean.getItemXml();
 
-            WSTypedContent typedContent = new WSTypedContent(null, new WSByteArray(passToProcessContent.getBytes("UTF-8")), //$NON-NLS-1$
+            WSTypedContent typedContent = new WSTypedContent(null,
+                    new WSByteArray(passToProcessContent.getBytes(StandardCharsets.UTF_8)),
                     "text/xml; charset=UTF-8"); //$NON-NLS-1$
 
             WSTransformerContext wsTransformerContext = new WSTransformerContext(new WSTransformerV2PK(transformerPK), null, null);
@@ -2150,7 +2134,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
             String xmlStringFromProcess;
             if (entrie != null && entrie.getWsTypedContent().getWsBytes().getBytes() != null
                     && entrie.getWsTypedContent().getWsBytes().getBytes().length != 0) {
-                xmlStringFromProcess = new String(entrie.getWsTypedContent().getWsBytes().getBytes(), "UTF-8"); //$NON-NLS-1$
+                xmlStringFromProcess = new String(entrie.getWsTypedContent().getWsBytes().getBytes(), StandardCharsets.UTF_8);
             } else {
                 xmlStringFromProcess = null;
             }
@@ -2165,7 +2149,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
                     return;
                 }
 
-                ArrayList<String> lookupFieldsForWSItemDoc = new ArrayList<String>();
+                ArrayList<String> lookupFieldsForWSItemDoc = new ArrayList<>();
                 XSAnnotation xsa = elementDecl.getAnnotation();
                 if (xsa != null && xsa.getAnnotation() != null) {
                     Element el = (Element) xsa.getAnnotation();
@@ -2198,8 +2182,8 @@ public class BrowseRecordsAction implements BrowseRecordsService {
                 }
 
                 if (lookupFieldsForWSItemDoc.size() > 0) {
-                    itemBean.setOriginalLookupFieldDisplayValueMap(new HashMap<String, List<String>>());
-                    itemBean.setOriginalLookupFieldValueMap(new HashMap<String, List<String>>());
+                    itemBean.setOriginalLookupFieldDisplayValueMap(new HashMap<>());
+                    itemBean.setOriginalLookupFieldValueMap(new HashMap<>());
                 }
                 for (String xpath : lookupFieldsForWSItemDoc) {
                     String[] values = com.amalto.core.util.Util.getTextNodes(jobDoc, searchPrefix + xpath);
@@ -2365,7 +2349,7 @@ public class BrowseRecordsAction implements BrowseRecordsService {
 
     @Override
     public Map<String, Integer> checkTask(String dataClusterPK, String concept, String taskId) throws ServiceException {
-        Map<String, Integer> checkResults = new HashMap<String, Integer>();
+        Map<String, Integer> checkResults = new HashMap<>();
         WSWhereCondition condition_Status_202 = new WSWhereCondition(concept + StagingConstant.STAGING_STATUS,
                 WSWhereOperator.EQUALS, StagingConstants.SUCCESS_MERGE_CLUSTERS, WSStringPredicate.NONE, false);
         WSWhereItem item_Status_202 = new WSWhereItem(condition_Status_202, null, null);
@@ -2397,13 +2381,13 @@ public class BrowseRecordsAction implements BrowseRecordsService {
 
     @Override
     public List<ItemBean> getRecords(String concept, List<String> idsList) throws ServiceException {
-        List<ItemBean> records = new ArrayList<ItemBean>();
+        List<ItemBean> records = new ArrayList<>();
         ItemBean itemBean;
         try {
-            for (int i = 0; i < idsList.size(); i++) {
-                String[] ids = StringUtils.splitPreserveAllTokens(idsList.get(i), '.');
-                WSItem wsItem = CommonUtil.getPort().getItem(
-                        new WSGetItem(new WSItemPK(new WSDataClusterPK(this.getCurrentDataCluster()), concept, ids)));
+            for (String s : idsList) {
+                String[] ids = StringUtils.splitPreserveAllTokens(s, '.');
+                WSItem wsItem = CommonUtil.getPort()
+                        .getItem(new WSGetItem(new WSItemPK(new WSDataClusterPK(this.getCurrentDataCluster()), concept, ids)));
                 itemBean = new ItemBean();
                 itemBean.setItemXml(wsItem.getContent());
                 itemBean.setTaskId(wsItem.getTaskId());
@@ -2485,8 +2469,8 @@ public class BrowseRecordsAction implements BrowseRecordsService {
         return null;
     }
 
-    private void replaceForeignKeyTypeModel(TypeModel typeModel, String entityName) throws ServiceException {
-        List<String> newFKInfoList = new ArrayList<String>();
+    private void replaceForeignKeyTypeModel(TypeModel typeModel, String entityName) {
+        List<String> newFKInfoList = new ArrayList<>();
         String foregnKeyConcept = typeModel.getForeignkey().split("/")[0]; //$NON-NLS-1$
         typeModel.setForeignkey(typeModel.getForeignkey().replace(foregnKeyConcept, entityName));
         for (String foreignKeyInfo : typeModel.getForeignKeyInfo()) {
@@ -2506,6 +2490,26 @@ public class BrowseRecordsAction implements BrowseRecordsService {
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
             return false;
+        }
+    }
+
+    public List<String> transformFunctionValue(List<String> functionList) throws ServiceException {
+        List<String> result = new ArrayList<>();
+        try {
+            Document doc = XMLUtils.parse("<result></result>"); //$NON-NLS-1$);
+            Element element = doc.getDocumentElement();
+            for (String function : functionList) {
+                element.appendChild(doc.createElement("functionName")); //$NON-NLS-1$);
+            }
+
+            org.dom4j.Document doc4j = XmlUtil.parseDocument(doc);
+
+            DisplayRuleEngine ruleEngine = new DisplayRuleEngine(null, null);
+            ruleEngine.setFuncitonList(functionList);
+            return ruleEngine.execFKFilterRule(doc4j);
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+            throw new ServiceException(e.getLocalizedMessage());
         }
     }
 }

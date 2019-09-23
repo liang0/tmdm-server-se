@@ -1352,6 +1352,50 @@ public class BrowseRecordsActionTest extends TestCase {
         }
     }
 
+    public void testTransformFunctionValue() {
+        List<String> filter = new ArrayList<String>();
+        filter.add("fn:concat(\"aa\", \"s\")");
+        filter.add("fn:concat(\"This is a\", \" Test\")");
+        filter.add("fn:starts-with(\"string\",\"s\")");
+        filter.add("fn:starts-with(\"none\",\"s\")");
+        filter.add("fn:ends-with(\"Mugs\",\"s\")");
+        filter.add("fn:ends-with(\"Mug\",\"s\")");
+        filter.add("fn:string-length(\"Mugs\")");
+        filter.add("fn:string-length(\"Mug\")");
+        filter.add("fn:matches(\"this is test\" ,\"test\")");
+        filter.add("fn:abs(-5)");
+        filter.add("fn:true()");
+        filter.add("fn:false()");
+        filter.add("fn:max((1,2,3))");
+        filter.add("fn:starts-with(&quot;Herbert&quot;,&quot;s&quot;)");
+        filter.add("fn:string-length(&quot;Herbert&quot;) > 3");
+        filter.add("fn:matches(&quot;&quot; ,&quot;test&quot;)");
+        List<String> result = null;
+        try {
+            result = action.transformFunctionValue(filter);
+        } catch (Exception e) {
+            fail();
+        }
+
+        assertEquals(16, result.size());
+        assertEquals("aas", result.get(0));
+        assertEquals("This is a Test", result.get(1));
+        assertEquals("true", result.get(2));
+        assertEquals("false", result.get(3));
+        assertEquals("true", result.get(4));
+        assertEquals("false", result.get(5));
+        assertEquals("4", result.get(6));
+        assertEquals("3", result.get(7));
+        assertEquals("true", result.get(8));
+        assertEquals("5", result.get(9));
+        assertEquals("true", result.get(10));
+        assertEquals("false", result.get(11));
+        assertEquals("3", result.get(12));
+        assertEquals("false", result.get(13));
+        assertEquals("true", result.get(14));
+        assertEquals("false", result.get(15));
+    }
+
     /**
      * the code comes from
      * org.talend.mdm.webapp.browserecords.server.actions.BrowseRecordsAction.builderNode(Map<String, Integer>, Element,

@@ -40,6 +40,8 @@ public class DisplayRuleEngine {
 
     Map<String, TypeModel> metaDatas;
 
+    List<String> funcitonList = new ArrayList<>();
+
     public DisplayRuleEngine(Map<String, TypeModel> metaDatas, String concept) {
         this.metaDatas = metaDatas;
         this.concept = concept;
@@ -189,18 +191,37 @@ public class DisplayRuleEngine {
         return valueItems;
     }
 
+    public List<String> execFKFilterRule(Document dom4jDoc) {
+        List<String> resultValue = new ArrayList<>();
+        try {
+            String xpath = "result/functionName";
+            Node node = dom4jDoc.selectSingleNode(xpath);
+            if (node != null) {
+                String style = generateFKFilterStyle(xpath, funcitonList);
+                org.dom4j.Document transformedDocumentValue = XMLUtils.styleDocument(dom4jDoc, style);
+                List<org.dom4j.Node> valueNodeList = transformedDocumentValue.selectNodes(xpath);
+                for (org.dom4j.Node valueNode : valueNodeList) {
+                    resultValue.add(valueNode.getText());
+                }
+            }
+        } catch (Exception e) {
+            LOG.error("Failed to execute fk filter", e);
+        }
+        return resultValue;
+    }
+
     private String genDefaultValueStyle(String concept, String xpath, String defaultValueRule, TypeModel typeModel) {
         StringBuffer style = new StringBuffer();
         style.append("<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:fn=\"http://www.w3.org/2005/xpath-functions\" xmlns:t=\"http://www.talend.com/2010/MDM\" version=\"2.0\">"); //$NON-NLS-1$
 
         style.append("<xsl:output method=\"xml\" indent=\"yes\" omit-xml-declaration=\"yes\"/>"); //$NON-NLS-1$
-        style.append("<xsl:template match=\"/" + concept + "\">"); //$NON-NLS-1$//$NON-NLS-2$
+        style.append("<xsl:template match=\"/").append(concept).append("\">"); //$NON-NLS-1$//$NON-NLS-2$
         style.append("<xsl:copy>"); //$NON-NLS-1$
-        style.append("<xsl:apply-templates select=\"/" + xpath + "\"/>"); //$NON-NLS-1$ //$NON-NLS-2$
+        style.append("<xsl:apply-templates select=\"/").append(xpath).append("\"/>"); //$NON-NLS-1$ //$NON-NLS-2$
         style.append("</xsl:copy>"); //$NON-NLS-1$
         style.append("</xsl:template>"); //$NON-NLS-1$
 
-        style.append("<xsl:template match=\"/" + xpath + "\">"); //$NON-NLS-1$ //$NON-NLS-2$
+        style.append("<xsl:template match=\"/").append(xpath).append("\">"); //$NON-NLS-1$ //$NON-NLS-2$
         style.append("<xsl:copy>"); //$NON-NLS-1$
         style.append("<xsl:choose>"); //$NON-NLS-1$
         if ("boolean".equals(typeModel.getType().getTypeName())) { //$NON-NLS-1$
@@ -209,7 +230,7 @@ public class DisplayRuleEngine {
             style.append("<xsl:when test=\"not(text())\">"); //$NON-NLS-1$
         }
 
-        style.append("<xsl:value-of select=\"" + XmlUtil.escapeXml(defaultValueRule) + "\"/>"); //$NON-NLS-1$ //$NON-NLS-2$
+        style.append("<xsl:value-of select=\"").append(XmlUtil.escapeXml(defaultValueRule)).append("\"/>"); //$NON-NLS-1$ //$NON-NLS-2$
         style.append("</xsl:when> "); //$NON-NLS-1$
         style.append("<xsl:otherwise>"); //$NON-NLS-1$
         style.append("<xsl:value-of select=\".\"/>"); //$NON-NLS-1$
@@ -228,22 +249,22 @@ public class DisplayRuleEngine {
         StringBuffer style = new StringBuffer();
         style.append("<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:fn=\"http://www.w3.org/2005/xpath-functions\" xmlns:t=\"http://www.talend.com/2010/MDM\" version=\"2.0\">"); //$NON-NLS-1$
         style.append("<xsl:output method=\"xml\" indent=\"yes\" omit-xml-declaration=\"yes\"/>"); //$NON-NLS-1$
-        style.append("<xsl:template match=\"/" + concept + "\">"); //$NON-NLS-1$//$NON-NLS-2$
+        style.append("<xsl:template match=\"/").append(concept).append("\">"); //$NON-NLS-1$//$NON-NLS-2$
         style.append("<xsl:copy>");//$NON-NLS-1$
-        style.append("<xsl:apply-templates select=\"/" + xpath + "\"/>");//$NON-NLS-1$ //$NON-NLS-2$
+        style.append("<xsl:apply-templates select=\"/").append(xpath).append("\"/>");//$NON-NLS-1$ //$NON-NLS-2$
         style.append("</xsl:copy>");//$NON-NLS-1$
         style.append("</xsl:template>");//$NON-NLS-1$
 
-        style.append("<xsl:template match=\"/" + xpath + "\">");//$NON-NLS-1$ //$NON-NLS-2$
+        style.append("<xsl:template match=\"/").append(xpath).append("\">");//$NON-NLS-1$ //$NON-NLS-2$
         style.append("<xsl:copy>"); //$NON-NLS-1$
         if (isMultiOccurence) {
             String pathIndex = xpath.substring(xpath.lastIndexOf('[') + 1, xpath.lastIndexOf(']'));
             String matchPath = xpath.replaceAll("\\[\\d+\\]$", "");
-            style.append("<xsl:for-each select=\"/" + matchPath + "\">");
-            style.append("<xsl:if test=\"position()=" + pathIndex + "\">");
+            style.append("<xsl:for-each select=\"/").append(matchPath).append("\">");
+            style.append("<xsl:if test=\"position()=").append(pathIndex).append("\">");
         }
         style.append("<xsl:choose>"); //$NON-NLS-1$
-        style.append("<xsl:when test=\"not(" + getPureValue(XmlUtil.escapeXml(visibleExpression)) + ")\">"); //$NON-NLS-1$ //$NON-NLS-2$
+        style.append("<xsl:when test=\"not(").append(getPureValue(XmlUtil.escapeXml(visibleExpression))).append(")\">"); //$NON-NLS-1$ //$NON-NLS-2$
         style.append("<xsl:attribute name=\"t:visible\">false</xsl:attribute>"); //$NON-NLS-1$
         style.append("</xsl:when>"); //$NON-NLS-1$
         style.append("<xsl:otherwise>"); //$NON-NLS-1$
@@ -265,21 +286,21 @@ public class DisplayRuleEngine {
     }
 
     public static String getRealXPath(Element el) {
-        String realXPath = ""; //$NON-NLS-1$
+        StringBuilder realXPath = new StringBuilder(); //$NON-NLS-1$
         Element current = el;
         boolean isFirst = true;
         while (current != null) {
             String name = getElementNameWithIndex(current);
             current = current.getParent();
             if (isFirst) {
-                realXPath = name;
+                realXPath = new StringBuilder(name);
                 isFirst = false;
                 continue;
             }
-            realXPath = name + "/" + realXPath; //$NON-NLS-1$
+            realXPath.insert(0, name + "/"); //$NON-NLS-1$
 
         }
-        return realXPath;
+        return realXPath.toString();
     }
 
     private static String getElementNameWithIndex(Element el) {
@@ -300,5 +321,45 @@ public class DisplayRuleEngine {
             }
         }
         return el.getName();
+    }
+
+    public void setFuncitonList(List<String> funcitonList) {
+        this.funcitonList = funcitonList;
+    }
+
+    private String generateFKFilterStyle(String xpath, List<String> functionNameList) {
+        StringBuffer style = new StringBuffer();
+        style.append(
+                "<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:fn=\"http://www.w3.org/2005/xpath-functions\" xmlns:t=\"http://www.talend.com/2010/MDM\" version=\"2.0\">"); //$NON-NLS-1$
+        style.append("<xsl:output method=\"xml\" indent=\"yes\" omit-xml-declaration=\"yes\"/>"); //$NON-NLS-1$
+        style.append("<xsl:template match=\"/result\">"); //$NON-NLS-1$//$NON-NLS-2$
+        style.append("<xsl:copy>"); //$NON-NLS-1$
+        for (int i = 1; i <= functionNameList.size(); i++) {
+            style.append("<xsl:apply-templates select=\"/").append(xpath).append("[").append(i)
+                    .append("]\"/>"); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+        style.append("</xsl:copy>"); //$NON-NLS-1$
+        style.append("</xsl:template>"); //$NON-NLS-1$
+
+        int i = 1;
+        Iterator<String> iterator = functionNameList.iterator();
+        while (iterator.hasNext()) {
+            style.append("<xsl:template match=\"/").append(xpath).append("[").append(i++)
+                    .append("]\">"); //$NON-NLS-1$ //$NON-NLS-2$
+            style.append("<xsl:copy>"); //$NON-NLS-1$
+            style.append("<xsl:choose>"); //$NON-NLS-1$
+            style.append("<xsl:when test=\"not(text())\">"); //$NON-NLS-1$
+            style.append("<xsl:value-of select=\"").append(XmlUtil.escapeXml(iterator.next()))
+                    .append("\"/>"); //$NON-NLS-1$ //$NON-NLS-2$
+            style.append("</xsl:when> "); //$NON-NLS-1$
+            style.append("<xsl:otherwise>"); //$NON-NLS-1$
+            style.append("<xsl:value-of select=\".\"/>"); //$NON-NLS-1$
+            style.append("</xsl:otherwise>"); //$NON-NLS-1$
+            style.append("</xsl:choose> "); //$NON-NLS-1$
+            style.append("</xsl:copy>"); //$NON-NLS-1$
+            style.append("</xsl:template>"); //$NON-NLS-1$
+        }
+        style.append("</xsl:stylesheet>"); //$NON-NLS-1$
+        return style.toString();
     }
 }
