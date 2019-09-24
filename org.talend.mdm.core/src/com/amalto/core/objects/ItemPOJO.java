@@ -40,6 +40,7 @@ import com.amalto.core.objects.marshalling.MarshallingFactory;
 import com.amalto.core.server.StorageAdmin;
 import com.amalto.core.server.api.XmlServer;
 import com.amalto.core.util.LocalUser;
+import com.amalto.core.util.UserManage;
 import com.amalto.core.util.Util;
 import com.amalto.core.util.XtentisException;
 
@@ -665,27 +666,32 @@ public class ItemPOJO implements Serializable {
         assert user != null;
         boolean authorizedAccess;
         String username = user.getUsername();
+        String dataCluster = itemPOJOPK.getDataClusterPOJOPK().getUniqueId();
+        String concept = itemPOJOPK.getConceptName();
 
-        boolean isSystemObject = XSystemObjects.isXSystemObject(DATA_CLUSTER_SYSTEM_OBJECTS, itemPOJOPK.getDataClusterPOJOPK().getIds()[0]);
+        // Admin has all rights, so bypass security checks, "admin.user" defined in mdm.conf, and "Super Admin" defined on TAC
+        boolean isAdmin = MDMConfiguration.getAdminUser().equals(username) || user.getRoles().contains(ICoreConstants.ADMIN_PERMISSION);
 
-        // admin has all rights, so bypass security checks
-        boolean bypassCheckAccess = MDMConfiguration.getAdminUser().equals(username)
-                || user.getRoles().contains(ICoreConstants.ADMIN_PERMISSION) || isSystemObject;
+        // Including: crossreferencing, MDMItemImages, MDMMigration, MDMItemsTrash, SearchTemplate, UpdateReport, CONF, PROVISIONING
+        boolean isSystemObject = XSystemObjects.isXSystemObject(DATA_CLUSTER_SYSTEM_OBJECTS, dataCluster);
 
-        if (bypassCheckAccess) {
+        // Update user's own Language, Domain/Portal Configuration
+        boolean isUpdatePersonalInfo = LocalUser.UpdatePersonalInfo.get();
+
+        if (isAdmin || isSystemObject || isUpdatePersonalInfo) {
             return;
         }
 
-        if(itemPOJOPK.getDataClusterPOJOPK() != null && !StorageAdmin.SYSTEM_STORAGE.equals(itemPOJOPK.getDataClusterPOJOPK().getUniqueId()) && Util.isEnterprise()){
+        if (!StorageAdmin.SYSTEM_STORAGE.equals(dataCluster) && Util.isEnterprise()) {
             isExistDataCluster(itemPOJOPK.getDataClusterPOJOPK());
         }
 
-        if(user.isAdmin(ItemPOJO.class)) {
+        if (user.isAdmin(ItemPOJO.class)) {
             authorizedAccess = true;
         } else {
             ItemPOJO itemPOJO = loadItem(itemPOJOPK);
-            if(mutableAccess) {
-                authorizedAccess = user.userItemCanWrite(itemPOJO, itemPOJOPK.getDataClusterPOJOPK().getUniqueId(), itemPOJOPK.getConceptName());
+            if (mutableAccess) {
+                authorizedAccess = user.userItemCanWrite(itemPOJO, dataCluster, concept);
             } else {
                 authorizedAccess = user.userItemCanRead(itemPOJO);
             }
