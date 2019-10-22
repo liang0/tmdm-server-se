@@ -2494,12 +2494,11 @@ public class BrowseRecordsAction implements BrowseRecordsService {
     }
 
     public List<String> transformFunctionValue(List<String> functionList) throws ServiceException {
-        List<String> result = new ArrayList<>();
         try {
-            Document doc = XMLUtils.parse("<result></result>"); //$NON-NLS-1$);
+            Document doc = XMLUtils.parse("<result></result>"); //$NON-NLS-1$;
             Element element = doc.getDocumentElement();
             for (String function : functionList) {
-                element.appendChild(doc.createElement("functionName")); //$NON-NLS-1$);
+                element.appendChild(doc.createElement("functionName")); //$NON-NLS-1$;
             }
 
             org.dom4j.Document doc4j = XmlUtil.parseDocument(doc);

@@ -337,7 +337,6 @@ public class ForeignKeyField extends TextField<ForeignKeyBean> {
                     if (foreignKeyFilter.contains(CommonUtil.FN_PREFIX)) {
                         AppEvent event = new AppEvent(BrowseRecordsEvents.TransformFkFilterItem, foreignKeyFilter);
                         event.setData(BrowseRecords.FOREIGN_KEY_FIELD, _this);
-                        event.setData(BrowseRecords.FOREIGN_KEY_FILTER, foreignKeyFilter);
                         Dispatcher.forwardEvent(event);
                     }
 
@@ -406,11 +405,18 @@ public class ForeignKeyField extends TextField<ForeignKeyBean> {
         this.foreignKeyFilter = foreignKeyFilter;
     }
 
+    public String getForeignKeyFilter() {
+        return this.foreignKeyFilter;
+    }
+
     public String getOriginForeignKeyFilter() {
         return this.originForeignKeyFilter == null ? CommonUtil.EMPTY : this.originForeignKeyFilter;
     }
 
     public boolean isWithTextInput() {
         return withTextInput;
+    }
+    public void getOriginForeignKeyFilter(String originForeignKeyFilter) {
+        this.originForeignKeyFilter = originForeignKeyFilter;
     }
 }
