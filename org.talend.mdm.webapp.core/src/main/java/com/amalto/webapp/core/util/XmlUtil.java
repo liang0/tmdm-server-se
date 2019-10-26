@@ -39,4 +39,12 @@ public class XmlUtil {
         return value;
     }
 
+    public static String unescapeXml(String value) {
+        if (value == null) {
+            return null;
+        }
+        return StringEscapeUtils.unescapeXml(value);
+    }
+
+
 }
