@@ -317,9 +317,6 @@ public class CommonUtil {
                     } else if (value.startsWith("&gt;", i)) { //$NON-NLS-1$
                         result.append('>');
                         i += 4;
-                    } else {
-                        result.append(charAt);
-                        i++;
                     }
                 }
             }
