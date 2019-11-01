@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">  
+  <xsd:import namespace="http://www.w3.org/2001/XMLSchema"/>  
+  <xsd:complexType name="TypeA"> 
+    <xsd:sequence> 
+      <xsd:element maxOccurs="1" minOccurs="1" name="id" type="xsd:string"/>  
+      <xsd:element maxOccurs="1" minOccurs="1" name="EA" type="xsd:string"/> 
+    </xsd:sequence> 
+  </xsd:complexType>  
+  <xsd:element name="EntityA" type="TypeA"> 
+    <xsd:annotation> 
+      <xsd:appinfo source="X_Category"> 
+        <name>C1</name> 
+      </xsd:appinfo>  
+      <xsd:appinfo source="X_Category"> 
+        <name>C3</name>  
+        <field>EA</field> 
+      </xsd:appinfo> 
+    </xsd:annotation>  
+    <xsd:unique name="EntityA"> 
+      <xsd:selector xpath="."/>  
+      <xsd:field xpath="id"/> 
+    </xsd:unique> 
+  </xsd:element>  
+  <xsd:complexType name="TypeB"> 
+    <xsd:complexContent> 
+      <xsd:extension base="TypeA"> 
+        <xsd:sequence> 
+          <xsd:element maxOccurs="1" minOccurs="1" name="EB" type="xsd:string"/>  
+          <xsd:element maxOccurs="1" minOccurs="0" name="EC" type="xsd:string"/> 
+        </xsd:sequence> 
+      </xsd:extension> 
+    </xsd:complexContent> 
+  </xsd:complexType>  
+  <xsd:element name="EntityB" type="TypeB"> 
+    <xsd:annotation> 
+      <xsd:appinfo source="X_Category"> 
+        <name>C2</name>  
+        <field>EA</field>  
+        <label_en>d</label_en>  
+        <label_fr>e</label_fr>  
+        <label_ab>f</label_ab> 
+      </xsd:appinfo>  
+      <xsd:appinfo source="X_Category"> 
+        <name>C4</name>  
+        <field>EC</field> 
+      </xsd:appinfo> 
+    </xsd:annotation>  
+    <xsd:unique name="EntityB"> 
+      <xsd:selector xpath="."/>  
+      <xsd:field xpath="id"/> 
+    </xsd:unique> 
+  </xsd:element>  
+  <xsd:element name="EntityC"> 
+    <xsd:annotation> 
+      <xsd:appinfo source="X_Category"> 
+        <name>C5</name>  
+        <label_en>a</label_en>  
+        <label_fr>b</label_fr>  
+        <label_ab>c</label_ab>  
+        <field>EA</field>  
+        <field>EB</field> 
+      </xsd:appinfo>  
+      <xsd:appinfo source="X_Category"> 
+        <name>C6</name>  
+        <field>ED</field> 
+      </xsd:appinfo> 
+    </xsd:annotation>  
+    <xsd:complexType> 
+      <xsd:all> 
+        <xsd:element name="EntityCId" type="xsd:string"/>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="EA" type="xsd:string"/>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="EB" type="xsd:string"/>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="EC" type="xsd:string"/>  
+        <xsd:element maxOccurs="1" minOccurs="0" name="ED" type="xsd:string"/> 
+      </xsd:all> 
+    </xsd:complexType>  
+    <xsd:unique name="EntityC"> 
+      <xsd:selector xpath="."/>  
+      <xsd:field xpath="EntityCId"/> 
+    </xsd:unique> 
+  </xsd:element> 
+</xsd:schema>
