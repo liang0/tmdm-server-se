@@ -1,0 +1,64 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.w3.org/2001/XMLSchema"/>
+    <xsd:element name="FK1">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element maxOccurs="1" minOccurs="1" name="Id1" type="AUTO_INCREMENT"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="Id2" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Name" type="xsd:string"/>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="FK1">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="Id2"/>
+            <xsd:field xpath="Id1"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:simpleType name="AUTO_INCREMENT">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:element name="TestCompositeFK">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Name" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="0" name="FK" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_ForeignKey_NotSep">false</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKey">FK1</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="TestCompositeFK">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="Id"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="Person">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Name" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="N_Index" type="AUTO_INCREMENT"/>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="Person">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="Id"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="Address">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element maxOccurs="1" minOccurs="1" name="Id" type="AUTO_INCREMENT"/>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Name" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="Port" type="AUTO_INCREMENT"/>
+            </xsd:all>
+        </xsd:complexType>
+        <xsd:unique name="Address">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="Id"/>
+        </xsd:unique>
+    </xsd:element>
+</xsd:schema>

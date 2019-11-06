@@ -1,9 +1,9 @@
 /*
  * Copyright (C) 2006-2019 Talend Inc. - www.talend.com
- * 
+ *
  * This source code is available under agreement available at
- * %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
- * 
+ *  %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+ *
  * You should have received a copy of the agreement along with this program; if not, write to Talend SA 9 rue Pages
  * 92150 Suresnes, France
  */
@@ -568,13 +568,12 @@ public class DocumentSaveTest extends TestCase {
         repository.load(DocumentSaveTest.class.getResourceAsStream("metadata24.xsd"));
         MockMetadataRepositoryAdmin.INSTANCE.register("DStar", repository);
 
-        TestSaverSource source = new TestSaverSource(repository, false, "", "metadata24.xsd");
+        TestSaverSource source = new TestSaverSource(repository, false, "", "metadata1.xsd");
 
         SaverSession session = SaverSession.newSession(source);
-        // 1. Entity Person: normal field is autoincrement
-        InputStream recordXml = DocumentSaveTest.class.getResourceAsStream("test79.xml");
-        DocumentSaverContext context = session.getContextFactory()
-                .create("MDM", "DStar", "Source", recordXml, true, true, true, true, false);
+        InputStream recordXml = DocumentSaveTest.class.getResourceAsStream("test24.xml");
+        DocumentSaverContext context = session.getContextFactory().create("MDM", "DStar", "Source", recordXml, true, true, true,
+                true, false);
         DocumentSaver saver = context.createSaver();
         saver.save(session, context);
         assertFalse(source.hasSavedAutoIncrement());
@@ -585,25 +584,7 @@ public class DocumentSaveTest extends TestCase {
         assertTrue(committer.hasSaved());
         Element committedElement = committer.getCommittedElement();
         // Id is expected to be overwritten in case of creation
-        assertEquals("1", evaluate(committedElement, "/Person/N_Index"));
-
-        // 2. Entity Address, key field Id and normal field Port are autoincrement
-        source = new TestSaverSource(repository, false, "", "metadata24.xsd");
-        session = SaverSession.newSession(source);
-        recordXml = DocumentSaveTest.class.getResourceAsStream("test80.xml");
-        context = session.getContextFactory().create("MDM", "DStar", "Source", recordXml, true, true, true,
-                true, false);
-        saver = context.createSaver();
-        saver.save(session, context);
-        assertFalse(source.hasSavedAutoIncrement());
-        committer = new MockCommitter();
-        session.end(committer);
-
-        assertTrue(source.hasSavedAutoIncrement());
-        assertTrue(committer.hasSaved());
-        committedElement = committer.getCommittedElement();
-        assertEquals("1", evaluate(committedElement, "/Address/Id"));
-        assertEquals("1", evaluate(committedElement, "/Address/Port"));
+        assertNotSame("100", evaluate(committedElement, "/ProductFamily/Id"));
     }
 
     public void testUpdateWithUUID() throws Exception {
@@ -4780,7 +4761,7 @@ public class DocumentSaveTest extends TestCase {
 
     }
 
-    private static class AlterRecordTestSaverSource extends DocumentSaveTest.TestSaverSource {
+    private static class AlterRecordTestSaverSource extends TestSaverSource {
 
         private final boolean isOK;
 
@@ -4821,7 +4802,7 @@ public class DocumentSaveTest extends TestCase {
         }
     }
 
-    private static class TestSaverSourceWithOutputReportItem extends DocumentSaveTest.TestSaverSource {
+    private static class TestSaverSourceWithOutputReportItem extends TestSaverSource {
 
         private final boolean OK;
 
@@ -4852,7 +4833,7 @@ public class DocumentSaveTest extends TestCase {
         }
     }
     
-    private static class TestSaverSourceWithProductOutputReportItem extends DocumentSaveTest.TestSaverSource {
+    private static class TestSaverSourceWithProductOutputReportItem extends TestSaverSource {
 
         private final boolean OK;
 
@@ -4961,7 +4942,7 @@ public class DocumentSaveTest extends TestCase {
         }
     }
 
-    private static class NoChangeTestSaverSource extends DocumentSaveTest.TestSaverSource {
+    private static class NoChangeTestSaverSource extends TestSaverSource {
 
         private final boolean OK;
 
