@@ -27,9 +27,15 @@ import com.google.gson.JsonParser;
 import junit.framework.TestCase;
 import org.talend.mdm.QueryParserTest;
 import org.talend.mdm.commmon.metadata.ComplexTypeMetadata;
+import org.talend.mdm.commmon.metadata.ContainedComplexTypeMetadata;
+import org.talend.mdm.commmon.metadata.ContainedTypeFieldMetadata;
+import org.talend.mdm.commmon.metadata.FieldMetadata;
 import org.talend.mdm.commmon.metadata.MetadataRepository;
+import org.talend.mdm.commmon.metadata.ReferenceFieldMetadata;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import static com.amalto.core.query.user.UserQueryBuilder.and;
@@ -269,6 +275,46 @@ public class UserQueryJsonSerializerTest extends TestCase {
         assertEquals(((Field)((Compare) ((BinaryLogicOperator) select.getCondition()).getRight()).getLeft()).getFieldMetadata().getName(), this.repository.getComplexType("Genre").getField("Id").getName());
         assertRoundTrip(select);
     }
+
+    public void testFKInfosEqualsInTQL() {
+        this.repository.load(QueryParserTest.class.getResourceAsStream("metadatamovie.xsd"));
+        final ComplexTypeMetadata type1 = this.repository.getComplexType("Movie");
+        final UserQueryBuilder userQueryBuilder = UserQueryBuilder.from(type1).where("Movie.Genres.Genre = 'Animation'");
+        final Select select = userQueryBuilder.getSelect();
+        assertNotNull(select.getCondition());
+        assertTrue(select.getCondition() instanceof BinaryLogicOperator);
+        assertEquals(((BinaryLogicOperator)select.getCondition()).getPredicate(), Predicate.OR);
+        assertTrue(((BinaryLogicOperator)select.getCondition()).getRight() instanceof Compare);
+        assertTrue(((BinaryLogicOperator)select.getCondition()).getLeft() instanceof Compare);
+        assertEquals(((Compare) ((BinaryLogicOperator) select.getCondition()).getRight()).getPredicate(),  Predicate.EQUALS);
+        assertEquals(((Compare) ((BinaryLogicOperator) select.getCondition()).getLeft()).getPredicate(),  Predicate.EQUALS);
+        assertEquals(((StringConstant) ((Compare) ((BinaryLogicOperator) select.getCondition()).getRight()).getRight()).getValue(), "Animation");
+        assertEquals(((Field)((Compare) ((BinaryLogicOperator) select.getCondition()).getRight()).getLeft()).getFieldMetadata().getName(), this.repository.getComplexType("Genre").getField("Id").getName());
+        assertRoundTrip(select);
+    }
+
+    public void test_TMDM_14398() {
+        String result = "{\"select\":{\"from\":[\"RefBeruf\"],\"fields\":[{\"alias\":[{\"name\":\"RefBerufId\"},{\"field\":\"RefBeruf/RefBerufId\"}]},{\"alias\":[{\"name\":\"BezeichnungDE\"},{\"field\":\"RefBeruf/Bezeichnung/BezeichnungDE\"}]}]}}";
+        this.repository.load(QueryParserTest.class.getResourceAsStream("fenaco.xsd"));
+        final ComplexTypeMetadata type1 = this.repository.getComplexType("RefBeruf");
+        final UserQueryBuilder userQueryBuilder = UserQueryBuilder.from(type1);
+        userQueryBuilder.select(UserQueryBuilder.alias(type1.getField("RefBerufId"), type1.getField("RefBerufId").getName()));
+        ContainedTypeFieldMetadata containedTypeFieldMetadata = (ContainedTypeFieldMetadata)type1.getField("Bezeichnung");
+        FieldMetadata fieldMetadata = containedTypeFieldMetadata.getContainedType().getField("BezeichnungDE");
+        userQueryBuilder.select(UserQueryBuilder.alias(fieldMetadata, fieldMetadata.getName()));
+        final Select select = userQueryBuilder.getSelect();
+        assertEquals(result, UserQueryJsonSerializer.toJson(select));
+
+        final ComplexTypeMetadata type2 = this.repository.getComplexType("Partner");
+        final ReferenceFieldMetadata type3 = (ReferenceFieldMetadata)type2.getField("BerufFk");
+        final UserQueryBuilder userQueryBuilder2 = UserQueryBuilder.from(this.repository.getComplexType(type3.getReferencedField().getEntityTypeName()));
+        type3.getForeignKeyInfoFields().forEach(fk -> {
+            userQueryBuilder2.select(UserQueryBuilder.alias(fk, fk.getName()));
+        });
+        final Select select2 = userQueryBuilder2.getSelect();
+        assertEquals(result, UserQueryJsonSerializer.toJson(select2));
+    }
+
 
     private void assertRoundTrip(Select select) {
         // when

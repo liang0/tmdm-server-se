@@ -1,0 +1,1681 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.w3.org/2001/XMLSchema"/>
+    <xsd:complexType abstract="true" name="PartnerType">
+        <xsd:sequence/>
+    </xsd:complexType>
+    <xsd:complexType name="JuristischePersonType">
+        <xsd:complexContent>
+            <xsd:extension base="PartnerType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="Firmenbezeichnung" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="Gruendungsdatum" type="xsd:date">
+                        <xsd:annotation>
+                            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="Aufloesungsdatum" type="xsd:date">
+                        <xsd:annotation>
+                            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="UID_Nr" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="NatuerlichePersonType">
+        <xsd:complexContent>
+            <xsd:extension base="PartnerType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="AnredeFk" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo source="X_ForeignKey">RefAnrede/RefAnredeId</xsd:appinfo>
+                            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                            <xsd:appinfo source="X_ForeignKeyInfo">RefAnrede/RefAnredeId</xsd:appinfo>
+                            <xsd:appinfo source="X_ForeignKeyInfo">RefAnrede/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                            <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="Name" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                            <xsd:appinfo source="X_Label_EN">Name</xsd:appinfo>
+                            <xsd:appinfo source="X_Label_DE">Name</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="Vorname" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="Zweitnahme" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="Geburtsdatum" type="xsd:date">
+                        <xsd:annotation>
+                            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="BerufFk" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo source="X_ForeignKey">RefBeruf/RefBerufId</xsd:appinfo>
+                            <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="RefPartnerrolle">
+        <xsd:annotation>
+
+
+            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="RefPartnerrolleId" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Partnerrolle ID</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Bezeichnung" type="BezeichnungType">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="SourceSystemMap" type="SourceSystemList">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Quellsystem Mapping</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:unique name="RefPartnerrolle">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="RefPartnerrolleId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="KontaktType">
+        <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="KontakttypFk" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">RefKontakttyp/RefKontakttypId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">false</xsd:appinfo>
+
+
+
+
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_DE">Kontakttyp</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">RefKontakttyp/RefKontakttypId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">RefKontakttyp/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfoFormat">RefKontakttyp/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="KontaktValue" type="xsd:string">
+                <xsd:annotation>
+
+
+
+                    <xsd:appinfo source="X_Label_DE">Kontakt</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Betrieb">
+        <xsd:annotation>
+
+
+            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+            <xsd:appinfo source="X_PrimaryKeyInfo">Betrieb/Bezeichnung</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="BetriebId" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Default_Value_Rule">fn:concat(format-dateTime(current-dateTime(), "[Y][M][D][H][m][s][f]"),generate-id())</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Betrieb ID</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="Bezeichnung" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Bezeichnung2" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="BetriebNr" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Betriebsnummer</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="TVDNr" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">TVD Nummer</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="SUISAGNr" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">SUISAG Nummer</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="KantonaleBetriebsNr" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Kantonale Betriebsnummer</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="BIONr" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">BIO Nummer</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="AGROSolutionNr" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">AGRO Solution Nummer</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="StatusAktiv" type="xsd:boolean">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Aktiv</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Adressen" type="AdresseBeziehungList">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Kontakte" type="KontaktList">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="BetriebZuPartnerBeziehungen" type="Betrieb2PartnerBeziehungList">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Betrieb zu Partner Beziehungen</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="BetriebZuBetriebBeziehungen" type="Betrieb2BetriebBeziehungList">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Betrieb zu Betrieb Beziehungen</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="SourceSystemMap" type="SourceSystemMandantList">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Quellsystem Mapping</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="GeloeschtFlag" type="GeloeschtFlagType">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Default_Value_Rule">0</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Gelöscht Flag</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:unique name="Betrieb">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="BetriebId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="RefAnrede">
+        <xsd:annotation>
+
+
+
+            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="RefAnredeId" type="xsd:string">
+                    <xsd:annotation>
+
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Anrede ID</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="Bezeichnung" type="BezeichnungType">
+                    <xsd:annotation>
+
+
+
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="SourceSystemMap" type="SourceSystemList">
+                    <xsd:annotation>
+
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Quellsystem Mapping</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:unique name="RefAnrede">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="RefAnredeId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="RefSprache">
+        <xsd:annotation>
+
+
+            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="RefSpracheId" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Sprache ID</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="ISOCode_Alpha3" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">ISO Code Alpha 3</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Bezeichnung" type="BezeichnungType">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="SourceSystemMap" type="SourceSystemList">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Quellsystem Mapping</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:unique name="RefSprache">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="RefSpracheId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="RefKanton">
+        <xsd:annotation>
+
+
+            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="RefKantonId" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Kanton ID</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Bezeichnung" type="BezeichnungType">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="SourceSystemMap" type="SourceSystemList">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Quellsystem Mapping</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:unique name="RefKanton">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="RefKantonId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="RefRechtsForm">
+        <xsd:annotation>
+
+
+            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="RefRechtsFormId" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Rechtsform ID</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Bezeichnung" type="BezeichnungType">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="SourceSystemMap" type="SourceSystemList">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Quellsystem Mapping</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:unique name="RefRechtsForm">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="RefRechtsFormId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="RefBeruf">
+        <xsd:annotation>
+
+
+            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="RefBerufId" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Beruf ID</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Bezeichnung" type="BezeichnungType">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="SourceSystemMap" type="SourceSystemList">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Quellsystem Mapping</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:unique name="RefBeruf">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="RefBerufId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="OrganizationType">
+        <xsd:complexContent>
+            <xsd:extension base="PartnerType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="OrganisationseinheitCode" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="Organisationseinheitbezeichung" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="BezeichnungType">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="0" name="BezeichnungDE" type="xsd:string">
+                <xsd:annotation>
+
+
+
+
+
+                    <xsd:appinfo source="X_Label_DE">Bezeichnung Deutsch</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="BezeichnungFR" type="xsd:string">
+                <xsd:annotation>
+
+
+
+
+
+                    <xsd:appinfo source="X_Label_DE">Bezeichnung Französisch</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="SourceSystemType">
+        <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="SourceSystemId" type="xsd:string">
+                <xsd:annotation>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <xsd:appinfo source="X_ForeignKey">RefSourceSystem/RefSourceSystemId</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_DE">Quellsystem ID</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_ForeignKey_NotSep">false</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">RefSourceSystem/RefSourceSystemId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">RefSourceSystem/Bezeichnung</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfoFormat">RefSourceSystem/RefSourceSystemId + " : " + RefSourceSystem/Bezeichnung</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="SourceKey" type="xsd:string">
+                <xsd:annotation>
+
+
+
+
+
+
+
+
+
+
+                    <xsd:appinfo source="X_Label_DE">Quellsystem Key</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="SourceBezeichnung" type="xsd:string">
+                <xsd:annotation>
+
+
+
+                    <xsd:appinfo source="X_Label_DE">Bezeichnung</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="RefLand">
+        <xsd:annotation>
+
+            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="RefLandId" type="xsd:integer">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Land ID</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="ISOCode_Alpha2" type="xsd:string">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">ISO Code Alpha 2</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="ISOCode_Alpha3" type="xsd:string">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">ISO Code Alpha 3</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Bezeichnung" type="BezeichnungType">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="SourceSystemMap" type="SourceSystemList">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Quellsystem Mapping</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:unique name="RefLand">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="RefLandId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="RefKontakttyp">
+        <xsd:annotation>
+
+
+            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="RefKontakttypId" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Default_Value_Rule">[NEW]</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Kontakttyp ID</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Bezeichnung" type="BezeichnungType">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="SourceSystemMap" type="SourceSystemList">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Quellsystem Mapping</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:unique name="RefKontakttyp">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="RefKontakttypId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="Partner2PartnerBeziehungType">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="RoleFk" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">RefPartnerrolle/RefPartnerrolleId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+
+
+
+
+
+                    <xsd:appinfo source="X_Label_DE">Rolle</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">RefPartnerrolle/RefPartnerrolleId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">RefPartnerrolle/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfoFormat">RefPartnerrolle/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="PartnerFk" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">Partner/PartnerId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+
+
+
+
+
+
+
+
+                    <xsd:appinfo source="X_Label_DE">Partner</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+
+
+
+
+
+                    <xsd:appinfo source="X_ForeignKeyInfo">Partner/PartnerId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">Partner/PersonentypFk</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">Partner/Name</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">Partner/VorName</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">Partner/FirmenBezeichnung</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfoFormat">Partner/Name + " " + Partner/VorName + " " + Partner/FirmenBezeichnung</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="IdentifikationsNummer" type="xsd:string">
+                <xsd:annotation>
+
+                    <xsd:appinfo source="X_Label_DE">Identifikationsnummer</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="GueltigAb" type="xsd:date">
+                <xsd:annotation>
+
+
+
+                    <xsd:appinfo source="X_Label_DE">Gültig ab</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="GueltigBis" type="xsd:date">
+                <xsd:annotation>
+
+
+
+                    <xsd:appinfo source="X_Label_DE">Gültig bis</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="Betrieb2BetriebBeziehungType">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="RoleFk" type="xsd:string">
+                <xsd:annotation>
+
+                    <xsd:appinfo source="X_ForeignKey">RefBetriebrolle/RefBetriebrolleId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_Label_DE">Betriebsrolle</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">RefBetriebrolle/RefBetriebrolleId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">RefBetriebrolle/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfoFormat">RefBetriebrolle/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="BetriebFk" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">Betrieb/BetriebId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+
+
+
+
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_DE">Betrieb</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">Betrieb/BetriebId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">Betrieb/Bezeichnung</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfoFormat">Betrieb/Bezeichnung</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="GueltigAb" type="xsd:date">
+                <xsd:annotation>
+
+
+
+                    <xsd:appinfo source="X_Label_DE">Gültig ab</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="GueltigBis" type="xsd:date">
+                <xsd:annotation>
+
+
+
+                    <xsd:appinfo source="X_Label_DE">Gültig bis</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="Partner2BetriebBeziehungType">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="BetriebFk" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">Betrieb/BetriebId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+
+
+
+
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_DE">Betrieb</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_ForeignKeyInfo">Betrieb/BetriebId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">Betrieb/Bezeichnung</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfoFormat">Betrieb/Bezeichnung</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="GueltigAb" type="xsd:date">
+                <xsd:annotation>
+
+
+
+                    <xsd:appinfo source="X_Label_DE">Gültig ab</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="GueltigBis" type="xsd:date">
+                <xsd:annotation>
+
+
+
+                    <xsd:appinfo source="X_Label_DE">Gültig bis</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="Betrieb2PartnerBeziehungType">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="PartnerFk" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">Partner/PartnerId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+
+
+
+
+
+
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_DE">Partner</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">Partner/PartnerId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">Partner/Name</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">Partner/VorName</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">Partner/FirmenBezeichnung</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfoFormat">Partner/Name + " " + Partner/VorName + " " + Partner/FirmenBezeichnung</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="GueltigAb" type="xsd:date">
+                <xsd:annotation>
+
+
+
+                    <xsd:appinfo source="X_Label_DE">Gültig ab</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="GueltigBis" type="xsd:date">
+                <xsd:annotation>
+
+
+
+                    <xsd:appinfo source="X_Label_DE">Gültig bis</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:element name="Partner">
+        <xsd:annotation>
+
+            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+            <xsd:appinfo source="X_PrimaryKeyInfo">Partner/Name</xsd:appinfo>
+            <xsd:appinfo source="X_PrimaryKeyInfo">Partner/VorName</xsd:appinfo>
+            <xsd:appinfo source="X_PrimaryKeyInfo">Partner/FirmenBezeichnung</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="PartnerId" type="xsd:string">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Default_Value_Rule">fn:concat(format-dateTime(current-dateTime(), "[Y][M][D][H][m][s][f]"),generate-id())</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Partner ID</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="PersonentypFk" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+
+                        <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKey">RefPersonentyp/RefPersonentypId</xsd:appinfo>
+
+
+                        <xsd:appinfo source="X_Label_DE">Personentyp</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">RefPersonentyp/RefPersonentypId</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">RefPersonentyp/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfoFormat">RefPersonentyp/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="SpracheFk" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_ForeignKey">RefSprache/RefSpracheId</xsd:appinfo>
+
+                        <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+
+
+                        <xsd:appinfo source="X_Label_DE">Sprache</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">RefSprache/RefSpracheId</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">RefSprache/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfoFormat">RefSprache/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="RechtsformFk" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_ForeignKey">RefRechtsForm/RefRechtsFormId</xsd:appinfo>
+
+                        <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+
+
+                        <xsd:appinfo source="X_Label_DE">Rechtsform</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">RefRechtsForm/RefRechtsFormId</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">RefRechtsForm/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfoFormat">RefRechtsForm/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="AnrederFk" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKey">RefAnrede/RefAnredeId</xsd:appinfo>
+                        <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+
+
+                        <xsd:appinfo source="X_Label_DE">Anrede</xsd:appinfo>
+
+
+
+
+                        <xsd:appinfo source="X_ForeignKeyInfo">RefAnrede/RefAnredeId</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">RefAnrede/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfoFormat">RefAnrede/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Name" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="VorName" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Vorname</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="ZweitName" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Zweitname</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="BerufFk" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKey">RefBeruf/RefBerufId</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">RefBeruf/RefBerufId</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">RefBeruf/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                        <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfoFormat">RefBeruf/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Beruf</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="FirmenBezeichnung" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Firmenbezeichnung</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="GruendungsDatum" type="xsd:date">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Gründungsdatum</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="AufloesungDatum" type="xsd:date">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Auflösungsdatum</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="UidNr" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">UID Nummer</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="MwstNr" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">MWSt Nummer</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="AgateNr" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">AGate Nummer</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="GeburtsDatum" type="xsd:date">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Geburtsdatum</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Heimatort" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="StatusAktiv" type="xsd:boolean">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Aktiv</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Adressen" type="AdresseBeziehungList">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Kontakte" type="KontaktList">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="PartnerZuBetriebBeziehungen" type="Partner2BetriebBeziehungList">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Partner zu Betrieb Beziehungen</xsd:appinfo>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="PartnerZuPartnerBeziehungen" type="Partner2PartnerBeziehungList">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Partner zu Partner Beziehungen</xsd:appinfo>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="SourceSystemMap" type="SourceSystemMandantList">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Quellsystem Mapping</xsd:appinfo>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="GeloeschtFlag" type="GeloeschtFlagType">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Default_Value_Rule">0</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Gelöscht Flag</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:unique name="Partner">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="PartnerId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="Adresse">
+        <xsd:annotation>
+
+            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+            <xsd:appinfo source="X_PrimaryKeyInfo">Adresse/Ort</xsd:appinfo>
+            <xsd:appinfo source="X_PrimaryKeyInfo">Adresse/Strasse</xsd:appinfo>
+            <xsd:appinfo source="X_PrimaryKeyInfo">Adresse/HausNr</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="AdresseId" type="xsd:string">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Default_Value_Rule">fn:concat(format-dateTime(current-dateTime(), "[Y][M][D][H][m][s][f]"),generate-id())</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Adresse ID</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Strasse" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="HausNr" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Hausnummer</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Adresszusatz" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Ort" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="PLZ" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Gemeinde" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Kanton" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="LandFk" type="xsd:string">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_ForeignKey">RefLand/RefLandId</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+
+
+
+                        <xsd:appinfo source="X_Label_DE">Land</xsd:appinfo>
+
+
+
+
+                        <xsd:appinfo source="X_ForeignKeyInfo">RefLand/RefLandId</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">RefLand/ISOCode_Alpha2</xsd:appinfo>
+                        <xsd:appinfo source="X_ForeignKeyInfo">RefLand/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                        <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Postfach" type="xsd:string">
+                    <xsd:annotation>
+
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="GeoKoordinaten" type="GeoLocationType">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Geo Koordinaten</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="SourceSystemMap" type="SourceSystemMandantList">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Quellsystem Mapping</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="GeloeschtFlag" type="GeloeschtFlagType">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Default_Value_Rule">0</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Gelöscht Flag</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Partners" type="PartnerAdressList">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Betriebs" type="BetriebAdressList">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:unique name="Adresse">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="AdresseId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:element name="RefAdressenrolle">
+        <xsd:annotation>
+
+            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="RefAdressenrolleId" type="xsd:string">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Adressenrolle ID</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Bezeichnung" type="BezeichnungType">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="SourceSystemMap" type="SourceSystemList">
+                    <xsd:annotation>
+
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Quellsystem Mapping</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:unique name="RefAdressenrolle">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="RefAdressenrolleId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="AdresseBeziehungType">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="RoleFk" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">RefAdressenrolle</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">false</xsd:appinfo>
+
+
+
+
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_DE">Adressenrolle</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">RefAdressenrolle/RefAdressenrolleId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">RefAdressenrolle/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfoFormat">RefAdressenrolle/Bezeichnung/BezeichnungDE</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="AdresseFk" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">Adresse/AdresseId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">false</xsd:appinfo>
+
+
+
+
+
+
+
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_DE">Adresse</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+
+
+
+
+
+
+                    <xsd:appinfo source="X_ForeignKeyInfo">Adresse/AdresseId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">Adresse/Strasse</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">Adresse/HausNr</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">Adresse/PLZ</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">Adresse/Ort</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">Adresse/Postfach</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfoFormat">Adresse/AdresseId + " : " + Adresse/Strasse + " " + Adresse/HausNr + ", " + Adresse/PLZ + " " + Adresse/Ort</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="GueltigAb" type="xsd:date">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Label_DE">Gültig ab</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="GueltigBis" type="xsd:date">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Label_DE">Gültig bis</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:element name="RefSourceSystem">
+        <xsd:annotation>
+            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="RefSourceSystemId" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Quellsystem ID</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="1" name="Bezeichnung" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:unique name="RefSourceSystem">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="RefSourceSystemId"/>
+        </xsd:unique>
+    </xsd:element>
+
+
+    <xsd:complexType name="SourceSystemMandantType">
+        <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="SourceSystemId" type="xsd:string">
+                <xsd:annotation>
+
+
+
+
+
+
+
+                    <xsd:appinfo source="X_ForeignKey">RefSourceSystem/RefSourceSystemId</xsd:appinfo>
+
+                    <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+
+
+
+                    <xsd:appinfo source="X_Retrieve_FKinfos">true</xsd:appinfo>
+
+                    <xsd:appinfo source="X_Label_DE">Quellsystem ID</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+
+
+                    <xsd:appinfo source="X_ForeignKeyInfo">RefSourceSystem/RefSourceSystemId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfo">RefSourceSystem/Bezeichnung</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKeyInfoFormat">RefSourceSystem/RefSourceSystemId + " : " + RefSourceSystem/Bezeichnung</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="MandantNummer" type="xsd:long">
+                <xsd:annotation>
+
+
+                    <xsd:appinfo source="X_Label_DE">Mandantennummer</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="SourceKey" type="xsd:string">
+                <xsd:annotation>
+
+
+
+
+
+
+                    <xsd:appinfo source="X_Label_DE">Quellsystem Key</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <xsd:element name="RefBetriebrolle">
+        <xsd:annotation>
+            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="RefBetriebrolleId" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Betriebsrolle ID</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Bezeichnung" type="BezeichnungType">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="SourceSystemMap" type="SourceSystemList">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Label_DE">Quellsystem Mapping</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:unique name="RefBetriebrolle">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="RefBetriebrolleId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:simpleType name="GeloeschtFlagType">
+        <xsd:restriction base="xsd:int">
+            <xsd:enumeration value="0"/>
+            <xsd:enumeration value="1"/>
+            <xsd:enumeration value="2"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="URL">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:complexType name="GeoLocationType">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="Latitude" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_DE">Breitengrad</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="1" name="Longitude" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_DE">Längengrad</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="MapUrl" type="URL">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    <xsd:appinfo source="X_Default_Value_Rule">'Google Map@@https://maps.google.com/maps?q=latitude,longitude&amp;num=1&amp;t=h&amp;z=16'</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_DE">Map URL</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="SourceSystemList">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="SourceSystem" type="SourceSystemType">
+                <xsd:annotation>
+
+
+
+
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_DE">Quellsystem</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SourceSystemMandantList">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="SourceSystem" type="SourceSystemMandantType">
+                <xsd:annotation>
+
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_DE">Quellsystem</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="KontaktList">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="Kontakt" type="KontaktType">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="AdresseBeziehungList">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="Adresse" type="AdresseBeziehungType">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Betrieb2BetriebBeziehungList">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="BetriebZuBetrieb" type="Betrieb2BetriebBeziehungType">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_DE">Betrieb zu Betrieb</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Partner2PartnerBeziehungList">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="PartnerZuPartner" type="Partner2PartnerBeziehungType">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_DE">Partner zu Partner</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Partner2BetriebBeziehungList">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="PartnerZuBetrieb" type="Partner2BetriebBeziehungType">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_DE">Partner zu Betrieb</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Betrieb2PartnerBeziehungList">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="BetriebZuPartner" type="Betrieb2PartnerBeziehungType">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Label_DE">Betrieb zu Partner</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="RefPersonentyp">
+        <xsd:annotation>
+            <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="RefPersonentypId" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Label_DE">Kontakttyp ID</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                        <xsd:appinfo source="X_Default_Value_Rule">[NEW]</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="Bezeichnung" type="BezeichnungType">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element maxOccurs="1" minOccurs="0" name="SourceSystemMap" type="SourceSystemList">
+                    <xsd:annotation>
+                        <xsd:appinfo source="X_Label_DE">Quellsystem Mapping</xsd:appinfo>
+                        <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:unique name="RefPersonentyp">
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="RefPersonentypId"/>
+        </xsd:unique>
+    </xsd:element>
+    <xsd:complexType name="PartnerAdressType">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="RoleFk" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">RefAdressenrolle/RefAdressenrolleId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="PartnerFk" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">Partner/PartnerId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="GueltigAb" type="xsd:date">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="GueltigBis" type="xsd:date">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="PartnerAdressList">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="Partner" type="PartnerAdressType">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="BetriebAdressType">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="0" name="RoleFk" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">RefAdressenrolle/RefAdressenrolleId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">false</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="BetriebFk" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_ForeignKey">Betrieb/BetriebId</xsd:appinfo>
+                    <xsd:appinfo source="X_ForeignKey_NotSep">false</xsd:appinfo>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="GueltigAb" type="xsd:date">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="GueltigBis" type="xsd:date">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_Write">fenacoadmin</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="BetriebAdressList">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="Betrieb" type="BetriebAdressType">
+                <xsd:annotation>
+                    <xsd:appinfo source="X_AutoExpand">true</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
