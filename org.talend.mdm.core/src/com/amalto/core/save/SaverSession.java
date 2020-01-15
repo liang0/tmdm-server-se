@@ -35,6 +35,8 @@ import com.amalto.core.storage.record.DataRecord;
 
 public class SaverSession {
 
+    private static final Logger LOGGER = Logger.getLogger(SaverSession.class);
+
     private static final String AUTO_INCREMENT_TYPE_NAME = "AutoIncrement"; //$NON-NLS-1$
 
     private static final Map<String, SaverSource> saverSourcePerUser = new HashMap<String, SaverSource>();
@@ -55,10 +57,26 @@ public class SaverSession {
 
     private boolean hasMetAutoIncrement = false;
 
-    private static final long TRANSACTION_WAIT_MILLISECONDS;
+    private static final String TRANSACTION_WAIT_MILLISECONDS = "transaction.concurrent.wait.milliseconds"; //$NON-NLS-1$
+
+    private static final String TRANSACTION_WAIT_MILLISECONDS_CONFIG;
 
     static {
-        TRANSACTION_WAIT_MILLISECONDS = Long.valueOf(MDMConfiguration.getTransactionWaitMilliseconds());
+        TRANSACTION_WAIT_MILLISECONDS_CONFIG = MDMConfiguration.getConfiguration().getProperty(TRANSACTION_WAIT_MILLISECONDS);
+    }
+
+    private static long getTransactionWaitMilliseconds() {
+        if (TRANSACTION_WAIT_MILLISECONDS_CONFIG != null) {
+            try {
+                return Long.valueOf(TRANSACTION_WAIT_MILLISECONDS_CONFIG);
+            } catch (Exception e) {
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("Failed to read configuration: " + TRANSACTION_WAIT_MILLISECONDS, e); //$NON-NLS-1$
+                }
+                return 0L;
+            }
+        }
+        return 0L;
     }
 
     public SaverSession(SaverSource dataSource) {
@@ -186,6 +204,7 @@ public class SaverSession {
         }
         // Items to update
         synchronized (itemsToUpdate) {
+            long transactionWaitMilliseconds = getTransactionWaitMilliseconds();
             boolean needResetAutoIncrement = false;
             for (Map.Entry<String, List<Document>> currentTransaction : itemsToUpdate.entrySet()) {
                 String dataCluster = currentTransaction.getKey();
@@ -219,7 +238,7 @@ public class SaverSession {
                     throw e;
                 }
                 try {
-                    Thread.sleep(TRANSACTION_WAIT_MILLISECONDS);
+                    Thread.sleep(transactionWaitMilliseconds);
                 } catch (InterruptedException e) {
                     LOGGER.warn("Update process has been interrupted.", e); //$NON-NLS-1$
                 }
