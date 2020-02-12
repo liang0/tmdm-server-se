@@ -33,7 +33,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.talend.mdm.commmon.metadata.ComplexTypeMetadata;
-import org.talend.mdm.commmon.metadata.FieldMetadata;
 import org.talend.mdm.commmon.metadata.MetadataRepository;
 import org.talend.mdm.commmon.util.core.MDMConfiguration;
 
@@ -45,16 +44,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@SuppressWarnings("nls")
-public class LoadServletForAutoIncrementTest {
+@FixMethodOrder(MethodSorters.NAME_ASCENDING) @SuppressWarnings("nls") public class LoadServletForAutoIncrementTest {
 
     private static final Logger LOG = Logger.getLogger(LoadServletForAutoIncrementTest.class);
 
@@ -73,8 +68,7 @@ public class LoadServletForAutoIncrementTest {
         }
     }
 
-    @BeforeClass
-    public static void setUp() {
+    @BeforeClass public static void setUp() {
         LOG.info("Setting up MDM server environment...");
         ServerContext.INSTANCE.get(new MockServerLifecycle());
         MDMConfiguration.getConfiguration().setProperty("xmlserver.class", "com.amalto.core.storage.DispatchWrapper");
@@ -89,12 +83,12 @@ public class LoadServletForAutoIncrementTest {
         loadServlet = new LoadServlet();
     }
 
-    @Test
-    public void test_01_BulkLoadGeneratePK() throws Exception {
+    @Test public void test_01_BulkLoadNotGeneratePK() throws Exception {
         String dataClusterName = "AutoInc";
         String typeName = "Person";
         String dataModelName = "AutoInc";
-        boolean needAutoGenPK = true;
+        boolean needAutoGenPK = false;
+
         boolean insertOnly = false;
 
         MetadataRepository repository = new MetadataRepository();
@@ -105,69 +99,17 @@ public class LoadServletForAutoIncrementTest {
         LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK);
 
         DataRecord.CheckExistence.set(!insertOnly);
-        InputStream recordXml = new ByteArrayInputStream(("<Person><Name>T-Shirt</Name></Person>").getBytes(
-                StandardCharsets.UTF_8));
+        InputStream recordXml = new ByteArrayInputStream(
+                ("<Person><Name>T-Shirt</Name></Person>").getBytes(StandardCharsets.UTF_8));
 
         Method getTypeKeyMethod = loadServlet.getClass().getDeclaredMethod("getTypeKey", Collection.class);
         getTypeKeyMethod.setAccessible(true);
 
         XSDKey keyMetadata = (XSDKey) getTypeKeyMethod.invoke(loadServlet, type.getKeyFields());
 
-        XmlServer server = Util.getXmlServerCtrlLocal();
-
-        Method bulkLoadSaveMethod = loadServlet.getClass()
-                .getDeclaredMethod("bulkLoadSave", String.class, String.class, InputStream.class, LoadAction.class, XSDKey.class,
-                        XSDKey.class);
-        bulkLoadSaveMethod.setAccessible(true);
-
-        bulkLoadSaveMethod.invoke(loadServlet, dataClusterName, dataModelName, recordXml, loadAction, keyMetadata, null);
-        String result = server.getDocumentAsString(dataClusterName, dataClusterName + "." + typeName + ".1");
-        Document xmlDocument = DocumentHelper.parseText(result);
-        assertEquals(2, xmlDocument.getRootElement().element("p").element("Person").elements().size());
-        assertEquals(1,
-                Integer.parseInt(xmlDocument.getRootElement().element("p").element("Person").element("Id").getText()));
-        assertEquals("T-Shirt", xmlDocument.getRootElement().element("p").element("Person").element("Name").getText());
-
-        //Test System auto increment value
-        String confResult = server.getDocumentAsString("CONF", "CONF.AutoIncrement.AutoIncrement");
-        assertNotNull(confResult);
-        Document xml = DocumentHelper.parseText(confResult);
-        assertKeyValue("AutoInc.Person.Id", "1", xml);
-    }
-
-    @Test
-    public void test_02_BulkLoadNotGeneratePK() throws Exception {
-        String dataClusterName = "AutoInc";
-        String typeName = "Person";
-        String dataModelName = "AutoInc";
-        boolean needAutoGenPK = false;
-        boolean needAutoGenAutoFields = true;
-        boolean insertOnly = false;
-
-        MetadataRepository repository = new MetadataRepository();
-        repository.load(LoadServletForAutoIncrementTest.class.getResourceAsStream("metadata01.xsd"));
-        MockMetadataRepositoryAdmin.INSTANCE.register("AutoInc", repository);
-        ComplexTypeMetadata type = repository.getComplexType(typeName);
-
-        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK,
-                needAutoGenAutoFields);
-
-        DataRecord.CheckExistence.set(!insertOnly);
-        InputStream recordXml = new ByteArrayInputStream(("<Person><Name>T-Shirt</Name></Person>").getBytes(
-                StandardCharsets.UTF_8));
-
-        Method getTypeKeyMethod = loadServlet.getClass().getDeclaredMethod("getTypeKey", Collection.class);
-        getTypeKeyMethod.setAccessible(true);
-
-        XSDKey keyMetadata = (XSDKey) getTypeKeyMethod.invoke(loadServlet, type.getKeyFields());
-        XSDKey autoFieldMetadata = null;
-        if (needAutoGenAutoFields) {
-            Collection<FieldMetadata> fields = type.getFields();
-            Collection<FieldMetadata> autoFields = fields.stream().filter(filed -> (!filed.isKey())).collect(Collectors.toList());
-            Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", Collection.class);
-            getTypeAutoFieldMethod.setAccessible(true);
-            autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, autoFields);
-        }
+        Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", ComplexTypeMetadata.class);
+        getTypeAutoFieldMethod.setAccessible(true);
+        XSDKey autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, type);
 
         Method bulkLoadSaveMethod = loadServlet.getClass()
                 .getDeclaredMethod("bulkLoadSave", String.class, String.class, InputStream.class, LoadAction.class, XSDKey.class,
@@ -182,13 +124,11 @@ public class LoadServletForAutoIncrementTest {
         }
     }
 
-    @Test
-    public void test_03_BulkLoadGenerateAutoField() throws Exception {
+    @Test public void test_02_BulkLoadGenerateAutoField() throws Exception {
         String dataClusterName = "AutoInc";
         String typeName = "Person";
         String dataModelName = "AutoInc";
         boolean needAutoGenPK = true;
-        boolean needAutoGenAutoFields = true;
         boolean insertOnly = false;
 
         MetadataRepository repository = new MetadataRepository();
@@ -196,25 +136,19 @@ public class LoadServletForAutoIncrementTest {
         MockMetadataRepositoryAdmin.INSTANCE.register("AutoInc", repository);
         ComplexTypeMetadata type = repository.getComplexType(typeName);
 
-        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK,
-                needAutoGenAutoFields);
+        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK);
 
         DataRecord.CheckExistence.set(!insertOnly);
-        InputStream recordXml = new ByteArrayInputStream(("<Person><Name>T-Shirt</Name></Person>").getBytes(
-                StandardCharsets.UTF_8));
+        InputStream recordXml = new ByteArrayInputStream(
+                ("<Person><Name>T-Shirt</Name></Person>").getBytes(StandardCharsets.UTF_8));
 
         Method getTypeKeyMethod = loadServlet.getClass().getDeclaredMethod("getTypeKey", Collection.class);
         getTypeKeyMethod.setAccessible(true);
-
         XSDKey keyMetadata = (XSDKey) getTypeKeyMethod.invoke(loadServlet, type.getKeyFields());
-        XSDKey autoFieldMetadata = null;
-        if (needAutoGenAutoFields) {
-            Collection<FieldMetadata> fields = type.getFields();
-            Collection<FieldMetadata> autoFields = fields.stream().filter(filed -> (!filed.isKey())).collect(Collectors.toList());
-            Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", Collection.class);
-            getTypeAutoFieldMethod.setAccessible(true);
-            autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, autoFields);
-        }
+
+        Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", ComplexTypeMetadata.class);
+        getTypeAutoFieldMethod.setAccessible(true);
+        XSDKey autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, type);
 
         XmlServer server = Util.getXmlServerCtrlLocal();
 
@@ -225,18 +159,14 @@ public class LoadServletForAutoIncrementTest {
 
         bulkLoadSaveMethod
                 .invoke(loadServlet, dataClusterName, dataModelName, recordXml, loadAction, keyMetadata, autoFieldMetadata);
-        String result = server.getDocumentAsString(dataClusterName, dataClusterName + "." + typeName + ".2");
+        String result = server.getDocumentAsString(dataClusterName, dataClusterName + "." + typeName + ".1");
         Document xmlDocument = DocumentHelper.parseText(result);
         assertEquals(7, xmlDocument.getRootElement().element("p").element("Person").elements().size());
-        assertEquals(2,
-                Integer.parseInt(xmlDocument.getRootElement().element("p").element("Person").element("Id").getText()));
+        assertEquals(1, Integer.parseInt(xmlDocument.getRootElement().element("p").element("Person").element("Id").getText()));
         assertEquals("T-Shirt", xmlDocument.getRootElement().element("p").element("Person").element("Name").getText());
-        assertEquals(1,
-                Integer.parseInt(xmlDocument.getRootElement().element("p").element("Person").element("AA").getText()));
-        assertEquals(1,
-                Integer.parseInt(xmlDocument.getRootElement().element("p").element("Person").element("BB").getText()));
-        assertEquals(1,
-                Integer.parseInt(xmlDocument.getRootElement().element("p").element("Person").element("CC").getText()));
+        assertEquals(1, Integer.parseInt(xmlDocument.getRootElement().element("p").element("Person").element("AA").getText()));
+        assertEquals(1, Integer.parseInt(xmlDocument.getRootElement().element("p").element("Person").element("BB").getText()));
+        assertEquals(1, Integer.parseInt(xmlDocument.getRootElement().element("p").element("Person").element("CC").getText()));
         assertEquals(36, xmlDocument.getRootElement().element("p").element("Person").element("DD").getText().length());
         assertEquals(36, xmlDocument.getRootElement().element("p").element("Person").element("EE").getText().length());
 
@@ -244,127 +174,18 @@ public class LoadServletForAutoIncrementTest {
         String confResult = server.getDocumentAsString("CONF", "CONF.AutoIncrement.AutoIncrement");
         assertNotNull(confResult);
         Document xml = DocumentHelper.parseText(confResult);
-        assertKeyValue("AutoInc.Person.Id", "2", xml);
+        assertKeyValue("AutoInc.Person.Id", "1", xml);
         assertKeyValue("AutoInc.Person.AA", "1", xml);
         assertKeyValue("AutoInc.Person.BB", "1", xml);
         assertKeyValue("AutoInc.Person.CC", "1", xml);
     }
 
-    @Test
-    public void test_04_BulkLoadNotGenerateAutoField() throws Exception {
-        String dataClusterName = "AutoInc";
-        String typeName = "Person";
-        String dataModelName = "AutoInc";
-        boolean needAutoGenPK = false;
-        boolean needAutoGenAutoFields = false;
-        boolean insertOnly = false;
-
-        MetadataRepository repository = new MetadataRepository();
-        repository.load(LoadServletForAutoIncrementTest.class.getResourceAsStream("metadata01.xsd"));
-        MockMetadataRepositoryAdmin.INSTANCE.register("AutoInc", repository);
-        ComplexTypeMetadata type = repository.getComplexType(typeName);
-
-        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK,
-                needAutoGenAutoFields);
-
-        DataRecord.CheckExistence.set(!insertOnly);
-        InputStream recordXml = new ByteArrayInputStream(
-                ("<Person><Id>100</Id><Name>T-Shirt</Name><AA>1</AA><BB>1</BB><CC>1</CC></Person>").getBytes(
-                        StandardCharsets.UTF_8));
-
-        Method getTypeKeyMethod = loadServlet.getClass().getDeclaredMethod("getTypeKey", Collection.class);
-        getTypeKeyMethod.setAccessible(true);
-
-        XSDKey keyMetadata = (XSDKey) getTypeKeyMethod.invoke(loadServlet, type.getKeyFields());
-
-        XmlServer server = Util.getXmlServerCtrlLocal();
-
-        Method bulkLoadSaveMethod = loadServlet.getClass()
-                .getDeclaredMethod("bulkLoadSave", String.class, String.class, InputStream.class, LoadAction.class, XSDKey.class,
-                        XSDKey.class);
-        bulkLoadSaveMethod.setAccessible(true);
-
-        bulkLoadSaveMethod.invoke(loadServlet, dataClusterName, dataModelName, recordXml, loadAction, keyMetadata, null);
-        String result = server.getDocumentAsString(dataClusterName, dataClusterName + "." + typeName + ".100");
-        Document xmlDocument = DocumentHelper.parseText(result);
-        assertEquals(5, xmlDocument.getRootElement().element("p").element("Person").elements().size());
-        assertEquals(100, Integer.parseInt(xmlDocument.getRootElement().element("p").element("Person").element("Id").getText()));
-        assertEquals("T-Shirt", xmlDocument.getRootElement().element("p").element("Person").element("Name").getText());
-        assertEquals(1, Integer.parseInt(xmlDocument.getRootElement().element("p").element("Person").element("AA").getText()));
-        assertEquals(1, Integer.parseInt(xmlDocument.getRootElement().element("p").element("Person").element("BB").getText()));
-        assertEquals(1, Integer.parseInt(xmlDocument.getRootElement().element("p").element("Person").element("CC").getText()));
-
-        //Test System auto increment value
-        String confResult = server.getDocumentAsString("CONF", "CONF.AutoIncrement.AutoIncrement");
-        assertNotNull(confResult);
-        Document xml = DocumentHelper.parseText(confResult);
-        assertKeyValue("AutoInc.Person.Id", "2", xml);
-        assertKeyValue("AutoInc.Person.AA", "1", xml);
-        assertKeyValue("AutoInc.Person.BB", "1", xml);
-        assertKeyValue("AutoInc.Person.CC", "1", xml);
-    }
-
-    @Test
-    public void test_05_BulkLoadNotGenerateAutoField2() throws Exception {
-        String dataClusterName = "AutoInc";
-        String typeName = "Person";
-        String dataModelName = "AutoInc";
-        boolean needAutoGenPK = true;
-        boolean needAutoGenAutoFields = false;
-        boolean insertOnly = false;
-
-        MetadataRepository repository = new MetadataRepository();
-        repository.load(LoadServletForAutoIncrementTest.class.getResourceAsStream("metadata01.xsd"));
-        MockMetadataRepositoryAdmin.INSTANCE.register("AutoInc", repository);
-        ComplexTypeMetadata type = repository.getComplexType(typeName);
-
-        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK,
-                needAutoGenAutoFields);
-
-        DataRecord.CheckExistence.set(!insertOnly);
-        InputStream recordXml = new ByteArrayInputStream(
-                ("<Person><Name>T-Shirt</Name><AA>1</AA><BB>1</BB><CC>1</CC></Person>").getBytes(StandardCharsets.UTF_8));
-
-        Method getTypeKeyMethod = loadServlet.getClass().getDeclaredMethod("getTypeKey", Collection.class);
-        getTypeKeyMethod.setAccessible(true);
-
-        XSDKey keyMetadata = (XSDKey) getTypeKeyMethod.invoke(loadServlet, type.getKeyFields());
-
-        XmlServer server = Util.getXmlServerCtrlLocal();
-
-        Method bulkLoadSaveMethod = loadServlet.getClass()
-                .getDeclaredMethod("bulkLoadSave", String.class, String.class, InputStream.class, LoadAction.class, XSDKey.class,
-                        XSDKey.class);
-        bulkLoadSaveMethod.setAccessible(true);
-
-        bulkLoadSaveMethod.invoke(loadServlet, dataClusterName, dataModelName, recordXml, loadAction, keyMetadata, null);
-        String result = server.getDocumentAsString(dataClusterName, dataClusterName + "." + typeName + ".3");
-        Document xmlDocument = DocumentHelper.parseText(result);
-        assertEquals(5, xmlDocument.getRootElement().element("p").element("Person").elements().size());
-        assertEquals(3,
-                Integer.parseInt(xmlDocument.getRootElement().element("p").element("Person").element("Id").getText()));
-        assertEquals("T-Shirt", xmlDocument.getRootElement().element("p").element("Person").element("Name").getText());
-        assertEquals(1, Integer.parseInt(xmlDocument.getRootElement().element("p").element("Person").element("AA").getText()));
-        assertEquals(1, Integer.parseInt(xmlDocument.getRootElement().element("p").element("Person").element("BB").getText()));
-        assertEquals(1, Integer.parseInt(xmlDocument.getRootElement().element("p").element("Person").element("CC").getText()));
-
-        //Test System auto increment value
-        String confResult = server.getDocumentAsString("CONF", "CONF.AutoIncrement.AutoIncrement");
-        assertNotNull(confResult);
-        Document xml = DocumentHelper.parseText(confResult);
-        assertKeyValue("AutoInc.Person.Id", "3", xml);
-        assertKeyValue("AutoInc.Person.AA", "1", xml);
-        assertKeyValue("AutoInc.Person.BB", "1", xml);
-        assertKeyValue("AutoInc.Person.CC", "1", xml);
-    }
-
-    @Test
-    public void test_06_BulkLoadDefaultLoad() throws Exception {
+    @Test public void test_03_BulkLoadDefaultLoad() throws Exception {
         String dataClusterName = "Product";
         String typeName = "Product";
         String dataModelName = "Product";
         boolean needAutoGenPK = false;
-        boolean needAutoGenAutoFields = false;
+
         boolean insertOnly = false;
 
         MetadataRepository repository = new MetadataRepository();
@@ -372,8 +193,7 @@ public class LoadServletForAutoIncrementTest {
         MockMetadataRepositoryAdmin.INSTANCE.register(dataClusterName, repository);
         ComplexTypeMetadata type = repository.getComplexType(typeName);
 
-        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK,
-                needAutoGenAutoFields);
+        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK);
 
         DataRecord.CheckExistence.set(!insertOnly);
         InputStream recordXml = new ByteArrayInputStream(
@@ -385,6 +205,10 @@ public class LoadServletForAutoIncrementTest {
 
         XSDKey keyMetadata = (XSDKey) getTypeKeyMethod.invoke(loadServlet, type.getKeyFields());
 
+        Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", ComplexTypeMetadata.class);
+        getTypeAutoFieldMethod.setAccessible(true);
+        XSDKey autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, type);
+
         XmlServer server = Util.getXmlServerCtrlLocal();
 
         Method bulkLoadSaveMethod = loadServlet.getClass()
@@ -392,16 +216,17 @@ public class LoadServletForAutoIncrementTest {
                         XSDKey.class);
         bulkLoadSaveMethod.setAccessible(true);
 
-        bulkLoadSaveMethod.invoke(loadServlet, dataClusterName, dataModelName, recordXml, loadAction, keyMetadata, null);
+        bulkLoadSaveMethod.invoke(loadServlet, dataClusterName, dataModelName, recordXml, loadAction, keyMetadata, autoFieldMetadata);
         String result = server.getDocumentAsString(dataClusterName, dataClusterName + "." + typeName + ".1");
         Document xmlDocument = DocumentHelper.parseText(result);
-        assertEquals(7, xmlDocument.getRootElement().element("p").element("Product").elements().size());
+        assertEquals(8, xmlDocument.getRootElement().element("p").element("Product").elements().size());
         assertEquals(1, Integer.parseInt(xmlDocument.getRootElement().element("p").element("Product").element("Id").getText()));
         assertEquals("T-Shirt", xmlDocument.getRootElement().element("p").element("Product").element("Name").getText());
         assertEquals("Talend T-Shirt",
                 xmlDocument.getRootElement().element("p").element("Product").element("Description").getText());
         assertEquals("12.30", xmlDocument.getRootElement().element("p").element("Product").element("Price").getText());
         assertEquals("1", xmlDocument.getRootElement().element("p").element("Product").element("Support").getText());
+        assertEquals(36, xmlDocument.getRootElement().element("p").element("Product").element("Supply").getText().length());
 
         //Test System auto increment value
         String confResult = server.getDocumentAsString("CONF", "CONF.AutoIncrement.AutoIncrement");
@@ -410,13 +235,12 @@ public class LoadServletForAutoIncrementTest {
         assertNotKeyValue("Product.Product.Support", xml);
     }
 
-    @Test
-    public void test_07_BulkLoadDefaultLoadGenerate() throws Exception {
+    @Test public void test_04_BulkLoadDefaultLoadGenerate() throws Exception {
         String dataClusterName = "Product";
         String typeName = "Product";
         String dataModelName = "Product";
         boolean needAutoGenPK = false;
-        boolean needAutoGenAutoFields = true;
+
         boolean insertOnly = false;
 
         MetadataRepository repository = new MetadataRepository();
@@ -424,8 +248,7 @@ public class LoadServletForAutoIncrementTest {
         MockMetadataRepositoryAdmin.INSTANCE.register(dataClusterName, repository);
         ComplexTypeMetadata type = repository.getComplexType(typeName);
 
-        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK,
-                needAutoGenAutoFields);
+        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK);
 
         DataRecord.CheckExistence.set(!insertOnly);
         InputStream recordXml = new ByteArrayInputStream(
@@ -436,14 +259,10 @@ public class LoadServletForAutoIncrementTest {
         getTypeKeyMethod.setAccessible(true);
 
         XSDKey keyMetadata = (XSDKey) getTypeKeyMethod.invoke(loadServlet, type.getKeyFields());
-        XSDKey autoFieldMetadata = null;
-        if (needAutoGenAutoFields) {
-            Collection<FieldMetadata> fields = type.getFields();
-            Collection<FieldMetadata> autoFields = fields.stream().filter(filed -> (!filed.isKey())).collect(Collectors.toList());
-            Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", Collection.class);
-            getTypeAutoFieldMethod.setAccessible(true);
-            autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, autoFields);
-        }
+
+        Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", ComplexTypeMetadata.class);
+        getTypeAutoFieldMethod.setAccessible(true);
+        XSDKey autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, type);
 
         XmlServer server = Util.getXmlServerCtrlLocal();
 
@@ -472,13 +291,14 @@ public class LoadServletForAutoIncrementTest {
         assertKeyValue("Product.Product.Support", "1", xml);
     }
 
-    @Test
-    public void test_08_BulkLoadForComplexTypeNotGenerate() throws Exception {
+
+
+    @Test public void test_05_BulkLoadForComplexTypeGenerate() throws Exception {
         String dataClusterName = "Student";
         String typeName = "Student";
         String dataModelName = "Student";
         boolean needAutoGenPK = false;
-        boolean needAutoGenAutoFields = false;
+
         boolean insertOnly = false;
 
         MetadataRepository repository = new MetadataRepository();
@@ -486,72 +306,7 @@ public class LoadServletForAutoIncrementTest {
         MockMetadataRepositoryAdmin.INSTANCE.register(dataClusterName, repository);
         ComplexTypeMetadata type = repository.getComplexType(typeName);
 
-        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK,
-                needAutoGenAutoFields);
-
-        DataRecord.CheckExistence.set(!insertOnly);
-        InputStream recordXml = new ByteArrayInputStream(
-                ("<Student><Id>1</Id><Name>John</Name><Age>23</Age><Course><Id>English</Id><Teacher>Mike</Teacher></Course></Student>")
-                        .getBytes(StandardCharsets.UTF_8));
-
-        Method getTypeKeyMethod = loadServlet.getClass().getDeclaredMethod("getTypeKey", Collection.class);
-        getTypeKeyMethod.setAccessible(true);
-
-        XSDKey keyMetadata = (XSDKey) getTypeKeyMethod.invoke(loadServlet, type.getKeyFields());
-        XSDKey autoFieldMetadata = null;
-        if (needAutoGenAutoFields) {
-            Collection<FieldMetadata> fields = type.getFields();
-            Collection<FieldMetadata> autoFields = fields.stream().filter(filed -> (!filed.isKey())).collect(Collectors.toList());
-            Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", Collection.class);
-            getTypeAutoFieldMethod.setAccessible(true);
-            autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, autoFields);
-        }
-
-        XmlServer server = Util.getXmlServerCtrlLocal();
-
-        Method bulkLoadSaveMethod = loadServlet.getClass()
-                .getDeclaredMethod("bulkLoadSave", String.class, String.class, InputStream.class, LoadAction.class, XSDKey.class,
-                        XSDKey.class);
-        bulkLoadSaveMethod.setAccessible(true);
-
-        bulkLoadSaveMethod
-                .invoke(loadServlet, dataClusterName, dataModelName, recordXml, loadAction, keyMetadata, autoFieldMetadata);
-        String result = server.getDocumentAsString(dataClusterName, dataClusterName + "." + typeName + ".1");
-        Document xmlDocument = DocumentHelper.parseText(result);
-        Element typeElement = xmlDocument.getRootElement().element("p").element(typeName);
-        assertEquals(4, typeElement.elements().size());
-        assertEquals(1, Integer.parseInt(typeElement.element("Id").getText()));
-        assertEquals("John", typeElement.element("Name").getText());
-        assertEquals("23", typeElement.element("Age").getText());
-        Element courseElement = typeElement.element("Course");
-        assertNotNull(courseElement);
-        assertEquals("English", courseElement.element("Id").getText());
-        assertEquals("Mike", courseElement.element("Teacher").getText());
-
-        //Test System auto increment value
-        String confResult = server.getDocumentAsString("CONF", "CONF.AutoIncrement.AutoIncrement");
-        assertNotNull(confResult);
-        Document xml = DocumentHelper.parseText(confResult);
-        assertNotKeyValue("Student.Student.Site", xml);
-        assertNotKeyValue("Student.Student.Course.Score", xml);
-    }
-
-    @Test
-    public void test_09_BulkLoadForComplexTypeGenerate() throws Exception {
-        String dataClusterName = "Student";
-        String typeName = "Student";
-        String dataModelName = "Student";
-        boolean needAutoGenPK = false;
-        boolean needAutoGenAutoFields = true;
-        boolean insertOnly = false;
-
-        MetadataRepository repository = new MetadataRepository();
-        repository.load(LoadServletForAutoIncrementTest.class.getResourceAsStream("metadata03.xsd"));
-        MockMetadataRepositoryAdmin.INSTANCE.register(dataClusterName, repository);
-        ComplexTypeMetadata type = repository.getComplexType(typeName);
-
-        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK,
-                needAutoGenAutoFields);
+        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK);
 
         DataRecord.CheckExistence.set(!insertOnly);
         InputStream recordXml = new ByteArrayInputStream(
@@ -562,14 +317,10 @@ public class LoadServletForAutoIncrementTest {
         getTypeKeyMethod.setAccessible(true);
 
         XSDKey keyMetadata = (XSDKey) getTypeKeyMethod.invoke(loadServlet, type.getKeyFields());
-        XSDKey autoFieldMetadata = null;
-        if (needAutoGenAutoFields) {
-            Collection<FieldMetadata> fields = type.getFields();
-            Collection<FieldMetadata> autoFields = fields.stream().filter(filed -> (!filed.isKey())).collect(Collectors.toList());
-            Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", Collection.class);
-            getTypeAutoFieldMethod.setAccessible(true);
-            autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, autoFields);
-        }
+
+        Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", ComplexTypeMetadata.class);
+        getTypeAutoFieldMethod.setAccessible(true);
+        XSDKey autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, type);
 
         XmlServer server = Util.getXmlServerCtrlLocal();
 
@@ -605,13 +356,12 @@ public class LoadServletForAutoIncrementTest {
         assertKeyValue("Student.Student.Course.Score", "1", xml);
     }
 
-    @Test
-    public void test_10_BulkLoadForComplexTypeGeneratePartial() throws Exception {
+    @Test public void test_06_BulkLoadForComplexTypeGeneratePartial() throws Exception {
         String dataClusterName = "Student";
         String typeName = "Student";
         String dataModelName = "Student";
         boolean needAutoGenPK = false;
-        boolean needAutoGenAutoFields = true;
+
         boolean insertOnly = false;
 
         MetadataRepository repository = new MetadataRepository();
@@ -619,8 +369,7 @@ public class LoadServletForAutoIncrementTest {
         MockMetadataRepositoryAdmin.INSTANCE.register(dataClusterName, repository);
         ComplexTypeMetadata type = repository.getComplexType(typeName);
 
-        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK,
-                needAutoGenAutoFields);
+        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK);
 
         DataRecord.CheckExistence.set(!insertOnly);
         InputStream recordXml = new ByteArrayInputStream(
@@ -631,14 +380,10 @@ public class LoadServletForAutoIncrementTest {
         getTypeKeyMethod.setAccessible(true);
 
         XSDKey keyMetadata = (XSDKey) getTypeKeyMethod.invoke(loadServlet, type.getKeyFields());
-        XSDKey autoFieldMetadata = null;
-        if (needAutoGenAutoFields) {
-            Collection<FieldMetadata> fields = type.getFields();
-            Collection<FieldMetadata> autoFields = fields.stream().filter(filed -> (!filed.isKey())).collect(Collectors.toList());
-            Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", Collection.class);
-            getTypeAutoFieldMethod.setAccessible(true);
-            autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, autoFields);
-        }
+
+        Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", ComplexTypeMetadata.class);
+        getTypeAutoFieldMethod.setAccessible(true);
+        XSDKey autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, type);
 
         XmlServer server = Util.getXmlServerCtrlLocal();
 
@@ -674,13 +419,12 @@ public class LoadServletForAutoIncrementTest {
         assertKeyValue("Student.Student.Course.Score", "1", xml);
     }
 
-    @Test
-    public void test_11_BulkLoadForComplexTypeNotGenerated() throws Exception {
+    @Test public void test_07_BulkLoadForComplexTypeGenerateMultipleRecords() throws Exception {
         String dataClusterName = "Student";
         String typeName = "Student";
         String dataModelName = "Student";
         boolean needAutoGenPK = false;
-        boolean needAutoGenAutoFields = true;
+
         boolean insertOnly = false;
 
         MetadataRepository repository = new MetadataRepository();
@@ -688,72 +432,7 @@ public class LoadServletForAutoIncrementTest {
         MockMetadataRepositoryAdmin.INSTANCE.register(dataClusterName, repository);
         ComplexTypeMetadata type = repository.getComplexType(typeName);
 
-        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK,
-                needAutoGenAutoFields);
-
-        DataRecord.CheckExistence.set(!insertOnly);
-        InputStream recordXml = new ByteArrayInputStream(
-                ("<Student><Id>4</Id><Name>John</Name><Age>23</Age><Site>10</Site></Student>")
-                        .getBytes(StandardCharsets.UTF_8));
-
-        Method getTypeKeyMethod = loadServlet.getClass().getDeclaredMethod("getTypeKey", Collection.class);
-        getTypeKeyMethod.setAccessible(true);
-
-        XSDKey keyMetadata = (XSDKey) getTypeKeyMethod.invoke(loadServlet, type.getKeyFields());
-        XSDKey autoFieldMetadata = null;
-        if (needAutoGenAutoFields) {
-            Collection<FieldMetadata> fields = type.getFields();
-            Collection<FieldMetadata> autoFields = fields.stream().filter(filed -> (!filed.isKey())).collect(Collectors.toList());
-            Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", Collection.class);
-            getTypeAutoFieldMethod.setAccessible(true);
-            autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, autoFields);
-        }
-
-        XmlServer server = Util.getXmlServerCtrlLocal();
-
-        Method bulkLoadSaveMethod = loadServlet.getClass()
-                .getDeclaredMethod("bulkLoadSave", String.class, String.class, InputStream.class, LoadAction.class, XSDKey.class,
-                        XSDKey.class);
-        bulkLoadSaveMethod.setAccessible(true);
-
-        bulkLoadSaveMethod
-                .invoke(loadServlet, dataClusterName, dataModelName, recordXml, loadAction, keyMetadata, autoFieldMetadata);
-        String result = server.getDocumentAsString(dataClusterName, dataClusterName + "." + typeName + ".4");
-        Document xmlDocument = DocumentHelper.parseText(result);
-        Element typeElement = xmlDocument.getRootElement().element("p").element(typeName);
-        assertEquals(5, typeElement.elements().size());
-        assertEquals(4, Integer.parseInt(typeElement.element("Id").getText()));
-        assertEquals("John", typeElement.element("Name").getText());
-        assertEquals("23", typeElement.element("Age").getText());
-        assertEquals(36, typeElement.element("Account").getText().length());
-        assertEquals("10", typeElement.element("Site").getText());
-        Element courseElement = typeElement.element("Course");
-        assertNull(courseElement);
-
-        //Test System auto increment value
-        String confResult = server.getDocumentAsString("CONF", "CONF.AutoIncrement.AutoIncrement");
-        assertNotNull(confResult);
-        Document xml = DocumentHelper.parseText(confResult);
-        assertKeyValue("Student.Student.Site", "1", xml);
-        assertKeyValue("Student.Student.Course.Score", "1", xml);
-    }
-
-    @Test
-    public void test_12_BulkLoadForComplexTypeGenerateMultipleRecords() throws Exception {
-        String dataClusterName = "Student";
-        String typeName = "Student";
-        String dataModelName = "Student";
-        boolean needAutoGenPK = false;
-        boolean needAutoGenAutoFields = true;
-        boolean insertOnly = false;
-
-        MetadataRepository repository = new MetadataRepository();
-        repository.load(LoadServletForAutoIncrementTest.class.getResourceAsStream("metadata03.xsd"));
-        MockMetadataRepositoryAdmin.INSTANCE.register(dataClusterName, repository);
-        ComplexTypeMetadata type = repository.getComplexType(typeName);
-
-        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK,
-                needAutoGenAutoFields);
+        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK);
 
         DataRecord.CheckExistence.set(!insertOnly);
         InputStream recordXml = new ByteArrayInputStream(
@@ -764,14 +443,10 @@ public class LoadServletForAutoIncrementTest {
         getTypeKeyMethod.setAccessible(true);
 
         XSDKey keyMetadata = (XSDKey) getTypeKeyMethod.invoke(loadServlet, type.getKeyFields());
-        XSDKey autoFieldMetadata = null;
-        if (needAutoGenAutoFields) {
-            Collection<FieldMetadata> fields = type.getFields();
-            Collection<FieldMetadata> autoFields = fields.stream().filter(filed -> (!filed.isKey())).collect(Collectors.toList());
-            Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", Collection.class);
-            getTypeAutoFieldMethod.setAccessible(true);
-            autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, autoFields);
-        }
+
+        Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", ComplexTypeMetadata.class);
+        getTypeAutoFieldMethod.setAccessible(true);
+        XSDKey autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, type);
 
         XmlServer server = Util.getXmlServerCtrlLocal();
 
@@ -841,13 +516,12 @@ public class LoadServletForAutoIncrementTest {
         assertKeyValue("Student.Student.Course.Score", "4", xml);
     }
 
-    @Test
-    public void test_13_BulkLoadForMultipleLayer() throws Exception {
+    @Test public void test_08_BulkLoadForMultipleLayer() throws Exception {
         String dataClusterName = "Person";
         String typeName = "Person";
         String dataModelName = "Person";
         boolean needAutoGenPK = false;
-        boolean needAutoGenAutoFields = true;
+
         boolean insertOnly = false;
 
         MetadataRepository repository = new MetadataRepository();
@@ -855,8 +529,7 @@ public class LoadServletForAutoIncrementTest {
         MockMetadataRepositoryAdmin.INSTANCE.register(dataClusterName, repository);
         ComplexTypeMetadata type = repository.getComplexType(typeName);
 
-        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK,
-                needAutoGenAutoFields);
+        LoadAction loadAction = new OptimizedLoadAction(dataClusterName, typeName, dataModelName, needAutoGenPK);
 
         DataRecord.CheckExistence.set(!insertOnly);
         InputStream recordXml = new ByteArrayInputStream(
@@ -867,14 +540,10 @@ public class LoadServletForAutoIncrementTest {
         getTypeKeyMethod.setAccessible(true);
 
         XSDKey keyMetadata = (XSDKey) getTypeKeyMethod.invoke(loadServlet, type.getKeyFields());
-        XSDKey autoFieldMetadata = null;
-        if (needAutoGenAutoFields) {
-            Collection<FieldMetadata> fields = type.getFields();
-            Collection<FieldMetadata> autoFields = fields.stream().filter(filed -> (!filed.isKey())).collect(Collectors.toList());
-            Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", Collection.class);
-            getTypeAutoFieldMethod.setAccessible(true);
-            autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, autoFields);
-        }
+
+        Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", ComplexTypeMetadata.class);
+        getTypeAutoFieldMethod.setAccessible(true);
+        XSDKey autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, type);
 
         XmlServer server = Util.getXmlServerCtrlLocal();
 
@@ -911,8 +580,7 @@ public class LoadServletForAutoIncrementTest {
         assertKeyValue("Person.Person.Habit.Detail.Count", "1", xml);
     }
 
-    @Test
-    public void testGetTypeAutoField() throws Exception {
+    @Test public void testGetTypeAutoField() throws Exception {
         String dataClusterName = "AutoInc";
         String typeName = "Person";
         String dataModelName = "AutoInc";
@@ -921,11 +589,9 @@ public class LoadServletForAutoIncrementTest {
         MockMetadataRepositoryAdmin.INSTANCE.register(dataClusterName, repository);
         ComplexTypeMetadata type = repository.getComplexType(typeName);
 
-        Collection<FieldMetadata> fields = type.getFields();
-        Collection<FieldMetadata> autoFields = fields.stream().filter(filed -> (!filed.isKey())).collect(Collectors.toList());
-        Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", Collection.class);
+        Method getTypeAutoFieldMethod = loadServlet.getClass().getDeclaredMethod("getTypeAutoField", ComplexTypeMetadata.class);
         getTypeAutoFieldMethod.setAccessible(true);
-        XSDKey autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, autoFields);
+        XSDKey autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, type);
 
         assertNotNull(autoFieldMetadata);
         assertEquals(5, autoFieldMetadata.getFields().length);
@@ -949,10 +615,7 @@ public class LoadServletForAutoIncrementTest {
         MockMetadataRepositoryAdmin.INSTANCE.register(dataClusterName, repository);
         type = repository.getComplexType(typeName);
 
-        fields = type.getFields();
-        autoFields = fields.stream().filter(filed -> (!filed.isKey())).collect(Collectors.toList());
-
-        autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, autoFields);
+        autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, type);
 
         assertNotNull(autoFieldMetadata);
         assertEquals(2, autoFieldMetadata.getFields().length);
@@ -970,10 +633,7 @@ public class LoadServletForAutoIncrementTest {
         MockMetadataRepositoryAdmin.INSTANCE.register(dataClusterName, repository);
         type = repository.getComplexType(typeName);
 
-        fields = type.getFields();
-        autoFields = fields.stream().filter(filed -> (!filed.isKey())).collect(Collectors.toList());
-
-        autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, autoFields);
+        autoFieldMetadata = (XSDKey) getTypeAutoFieldMethod.invoke(loadServlet, type);
 
         assertNotNull(autoFieldMetadata);
         assertEquals(4, autoFieldMetadata.getFields().length);
