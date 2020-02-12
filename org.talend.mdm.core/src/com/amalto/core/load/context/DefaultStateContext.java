@@ -19,6 +19,7 @@ import com.amalto.core.load.path.PathMatcher;
 import com.amalto.core.load.payload.EndPayload;
 import com.amalto.core.load.payload.StartPayload;
 import com.amalto.core.save.generator.AutoIdGenerator;
+import com.amalto.core.save.generator.UUIDIdGenerator;
 import com.amalto.core.server.api.XmlServer;
 
 import javax.xml.stream.XMLStreamException;
@@ -65,11 +66,11 @@ public class DefaultStateContext implements StateContext {
 
     private AutoIdGenerator[] normalFieldGenerators;
 
-    private List<PathMatcher> normalFieldPaths;
+    private String[] normalFieldPaths;
 
-    private List<String> normalFieldInXML;
+    private Set<String> normalFieldInXML = new HashSet<>();
 
-    private Stack<String> readElementPath;
+    private Stack<String> readElementPath = new Stack<>();
 
     public DefaultStateContext(String payLoadElementName, String[] idPaths, String[] normalFieldPaths, String dataClusterName,
             String dataModelName, int payloadLimit, LoadParserCallback callback, AutoIdGenerator[] normalFieldGenerators) {
@@ -82,16 +83,11 @@ public class DefaultStateContext implements StateContext {
         if (payLoadElementName == null) {
             throw new IllegalArgumentException("Payload element name cannot be null.");
         }
-        this.normalFieldPaths = new ArrayList<>();
-        this.normalFieldInXML = new ArrayList<>();
-        this.readElementPath = new Stack<>();
         paths = new HashSet<>(idPaths.length + 1);
         for (String idPath : idPaths) {
             paths.add(new PathMatcher(idPath));
         }
-        for (String idPath : normalFieldPaths) {
-            getNormalFieldPaths().add(new PathMatcher(idPath));
-        }
+        this.normalFieldPaths = normalFieldPaths;
         idToMatchCount = idPaths.length;
         contextWriter = bufferStateContextWriter;
         this.callback = callback;
@@ -274,9 +270,9 @@ public class DefaultStateContext implements StateContext {
             return;
         }
         for (AutoIdGenerator generator : normalFieldGenerators) {
-            if (generator instanceof AutoIdGenerator) {
+            if (!(generator instanceof UUIDIdGenerator)) {
                 generator.saveState(server);
-                continue;
+                break;
             }
         }
     }
@@ -292,12 +288,12 @@ public class DefaultStateContext implements StateContext {
     }
 
     @Override
-    public List<PathMatcher> getNormalFieldPaths(){
+    public String[] getNormalFieldPaths(){
         return this.normalFieldPaths;
     }
 
     @Override
-    public List<String> getNormalFieldInXML() {
+    public Set<String> getNormalFieldInXML() {
         return this.normalFieldInXML;
     }
 }
