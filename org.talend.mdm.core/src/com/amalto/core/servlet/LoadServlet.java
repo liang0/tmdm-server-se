@@ -10,13 +10,18 @@
 package com.amalto.core.servlet;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,8 +29,10 @@ import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 import org.talend.mdm.commmon.metadata.ComplexTypeMetadata;
+import org.talend.mdm.commmon.metadata.ContainedTypeFieldMetadata;
 import org.talend.mdm.commmon.metadata.FieldMetadata;
 import org.talend.mdm.commmon.metadata.MetadataRepository;
+import org.talend.mdm.commmon.metadata.SimpleTypeFieldMetadata;
 import org.talend.mdm.commmon.util.core.EUUIDCustomType;
 import org.talend.mdm.commmon.util.core.MDMConfiguration;
 import org.talend.mdm.commmon.util.webapp.XSystemObjects;
@@ -55,7 +62,7 @@ public class LoadServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    public static final Map<String, XSDKey> typeNameToKeyDef = new HashMap<String, XSDKey>();
+    public static final Map<String, XSDKey> typeNameToKeyDef = new HashMap<>();
 
     private static final String PARAMETER_CLUSTER = "cluster"; //$NON-NLS-1$
 
@@ -67,9 +74,15 @@ public class LoadServlet extends HttpServlet {
 
     private static final String PARAMETER_SMARTPK = "smartpk"; //$NON-NLS-1$
 
+    private static final String PARAMETER_SMARTFIELDS = "smartfields"; //$NON-NLS-1$
+
     private static final String PARAMETER_INSERTONLY = "insertonly"; //$NON-NLS-1$
 
-    private static final Map<String, AtomicInteger> DB_REQUESTS_MAP = new HashMap<String, AtomicInteger>();
+    private static final String PARAMETER_UPDATEREPORT = "updateReport"; //$NON-NLS-1$
+
+    private static final String PARAMETER_SOURCE = "source"; //$NON-NLS-1$
+
+    private static final Map<String, AtomicInteger> DB_REQUESTS_MAP = new HashMap<>();
 
     private static final Integer MAX_DB_REQUESTS;
 
@@ -101,9 +114,9 @@ public class LoadServlet extends HttpServlet {
         String dataClusterName = request.getParameter(PARAMETER_CLUSTER);
         String typeName = request.getParameter(PARAMETER_CONCEPT);
         String dataModelName = request.getParameter(PARAMETER_DATAMODEL);
-        boolean needValidate = Boolean.valueOf(request.getParameter(PARAMETER_VALIDATE));
-        boolean needAutoGenPK = Boolean.valueOf(request.getParameter(PARAMETER_SMARTPK));
-        boolean insertOnly = Boolean.valueOf(request.getParameter(PARAMETER_INSERTONLY));
+        boolean needValidate = Boolean.parseBoolean(request.getParameter(PARAMETER_VALIDATE));
+        boolean needAutoGenPK = Boolean.parseBoolean(request.getParameter(PARAMETER_SMARTPK));
+        boolean insertOnly = Boolean.parseBoolean(request.getParameter(PARAMETER_INSERTONLY));
 
         try {
             if (!LocalUser.getLocalUser().userCanRead(DataClusterPOJO.class, dataClusterName)) {
@@ -117,23 +130,34 @@ public class LoadServlet extends HttpServlet {
         }
 
         LoadAction loadAction = getLoadAction(dataClusterName, typeName, dataModelName, needValidate, needAutoGenPK);
+
+        boolean updateReport = Boolean.parseBoolean(request.getParameter(PARAMETER_UPDATEREPORT));
+        String source = request.getParameter(PARAMETER_SOURCE);
+        ServletInputStream inputStream = request.getInputStream();
+
         if (needValidate && !loadAction.supportValidation()) {
             throw new ServletException(new UnsupportedOperationException("XML Validation isn't supported")); //$NON-NLS-1$
         }
         // Get xml server and key information
-        XmlServer server;
-        XSDKey keyMetadata;
-        try {
-            keyMetadata = getTypeKey(dataModelName, typeName);
-            server = Util.getXmlServerCtrlLocal();
-        } catch (Exception e) {
-            throw new ServletException(e);
-        }
+        MetadataRepositoryAdmin repositoryAdmin = ServerContext.INSTANCE.get().getMetadataRepositoryAdmin();
+        MetadataRepository repository = repositoryAdmin.get(dataModelName);
+        ComplexTypeMetadata type = repository.getComplexType(typeName);
+        XSDKey keyMetadata = getTypeKey(type.getKeyFields());
+        Map<String, String> autoFieldTypeMap = getAutoFieldTypeMap(type.getFields());
+
         DataRecord.CheckExistence.set(!insertOnly);
+        bulkLoadSave(dataClusterName, dataModelName, inputStream, loadAction, keyMetadata, autoFieldTypeMap);
+        writer.write("</body></html>"); //$NON-NLS-1$
+    }
+
+    private void bulkLoadSave(String dataClusterName, String dataModelName, InputStream inputStream, LoadAction loadAction,
+            XSDKey keyMetadata, Map<String, String> autoFieldTypeMap) throws ServletException {
+        XmlServer server = Util.getXmlServerCtrlLocal();
+
         SaverSession session = SaverSession.newSession();
         SaverContextFactory contextFactory = session.getContextFactory();
-        DocumentSaverContext context = contextFactory.createBulkLoad(dataClusterName, dataModelName, keyMetadata,
-                request.getInputStream(), loadAction, server);
+        DocumentSaverContext context = contextFactory
+                .createBulkLoad(dataClusterName, dataModelName, keyMetadata, autoFieldTypeMap, inputStream, loadAction, server);
         DocumentSaver saver = context.createSaver();
 
         // Wait until less that MAX_THREADS running
@@ -176,7 +200,6 @@ public class LoadServlet extends HttpServlet {
                 LOG.debug("Finish 1 db request, currently " + newDbRequests + " requests left.");
             }
         }
-        writer.write("</body></html>"); //$NON-NLS-1$
     }
 
     protected int increaseDbRequests(String dataClusterName) {
@@ -229,21 +252,15 @@ public class LoadServlet extends HttpServlet {
         return dataCluster;
     }
 
-    private XSDKey getTypeKey(String dataModelName, String typeName) throws Exception {
-        MetadataRepositoryAdmin repositoryAdmin = ServerContext.INSTANCE.get().getMetadataRepositoryAdmin();
-        MetadataRepository repository = repositoryAdmin.get(dataModelName);
-        ComplexTypeMetadata type = repository.getComplexType(typeName);
-        if (type == null) {
-            throw new IllegalArgumentException("Type '" + typeName + "' does not exist in data model '" + dataModelName + "'.");
-        }
-        String[] fields = new String[type.getKeyFields().size()];
-        String[] fieldTypes = new String[type.getKeyFields().size()];
+    private XSDKey getTypeKey(Collection<FieldMetadata> fieldList) {
+        String[] fields = new String[fieldList.size()];
+        String[] fieldTypes = new String[fieldList.size()];
         int i = 0;
-        for (FieldMetadata keyField : type.getKeyFields()) {
+        for (FieldMetadata keyField : fieldList) {
             fields[i] = keyField.getPath();
             String name = keyField.getType().getName();
-            if (EUUIDCustomType.AUTO_INCREMENT.getName().equals(name) || EUUIDCustomType.UUID.getName().equals(name)) { // See
-                                                                                                                        // TMDM-6687
+            // See TMDM-6687
+            if (EUUIDCustomType.AUTO_INCREMENT.getName().equals(name) || EUUIDCustomType.UUID.getName().equals(name)) {
                 fieldTypes[i] = name;
             } else {
                 fieldTypes[i] = "xsd:" + name; //$NON-NLS-1$
@@ -251,6 +268,40 @@ public class LoadServlet extends HttpServlet {
             i++;
         }
         return new XSDKey(".", fields, fieldTypes); //$NON-NLS-1$
+    }
+
+    /**
+     * Filter the AUTO_INCREMENT/UUID type field from the entity's all list.
+     * if contains the complex type, it also filter.
+     * @param fieldList all field list
+     * @return all AUTO_INCREMENT/UUID field type, include this type field existed in the complex type
+     */
+    private Map<String, String> getAutoFieldTypeMap(Collection<FieldMetadata> fieldList) {
+        Map<String, String> autoFieldTypeMap = new HashMap<>();
+        for (FieldMetadata field : fieldList) {
+            if (field.isKey()) {
+                continue;
+            }
+            List<FieldMetadata> fieldMetadataList = new ArrayList<>();
+            getFieldIntactName(field, fieldMetadataList);
+            for (FieldMetadata subField : fieldMetadataList) {
+                autoFieldTypeMap.put(subField.getPath(), subField.getType().getName());
+            }
+        } return autoFieldTypeMap;
+    }
+
+    private void getFieldIntactName(FieldMetadata field, List<FieldMetadata> fieldList) {
+        if (field instanceof SimpleTypeFieldMetadata) {
+            String name = field.getType().getName();
+            if (EUUIDCustomType.AUTO_INCREMENT.getName().equals(name) || EUUIDCustomType.UUID.getName().equals(name)) {
+                fieldList.add(field);
+            }
+        } else if (field instanceof ContainedTypeFieldMetadata) {
+            ContainedTypeFieldMetadata containedTypeFieldMetadata = (ContainedTypeFieldMetadata) field;
+            for (FieldMetadata subField : containedTypeFieldMetadata.getContainedType().getFields()) {
+                getFieldIntactName(subField, fieldList);
+            }
+        }
     }
 
     /**

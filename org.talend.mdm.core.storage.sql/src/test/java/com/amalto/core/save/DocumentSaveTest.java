@@ -32,6 +32,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import com.amalto.core.delegator.MockILocalUser;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.talend.mdm.commmon.metadata.ComplexTypeMetadata;
@@ -46,7 +47,6 @@ import org.w3c.dom.NodeList;
 
 import com.amalto.commons.core.utils.XMLUtils;
 import com.amalto.core.delegator.BeanDelegatorContainer;
-import com.amalto.core.delegator.ILocalUser;
 import com.amalto.core.delegator.BaseSecurityCheck;
 import com.amalto.core.history.DeleteType;
 import com.amalto.core.history.MutableDocument;
@@ -78,7 +78,6 @@ import com.amalto.core.storage.transaction.TransactionManager;
 import com.amalto.core.util.OutputReport;
 import com.amalto.core.util.Util;
 import com.amalto.core.util.ValidateException;
-import com.amalto.core.util.XtentisException;
 
 import junit.framework.TestCase;
 
@@ -549,6 +548,115 @@ public class DocumentSaveTest extends TestCase {
         assertEquals(2, Integer.valueOf(idAddressThree).intValue());
         // these two from the mock TestSaverSource
         assertEquals(3, Integer.valueOf(idAddressFour).intValue());
+    }
+
+    public void testAutoIncrementForNormalField() throws Exception {
+        final MetadataRepository repository = new MetadataRepository();
+        repository.load(DocumentSaveTest.class.getResourceAsStream("metadata24.xsd"));
+        MockMetadataRepositoryAdmin.INSTANCE.register("PersonAddress", repository);
+
+        TestSaverSource source = new TestSaverSource(repository, false, "", "metadata24.xsd");
+
+        SaverSession session = SaverSession.newSession(source);
+        // 1. Entity Person: normal field is autoincrement
+        InputStream recordXml = DocumentSaveTest.class.getResourceAsStream("test79.xml");
+        DocumentSaverContext context = session.getContextFactory()
+                .create("MDM", "PersonAddress", "Source", recordXml, true, true, true, true, false);
+        DocumentSaver saver = context.createSaver();
+        saver.save(session, context);
+        assertFalse(source.hasSavedAutoIncrement());
+        MockCommitter committer = new MockCommitter();
+        session.end(committer);
+
+        assertTrue(source.hasSavedAutoIncrement());
+        assertTrue(committer.hasSaved());
+        Element committedElement = committer.getCommittedElement();
+        // Id is expected to be overwritten in case of creation
+        assertEquals("1", evaluate(committedElement, "/Person/N_Index"));
+
+        // 2. Entity Address, key field Id and normal field, Port is autoincrement, Create
+        source = new TestSaverSource(repository, false, "", "metadata24.xsd");
+        session = SaverSession.newSession(source);
+        recordXml = DocumentSaveTest.class.getResourceAsStream("test80.xml");
+        context = session.getContextFactory().create("MDM", "PersonAddress", "Source", recordXml, true, true, true, true, false);
+        saver = context.createSaver();
+        saver.save(session, context);
+        assertFalse(source.hasSavedAutoIncrement());
+        committer = new MockCommitter();
+        session.end(committer);
+
+        assertTrue(source.hasSavedAutoIncrement());
+        assertTrue(committer.hasSaved());
+        committedElement = committer.getCommittedElement();
+        assertEquals("1", evaluate(committedElement, "/Address/Id"));
+        assertEquals("1", evaluate(committedElement, "/Address/Port"));
+
+        // 3. Entity Address, key field Id and normal field, Port is autoincrement, Update
+        source = new TestSaverSource(repository, false, "test81_original.xml", "metadata24.xsd");
+        session = SaverSession.newSession(source);
+        recordXml = DocumentSaveTest.class.getResourceAsStream("test81.xml");
+        context = session.getContextFactory().create("MDM", "PersonAddress", "Source", recordXml, true, true, true, true, false);
+        saver = context.createSaver();
+        saver.save(session, context);
+        assertFalse(source.hasSavedAutoIncrement());
+        committer = new MockCommitter();
+        session.end(committer);
+
+        assertTrue(source.hasSavedAutoIncrement());
+        assertTrue(committer.hasSaved());
+        committedElement = committer.getCommittedElement();
+        assertEquals("1", evaluate(committedElement, "/Person/N_Index"));
+
+        // 4. Entity Address, key field Id and normal field, Port is autoincrement, Update
+        source = new TestSaverSource(repository, false, "test82_original.xml", "metadata24.xsd");
+        session = SaverSession.newSession(source);
+        recordXml = DocumentSaveTest.class.getResourceAsStream("test82.xml");
+        context = session.getContextFactory().create("MDM", "PersonAddress", "Source", recordXml, true, true, true, true, false);
+        saver = context.createSaver();
+        saver.save(session, context);
+        assertFalse(source.hasSavedAutoIncrement());
+        committer = new MockCommitter();
+        session.end(committer);
+
+        assertTrue(source.hasSavedAutoIncrement());
+        assertTrue(committer.hasSaved());
+        committedElement = committer.getCommittedElement();
+        assertEquals("1", evaluate(committedElement, "/Address/Id"));
+        assertEquals("1", evaluate(committedElement, "/Address/Port"));
+
+        //5, for Entity Person, normal field is N_Index, and autoIncrement2 in the complex type Create
+        source = new TestSaverSource(repository, false, "", "metadata24.xsd");
+        session = SaverSession.newSession(source);
+        recordXml = DocumentSaveTest.class.getResourceAsStream("test83.xml");
+        context = session.getContextFactory().create("MDM", "PersonAddress", "Source", recordXml, true, true, true, true, false);
+        saver = context.createSaver();
+        saver.save(session, context);
+        assertFalse(source.hasSavedAutoIncrement());
+        committer = new MockCommitter();
+        session.end(committer);
+
+        assertTrue(source.hasSavedAutoIncrement());
+        assertTrue(committer.hasSaved());
+        committedElement = committer.getCommittedElement();
+        assertEquals("1", evaluate(committedElement, "/Person/N_Index"));
+        assertEquals("1", evaluate(committedElement, "/Person/complex/autoIncrement2"));
+
+        //6, for Entity Person, normal field is N_Index, and autoIncrement2 in the complex type Update
+        source = new TestSaverSource(repository, false, "test83_original.xml", "metadata24.xsd");
+        session = SaverSession.newSession(source);
+        recordXml = DocumentSaveTest.class.getResourceAsStream("test83.xml");
+        context = session.getContextFactory().create("MDM", "PersonAddress", "Source", recordXml, true, true, true, true, false);
+        saver = context.createSaver();
+        saver.save(session, context);
+        assertFalse(source.hasSavedAutoIncrement());
+        committer = new MockCommitter();
+        session.end(committer);
+
+        assertTrue(source.hasSavedAutoIncrement());
+        assertTrue(committer.hasSaved());
+        committedElement = committer.getCommittedElement();
+        assertEquals("1", evaluate(committedElement, "/Person/N_Index"));
+        assertEquals("1", evaluate(committedElement, "/Person/complex/autoIncrement2"));
     }
 
     public void testUpdateWithUUID() throws Exception {
@@ -3846,31 +3954,6 @@ public class DocumentSaveTest extends TestCase {
             // nothing to do
         }
 
-    }
-
-    private static class MockILocalUser extends ILocalUser {
-
-        @Override
-        public ILocalUser getILocalUser() throws XtentisException {
-            return this;
-        }
-
-        @Override
-        public HashSet<String> getRoles() {
-            HashSet<String> roleSet = new HashSet<String>();
-            roleSet.add("Demo_Manager");
-            return roleSet;
-        }
-
-        @Override
-        public String getUsername() {
-            return "Admin";
-        }
-
-        @Override
-        public boolean isAdmin(Class<?> objectTypeClass) throws XtentisException {
-            return true;
-        }
     }
 
     private static class TestSaverSource implements SaverSource {

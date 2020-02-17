@@ -12,6 +12,7 @@
 package com.amalto.core.save.context;
 
 import java.io.InputStream;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -101,19 +102,16 @@ public class SaverContextFactory {
      *
      * @param dataCluster    Data container name (must exist).
      * @param dataModelName  Data model name (must exist).
-     * @param keyMetadata    Key for all records contained in <code>documentStream</code>
+     * @param autoKeyMetadata    Key for all records contained in <code>documentStream</code>
+     * @param autoFieldTypeMap  All Auto Increment/UUID field and map in <code>dataModelName</code>
      * @param documentStream AData model name (must exist).
      * @param loadAction     {@link com.amalto.core.load.action.LoadAction} to be used to bulk load records.
      * @param server         Abstraction of the underlying MDM database.
      * @return A context configured for bulk load.
      */
-    public DocumentSaverContext createBulkLoad(String dataCluster,
-                                               String dataModelName,
-                                               XSDKey keyMetadata,
-                                               InputStream documentStream,
-                                               LoadAction loadAction,
-                                               XmlServer server) {
-        return new BulkLoadContext(dataCluster, dataModelName, keyMetadata, documentStream, loadAction, server);
+    public DocumentSaverContext createBulkLoad(String dataCluster, String dataModelName, XSDKey autoKeyMetadata,
+            Map<String, String> autoFieldTypeMap, InputStream documentStream, LoadAction loadAction, XmlServer server) {
+        return new BulkLoadContext(dataCluster, dataModelName, autoKeyMetadata, autoFieldTypeMap, documentStream, loadAction, server);
     }
 
     /**

@@ -18,17 +18,18 @@ import com.amalto.core.load.path.PathMatch;
 import com.amalto.core.load.path.PathMatcher;
 import com.amalto.core.load.payload.EndPayload;
 import com.amalto.core.load.payload.StartPayload;
+import com.amalto.core.save.generator.AutoIdGenerator;
+import com.amalto.core.save.generator.UUIDIdGenerator;
 import com.amalto.core.server.api.XmlServer;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-/**
- *
- */
+
 public class DefaultStateContext implements StateContext {
     private final LoadParserCallback callback;
 
@@ -36,7 +37,7 @@ public class DefaultStateContext implements StateContext {
 
     private final BufferStateContextWriter bufferStateContextWriter = new BufferStateContextWriter();
 
-    private final Stack<String> currentLocation = new Stack<String>();
+    private final Stack<String> currentLocation = new Stack<>();
 
     private final Metadata metadata;
 
@@ -62,17 +63,20 @@ public class DefaultStateContext implements StateContext {
 
     private String currentIdElementName;
 
-    public DefaultStateContext(String payLoadElementName, String[] idPaths, String dataClusterName, String dataModelName, int payloadLimit, LoadParserCallback callback) {
-        this(payLoadElementName, idPaths, dataClusterName, dataModelName, callback);
+    private Map<String, AutoIdGenerator> normalFieldGenerators;
+
+    public DefaultStateContext(String payLoadElementName, String[] idPaths, String dataClusterName,
+            String dataModelName, int payloadLimit, LoadParserCallback callback, Map<String, AutoIdGenerator> normalFieldGenerators) {
+        this(payLoadElementName, idPaths, dataClusterName, dataModelName, callback, normalFieldGenerators);
         this.payloadLimit = payloadLimit;
     }
 
-    private DefaultStateContext(String payLoadElementName, String[] idPaths, String dataClusterName, String dataModelName, LoadParserCallback callback) {
+    private DefaultStateContext(String payLoadElementName, String[] idPaths,  String dataClusterName,
+            String dataModelName, LoadParserCallback callback, Map<String, AutoIdGenerator> normalFieldGenerators) {
         if (payLoadElementName == null) {
             throw new IllegalArgumentException("Payload element name cannot be null.");
         }
-
-        paths = new HashSet<PathMatcher>(idPaths.length + 1);
+        paths = new HashSet<>(idPaths.length + 1);
         for (String idPath : idPaths) {
             paths.add(new PathMatcher(idPath));
         }
@@ -80,7 +84,7 @@ public class DefaultStateContext implements StateContext {
         contextWriter = bufferStateContextWriter;
         this.callback = callback;
         this.payLoadElementName = payLoadElementName;
-
+        this.normalFieldGenerators = normalFieldGenerators;
         metadata = new DefaultMetadata();
         metadata.setName(payLoadElementName);
         metadata.setDmn(payLoadElementName);
@@ -124,6 +128,11 @@ public class DefaultStateContext implements StateContext {
 
     public void setCurrent(State state) {
         currentState = state;
+    }
+
+    @Override
+    public State getCurrent() {
+        return currentState;
     }
 
     public void parse(XMLStreamReader reader) {
@@ -248,7 +257,17 @@ public class DefaultStateContext implements StateContext {
     }
 
     public void close(XmlServer server) {
-        // Nothing to do
+        // if one normal field is AUTO_INCREMENT, it also need to store.
+        for (AutoIdGenerator generator : getNormalFieldGenerators().values()) {
+            if (!(generator instanceof UUIDIdGenerator)) {
+                generator.saveState(server);
+                break;
+            }
+        }
     }
 
+    @Override
+    public Map<String, AutoIdGenerator> getNormalFieldGenerators() {
+        return normalFieldGenerators;
+    }
 }

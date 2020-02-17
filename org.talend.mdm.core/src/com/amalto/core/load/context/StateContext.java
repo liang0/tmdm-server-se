@@ -11,13 +11,13 @@
 package com.amalto.core.load.context;
 
 import com.amalto.core.load.LoadParserCallback;
+import com.amalto.core.load.State;
+import com.amalto.core.save.generator.AutoIdGenerator;
 import com.amalto.core.server.api.XmlServer;
 
 import javax.xml.stream.XMLStreamReader;
+import java.util.Map;
 
-/**
- *
- */
 public interface StateContext {
 
     void parse(XMLStreamReader reader);
@@ -26,7 +26,9 @@ public interface StateContext {
 
     StateContextWriter getWriter();
 
-    void setCurrent(com.amalto.core.load.State state);
+    void setCurrent(State state);
+
+    State getCurrent();
 
     LoadParserCallback getCallback();
 
@@ -59,4 +61,6 @@ public interface StateContext {
     boolean skipElement();
 
     void close(XmlServer server);
+
+    Map<String, AutoIdGenerator> getNormalFieldGenerators();
 }

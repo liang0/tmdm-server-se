@@ -23,6 +23,7 @@ import com.amalto.core.server.api.XmlServer;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import java.util.Map;
 
 /**
  * Load parser context implementation that has 2 main features:
@@ -45,10 +46,14 @@ public class AutoGenStateContext implements StateContext {
 
     private final AutoIdGenerator generator;
 
-    private AutoGenStateContext(StateContext delegate, String[] idPaths, AutoIdGenerator generator) {
+    private Map<String , AutoIdGenerator> normalFieldGenerators;
+
+    private AutoGenStateContext(StateContext delegate, String[] idPaths, AutoIdGenerator generator,
+            Map<String, AutoIdGenerator> normalFieldGenerators) {
         this.delegate = delegate;
         this.idPaths = idPaths;
         this.generator = generator;
+        this.normalFieldGenerators = normalFieldGenerators;
         metadata = new AutoGenMetadata(this.delegate.getMetadata(), idPaths, this.generator);
     }
 
@@ -59,8 +64,9 @@ public class AutoGenStateContext implements StateContext {
      * @param autoIdGenerator Implementation of {@link com.amalto.core.save.generator.AutoIdGenerator} able to generate id in this context.  @return A context that generate metadata automatically.
      * @return A {@link StateContext} implementation able to generate automatic ids.
      */
-    public static StateContext decorate(StateContext context, String[] idPaths, AutoIdGenerator autoIdGenerator) {
-        return new AutoGenStateContext(context, idPaths, autoIdGenerator);
+    public static StateContext decorate(StateContext context, String[] idPaths, AutoIdGenerator autoIdGenerator,
+            Map<String, AutoIdGenerator> normalFieldGenerators) {
+        return new AutoGenStateContext(context, idPaths, autoIdGenerator, normalFieldGenerators);
     }
 
     public Metadata getMetadata() {
@@ -98,6 +104,11 @@ public class AutoGenStateContext implements StateContext {
             currentState = new AutoIdGeneration(state, idPaths);
             hasGeneratedAutomaticId = true;
         }
+    }
+
+    @Override
+    public State getCurrent() {
+        return currentState;
     }
 
     public LoadParserCallback getCallback() {
@@ -158,6 +169,11 @@ public class AutoGenStateContext implements StateContext {
         // This line is rather important since the generator might need to persist its state
         // see DefaultAutoIdGenerator for instance.
         generator.saveState(server);
+    }
+
+    @Override
+    public Map<String, AutoIdGenerator> getNormalFieldGenerators() {
+        return normalFieldGenerators;
     }
 
 }

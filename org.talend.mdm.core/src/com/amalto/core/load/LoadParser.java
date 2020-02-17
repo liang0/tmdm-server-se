@@ -13,6 +13,8 @@ package com.amalto.core.load;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -116,11 +118,13 @@ public class LoadParser {
                 }
             }
 
-            StateContext context = new DefaultStateContext(config.getPayLoadElementName(), config.getIdPaths(), config.getDataClusterName(), config.getDataModelName(), limit, callback);
+            StateContext context = new DefaultStateContext(config.getPayLoadElementName(), config.getIdPaths(),
+                    config.getDataClusterName(), config.getDataModelName(), limit, callback, config.getNormalFieldGenerators());
             if (config.isAutoGenPK()) {
                 AutoIdGenerator autoIdGenerator = config.getIdGenerator();
                 // Change the context to auto-generate metadata
-                context = AutoGenStateContext.decorate(context, config.getIdPaths(), autoIdGenerator);
+                context = AutoGenStateContext
+                        .decorate(context, config.getIdPaths(), autoIdGenerator, config.getNormalFieldGenerators());
             }
 
             while (!context.hasFinished()) {
@@ -150,14 +154,22 @@ public class LoadParser {
         private final String dataClusterName;
         private final String dataModelName;
         private final AutoIdGenerator idGenerator;
+        private final Map<String, AutoIdGenerator> normalFieldGenerators;
 
-        public Configuration(String payLoadElementName, String[] idPaths, boolean autoGenPK, String dataClusterName, String dataModelName, AutoIdGenerator idGenerator) {
+        public Configuration(String payLoadElementName, String[] idPaths, boolean autoGenPK, String dataClusterName,
+                String dataModelName, AutoIdGenerator idGenerator, Map<String, AutoIdGenerator> normalFieldGenerators) {
             this.payLoadElementName = payLoadElementName;
             this.idPaths = idPaths;
             this.autoGenPK = autoGenPK;
             this.dataClusterName = dataClusterName;
             this.dataModelName = dataModelName;
             this.idGenerator = idGenerator;
+            this.normalFieldGenerators = normalFieldGenerators;
+        }
+
+        public Configuration(String payLoadElementName, String[] idPaths, boolean autoGenPK,
+                String dataClusterName, String dataModelName, AutoIdGenerator idGenerator) {
+            this(payLoadElementName, idPaths, autoGenPK, dataClusterName, dataModelName, idGenerator, null);
         }
 
         /**
@@ -192,6 +204,10 @@ public class LoadParser {
 
         public AutoIdGenerator getIdGenerator() {
             return idGenerator;
+        }
+
+        public Map<String, AutoIdGenerator> getNormalFieldGenerators() {
+            return normalFieldGenerators == null ? new HashMap<>() : normalFieldGenerators;
         }
     }
 }
