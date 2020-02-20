@@ -11,15 +11,20 @@
 
 package com.amalto.core.integrity;
 
-import org.talend.mdm.commmon.metadata.*;
+import java.util.Collections;
+import java.util.Set;
+
+import org.talend.mdm.commmon.metadata.ComplexTypeMetadata;
+import org.talend.mdm.commmon.metadata.FieldMetadata;
+import org.talend.mdm.commmon.metadata.InboundReferences;
+import org.talend.mdm.commmon.metadata.MetadataRepository;
+import org.talend.mdm.commmon.metadata.ReferenceFieldMetadata;
+import org.talend.mdm.commmon.metadata.TypeMetadata;
 
 import com.amalto.core.server.MockServerLifecycle;
 import com.amalto.core.server.ServerContext;
 
 import junit.framework.TestCase;
-
-import java.util.Collections;
-import java.util.Set;
 
 /**
  *
@@ -414,6 +419,33 @@ public class InboundReferencesTest extends TestCase {
         assertTrue(integrityChecker.allowDelete(dataCluster, typeName, ids, false, dataSource));
         FKIntegrityCheckResult policy = integrityChecker.getFKIntegrityPolicy(dataCluster, typeName, ids, dataSource);
         assertEquals(FKIntegrityCheckResult.ALLOWED, policy);
+    }
+
+    // TMDM-14432 Unexpected error promotion while delete a record referenced to other entity using RTE datamodel
+    public void testModelRTEWithFK() throws Exception {
+        MetadataRepository repository = getMetadataRepository("RTE_3.xsd");
+
+        ComplexTypeMetadata interlocuteur = repository.getComplexType("Interlocuteur");
+        FieldMetadata fieldUse = interlocuteur.getField("use");
+        assertEquals(ReferenceFieldMetadata.class, fieldUse.getClass());
+        ReferenceFieldMetadata referenceFieldMetadata = (ReferenceFieldMetadata) fieldUse;
+        assertTrue(referenceFieldMetadata.isFKIntegrity());
+        assertFalse(referenceFieldMetadata.allowFKIntegrityOverride());
+
+        IntegrityCheckDataSourceMock dataSource = new IntegrityCheckDataSourceMock(repository);
+        String dataCluster = "RTE";
+        String typeName = "UseUrse";
+        String[] fkIds = { "1" };
+        Set<ReferenceFieldMetadata> fieldToCheck = dataSource.getForeignKeyList(typeName, dataSource.getDataModel(dataCluster, typeName, fkIds));
+        for (ReferenceFieldMetadata incomingReference : fieldToCheck) {
+            String referencingTypeName = incomingReference.getEntityTypeName();
+            ComplexTypeMetadata containingType = repository.getComplexType(referencingTypeName);
+            if (containingType == null || !containingType.isInstantiable()) {
+                continue;
+            }
+            assertTrue(incomingReference.isFKIntegrity());
+            assertFalse(dataSource.isFKReferencedBySelf(dataCluster, fkIds, referencingTypeName, incomingReference));
+        }
     }
 
     public void testModel15() throws Exception {
