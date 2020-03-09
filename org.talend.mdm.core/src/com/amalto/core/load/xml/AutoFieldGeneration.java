@@ -13,71 +13,33 @@ package com.amalto.core.load.xml;
 
 import com.amalto.core.load.State;
 import com.amalto.core.load.context.StateContext;
-import com.amalto.core.load.context.Utils;
-import com.amalto.core.save.generator.AutoIdGenerator;
+import com.amalto.core.save.generator.AutoIncrementUtil;
+import org.apache.commons.lang.StringUtils;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.util.StringTokenizer;
+import java.util.Set;
 
 @SuppressWarnings("nls")
 public class AutoFieldGeneration implements State {
-    private final State previousState;
 
-    private final String[] fieldPaths;
-
-    public AutoFieldGeneration(State previousState, String[] fieldPaths) {
-        this.previousState = previousState;
-        this.fieldPaths = fieldPaths;
-    }
-
-    @Override
-    public void parse(StateContext context, XMLStreamReader reader) throws XMLStreamException {
+    @Override public void parse(StateContext context, XMLStreamReader reader) throws XMLStreamException {
         try {
-            AutoIdGenerator[] normalFieldGenerators = context.getNormalFieldGenerators();
-            int i = 0;
-            /*
-            fielldPaths store the all need to generate value the field,  if doesn't existed, it means don't generate the value.
-            if the field path is 'Course/Score', it should be first write '<Course>', and next is '<Score>',
-            but it inverse for the end element, first is '<Score>', first is '<Course>'
-             */
-            for (String idPath : fieldPaths) {
-                if (idPath == null) {
-                    i++;
-                    continue;
-                }
-                if (idPath.contains("/")) {
-                    StringTokenizer tokenizer = new StringTokenizer(idPath, "/");
-                    while (tokenizer.hasMoreTokens()) {
-                        String pathElement = tokenizer.nextToken();
-                        context.getWriter().writeStartElement(pathElement);
-                    }
-                } else {
-                    context.getWriter().writeStartElement(idPath);
-                }
-
-                context.getWriter().writeCharacters(normalFieldGenerators[i++]
-                        .generateId(context.getMetadata().getDataClusterName(), context.getMetadata().getName(), idPath.replaceAll("/", ".")));
-
-                if (idPath.contains("/")) {
-                    String[] idPathArray = idPath.split("/");
-                    for (int j = idPathArray.length - 1; j >= 0; j--) {
-                        context.getWriter().writeEndElement(idPathArray[j]);
-                    }
-                } else {
-                    context.getWriter().writeEndElement(idPath);
-                }
-
+            String currentContainerPath = AutoIncrementUtil.getCurrentPath(context.getCurrentLocation());
+            Set<String> autoFields = AutoIncrementUtil.getNormalAutoIncrementFields(currentContainerPath, context.getNormalFieldGenerators().keySet());
+            for (String path : autoFields) {
+                String normalFieldPath = StringUtils.substringAfter(path, currentContainerPath);
+                normalFieldPath = normalFieldPath.startsWith("/") ? normalFieldPath.substring(1): normalFieldPath;
+                context.getWriter().writeStartElement(normalFieldPath);
+                context.getWriter().writeCharacters(context.getNormalFieldGenerators().get(path)
+                        .generateId(context.getMetadata().getDataClusterName(), context.getMetadata().getName(),
+                                path.replaceAll("/", ".")));
+                context.getWriter().writeEndElement(normalFieldPath);
             }
         } catch (Exception e) {
-            throw new RuntimeException("Unable to generate automatic id", e);
+            throw new RuntimeException("Unable to generate automatic field", e);
         }
 
-        context.setCurrent(previousState);
-
-        if (!context.isFlushDone()) {
-            Utils.doParserCallback(context, reader, context.getMetadata());
-        }
     }
 
     public boolean isFinal() {
