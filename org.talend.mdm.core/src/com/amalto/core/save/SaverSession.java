@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import org.talend.mdm.commmon.metadata.FieldMetadata;
 import org.talend.mdm.commmon.util.core.EUUIDCustomType;
@@ -35,8 +36,10 @@ import com.amalto.core.storage.transaction.TransactionManager;
 import com.amalto.core.storage.transaction.Transaction.Lifetime;
 import com.amalto.core.util.MDMEhCacheUtil;
 import static com.amalto.core.util.MDMEhCacheUtil.UPDATE_REPORT_EVENT_CACHE;
+import com.amalto.core.util.Util;
 
 public class SaverSession {
+    private static final Logger LOGGER = Logger.getLogger(SaverSession.class);
 
     private static final String AUTO_INCREMENT_TYPE_NAME = "AutoIncrement"; //$NON-NLS-1$
 
@@ -214,6 +217,14 @@ public class SaverSession {
                         throw new MultiRecordsSaveException(getCauseMessage(e), e.getCause(), recordId, itemCounter);
                     }
                     throw e;
+                }
+
+                if (Util.TRANSACTION_WAIT_MILLISECONDS_VALUE > 0) {
+                    try {
+                        Thread.sleep(Util.TRANSACTION_WAIT_MILLISECONDS_VALUE);
+                    } catch (InterruptedException e) {
+                        LOGGER.warn("Update process has been interrupted.", e); //$NON-NLS-1$
+                    }
                 }
             }
 
