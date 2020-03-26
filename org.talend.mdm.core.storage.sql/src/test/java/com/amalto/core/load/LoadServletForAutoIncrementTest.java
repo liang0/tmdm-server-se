@@ -141,7 +141,7 @@ import static org.junit.Assert.fail;
 
         DataRecord.CheckExistence.set(!insertOnly);
         InputStream recordXml = new ByteArrayInputStream(
-                ("<Person><Name>T-Shirt</Name></Person>").getBytes(StandardCharsets.UTF_8));
+                ("<Person><Name>T-Shirt</Name><AA/><BB/><CC/><DD/><EE/></Person>").getBytes(StandardCharsets.UTF_8));
 
         Method getTypeKeyMethod = loadServlet.getClass().getDeclaredMethod("getTypeKey", Collection.class);
         getTypeKeyMethod.setAccessible(true);
@@ -198,7 +198,7 @@ import static org.junit.Assert.fail;
 
         DataRecord.CheckExistence.set(!insertOnly);
         InputStream recordXml = new ByteArrayInputStream(
-                ("<Product><Id>1</Id><Name>T-Shirt</Name><Description>Talend T-Shirt</Description><Price>12.3</Price><Support>1</Support></Product>")
+                ("<Product><Id>1</Id><Name>T-Shirt</Name><Description>Talend T-Shirt</Description><Price>12.3</Price><Support>1</Support><Supply/></Product>")
                         .getBytes(StandardCharsets.UTF_8));
 
         Method getTypeKeyMethod = loadServlet.getClass().getDeclaredMethod("getTypeKey", Collection.class);
@@ -253,7 +253,7 @@ import static org.junit.Assert.fail;
 
         DataRecord.CheckExistence.set(!insertOnly);
         InputStream recordXml = new ByteArrayInputStream(
-                ("<Product><Id>2</Id><Name>T-Shirt</Name><Description>Talend T-Shirt</Description><Price>12.3</Price></Product>")
+                ("<Product><Id>2</Id><Name>T-Shirt</Name><Description>Talend T-Shirt</Description><Price>12.3</Price><Supply/></Product>")
                         .getBytes(StandardCharsets.UTF_8));
 
         Method getTypeKeyMethod = loadServlet.getClass().getDeclaredMethod("getTypeKey", Collection.class);
@@ -309,7 +309,7 @@ import static org.junit.Assert.fail;
 
         DataRecord.CheckExistence.set(!insertOnly);
         InputStream recordXml = new ByteArrayInputStream(
-                ("<Student><Id>2</Id><Name>John</Name><Age>23</Age><Course><Id>English</Id><Teacher>Mike</Teacher></Course></Student>")
+                ("<Student><Id>2</Id><Name>John</Name><Age>23</Age><Course><Id>English</Id><Teacher>Mike</Teacher><Score/><Like/></Course></Student>")
                         .getBytes(StandardCharsets.UTF_8));
 
         Method getTypeKeyMethod = loadServlet.getClass().getDeclaredMethod("getTypeKey", Collection.class);
@@ -372,7 +372,7 @@ import static org.junit.Assert.fail;
 
         DataRecord.CheckExistence.set(!insertOnly);
         InputStream recordXml = new ByteArrayInputStream(
-                ("<Student><Id>3</Id><Name>John</Name><Age>23</Age><Site>20</Site><Course><Id>English</Id><Teacher>Mike</Teacher><Score>10</Score></Course></Student>")
+                ("<Student><Id>3</Id><Name>John</Name><Age>23</Age><Account/><Site>20</Site><Course><Id>English</Id><Teacher>Mike</Teacher><Score>10</Score></Course></Student>")
                         .getBytes(StandardCharsets.UTF_8));
 
         Method getTypeKeyMethod = loadServlet.getClass().getDeclaredMethod("getTypeKey", Collection.class);
@@ -435,7 +435,7 @@ import static org.junit.Assert.fail;
 
         DataRecord.CheckExistence.set(!insertOnly);
         InputStream recordXml = new ByteArrayInputStream(
-                ("<Student><Id>5</Id><Name>John</Name><Age>23</Age><Course><Id>English</Id><Teacher>Mike</Teacher></Course></Student><Student><Id>6</Id><Name>John</Name><Age>23</Age><Course><Id>English</Id><Teacher>Mike</Teacher></Course></Student><Student><Id>7</Id><Name>John</Name><Age>23</Age><Course><Id>English</Id><Teacher>Mike</Teacher></Course></Student>")
+                ("<Student><Id>5</Id><Name>John</Name><Age>23</Age><Account/><Course><Id>English</Id><Teacher>Mike</Teacher><Like/></Course></Student><Student><Id>6</Id><Name>John</Name><Age>23</Age><Course><Id>English</Id><Teacher>Mike</Teacher><Score/></Course></Student><Student><Id>7</Id><Name>John</Name><Age>23</Age><Course><Id>English</Id><Teacher>Mike</Teacher></Course></Student>")
                         .getBytes(StandardCharsets.UTF_8));
 
         Method getTypeKeyMethod = loadServlet.getClass().getDeclaredMethod("getTypeKey", Collection.class);
@@ -579,7 +579,8 @@ import static org.junit.Assert.fail;
         assertKeyValue("Person.Person.Habit.Detail.Count", "1", xml);
     }
 
-    @Test public void testGetTypeAutoField() throws Exception {
+    @Test
+    public void testGetTypeAutoField() throws Exception {
         String dataClusterName = "AutoInc";
         String typeName = "Person";
         String dataModelName = "AutoInc";
